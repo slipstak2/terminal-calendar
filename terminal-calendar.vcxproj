@@ -129,6 +129,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp" />
+    <ClCompile Include="TerminalCell.cpp" />
+    <ClCompile Include="utils\utf8string.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BackgroundColor.h" />
+    <ClInclude Include="FontColor.h" />
+    <ClInclude Include="TerminalCell.h" />
+    <ClInclude Include="utils\common.h" />
+    <ClInclude Include="utils\utf8string.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

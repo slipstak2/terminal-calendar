@@ -3,12 +3,22 @@
 
 #include <iostream>
 #include <Windows.h>
+#include "TerminalCell.h"
 
 int main()
 {
+    //system("chcp 65001");
     SetConsoleOutputCP(CP_UTF8);
-    std::cout << "╭──Игорь─────╮\n";
-    std::cout << "╰────────────╯" << std::endl;
+    Utf8String t("╭──Игорь─────╮");
+    Utf8String b("╰────────────╯");
+
+    for (const Rune& rune : t.runes) {
+        TerminalCell(rune, FontColor::Green, BackgroundColor::Default).Render();
+    }
+    printf("\n");
+    for (const Rune& rune : b.runes) {
+        TerminalCell(rune, FontColor::Blue, BackgroundColor::Default).Render();
+    }
 
 }
 
