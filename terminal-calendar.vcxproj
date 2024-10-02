@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -119,6 +120,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,13 +131,24 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp" />
+    <ClCompile Include="TerminalApplication.cpp" />
+    <ClCompile Include="TerminalCanvas.cpp" />
     <ClCompile Include="TerminalCell.cpp" />
+    <ClCompile Include="TerminalControl.cpp" />
+    <ClCompile Include="TerminalLabel.cpp" />
+    <ClCompile Include="TerminalWindow.cpp" />
     <ClCompile Include="utils\utf8string.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundColor.h" />
     <ClInclude Include="FontColor.h" />
+    <ClInclude Include="TerminalApplication.h" />
+    <ClInclude Include="TerminalCanvas.h" />
     <ClInclude Include="TerminalCell.h" />
+    <ClInclude Include="TerminalControl.h" />
+    <ClInclude Include="TerminalLabel.h" />
+    <ClInclude Include="TerminalRectangle.h" />
+    <ClInclude Include="TerminalWindow.h" />
     <ClInclude Include="utils\common.h" />
     <ClInclude Include="utils\utf8string.h" />
   </ItemGroup>

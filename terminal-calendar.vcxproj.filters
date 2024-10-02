@@ -30,6 +30,21 @@
     <ClCompile Include="utils\utf8string.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalCanvas.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalLabel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -45,6 +60,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BackgroundColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalRectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalCanvas.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalLabel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

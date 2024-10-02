@@ -1,11 +1,12 @@
 #pragma once
 #include "common.h"
 
-uint8_t utf8SymbolLen(uint8_t firstSymbol);
+uint8_t utf8SymbolLen(uint8_t firstSymbol); // move to source
 
 struct Rune {
 	Rune(char c) {
 		clear();
+		data[0] = c;
 	}
 	Rune(const char* s) {
 		clear();
@@ -36,6 +37,12 @@ struct Utf8String {
 	}
 	Utf8String(const std::string& s) {
 		Init(s.data());
+	}
+	size_t size() const {
+		return runes.size();
+	}
+	const Rune& operator[] (size_t idx) {
+		return runes[idx];
 	}
 	std::vector<Rune> runes;
 private:

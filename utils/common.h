@@ -4,10 +4,12 @@
 #include <iostream>
 #include <string>
 #include <memory>
-#include <stdint.h>
 
 class TerminalWindow;
 using TerminalWindowPtr = std::shared_ptr<TerminalWindow>;
+
+class TerminalCanvas;
+using TerminalCanvasPtr = std::unique_ptr<TerminalCanvas>;
 
 class TerminalControl;
 using TerminalControlPtr = std::shared_ptr<TerminalControl>;
