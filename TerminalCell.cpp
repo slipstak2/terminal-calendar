@@ -10,7 +10,7 @@ const TerminalControl* TerminalCell::GetParent() const {
 
 // https://habr.com/ru/articles/119436/
 void TerminalCell::Render() {
-	printf("\033[10;%d;%dm%s\033[0m", (int)backgroundColor, (int)fontColor, data.data);
+	printf("\033[10;%d;%dm%s\033[0m", (int)backgroundColor, (int)fontColor, data.get());
 }
 
 TerminalCell::TerminalCell(const Rune& rune) 
