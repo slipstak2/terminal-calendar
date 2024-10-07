@@ -1,7 +1,7 @@
 #include "TerminalControl.h"
 
-TerminalControl::TerminalControl(TerminalCoord lu, TerminalSize size)
-	: TerminalRectangle(lu, size)
+TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size)
+	: TerminalRectangle(position, size)
 	, data(Height(), std::vector<TerminalCell>(Width()))
 {}
 

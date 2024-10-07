@@ -12,14 +12,14 @@ struct TerminalSize {
 
 class TerminalRectangle {
 public:
-	TerminalRectangle(TerminalCoord lu, TerminalSize size)
-		: lu(lu)
+	TerminalRectangle(TerminalCoord position, TerminalSize size)
+		: position(position)
 		, size(size)
 	{}
-	short RowBeg() const { return lu.row; }
-	short RowEnd() const { return lu.row + size.height - 1; }
-	short ColBeg() const { return lu.col; }
-	short ColEnd() const { return lu.col + size.width - 1; }
+	short RowBeg() const { return position.row; }
+	short RowEnd() const { return position.row + size.height - 1; }
+	short ColBeg() const { return position.col; }
+	short ColEnd() const { return position.col + size.width - 1; }
 
 	short Width() const {
 		return size.width;
@@ -29,6 +29,6 @@ public:
 	}
 
 protected:
-	TerminalCoord lu;
+	TerminalCoord position;
 	TerminalSize size;
 };

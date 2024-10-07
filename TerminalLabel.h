@@ -15,5 +15,4 @@ protected:
 	void FlushSelf() override;
 protected:
 	Utf8String text;
-	TerminalCoord position; // remove
 };
