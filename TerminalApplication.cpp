@@ -53,12 +53,22 @@ TerminalApplication::TerminalApplication() {
 	IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
 	IvanWindow->SetBorderColor(FontColor::Yellow);
 	auto IvanBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 3 });
+	auto leftClickCallback = []() {
+		std::cout << "left click" << std::endl;
+		return true;
+	};
+	auto rightClickCallback = []() {
+		std::cout << "right click" << std::endl;
+		return true;
+		};
+	IvanBtnLeft->AddClickCallback(leftClickCallback);
 	IvanWindow->AddControl(IvanBtnLeft);
 	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
 	IvanWindow->AddControl(IvanLabel);
 	// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
 	//https://www.utf8icons.com/character/9658/black-right-pointing-pointer
-	auto IvanBtnRight = TerminalButton::Create(" ▶ ", TerminalCoord{ .row = 0, .col = 5 + 4 });
+	auto IvanBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = 5 + 4 });
+	IvanBtnRight->AddClickCallback(rightClickCallback);
 	IvanWindow->AddControl(IvanBtnRight);
 	AddWindow(IvanWindow);
 
@@ -93,8 +103,11 @@ void TerminalApplication::FullRender() {
 
 void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
 	auto clickCell = canvas->Get(row, col);
-	auto clickWnd = clickCell.GetParent();
+	auto clickParent = clickCell.GetParent();
 
+	clickParent->ApplyMouseLeftClick();
+
+	auto clickWnd = clickParent->As<TerminalWindow>();
 	for (size_t idx = 0; idx < windows.size(); ++idx) {
 		if (windows[idx].get() == clickWnd) {
 			if (idx == 0) {

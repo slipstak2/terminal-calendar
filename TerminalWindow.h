@@ -5,6 +5,8 @@
 class TerminalWindow : public TerminalControl {
 	friend class TerminalCanvas;
 public:
+	DECLARE_KIND(TerminalControl, TerminalControl::Kind::WINDOW)
+
 	TerminalWindow(TerminalCoord lu, TerminalSize size)
 		:TerminalControl(lu, size)
 	{}

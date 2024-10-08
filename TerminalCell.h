@@ -13,7 +13,8 @@ public:
 	TerminalCell(const TerminalCell& other);
 
 	const TerminalControl* GetParent() const;
-	void SetParent(const TerminalControl* newParent);
+	TerminalControl* GetParent();
+	void SetParent(TerminalControl* newParent);
 	void Render();
 
 private:
@@ -21,5 +22,5 @@ private:
 	FontColor fontColor = FontColor::Default;
 	BackgroundColor backgroundColor = BackgroundColor::Default;
 
-	const TerminalControl* parent;
+	TerminalControl* parent;
 };

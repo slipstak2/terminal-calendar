@@ -13,6 +13,10 @@ const TerminalCell& TerminalCanvas::Get(short row, short col) const {
 	return data[row][col];
 }
 
+TerminalCell& TerminalCanvas::Get(short row, short col) {
+	return data[row][col];
+}
+
 void TerminalCanvas::Render() {
 	SetCursorPosition(0, 0);
 	for (short row = 0; row < rows; ++row) {

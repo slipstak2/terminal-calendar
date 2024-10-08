@@ -1,10 +1,14 @@
 #include "TerminalCell.h"
 
-void TerminalCell::SetParent(const TerminalControl* newParent) {
+void TerminalCell::SetParent(TerminalControl* newParent) {
 	parent = newParent;
 }
 
 const TerminalControl* TerminalCell::GetParent() const {
+	return parent;
+}
+
+TerminalControl* TerminalCell::GetParent() {
 	return parent;
 }
 
