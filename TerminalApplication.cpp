@@ -2,6 +2,7 @@
 #include "TerminalApplication.h"
 #include "TerminalCanvas.h"
 #include "TerminalLabel.h"
+#include "TerminalButton.h"
 #include "TerminalWindow.h"
 
 void MyErrorExit(const char* s) {
@@ -51,8 +52,14 @@ TerminalApplication::TerminalApplication() {
 	IvanWindow->SetName("Ivan");
 	IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
 	IvanWindow->SetBorderColor(FontColor::Yellow);
-	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 3 });
+	auto IvanBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 3 });
+	IvanWindow->AddControl(IvanBtnLeft);
+	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
 	IvanWindow->AddControl(IvanLabel);
+	// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
+	//https://www.utf8icons.com/character/9658/black-right-pointing-pointer
+	auto IvanBtnRight = TerminalButton::Create(" ▶ ", TerminalCoord{ .row = 0, .col = 5 + 4 });
+	IvanWindow->AddControl(IvanBtnRight);
 	AddWindow(IvanWindow);
 
 	auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);
@@ -153,7 +160,7 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
 }
 
 void TerminalApplication::OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent) {
-	std::cout << "WINDOW_BUFFER_SIZE_RECORD: " << windowSizeEvent.dwSize.X << " : " << windowSizeEvent.dwSize.Y << std::endl;
+	//std::cout << "WINDOW_BUFFER_SIZE_RECORD: " << windowSizeEvent.dwSize.X << " : " << windowSizeEvent.dwSize.Y << std::endl;
 }
 
 void TerminalApplication::Run() {

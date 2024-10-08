@@ -2,7 +2,6 @@
 #include "utils/common.h"
 #include "TerminalControl.h"
 
-
 class TerminalLabel : public TerminalControl {
 public:
 	template<class... Args>
