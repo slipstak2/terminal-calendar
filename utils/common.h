@@ -16,3 +16,6 @@ using TerminalControlPtr = std::shared_ptr<TerminalControl>;
 
 class TerminalLabel;
 using TerminalLabelPtr = std::shared_ptr<TerminalLabel>;
+
+class TerminalButton;
+using TerminalButtonPtr = std::shared_ptr<TerminalButton>;

@@ -144,6 +144,7 @@
     <ClInclude Include="BackgroundColor.h" />
     <ClInclude Include="FontColor.h" />
     <ClInclude Include="TerminalApplication.h" />
+    <ClInclude Include="TerminalButton.h" />
     <ClInclude Include="TerminalCanvas.h" />
     <ClInclude Include="TerminalCell.h" />
     <ClInclude Include="TerminalControl.h" />
