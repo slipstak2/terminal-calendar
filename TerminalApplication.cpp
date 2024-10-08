@@ -54,11 +54,11 @@ TerminalApplication::TerminalApplication() {
 	IvanWindow->SetBorderColor(FontColor::Yellow);
 	auto IvanBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 3 });
 	auto leftClickCallback = []() {
-		std::cout << "left click" << std::endl;
+		//std::cout << "left click" << std::endl;
 		return true;
 	};
 	auto rightClickCallback = []() {
-		std::cout << "right click" << std::endl;
+		//std::cout << "right click" << std::endl;
 		return true;
 		};
 	IvanBtnLeft->AddClickCallback(leftClickCallback);
