@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ListDataProvider.cpp" />
     <ClCompile Include="terminal-calendar.cpp" />
     <ClCompile Include="TerminalApplication.cpp" />
     <ClCompile Include="TerminalCanvas.cpp" />
@@ -143,6 +144,7 @@
   <ItemGroup>
     <ClInclude Include="BackgroundColor.h" />
     <ClInclude Include="FontColor.h" />
+    <ClInclude Include="ListDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalButton.h" />
     <ClInclude Include="TerminalCanvas.h" />

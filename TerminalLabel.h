@@ -12,9 +12,11 @@ public:
 		return std::make_shared<TerminalLabel>(std::forward<Args>(args)...);
 	}
 	TerminalLabel(const Utf8String& label, TerminalCoord position);
+	TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
 
 protected:
 	void FlushSelf() override;
 protected:
 	Utf8String text;
+	ListDataProviderPtr dataProvider = nullptr;
 };

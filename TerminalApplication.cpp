@@ -4,6 +4,7 @@
 #include "TerminalLabel.h"
 #include "TerminalButton.h"
 #include "TerminalWindow.h"
+#include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
 	printf("Fatal: %s\n", s);
@@ -70,6 +71,12 @@ TerminalApplication::TerminalApplication() {
 	auto IvanBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = 5 + 4 });
 	IvanBtnRight->AddClickCallback(rightClickCallback);
 	IvanWindow->AddControl(IvanBtnRight);
+
+	std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
+
+	auto MontDataProviderPtr = ListDataProvider::Create(months);
+	auto MonthLabel = TerminalLabel::Create(MontDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
+	IvanWindow->AddControl(MonthLabel);
 	AddWindow(IvanWindow);
 
 	auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);

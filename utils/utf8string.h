@@ -18,6 +18,7 @@ private:
 
 class Utf8String {
 public:
+	Utf8String() = default;
 	Utf8String(char c);
 	Utf8String(const char* s);
 	Utf8String(const std::string& s);

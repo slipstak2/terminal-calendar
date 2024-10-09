@@ -39,7 +39,7 @@ int main()
     printf("%s\n", (char*)&x);
     printf((char*)p);
     TerminalApplication app;
-    //app.Run();
+    app.Run();
 
     return 0;
 }
