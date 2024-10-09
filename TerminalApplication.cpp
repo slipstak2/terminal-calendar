@@ -53,30 +53,36 @@ TerminalApplication::TerminalApplication() {
 	IvanWindow->SetName("Ivan");
 	IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
 	IvanWindow->SetBorderColor(FontColor::Yellow);
-	auto IvanBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 3 });
+
+	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
+	IvanWindow->AddControl(IvanLabel);
+
+
 	auto leftClickCallback = []() {
 		//std::cout << "left click" << std::endl;
 		return true;
-	};
+		};
 	auto rightClickCallback = []() {
 		//std::cout << "right click" << std::endl;
 		return true;
 		};
-	IvanBtnLeft->AddClickCallback(leftClickCallback);
-	IvanWindow->AddControl(IvanBtnLeft);
-	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
-	IvanWindow->AddControl(IvanLabel);
+
 	// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
-	//https://www.utf8icons.com/character/9658/black-right-pointing-pointer
-	auto IvanBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = 5 + 4 });
-	IvanBtnRight->AddClickCallback(rightClickCallback);
-	IvanWindow->AddControl(IvanBtnRight);
+    // https://www.utf8icons.com/character/9658/black-right-pointing-pointer
+	auto MonthBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 3, .col = 3 });
+	MonthBtnLeft->AddClickCallback(leftClickCallback);
+	IvanWindow->AddControl(MonthBtnLeft);
 
 	std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
-
 	auto MontDataProviderPtr = ListDataProvider::Create(months);
+	MontDataProviderPtr->Next();
 	auto MonthLabel = TerminalLabel::Create(MontDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
 	IvanWindow->AddControl(MonthLabel);
+
+	auto MonthBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 3, .col = 5 + MonthLabel->Size()});
+	MonthBtnRight->AddClickCallback(rightClickCallback);
+	IvanWindow->AddControl(MonthBtnRight);
+
 	AddWindow(IvanWindow);
 
 	auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);

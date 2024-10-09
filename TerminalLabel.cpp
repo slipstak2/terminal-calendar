@@ -13,9 +13,19 @@ TerminalLabel::TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord pos
 	, dataProvider(dataProvider) {
 }
 
+const Utf8String& TerminalLabel::Get() const {
+	if (dataProvider && !dataProvider->Empty()) {
+		return dataProvider->Get();
+	}
+	return text;
+}
 void TerminalLabel::FlushSelf() {
-	const Utf8String& s = dataProvider && !dataProvider->Empty() ? dataProvider->Get() : text;
+	const Utf8String& s = Get();
 	for (int i = 0; i < s.size(); ++i) {
 		data[0][i] = CreateCell(s[i]);
 	}
+}
+
+short TerminalLabel::Size() const {
+	return (short)Get().size();
 }

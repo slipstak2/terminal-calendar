@@ -13,6 +13,8 @@ public:
 	}
 	TerminalLabel(const Utf8String& label, TerminalCoord position);
 	TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
+	const Utf8String& Get() const;
+	short Size() const;
 
 protected:
 	void FlushSelf() override;
