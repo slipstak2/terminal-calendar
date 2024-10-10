@@ -40,6 +40,10 @@ Utf8String::Utf8String(char c) {
 Utf8String::Utf8String(const char* s) {
 	Init(s);
 }
+Utf8String::Utf8String(const char* s, short len) {
+	Rune c(s);
+	runes.resize(len, c);
+}
 Utf8String::Utf8String(const std::string& s) {
 	Init(s.data());
 }
@@ -47,6 +51,10 @@ size_t Utf8String::size() const {
 	return runes.size();
 }
 const Rune& Utf8String::operator[] (size_t idx) const {
+	return runes[idx];
+}
+
+Rune& Utf8String::operator[] (size_t idx) {
 	return runes[idx];
 }
 

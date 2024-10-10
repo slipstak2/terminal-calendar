@@ -9,10 +9,11 @@ public:
 		return std::make_shared<ListDataProvider>(std::forward<Args>(args)...);
 	}
 	ListDataProvider(std::vector<Utf8String> data);
-	const Utf8String& Get();
+	const Utf8String& Get() const;
 	bool Next();
 	bool Prev();
-	bool Empty();
+	bool Empty() const;
+	short MaxLen() const;
 protected:
 	std::vector<Utf8String> data;
 	int pos = -1;

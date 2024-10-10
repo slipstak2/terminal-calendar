@@ -74,9 +74,10 @@ TerminalApplication::TerminalApplication() {
 	IvanWindow->AddControl(MonthBtnLeft);
 
 	std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
-	auto MontDataProviderPtr = ListDataProvider::Create(months);
-	MontDataProviderPtr->Next();
-	auto MonthLabel = TerminalLabel::Create(MontDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
+	auto MonthDataProviderPtr = ListDataProvider::Create(months);
+	//MonthDataProviderPtr->Next();
+	//MonthDataProviderPtr->Next();
+	auto MonthLabel = TerminalLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
 	IvanWindow->AddControl(MonthLabel);
 
 	auto MonthBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 3, .col = 5 + MonthLabel->Size()});
