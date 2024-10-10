@@ -9,7 +9,12 @@ TerminalLabel::TerminalLabel(const Utf8String& label, TerminalCoord position)
 TerminalLabel::TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position) 
 	: TerminalControl(position, { .height = 1, .width = dataProvider->MaxLen()})
 	, dataProvider(dataProvider)
-{}
+{
+	auto onChangeData = [](const Utf8String& prev, const Utf8String& current) {
+		return true;
+	};
+	dataProvider->AddChangeCallback(onChangeData);
+}
 
 const Utf8String& TerminalLabel::Get() const {
 	if (dataProvider && !dataProvider->Empty()) {

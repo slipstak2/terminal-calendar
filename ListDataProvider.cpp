@@ -18,6 +18,7 @@ bool ListDataProvider::Next() {
 		return false;
 	}
 	++pos;
+	OnChange(data[pos-1], data[pos]);
 	return true;
 }
 
@@ -29,6 +30,7 @@ bool ListDataProvider::Prev() {
 		return false;
 	}
 	--pos;
+	OnChange(data[pos + 1], data[pos]);
 	return true;
 }
 
@@ -45,4 +47,14 @@ short ListDataProvider::MaxLen() const {
 		[](const Utf8String& lhs, const Utf8String& rhs) {
 			return lhs.size() < rhs.size();
 		})->size();
+}
+
+void ListDataProvider::OnChange(const Utf8String& prev, const Utf8String& current) {
+	for (auto& callback : changeCallbacks) {
+		callback(prev, current);
+	}
+}
+
+void ListDataProvider::AddChangeCallback(ChangeCallback changeCallback) {
+	changeCallbacks.push_back(std::move(changeCallback));
 }

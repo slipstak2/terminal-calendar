@@ -57,15 +57,16 @@ TerminalApplication::TerminalApplication() {
 	auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
 	IvanWindow->AddControl(IvanLabel);
 
-
-	auto leftClickCallback = []() {
-		//std::cout << "left click" << std::endl;
-		return true;
-		};
-	auto rightClickCallback = []() {
-		//std::cout << "right click" << std::endl;
-		return true;
-		};
+	std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
+	auto MonthDataProviderPtr = ListDataProvider::Create(months);
+	//MonthDataProviderPtr->Next();
+	//MonthDataProviderPtr->Next();
+	auto leftClickCallback = [MonthDataProviderPtr]() {
+		return MonthDataProviderPtr->Prev();
+	};
+	auto rightClickCallback = [MonthDataProviderPtr]() {
+		return MonthDataProviderPtr->Next();
+	};
 
 	// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
     // https://www.utf8icons.com/character/9658/black-right-pointing-pointer
@@ -73,10 +74,6 @@ TerminalApplication::TerminalApplication() {
 	MonthBtnLeft->AddClickCallback(leftClickCallback);
 	IvanWindow->AddControl(MonthBtnLeft);
 
-	std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
-	auto MonthDataProviderPtr = ListDataProvider::Create(months);
-	//MonthDataProviderPtr->Next();
-	//MonthDataProviderPtr->Next();
 	auto MonthLabel = TerminalLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
 	IvanWindow->AddControl(MonthLabel);
 
