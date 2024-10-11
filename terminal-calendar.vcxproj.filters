@@ -19,6 +19,12 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{cf9fd606-6281-4d64-99e2-7fab0ac9789a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TerminalControls">
+      <UniqueIdentifier>{0e08b601-7003-48df-aa1d-6c330ebe12bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TerminalControls">
+      <UniqueIdentifier>{e9ff8938-8a6e-4e37-a81c-aa06a1f009bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp">
@@ -30,20 +36,23 @@
     <ClCompile Include="utils\utf8string.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TerminalWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TerminalCanvas.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalLabel.cpp">
+    <ClCompile Include="ListDataProvider.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalControl.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalWindow.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalLabel.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,23 +74,26 @@
     <ClInclude Include="TerminalRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalControl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalCanvas.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalLabel.h">
+    <ClInclude Include="ListDataProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalButton.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TerminalControls\TerminalControl.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalWindow.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalLabel.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalCanvas.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalButton.h">
+      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,9 +1,9 @@
 ﻿#include "utils/common.h"
 #include "TerminalApplication.h"
-#include "TerminalCanvas.h"
-#include "TerminalLabel.h"
-#include "TerminalButton.h"
-#include "TerminalWindow.h"
+#include "TerminalControls/TerminalCanvas.h"
+#include "TerminalControls/TerminalLabel.h"
+#include "TerminalControls/TerminalButton.h"
+#include "TerminalControls/TerminalWindow.h"
 #include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
