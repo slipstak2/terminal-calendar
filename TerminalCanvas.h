@@ -5,21 +5,21 @@
 
 class TerminalCanvas {
 public:
-	static TerminalCanvasPtr Create(HANDLE outputHandle, short rows, short cols);
-	void AddWindow(TerminalWindowPtr window);
-	const TerminalCell& Get(short row, short col) const;
-	TerminalCell& Get(short row, short col);
-	void Render();
+    static TerminalCanvasPtr Create(HANDLE outputHandle, short rows, short cols);
+    void AddWindow(TerminalWindowPtr window);
+    const TerminalCell& Get(short row, short col) const;
+    TerminalCell& Get(short row, short col);
+    void Render();
 private:
-	void SetCursorPosition(short x, short y);
-	TerminalCanvas(HANDLE outputHandle, short rows, short cols) : outputHandle(outputHandle), rows(rows), cols(cols)
-	{
-		data.resize(rows, std::vector<TerminalCell>(cols));
-	}
+    void SetCursorPosition(short x, short y);
+    TerminalCanvas(HANDLE outputHandle, short rows, short cols) : outputHandle(outputHandle), rows(rows), cols(cols)
+    {
+        data.resize(rows, std::vector<TerminalCell>(cols));
+    }
 private:
-	HANDLE outputHandle;
-	short rows;
-	short cols;
+    HANDLE outputHandle;
+    short rows;
+    short cols;
 
-	std::vector<std::vector<TerminalCell>> data;
+    std::vector<std::vector<TerminalCell>> data;
 };

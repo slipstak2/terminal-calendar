@@ -4,21 +4,21 @@
 
 class TerminalLabel : public TerminalControl {
 public:
-	DECLARE_KIND(TerminalControl, TerminalControl::Kind::LABEL);
+    DECLARE_KIND(TerminalControl, TerminalControl::Kind::LABEL);
 
 public:
-	template<class... Args>
-	static TerminalLabelPtr Create(Args... args) {
-		return std::make_shared<TerminalLabel>(std::forward<Args>(args)...);
-	}
-	TerminalLabel(const Utf8String& label, TerminalCoord position);
-	TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
-	const Utf8String& Get() const;
-	short Size() const;
+    template<class... Args>
+    static TerminalLabelPtr Create(Args... args) {
+        return std::make_shared<TerminalLabel>(std::forward<Args>(args)...);
+    }
+    TerminalLabel(const Utf8String& label, TerminalCoord position);
+    TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
+    const Utf8String& Get() const;
+    short Size() const;
 
 protected:
-	void FlushSelf() override;
+    void FlushSelf() override;
 protected:
-	Utf8String text;
-	ListDataProviderPtr dataProvider = nullptr;
+    Utf8String text;
+    ListDataProviderPtr dataProvider = nullptr;
 };

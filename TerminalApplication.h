@@ -7,22 +7,22 @@
 
 class TerminalApplication {
 public:
-	TerminalApplication();
+    TerminalApplication();
 
-	void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
-	void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
-	void OnMouseLeftClick(short row, short col, bool isCtrl);
-	void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
-	void Run();
+    void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
+    void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
+    void OnMouseLeftClick(short row, short col, bool isCtrl);
+    void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
+    void Run();
 
-	void AddWindow(TerminalWindowPtr window);
+    void AddWindow(TerminalWindowPtr window);
 
-	void FullRender();
+    void FullRender();
 
 
 private:
-	HANDLE inputHandle;
-	HANDLE outputHandle;
-	TerminalCanvasPtr canvas;
-	std::vector<TerminalWindowPtr> windows;
+    HANDLE inputHandle;
+    HANDLE outputHandle;
+    TerminalCanvasPtr canvas;
+    std::vector<TerminalWindowPtr> windows;
 };

@@ -7,23 +7,23 @@ using ChangeCallback = std::function<bool(const Utf8String& prev, const Utf8Stri
 
 class ListDataProvider {
 public:
-	template<class... Args>
-	static ListDataProviderPtr Create(Args... args) {
-		return std::make_shared<ListDataProvider>(std::forward<Args>(args)...);
-	}
-	ListDataProvider(std::vector<Utf8String> data);
-	const Utf8String& Get() const;
-	bool Next();
-	bool Prev();
-	bool Empty() const;
-	short MaxLen() const;
+    template<class... Args>
+    static ListDataProviderPtr Create(Args... args) {
+        return std::make_shared<ListDataProvider>(std::forward<Args>(args)...);
+    }
+    ListDataProvider(std::vector<Utf8String> data);
+    const Utf8String& Get() const;
+    bool Next();
+    bool Prev();
+    bool Empty() const;
+    short MaxLen() const;
 
-	void AddChangeCallback(ChangeCallback changeCallback);
+    void AddChangeCallback(ChangeCallback changeCallback);
 protected:
-	std::vector<Utf8String> data;
-	int pos = -1;
+    std::vector<Utf8String> data;
+    int pos = -1;
 protected:
-	void OnChange(const Utf8String& prev, const Utf8String& current);
-	
-	std::vector<ChangeCallback> changeCallbacks;
+    void OnChange(const Utf8String& prev, const Utf8String& current);
+    
+    std::vector<ChangeCallback> changeCallbacks;
 };

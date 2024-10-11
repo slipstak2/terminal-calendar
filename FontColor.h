@@ -1,7 +1,7 @@
 #pragma once
 
 enum class FontColor {
-	Default         = 0,
+    Default         = 0,
     Black           = 30,
     Red             = 31,
     Green           = 32,

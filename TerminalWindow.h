@@ -3,29 +3,29 @@
 #include "TerminalControl.h"
 
 class TerminalWindow : public TerminalControl {
-	friend class TerminalCanvas;
+    friend class TerminalCanvas;
 public:
-	DECLARE_KIND(TerminalControl, TerminalControl::Kind::WINDOW)
+    DECLARE_KIND(TerminalControl, TerminalControl::Kind::WINDOW)
 
-	TerminalWindow(TerminalCoord lu, TerminalSize size)
-		:TerminalControl(lu, size)
-	{}
-	void SetBackground(const TerminalCell& cell);
-	void SetBorderColor(const FontColor& borderColor);
-	void SetName(const std::string& newName);
+    TerminalWindow(TerminalCoord lu, TerminalSize size)
+        :TerminalControl(lu, size)
+    {}
+    void SetBackground(const TerminalCell& cell);
+    void SetBorderColor(const FontColor& borderColor);
+    void SetName(const std::string& newName);
 
-	static TerminalWindowPtr Create(TerminalCoord lu, TerminalSize size);
+    static TerminalWindowPtr Create(TerminalCoord lu, TerminalSize size);
 
 protected:
-	void FlushSelf();
+    void FlushSelf();
 private:
-	void FlushUpBorder();
-	void FlushBottomBorder();
+    void FlushUpBorder();
+    void FlushBottomBorder();
 
-	TerminalCell BackgroundCell = CreateCell(' ');
-	FontColor BorderColor = FontColor::Default;
+    TerminalCell BackgroundCell = CreateCell(' ');
+    FontColor BorderColor = FontColor::Default;
 
-	std::string name;
+    std::string name;
 };
 
 TerminalWindowPtr CreateBackgroundWindow(short rows, short cols);
