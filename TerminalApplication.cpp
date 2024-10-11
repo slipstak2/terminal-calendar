@@ -57,15 +57,23 @@ TerminalApplication::TerminalApplication() {
     auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
     IvanWindow->AddControl(IvanLabel);
 
-    std::vector<Utf8String> months{ "Январь", "Февраль", "Март" };
+    std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь"};
     auto MonthDataProviderPtr = ListDataProvider::Create(months);
     //MonthDataProviderPtr->Next();
     //MonthDataProviderPtr->Next();
-    auto leftClickCallback = [MonthDataProviderPtr]() {
-        return MonthDataProviderPtr->Prev();
+    auto leftClickCallback = [MonthDataProviderPtr, this]() {
+        bool result = MonthDataProviderPtr->Prev();
+        if (result) {
+            FullRender();
+        }
+        return result;
     };
-    auto rightClickCallback = [MonthDataProviderPtr]() {
-        return MonthDataProviderPtr->Next();
+    auto rightClickCallback = [MonthDataProviderPtr, this]() {
+        bool result = MonthDataProviderPtr->Next();
+        if (result) {
+            FullRender();
+        }
+        return result;
     };
 
     // https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
@@ -77,7 +85,7 @@ TerminalApplication::TerminalApplication() {
     auto MonthLabel = TerminalLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
     IvanWindow->AddControl(MonthLabel);
 
-    auto MonthBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 3, .col = 5 + MonthLabel->Size()});
+    auto MonthBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 3, .col = (short)5 + MonthLabel->Size()});
     MonthBtnRight->AddClickCallback(rightClickCallback);
     IvanWindow->AddControl(MonthBtnRight);
 
