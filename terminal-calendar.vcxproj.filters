@@ -54,6 +54,9 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="WindowsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalButton.h">
       <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

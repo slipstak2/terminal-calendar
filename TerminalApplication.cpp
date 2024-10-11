@@ -110,11 +110,11 @@ TerminalApplication::TerminalApplication() {
 }
 
 void TerminalApplication::AddWindow(TerminalWindowPtr window) {
-    windows.push_back(window);
+    wndManager.AddWindow(window);
 }
 
 void TerminalApplication::FullRender() {
-    for (const auto& wnd : windows) {
+    for (const auto& wnd : wndManager.GetWindows()) {
         canvas->AddWindow(wnd);
     }
     canvas->Render();
@@ -125,21 +125,9 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
     auto clickParent = clickCell.GetParent();
 
     clickParent->ApplyMouseLeftClick();
-
     auto clickWnd = clickParent->As<TerminalWindow>();
-    for (size_t idx = 0; idx < windows.size(); ++idx) {
-        if (windows[idx].get() == clickWnd) {
-            if (idx == 0) {
-                break;
-            }
-            while (idx + 1 < windows.size()) {
-                swap(windows[idx], windows[idx + 1]);
-                idx++;
-            }
-            FullRender();
-            break;
-        }
-    }
+    wndManager.MoveToTop(clickWnd);
+    FullRender();
 }
 
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {

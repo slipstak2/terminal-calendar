@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils/common.h"
+#include "WindowsManager.h"
 #include "TerminalControls/TerminalCanvas.h"
 #include <Windows.h>
 
@@ -24,5 +25,5 @@ private:
     HANDLE inputHandle;
     HANDLE outputHandle;
     TerminalCanvasPtr canvas;
-    std::vector<TerminalWindowPtr> windows;
+    WindowsManager wndManager;
 };

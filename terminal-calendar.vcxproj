@@ -142,6 +142,7 @@
     <ClCompile Include="TerminalControls\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="utils\utf8string.cpp" />
+    <ClCompile Include="WindowsManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BackgroundColor.h" />
@@ -157,6 +158,7 @@
     <ClInclude Include="TerminalRectangle.h" />
     <ClInclude Include="utils\common.h" />
     <ClInclude Include="utils\utf8string.h" />
+    <ClInclude Include="WindowsManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
