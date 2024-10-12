@@ -68,9 +68,6 @@ TerminalApplication::TerminalApplication()  {
     auto MonthLabel = TerminalLRLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 3 });
     IvanWindow->AddControl(MonthLabel);
 
-
-    // https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
-    // https://www.utf8icons.com/character/9658/black-right-pointing-pointer
     AddWindow(IvanWindow);
 
     auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);

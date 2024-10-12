@@ -11,10 +11,7 @@ const Utf8String& ListDataProvider::Get() const {
 }
 
 bool ListDataProvider::Next() {
-    if (pos == -1) {
-        return false;
-    }
-    if (pos + 1 >= data.size()) {
+    if (!HasNext()) {
         return false;
     }
     ++pos;
@@ -22,16 +19,27 @@ bool ListDataProvider::Next() {
     return true;
 }
 
-bool ListDataProvider::Prev() {
+bool ListDataProvider::HasNext() {
     if (pos == -1) {
         return false;
     }
-    if (pos == 0) {
+    return pos + 1 < data.size();
+}
+
+bool ListDataProvider::Prev() {
+    if (!HasPrev()) {
         return false;
     }
     --pos;
     OnChange(data[pos + 1], data[pos]);
     return true;
+}
+
+bool ListDataProvider::HasPrev() {
+    if (pos == -1) {
+        return false;
+    }
+    return pos > 0;
 }
 
 bool ListDataProvider::Empty() const {

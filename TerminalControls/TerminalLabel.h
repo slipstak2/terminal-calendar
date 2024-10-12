@@ -14,6 +14,8 @@ public:
     TerminalLabel(const Utf8String& label, TerminalCoord position);
     TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
     const Utf8String& Get() const;
+    void SetText(const Utf8String& newText);
+
     short Size() const;
 
 protected:

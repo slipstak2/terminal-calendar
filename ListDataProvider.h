@@ -14,7 +14,9 @@ public:
     ListDataProvider(std::vector<Utf8String> data);
     const Utf8String& Get() const;
     bool Next();
+    bool HasNext();
     bool Prev();
+    bool HasPrev();
     bool Empty() const;
     short MaxLen() const;
 

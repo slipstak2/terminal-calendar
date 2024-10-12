@@ -1,5 +1,6 @@
 #include "TerminalLabel.h"
 #include "ListDataProvider.h"
+#include <cassert>
 
 TerminalLabel::TerminalLabel(const Utf8String& label, TerminalCoord position)
     : TerminalControl(position, { .height = 1, .width = (short)label.size() })
@@ -22,6 +23,13 @@ const Utf8String& TerminalLabel::Get() const {
     }
     return text;
 }
+
+void TerminalLabel::SetText(const Utf8String& newText) { // TODO: Separate TerminalLabel and TerminalDataProviderLabel
+    assert(newText.size() <= text.size());
+    text = newText;
+}
+
+
 void TerminalLabel::FlushSelf() {
     const Utf8String& s = Get();
     short len = Size();
