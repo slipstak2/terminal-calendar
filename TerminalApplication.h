@@ -24,5 +24,5 @@ private:
     HANDLE inputHandle;
     HANDLE outputHandle;
     TerminalCanvasPtr canvas;
-    TerminalControlRootPtr rootControl;
+    TerminalRootControlPtr rootControl;
 };

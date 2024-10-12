@@ -14,8 +14,8 @@ TerminalControl* TerminalCell::GetParent() {
 
 bool TerminalCell::operator == (const TerminalCell& rhs) {
     return 
-        std::tie(data, fontColor, backgroundColor) == 
-        std::tie(rhs.data, rhs.fontColor, rhs.backgroundColor);
+        std::tie(data, fontColor, backgroundColor, parent) == 
+        std::tie(rhs.data, rhs.fontColor, rhs.backgroundColor, rhs.parent);
 }
 
 bool TerminalCell::operator != (const TerminalCell& rhs) {

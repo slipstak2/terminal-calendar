@@ -54,7 +54,10 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalControlRoot.cpp">
+    <ClCompile Include="TerminalControls\TerminalRootControl.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalLRLabel.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,7 +101,10 @@
     <ClInclude Include="TerminalControls\TerminalButton.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalControlRoot.h">
+    <ClInclude Include="TerminalControls\TerminalRootControl.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalLRLabel.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>

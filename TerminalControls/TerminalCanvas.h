@@ -9,7 +9,7 @@ public:
     void AddWindow(TerminalWindowPtr window);
     const TerminalCell& Get(short row, short col) const;
     TerminalCell& Get(short row, short col);
-    void Render(TerminalControlRootPtr rootControl);
+    void Render(TerminalRootControlPtr rootControl);
 private:
     void SetCursorPosition(short x, short y);
     TerminalCanvas(HANDLE outputHandle, short rows, short cols) : outputHandle(outputHandle), rows(rows), cols(cols)

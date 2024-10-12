@@ -4,7 +4,7 @@
 #include "TerminalControls/TerminalLabel.h"
 #include "TerminalControls/TerminalButton.h"
 #include "TerminalControls/TerminalWindow.h"
-#include "TerminalControls/TerminalControlRoot.h"
+#include "TerminalControls/TerminalRootControl.h"
 #include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
@@ -46,7 +46,7 @@ TerminalApplication::TerminalApplication()  {
 
     short rows, cols;
     GetWindowSize(outputHandle, rows, cols);
-    rootControl = TerminalControlRoot::Create(rows, cols);
+    rootControl = TerminalRootControl::Create(rows, cols);
     canvas = TerminalCanvas::Create(outputHandle, rows, cols);
 
     AddWindow(CreateBackgroundWindow(rows, cols));

@@ -2,8 +2,9 @@
 
 TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size)
     : TerminalRectangle(position, size)
-    , data(Height(), std::vector<TerminalCell>(Width()))
-{}
+{
+    data.resize(Height(), std::vector<TerminalCell>(Width(), CreateCell(' ')));
+}
 
 void TerminalControl::AddControl(TerminalControlPtr control) {
     controls.push_back(control);

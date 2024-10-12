@@ -1,10 +1,10 @@
-#include "TerminalControlRoot.h"
+#include "TerminalRootControl.h"
 
-TerminalControlRoot::TerminalControlRoot(short rows, short cols)
+TerminalRootControl::TerminalRootControl(short rows, short cols)
     : TerminalControl({ .row = 0, .col = 0 }, { .height = rows, .width = cols })
 {}
 
-bool TerminalControlRoot::MoveToTop(const TerminalControl* window) {
+bool TerminalRootControl::MoveToTop(const TerminalControl* window) {
     for (size_t idx = 0; idx < controls.size(); ++idx) {
         if (controls[idx].get() == window) {
             if (idx == 0) {
