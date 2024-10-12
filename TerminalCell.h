@@ -16,6 +16,8 @@ public:
     TerminalControl* GetParent();
     void SetParent(TerminalControl* newParent);
     void Render() const;
+    bool operator == (const TerminalCell& rhs);
+    bool operator != (const TerminalCell& rhs);
 
 private:
     Rune data = Rune(" ");

@@ -12,6 +12,16 @@ TerminalControl* TerminalCell::GetParent() {
     return parent;
 }
 
+bool TerminalCell::operator == (const TerminalCell& rhs) {
+    return 
+        std::tie(data, fontColor, backgroundColor) == 
+        std::tie(rhs.data, rhs.fontColor, rhs.backgroundColor);
+}
+
+bool TerminalCell::operator != (const TerminalCell& rhs) {
+    return !(*this == rhs);
+}
+
 // https://habr.com/ru/articles/119436/
 void TerminalCell::Render() const {
     printf("\033[10;%d;%dm%s\033[0m", (int)backgroundColor, (int)fontColor, data.get());

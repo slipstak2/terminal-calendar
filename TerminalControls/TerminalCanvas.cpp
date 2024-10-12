@@ -20,12 +20,14 @@ TerminalCell& TerminalCanvas::Get(short row, short col) {
 
 void TerminalCanvas::Render(TerminalControlRootPtr rootControl) {
     rootControl->Flush();
-    data = rootControl->data;
 
-    SetCursorPosition(0, 0);
-    for (short row = 0; row < rows; ++row) {
-        for (short col = 0; col < cols; ++col) {
-            data[row][col].Render();
+    for (short col = 0; col < cols; ++col) {
+        for (short row = 0; row < rows; ++row) {
+            if (data[row][col] != rootControl->data[row][col]) {
+                SetCursorPosition(col, row);
+                rootControl->data[row][col].Render();
+                data[row][col] = rootControl->data[row][col];
+            }
         }
     }
 }

@@ -11,6 +11,9 @@ public:
         memcpy(data, r.data, sizeof(data));
         return *this;
     }
+    bool operator == (const Rune& r) {
+        return memcmp(data, r.data, sizeof(data)) == 0;
+    }
 
 protected:
     uint8_t data[4 + 1];
