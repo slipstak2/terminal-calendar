@@ -24,6 +24,11 @@ void TerminalWindow::SetName(const std::string& newName) {
     name = newName;
 }
 
+void TerminalWindow::AddControl(TerminalControlPtr control) {
+    control->SetParentWindow(this);
+    TerminalControl::AddControl(control);
+}
+
 void TerminalWindow::FlushUpBorder() {
     short row = 0;
     data[row][0] = CreateCell("╭", BorderColor);

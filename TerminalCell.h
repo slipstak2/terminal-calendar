@@ -14,6 +14,7 @@ public:
 
     const TerminalControl* GetParent() const;
     TerminalControl* GetParent();
+
     void SetParent(TerminalControl* newParent);
     void Render() const;
     bool operator == (const TerminalCell& rhs);
@@ -24,5 +25,5 @@ private:
     FontColor fontColor = FontColor::Default;
     BackgroundColor backgroundColor = BackgroundColor::Default;
 
-    TerminalControl* parent;
+    TerminalControl* parent = nullptr;
 };

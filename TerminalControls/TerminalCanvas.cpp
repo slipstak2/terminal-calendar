@@ -31,14 +31,3 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
         }
     }
 }
-
-void TerminalCanvas::AddWindow(TerminalWindowPtr window) {
-    window->Flush();
-    for (short row = window->RowBeg(); row <= window->RowEnd(); ++row) {
-        for (short col = window->ColBeg(); col <= window->ColEnd(); ++col) {
-            if (row < data.size() && col < data[row].size()) {
-                data[row][col] = window->Get(row - window->RowBeg(), col - window->ColBeg());
-            }
-        }
-    }
-}

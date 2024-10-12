@@ -6,7 +6,6 @@
 class TerminalCanvas {
 public:
     static TerminalCanvasPtr Create(HANDLE outputHandle, short rows, short cols);
-    void AddWindow(TerminalWindowPtr window);
     const TerminalCell& Get(short row, short col) const;
     TerminalCell& Get(short row, short col);
     void Render(TerminalRootControlPtr rootControl);

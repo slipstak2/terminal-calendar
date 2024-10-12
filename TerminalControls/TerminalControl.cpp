@@ -1,9 +1,25 @@
 #include "TerminalControl.h"
 
+TerminalControl::TerminalControl(TerminalCoord position)
+    : TerminalRectangle(position) {
+
+}
 TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size)
-    : TerminalRectangle(position, size)
+    : TerminalRectangle(position)
 {
-    data.resize(Height(), std::vector<TerminalCell>(Width(), CreateCell(' ')));
+    SetSize(size);
+}
+
+void TerminalControl::SetSize(TerminalSize newSize) {
+    size = newSize;
+    data.resize(Height());
+    for (auto& row : data) {
+        row.resize(Width(), CreateCell('~'));
+    }
+}
+
+void TerminalControl::SetParentWindow(TerminalWindow* newParentWindow) {
+    parentWindow = newParentWindow;
 }
 
 void TerminalControl::AddControl(TerminalControlPtr control) {

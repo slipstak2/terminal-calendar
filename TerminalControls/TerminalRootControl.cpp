@@ -5,17 +5,24 @@ TerminalRootControl::TerminalRootControl(short rows, short cols)
 {}
 
 bool TerminalRootControl::MoveToTop(const TerminalControl* window) {
-    for (size_t idx = 0; idx < controls.size(); ++idx) {
-        if (controls[idx].get() == window) {
-            if (idx == 0) {
-                break;
-            }
-            while (idx + 1 < controls.size()) {
-                swap(controls[idx], controls[idx + 1]);
-                idx++;
-            }
-            return true;
+    auto it = std::find_if(controls.begin(), controls.end(), [window](const TerminalControlPtr& control) {
+        return control.get() == window;
         }
+    );
+    if (it == controls.end()) {
+        return false;
     }
-    return false;
+    size_t idx = it - controls.begin();
+    if (idx == 0) { // background window
+        return false;
+    }
+    if (idx == controls.size() - 1) { // already top
+        return false;
+    }
+
+    while (idx + 1 < controls.size()) {
+        swap(controls[idx], controls[idx + 1]);
+        idx++;
+    }
+    return true;
 }

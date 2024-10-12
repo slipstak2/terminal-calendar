@@ -9,10 +9,14 @@ public:
 
     TerminalWindow(TerminalCoord lu, TerminalSize size)
         :TerminalControl(lu, size)
-    {}
+    {
+        parentWindow = this;
+    }
     void SetBackground(const TerminalCell& cell);
     void SetBorderColor(const FontColor& borderColor);
     void SetName(const std::string& newName);
+
+    void AddControl(TerminalControlPtr control) override;
 
     static TerminalWindowPtr Create(TerminalCoord lu, TerminalSize size);
 

@@ -5,6 +5,7 @@
 #include "TerminalControls/TerminalButton.h"
 #include "TerminalControls/TerminalWindow.h"
 #include "TerminalControls/TerminalRootControl.h"
+#include "TerminalControls/TerminalLRLabel.h"
 #include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
@@ -61,8 +62,8 @@ TerminalApplication::TerminalApplication()  {
 
     std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь"};
     auto MonthDataProviderPtr = ListDataProvider::Create(months);
-    //MonthDataProviderPtr->Next();
-    //MonthDataProviderPtr->Next();
+    MonthDataProviderPtr->Next();
+    MonthDataProviderPtr->Next();
     auto leftClickCallback = [MonthDataProviderPtr, this]() {
         bool result = MonthDataProviderPtr->Prev();
         if (result) {
@@ -99,6 +100,12 @@ TerminalApplication::TerminalApplication()  {
     IgorWindow->SetBorderColor(FontColor::Green);
     auto IgorLabel = TerminalLabel::Create("Игорь", TerminalCoord{ .row = 0, .col = 3 });
     IgorWindow->AddControl(IgorLabel);
+
+    std::vector<Utf8String> family{ "Маша", "Вера", "Юрий", "Митрофан"};
+    auto familyDataProvider= ListDataProvider::Create(family);
+    auto LRLabel = TerminalLRLabel::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
+    IgorWindow->AddControl(LRLabel);
+
     AddWindow(IgorWindow);
 
     auto DanilWindow = CreateTerminalWindow(5, 12, 22, 45);
@@ -121,12 +128,14 @@ void TerminalApplication::FullRender() {
 
 void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
     auto clickCell = canvas->Get(row, col);
-    auto clickParent = clickCell.GetParent();
+    auto clickControl = clickCell.GetParent();
+    auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
 
-    clickParent->ApplyMouseLeftClick();
-    auto clickWnd = clickParent->As<TerminalWindow>();
-    rootControl->MoveToTop(clickWnd);
-    FullRender();
+    bool isMoveToTop = rootControl->MoveToTop(clickWnd);
+    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick() : false;
+    if (isMoveToTop || isApplyClickOK) {
+        FullRender();
+    }
 }
 
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {

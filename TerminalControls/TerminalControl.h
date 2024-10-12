@@ -25,8 +25,13 @@ public:
     virtual Kind GetKind() const { return KIND; };
     virtual bool IsKindOf(Kind kind) const { return kind == KIND; }
 public:
-    TerminalControl(TerminalCoord lu, TerminalSize size);
-    void AddControl(TerminalControlPtr control);
+    TerminalControl(TerminalCoord position);
+    TerminalControl(TerminalCoord position, TerminalSize size);
+    virtual void AddControl(TerminalControlPtr control);
+
+    void SetSize(TerminalSize size);
+
+    void SetParentWindow(TerminalWindow* parentWindow);
 
     template<class ...Args>
     TerminalCell CreateCell(Args... args) {
@@ -45,10 +50,15 @@ public:
         clickCallbacks.push_back(std::move(clkCallback));
     }
 
-    void ApplyMouseLeftClick() {
+    bool ApplyMouseLeftClick() {
+        bool isApply = false;
         for (auto clickCallback : clickCallbacks) {
-            clickCallback();
+            isApply |= clickCallback();
         }
+        return isApply;
+    }
+    TerminalWindow* GetParentWindow() {
+        return parentWindow;
     }
 public:
     void Flush();
@@ -58,9 +68,9 @@ protected:
 
 protected:
     TerminalControlPtr parent = nullptr;
+    TerminalWindow* parentWindow = nullptr;
     std::vector<TerminalControlPtr> controls;
     std::vector<std::vector<TerminalCell>> data;
 
     std::vector<ClickCallback> clickCallbacks;
-
 };

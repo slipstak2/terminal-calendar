@@ -12,6 +12,10 @@ struct TerminalSize {
 
 class TerminalRectangle {
 public:
+    TerminalRectangle(TerminalCoord position)
+        : position(position)
+    {}
+
     TerminalRectangle(TerminalCoord position, TerminalSize size)
         : position(position)
         , size(size)

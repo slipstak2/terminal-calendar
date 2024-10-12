@@ -20,6 +20,9 @@ using TerminalRootControlPtr = std::shared_ptr<TerminalRootControl>;
 class TerminalLabel;
 using TerminalLabelPtr = std::shared_ptr<TerminalLabel>;
 
+class TerminalLRLabel;
+using TerminalLRLabelPtr = std::shared_ptr<TerminalLRLabel>;
+
 class TerminalButton;
 using TerminalButtonPtr = std::shared_ptr<TerminalButton>;
 
