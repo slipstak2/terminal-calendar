@@ -20,6 +20,9 @@ void TerminalControl::SetSize(TerminalSize newSize) {
 
 void TerminalControl::SetParentWindow(TerminalWindow* newParentWindow) {
     parentWindow = newParentWindow;
+    for (auto& control : controls) {
+        control->SetParentWindow(parentWindow);
+    }
 }
 
 void TerminalControl::AddControl(TerminalControlPtr control) {

@@ -64,34 +64,13 @@ TerminalApplication::TerminalApplication()  {
     auto MonthDataProviderPtr = ListDataProvider::Create(months);
     MonthDataProviderPtr->Next();
     MonthDataProviderPtr->Next();
-    auto leftClickCallback = [MonthDataProviderPtr, this]() {
-        bool result = MonthDataProviderPtr->Prev();
-        if (result) {
-            FullRender();
-        }
-        return result;
-    };
-    auto rightClickCallback = [MonthDataProviderPtr, this]() {
-        bool result = MonthDataProviderPtr->Next();
-        if (result) {
-            FullRender();
-        }
-        return result;
-    };
+
+    auto MonthLabel = TerminalLRLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 3 });
+    IvanWindow->AddControl(MonthLabel);
+
 
     // https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
     // https://www.utf8icons.com/character/9658/black-right-pointing-pointer
-    auto MonthBtnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 3, .col = 3 });
-    MonthBtnLeft->AddClickCallback(leftClickCallback);
-    IvanWindow->AddControl(MonthBtnLeft);
-
-    auto MonthLabel = TerminalLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 5 });
-    IvanWindow->AddControl(MonthLabel);
-
-    auto MonthBtnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 3, .col = (short)5 + MonthLabel->Size()});
-    MonthBtnRight->AddClickCallback(rightClickCallback);
-    IvanWindow->AddControl(MonthBtnRight);
-
     AddWindow(IvanWindow);
 
     auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);

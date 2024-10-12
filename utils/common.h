@@ -5,6 +5,8 @@
 #include <string>
 #include <memory>
 
+extern short ONE;
+
 class TerminalWindow;
 using TerminalWindowPtr = std::shared_ptr<TerminalWindow>;
 

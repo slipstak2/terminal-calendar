@@ -3,11 +3,11 @@
 #include "ListDataProvider.h"
 
 TerminalLRLabel::TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord position)
-    : TerminalControl(position)
+    : TerminalCompositeControl(position)
 {
     btnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 0 });
-    label = TerminalLabel::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + (short)1 });
-    btnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = label->ColEnd() + 1 });
+    label = TerminalLabel::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE });
+    btnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
 
     btnLeft->AddClickCallback([dataProvider, this]() {
         return dataProvider->Prev();
@@ -19,9 +19,8 @@ TerminalLRLabel::TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord
         }
     );
 
-
     AddControl(btnLeft);
     AddControl(label);
     AddControl(btnRight);
-    SetSize({ .height = 1, .width = btnRight->ColEnd() + 1 });
+    SetSize({ .height = 1, .width = btnRight->ColEnd() + ONE });
 }
