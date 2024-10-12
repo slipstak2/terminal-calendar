@@ -3,7 +3,7 @@
 #include "TerminalControl.h"
 
 class TerminalWindow : public TerminalControl {
-    friend class TerminalCanvas;
+    //friend class TerminalCanvas;
 public:
     DECLARE_KIND(TerminalControl, TerminalControl::Kind::WINDOW)
 
@@ -17,7 +17,7 @@ public:
     static TerminalWindowPtr Create(TerminalCoord lu, TerminalSize size);
 
 protected:
-    void FlushSelf();
+    void FlushSelf() override;
 private:
     void FlushUpBorder();
     void FlushBottomBorder();

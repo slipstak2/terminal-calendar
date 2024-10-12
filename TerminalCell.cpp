@@ -13,7 +13,7 @@ TerminalControl* TerminalCell::GetParent() {
 }
 
 // https://habr.com/ru/articles/119436/
-void TerminalCell::Render() {
+void TerminalCell::Render() const {
     printf("\033[10;%d;%dm%s\033[0m", (int)backgroundColor, (int)fontColor, data.get());
 }
 

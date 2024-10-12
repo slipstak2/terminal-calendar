@@ -4,6 +4,7 @@
 #include "TerminalControls/TerminalLabel.h"
 #include "TerminalControls/TerminalButton.h"
 #include "TerminalControls/TerminalWindow.h"
+#include "TerminalControls/TerminalControlRoot.h"
 #include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
@@ -27,7 +28,7 @@ void ShowConsoleCursor(bool showFlag) {
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-TerminalApplication::TerminalApplication() {
+TerminalApplication::TerminalApplication()  {
     inputHandle = GetStdHandle(STD_INPUT_HANDLE);
     if (inputHandle == NULL) {
         MyErrorExit("GetStdHandle");
@@ -45,6 +46,7 @@ TerminalApplication::TerminalApplication() {
 
     short rows, cols;
     GetWindowSize(outputHandle, rows, cols);
+    rootControl = TerminalControlRoot::Create(rows, cols);
     canvas = TerminalCanvas::Create(outputHandle, rows, cols);
 
     AddWindow(CreateBackgroundWindow(rows, cols));
@@ -110,14 +112,11 @@ TerminalApplication::TerminalApplication() {
 }
 
 void TerminalApplication::AddWindow(TerminalWindowPtr window) {
-    wndManager.AddWindow(window);
+    rootControl->AddControl(window);
 }
 
 void TerminalApplication::FullRender() {
-    for (const auto& wnd : wndManager.GetWindows()) {
-        canvas->AddWindow(wnd);
-    }
-    canvas->Render();
+    canvas->Render(rootControl);
 }
 
 void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
@@ -126,7 +125,7 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
 
     clickParent->ApplyMouseLeftClick();
     auto clickWnd = clickParent->As<TerminalWindow>();
-    wndManager.MoveToTop(clickWnd);
+    rootControl->MoveToTop(clickWnd);
     FullRender();
 }
 

@@ -1,3 +1,4 @@
+#include "TerminalControlRoot.h"
 #include "TerminalCanvas.h"
 #include "TerminalWindow.h"
 
@@ -17,7 +18,10 @@ TerminalCell& TerminalCanvas::Get(short row, short col) {
     return data[row][col];
 }
 
-void TerminalCanvas::Render() {
+void TerminalCanvas::Render(TerminalControlRootPtr rootControl) {
+    rootControl->Flush();
+    data = rootControl->data;
+
     SetCursorPosition(0, 0);
     for (short row = 0; row < rows; ++row) {
         for (short col = 0; col < cols; ++col) {

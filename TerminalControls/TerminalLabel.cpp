@@ -26,7 +26,7 @@ void TerminalLabel::FlushSelf() {
     const Utf8String& s = Get();
     short len = Size();
     Utf8String target(" ", len);
-    short offset = (target.size() - s.size() + 1) / 2;
+    short offset = short(target.size() - s.size() + 1) / 2;
     for (int i = 0; i < s.size(); ++i) {
         target[i + offset] = s[i];
     }

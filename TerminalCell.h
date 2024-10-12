@@ -15,7 +15,7 @@ public:
     const TerminalControl* GetParent() const;
     TerminalControl* GetParent();
     void SetParent(TerminalControl* newParent);
-    void Render();
+    void Render() const;
 
 private:
     Rune data = Rune(" ");

@@ -14,6 +14,9 @@ using TerminalCanvasPtr = std::unique_ptr<TerminalCanvas>;
 class TerminalControl;
 using TerminalControlPtr = std::shared_ptr<TerminalControl>;
 
+class TerminalControlRoot;
+using TerminalControlRootPtr = std::shared_ptr<TerminalControlRoot>;
+
 class TerminalLabel;
 using TerminalLabelPtr = std::shared_ptr<TerminalLabel>;
 

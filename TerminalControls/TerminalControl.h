@@ -13,6 +13,7 @@
 using ClickCallback = std::function<bool()>;
 
 class TerminalControl : public TerminalRectangle {
+    friend class TerminalCanvas;
 public:
     enum class Kind {
         CONTROL,
@@ -49,9 +50,9 @@ public:
             clickCallback();
         }
     }
-
-protected:
+public:
     void Flush();
+protected:
     void FlushControls();
     virtual void FlushSelf() = 0;
 

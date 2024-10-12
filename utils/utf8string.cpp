@@ -22,7 +22,7 @@ Rune::Rune(const char* s, uint8_t len) {
 	copy(s, len);
 }
 
-uint8_t*  Rune::get() {
+const uint8_t*  Rune::get() const{
 	return data;
 }
 

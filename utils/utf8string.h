@@ -6,7 +6,7 @@ public:
     Rune(char c);
     Rune(const char* s);
     Rune(const char* s, uint8_t len);
-    uint8_t* get();
+    const uint8_t* get() const;
     Rune& operator = (const Rune& r) {
         memcpy(data, r.data, sizeof(data));
         return *this;

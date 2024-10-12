@@ -54,8 +54,8 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="WindowsManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="TerminalControls\TerminalControlRoot.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,8 +98,8 @@
     <ClInclude Include="TerminalControls\TerminalButton.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="WindowsManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TerminalControls\TerminalControlRoot.h">
+      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
