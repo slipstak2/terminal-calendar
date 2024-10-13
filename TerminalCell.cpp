@@ -23,6 +23,13 @@ bool TerminalCell::operator != (const TerminalCell& rhs) {
 }
 
 // https://habr.com/ru/articles/119436/
+// 
+// 
+//   SetConsoleTextAttribute(hConsole,
+// FOREGROUND_RED | FOREGROUND_GREEN | BACKGROUND_BLUE);
+// 
+// https://habr.com/ru/articles/119436/
+// https://habr.com/ru/companies/macloud/articles/558316/
 void TerminalCell::Render() const {
     printf("\033[10;%d;%dm%s\033[0m", (int)backgroundColor, (int)fontColor, data.get());
 }

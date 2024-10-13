@@ -22,6 +22,8 @@ public:
 
 private:
     Rune data = Rune(" ");
+
+
     FontColor fontColor = FontColor::Default;
     BackgroundColor backgroundColor = BackgroundColor::Default;
 

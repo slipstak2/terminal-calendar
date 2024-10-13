@@ -162,6 +162,7 @@
     <ClInclude Include="TerminalControls\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />
+    <ClInclude Include="TextStyle.h" />
     <ClInclude Include="utils\common.h" />
     <ClInclude Include="utils\utf8string.h" />
   </ItemGroup>
