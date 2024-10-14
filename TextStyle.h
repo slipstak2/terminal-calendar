@@ -1,7 +1,7 @@
 #pragma once
 
 enum class TextStyle {
-    Default         = 0,
+    Default         = 10,
     Bold            = 1,
     Faint           = 2, // более темный / бледный
     Italic          = 3,
@@ -13,4 +13,6 @@ enum class TextStyle {
     СrossedOut      = 9, // Перечеркнутый
 
     DoubleUnderline = 21,// Двойное подчеркивание
+
+    Overline = 53, // Надчеркнутый
 };

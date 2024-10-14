@@ -1,7 +1,7 @@
 #pragma once
 
 enum class BackgroundColor {
-    Default         = 0,
+    Default         = 40,
     Black           = 40,
     Red             = 41,
     Green           = 42,

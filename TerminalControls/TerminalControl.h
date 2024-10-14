@@ -27,6 +27,7 @@ public:
 public:
     TerminalControl(TerminalCoord position);
     TerminalControl(TerminalCoord position, TerminalSize size);
+    TerminalControl(TerminalCoord position, TerminalSize size, TextStyle textStyle);
     virtual void AddControl(TerminalControlPtr control);
 
     void SetSize(TerminalSize size);
@@ -37,6 +38,7 @@ public:
     TerminalCell CreateCell(Args... args) {
         TerminalCell cell(std::forward<Args>(args)...);
         cell.SetParent(this);
+        cell.SetTextStyle(textStyle);
         return cell;
     }
     const TerminalCell& Get(short row, short col);
@@ -73,4 +75,6 @@ protected:
     std::vector<std::vector<TerminalCell>> data;
 
     std::vector<ClickCallback> clickCallbacks;
+
+    TextStyle textStyle = TextStyle::Default;
 };

@@ -10,6 +10,13 @@ TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size)
     SetSize(size);
 }
 
+TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size, TextStyle textStyle)
+    : TerminalRectangle(position)
+    , textStyle(textStyle)
+{
+    SetSize(size);
+}
+
 void TerminalControl::SetSize(TerminalSize newSize) {
     size = newSize;
     data.resize(Height());

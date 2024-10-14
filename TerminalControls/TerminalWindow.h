@@ -26,7 +26,7 @@ private:
     void FlushUpBorder();
     void FlushBottomBorder();
 
-    TerminalCell BackgroundCell = CreateCell(' ');
+    TerminalCell BackgroundCell = CreateCell(' '); // TODO: what about textStyle?
     FontColor BorderColor = FontColor::Default;
 
     std::string name;
