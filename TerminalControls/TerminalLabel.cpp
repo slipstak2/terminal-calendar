@@ -39,7 +39,11 @@ void TerminalLabel::FlushSelf() {
         target[i + offset] = s[i];
     }
     for (int i = 0; i < target.size(); ++i) {
-        data[0][i] = CreateCell(target[i]);
+        if (i < offset || i - offset >= s.size() ) {
+            data[0][i] = CreateBackgroundCell(target[i]);
+        } else {
+            data[0][i] = CreateCell(target[i]);
+        }
     }
 }
 

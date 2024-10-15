@@ -7,7 +7,7 @@ TerminalLRLabel::TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord
     , dataProvider(dataProvider)
 {
     btnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 0 });
-    label = TerminalLabel::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE }, TextStyle::Underline);
+    label = TerminalLabel::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE }, TextStyle::Overline);
     btnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
 
     btnLeft->AddClickCallback([dataProvider, this]() {

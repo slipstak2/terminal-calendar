@@ -41,6 +41,12 @@ public:
         cell.SetTextStyle(textStyle);
         return cell;
     }
+    template<class ...Args>
+    TerminalCell CreateBackgroundCell(Args... args) {
+        TerminalCell cell(std::forward<Args>(args)...);
+        cell.SetParent(this);
+        return cell;
+    }
     const TerminalCell& Get(short row, short col);
 
     template<class T>

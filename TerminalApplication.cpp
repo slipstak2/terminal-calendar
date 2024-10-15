@@ -77,7 +77,7 @@ TerminalApplication::TerminalApplication()  {
     auto IgorLabel = TerminalLabel::Create("Игорь", TerminalCoord{ .row = 0, .col = 3 });
     IgorWindow->AddControl(IgorLabel);
 
-    std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрий", "Митрофан"};
+    std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрик$on", "Митрофан" };
     auto familyDataProvider= ListDataProvider::Create(family);
     auto LRLabel = TerminalLRLabel::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
     IgorWindow->AddControl(LRLabel);
