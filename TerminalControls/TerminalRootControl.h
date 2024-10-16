@@ -5,10 +5,8 @@
 
 class TerminalRootControl : public TerminalControl {
 public:
-    template<class... Args>
-    static TerminalRootControlPtr Create(Args... args) {
-        return std::make_shared<TerminalRootControl>(std::forward<Args>(args)...);
-    }
+    DECLARE_CREATE(TerminalRootControl)
+
     TerminalRootControl(short rows, short cols);
     bool MoveToTop(const TerminalControl* window);
     void FlushSelf() {}

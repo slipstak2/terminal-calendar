@@ -7,10 +7,8 @@ using ChangeCallback = std::function<bool(const Utf8String& prev, const Utf8Stri
 
 class ListDataProvider {
 public:
-    template<class... Args>
-    static ListDataProviderPtr Create(Args... args) {
-        return std::make_shared<ListDataProvider>(std::forward<Args>(args)...);
-    }
+    DECLARE_CREATE(ListDataProvider)
+
     ListDataProvider(std::vector<Utf8String> data);
     const Utf8String& Get() const;
     bool Next();

@@ -3,10 +3,10 @@
 
 class TerminalLRLabel : public TerminalCompositeControl {
 public:
-    template<class... Args>
-    static TerminalLRLabelPtr Create(Args... args) {
-        return std::make_shared<TerminalLRLabel>(std::forward<Args>(args)...);
-    }
+    DECLARE_KIND(TerminalCompositeControl, TerminalControl::Kind::LABEL)
+
+    DECLARE_CREATE(TerminalLRLabel)
+
     TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord position);
 
 protected:

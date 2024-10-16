@@ -10,12 +10,6 @@
     TerminalControl::Kind GetKind() const override { return KIND; } \
     bool IsKindOf(TerminalControl::Kind _kind) const override { return _kind != KIND ? base::IsKindOf(_kind) : true; }
 
-#define DECLARE_CREATE(TerminalControlType)                                         \
-    template<class... Args>                                                         \
-    static std::shared_ptr<TerminalControlType> Create(Args... args) {              \
-        return std::make_shared<TerminalControlType>(std::forward<Args>(args)...);  \
-    }
-
 using ClickCallback = std::function<bool()>;
 
 class TerminalControl : public TerminalRectangle {
@@ -23,7 +17,9 @@ class TerminalControl : public TerminalRectangle {
 public:
     enum class Kind {
         CONTROL,
+        COMPOSITE_CONTROL,
         LABEL,
+        LR_LABEL,
         BUTTON,
         WINDOW
     };

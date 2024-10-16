@@ -4,13 +4,11 @@
 
 class TerminalLabel : public TerminalControl {
 public:
-    DECLARE_KIND(TerminalControl, TerminalControl::Kind::LABEL);
+    DECLARE_KIND(TerminalControl, TerminalControl::Kind::LABEL)
+
+    DECLARE_CREATE(TerminalLabel)
 
 public:
-    template<class... Args>
-    static TerminalLabelPtr Create(Args... args) {
-        return std::make_shared<TerminalLabel>(std::forward<Args>(args)...);
-    }
     TerminalLabel(const Utf8String& label, TerminalCoord position);
     TerminalLabel(ListDataProviderPtr dataProvider, TerminalCoord position, TextStyle textStyle);
     const Utf8String& Get() const;

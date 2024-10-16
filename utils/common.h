@@ -7,6 +7,12 @@
 
 extern short ONE;
 
+#define DECLARE_CREATE(T)                                         \
+    template<class... Args>                                       \
+    static std::shared_ptr<T> Create(Args... args) {              \
+        return std::make_shared<T>(std::forward<Args>(args)...);  \
+    }
+
 class TerminalWindow;
 using TerminalWindowPtr = std::shared_ptr<TerminalWindow>;
 
