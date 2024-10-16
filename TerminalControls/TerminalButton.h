@@ -7,9 +7,7 @@ class TerminalButton : public TerminalLabel {
 public:
     DECLARE_KIND(TerminalLabel, TerminalControl::Kind::BUTTON)
 
-    template<class... Args>
-    static TerminalButtonPtr Create(Args... args) {
-        return std::make_shared<TerminalButton>(std::forward<Args>(args)...);
-    }
+    DECLARE_CREATE(TerminalButton)
+
     TerminalButton(const Utf8String& label, TerminalCoord position) : TerminalLabel(label, position) {}
 };
