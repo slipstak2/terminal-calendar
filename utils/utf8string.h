@@ -25,6 +25,7 @@ private:
 
 class Utf8String {
 public:
+    static Utf8String Empty;
     Utf8String() = default;
     Utf8String(char c);
     Utf8String(const char* s);

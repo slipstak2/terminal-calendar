@@ -28,8 +28,11 @@ using TerminalRootControlPtr = std::shared_ptr<TerminalRootControl>;
 class TerminalLabel;
 using TerminalLabelPtr = std::shared_ptr<TerminalLabel>;
 
-class TerminalLRLabel;
-using TerminalLRLabelPtr = std::shared_ptr<TerminalLRLabel>;
+class TerminalLabelDataProvider;
+using TerminalLabelDataProviderPtr = std::shared_ptr<TerminalLabelDataProvider>;
+
+class TerminalLabelSwitcher;
+using TerminalLabelSwitcherPtr = std::shared_ptr<TerminalLabelSwitcher>;
 
 class TerminalButton;
 using TerminalButtonPtr = std::shared_ptr<TerminalButton>;

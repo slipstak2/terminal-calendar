@@ -1,11 +1,11 @@
 ﻿#include "utils/common.h"
 #include "TerminalApplication.h"
-#include "TerminalControls/TerminalCanvas.h"
-#include "TerminalControls/TerminalLabel.h"
-#include "TerminalControls/TerminalButton.h"
-#include "TerminalControls/TerminalWindow.h"
-#include "TerminalControls/TerminalRootControl.h"
-#include "TerminalControls/TerminalLRLabel.h"
+#include "TerminalCanvas.h"
+#include "TerminalLabel.h"
+#include "TerminalButton.h"
+#include "TerminalWindow.h"
+#include "TerminalRootControl.h"
+#include "TerminalLabelSwitcher.h"
 #include "ListDataProvider.h"
 
 void MyErrorExit(const char* s) {
@@ -65,7 +65,7 @@ TerminalApplication::TerminalApplication()  {
     MonthDataProviderPtr->Next();
     MonthDataProviderPtr->Next();
 
-    auto MonthLabel = TerminalLRLabel::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 3 });
+    auto MonthLabel = TerminalLabelSwitcher::Create(MonthDataProviderPtr, TerminalCoord{ .row = 3, .col = 3 });
     IvanWindow->AddControl(MonthLabel);
 
     AddWindow(IvanWindow);
@@ -79,7 +79,7 @@ TerminalApplication::TerminalApplication()  {
 
     std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрик$on", "Митрофан" };
     auto familyDataProvider= ListDataProvider::Create(family);
-    auto LRLabel = TerminalLRLabel::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
+    auto LRLabel = TerminalLabelSwitcher::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
     IgorWindow->AddControl(LRLabel);
 
     AddWindow(IgorWindow);

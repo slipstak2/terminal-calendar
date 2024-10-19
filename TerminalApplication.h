@@ -1,7 +1,7 @@
 #pragma once
 
 #include "utils/common.h"
-#include "TerminalControls/TerminalCanvas.h"
+#include "TerminalCanvas.h"
 #include <Windows.h>
 
 

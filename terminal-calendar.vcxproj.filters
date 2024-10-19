@@ -25,6 +25,12 @@
     <Filter Include="Source Files\TerminalControls">
       <UniqueIdentifier>{e9ff8938-8a6e-4e37-a81c-aa06a1f009bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TerminalControls\Label">
+      <UniqueIdentifier>{f552e174-1fe7-4886-ba88-48445105af65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TerminalControls\Label">
+      <UniqueIdentifier>{19f80de3-3f68-49f9-aefb-1c3d1b285c46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp">
@@ -48,16 +54,10 @@
     <ClCompile Include="TerminalControls\TerminalWindow.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalLabel.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalLRLabel.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
     <ClCompile Include="utils\common.cpp">
@@ -65,6 +65,18 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp">
       <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Label\TerminalLabel.cpp">
+      <Filter>Source Files\TerminalControls\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp">
+      <Filter>Source Files\TerminalControls\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Label\TerminalLabelSwitcher.cpp">
+      <Filter>Source Files\TerminalControls\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp">
+      <Filter>Source Files\TerminalControls\Label</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +110,6 @@
     <ClInclude Include="TerminalControls\TerminalWindow.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalLabel.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalCanvas.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
@@ -110,14 +119,23 @@
     <ClInclude Include="TerminalControls\TerminalRootControl.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalLRLabel.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
     <ClInclude Include="TextStyle.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h">
+      <Filter>Header Files\TerminalControls\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Label\TerminalLabel.h">
+      <Filter>Header Files\TerminalControls\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Label\TerminalLabelSwitcher.h">
+      <Filter>Header Files\TerminalControls\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h">
+      <Filter>Header Files\TerminalControls\Label</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,14 @@
-#include "TerminalLRLabel.h"
+#include "TerminalLabelSwitcher.h"
 #include "TerminalButton.h"
 #include "ListDataProvider.h"
+#include "TerminalLabelDataProvider.h"
 
-TerminalLRLabel::TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord position)
+TerminalLabelSwitcher::TerminalLabelSwitcher(ListDataProviderPtr dataProvider, TerminalCoord position)
     : TerminalCompositeControl(position)
     , dataProvider(dataProvider)
 {
     btnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 0 });
-    label = TerminalLabel::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE }, TextStyle::Overline);
+    label = TerminalLabelDataProvider::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE });
     btnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
 
     btnLeft->AddClickCallback([dataProvider, this]() {
@@ -38,7 +39,7 @@ TerminalLRLabel::TerminalLRLabel(ListDataProviderPtr dataProvider, TerminalCoord
 
 // https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
 // https://www.utf8icons.com/character/9658/black-right-pointing-pointer
-void TerminalLRLabel::CheckState() {
+void TerminalLabelSwitcher::CheckState() {
     Utf8String leftText = dataProvider->HasPrev() ? "◀ " : "◁ ";
     btnLeft->SetText(leftText);
 

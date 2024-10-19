@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -137,12 +137,14 @@
     <ClCompile Include="terminal-calendar.cpp" />
     <ClCompile Include="TerminalApplication.cpp" />
     <ClCompile Include="TerminalCell.cpp" />
+    <ClCompile Include="TerminalControls\Label\TerminalLabel.cpp" />
+    <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp" />
+    <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp" />
+    <ClCompile Include="TerminalControls\Label\TerminalLabelSwitcher.cpp" />
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalLRLabel.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="utils\common.cpp" />
     <ClCompile Include="utils\utf8string.cpp" />
@@ -153,13 +155,15 @@
     <ClInclude Include="ListDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalCell.h" />
+    <ClInclude Include="TerminalControls\Label\TerminalLabel.h" />
+    <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h" />
+    <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h" />
+    <ClInclude Include="TerminalControls\Label\TerminalLabelSwitcher.h" />
     <ClInclude Include="TerminalControls\TerminalButton.h" />
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
     <ClInclude Include="TerminalControls\TerminalControl.h" />
-    <ClInclude Include="TerminalControls\TerminalLRLabel.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
-    <ClInclude Include="TerminalControls\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />
     <ClInclude Include="TextStyle.h" />

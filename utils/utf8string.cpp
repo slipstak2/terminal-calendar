@@ -12,11 +12,13 @@ Rune::Rune(char c) {
     clear();
     data[0] = c;
 }
+
 Rune::Rune(const char* s) {
     clear();
     uint8_t len = utf8SymbolLen(s[0]);
     copy(s, len);
 }
+
 Rune::Rune(const char* s, uint8_t len) {
     clear();
     copy(s, len);
@@ -29,24 +31,31 @@ const uint8_t*  Rune::get() const{
 void Rune::clear() {
     memset(data, 0, sizeof(data));
 }
+
 void Rune::copy(const char* s, uint8_t len) {
     memcpy(data, s, len);
 }
 
 
+Utf8String Utf8String::Empty;
+
 Utf8String::Utf8String(char c) {
     runes.push_back(c);
 }
+
 Utf8String::Utf8String(const char* s) {
     Init(s);
 }
+
 Utf8String::Utf8String(const char* s, short len) {
     Rune c(s);
     runes.resize(len, c);
 }
+
 Utf8String::Utf8String(const std::string& s) {
     Init(s.data());
 }
+
 size_t Utf8String::size() const {
     return runes.size();
 }

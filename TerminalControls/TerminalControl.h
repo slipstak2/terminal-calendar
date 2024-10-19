@@ -18,8 +18,10 @@ public:
     enum class Kind {
         CONTROL,
         COMPOSITE_CONTROL,
+        LABEL_BASE,
         LABEL,
-        LR_LABEL,
+        LABEL_DATA_PROVIDER,
+        LABEL_SWITCHER,
         BUTTON,
         WINDOW
     };
