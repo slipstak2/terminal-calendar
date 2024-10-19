@@ -17,7 +17,7 @@ void TerminalWindow::SetBackground(const TerminalCell& cell) {
 }
 
 void TerminalWindow::SetBorderColor(const FontColor& borderColor) {
-    BorderColor = borderColor;
+    borderFormatSettings.fontColor = borderColor;
 }
 
 void TerminalWindow::SetName(const std::string& newName) {
@@ -31,30 +31,30 @@ void TerminalWindow::AddControl(TerminalControlPtr control) {
 
 void TerminalWindow::FlushUpBorder() {
     short row = 0;
-    data[row][0] = CreateCell("╭", BorderColor);
+    data[row][0] = CreateCell("╭", &borderFormatSettings);
     for (short col = 1; col < Width() - 1; ++col) {
-        data[row][col] = CreateCell("─", BorderColor);
+        data[row][col] = CreateCell("─", &borderFormatSettings);
     }
-    data[row][Width() - 1] = CreateCell("╮", BorderColor);
+    data[row][Width() - 1] = CreateCell("╮", &borderFormatSettings);
 }
 
 void TerminalWindow::FlushBottomBorder() {
     short row = Height() - 1;
-    data[row][0] = CreateCell("╰", BorderColor);
+    data[row][0] = CreateCell("╰", &borderFormatSettings);
     for (short col = 1; col < Width() - 1; ++col) {
-        data[row][col] = CreateCell("─", BorderColor);
+        data[row][col] = CreateCell("─", &borderFormatSettings);
     }
-    data[row][Width() - 1] = CreateCell("╯", BorderColor);
+    data[row][Width() - 1] = CreateCell("╯", &borderFormatSettings);
 }
 
 void TerminalWindow::FlushSelf() {
     FlushUpBorder();
     for (short row = 1; row < Height() - 1; ++row) {
-        data[row][0] = CreateCell("│", BorderColor);
+        data[row][0] = CreateCell("│", &borderFormatSettings);
         for (short col = 1; col < Width() - 1; ++col) {
             data[row][col] = BackgroundCell;
         }
-        data[row][Width() - 1] = CreateCell("│", BorderColor);
+        data[row][Width() - 1] = CreateCell("│", &borderFormatSettings);
     }
     FlushBottomBorder();
 }

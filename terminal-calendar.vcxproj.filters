@@ -34,6 +34,9 @@
     <Filter Include="Header Files\TextFormat">
       <UniqueIdentifier>{73560a0d-1f73-4884-8dab-e8f6be0574e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\TextFormat">
+      <UniqueIdentifier>{4dfb761d-0d5a-4db5-a3c1-886eae98de09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp">
       <Filter>Source Files\TerminalControls\Label</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFormat\FormatSettings.cpp">
+      <Filter>Source Files\TextFormat</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,7 @@
 #include "utils/common.h"
 #include "TerminalRectangle.h"
 #include "TerminalCell.h"
+#include "TextFormat/FormatSettings.h"
 #include <functional>
 
 #define DECLARE_KIND(base, kind)                                    \
@@ -31,7 +32,7 @@ public:
 public:
     TerminalControl(TerminalCoord position);
     TerminalControl(TerminalCoord position, TerminalSize size);
-    TerminalControl(TerminalCoord position, TerminalSize size, TextStyle textStyle);
+    TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings);
     virtual void AddControl(TerminalControlPtr control);
 
     void SetSize(TerminalSize size);
@@ -42,13 +43,13 @@ public:
     TerminalCell CreateCell(Args... args) {
         TerminalCell cell(std::forward<Args>(args)...);
         cell.SetParent(this);
-        cell.SetTextStyle(textStyle);
         return cell;
     }
     template<class ...Args>
     TerminalCell CreateBackgroundCell(Args... args) {
         TerminalCell cell(std::forward<Args>(args)...);
         cell.SetParent(this);
+        cell.SetFormatSettings(&FormatSettings::Default);
         return cell;
     }
     const TerminalCell& Get(short row, short col);
@@ -72,6 +73,9 @@ public:
     TerminalWindow* GetParentWindow() {
         return parentWindow;
     }
+    const FormatSettings& GetFormatSettings() {
+        return formatSettings;
+    }
 public:
     void Flush();
 protected:
@@ -86,5 +90,5 @@ protected:
 
     std::vector<ClickCallback> clickCallbacks;
 
-    TextStyle textStyle = TextStyle::Default;
+    FormatSettings formatSettings = FormatSettings::Default;
 };

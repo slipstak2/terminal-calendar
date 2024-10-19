@@ -4,21 +4,21 @@
 #include "TextFormat/FontColor.h"
 #include "TextFormat/BackgroundColor.h"
 #include "TextFormat/TextStyle.h"
+#include "TextFormat/FormatSettings.h"
 
 class TerminalCell {
 public:
     TerminalCell() = default;
     explicit TerminalCell(const Rune& rune);
-    TerminalCell(const Rune& rune, const FontColor& fColor);
-    TerminalCell(const Rune& rune, const FontColor& fColor, const BackgroundColor& bColor);
-    TerminalCell(const Rune& rune, const FontColor& fColor, const BackgroundColor& bColor, const TextStyle& tStyle);
+    TerminalCell(const Rune& rune, const FormatSettings* formatSettings);
     TerminalCell(const TerminalCell& other);
 
     const TerminalControl* GetParent() const;
     TerminalControl* GetParent();
 
     void SetParent(TerminalControl* newParent);
-    void SetTextStyle(TextStyle textStyle);
+    void SetFormatSettings(const FormatSettings* formatSettings);
+    const FormatSettings& GetFormatSettings() const;
     void Render() const;
     bool operator == (const TerminalCell& rhs);
     bool operator != (const TerminalCell& rhs);
@@ -26,9 +26,6 @@ public:
 private:
     Rune data = Rune(" ");
 
-    TextStyle textStyle = TextStyle::Default;
-    FontColor fontColor = FontColor::Default;
-    BackgroundColor backgroundColor = BackgroundColor::Default;
-
     TerminalControl* parent = nullptr;
+    const FormatSettings* formatSettings = nullptr;
 };

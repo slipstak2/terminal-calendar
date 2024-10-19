@@ -10,9 +10,9 @@ TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size)
     SetSize(size);
 }
 
-TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size, TextStyle textStyle)
+TerminalControl::TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings)
     : TerminalRectangle(position)
-    , textStyle(textStyle)
+    , formatSettings(formatSettings)
 {
     SetSize(size);
 }

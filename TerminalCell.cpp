@@ -1,11 +1,22 @@
 ﻿#include "TerminalCell.h"
+#include "TerminalControl.h"
 
 void TerminalCell::SetParent(TerminalControl* newParent) {
     parent = newParent;
 }
 
-void TerminalCell::SetTextStyle(TextStyle newTextStyle) {
-    textStyle = newTextStyle;
+const FormatSettings& TerminalCell::GetFormatSettings() const {
+    if (formatSettings) {
+        return *formatSettings;
+    }
+    if (parent) {
+        return parent->GetFormatSettings();
+    }
+    return FormatSettings::Default;
+}
+
+void TerminalCell::SetFormatSettings(const FormatSettings* newFormatSettings) {
+    formatSettings = newFormatSettings;
 }
 
 const TerminalControl* TerminalCell::GetParent() const {
@@ -17,9 +28,16 @@ TerminalControl* TerminalCell::GetParent() {
 }
 
 bool TerminalCell::operator == (const TerminalCell& rhs) {
-    return 
-        std::tie(data, fontColor, backgroundColor, textStyle, parent) == 
-        std::tie(rhs.data, rhs.fontColor, rhs.backgroundColor, rhs.textStyle, rhs.parent);
+    bool isEqual =  
+        std::tie(data, parent, formatSettings) == 
+        std::tie(rhs.data, rhs.parent, rhs.formatSettings);
+    if (!isEqual) {
+        return false;
+    }
+    if (formatSettings && rhs.formatSettings) {
+        return *formatSettings == *rhs.formatSettings;
+    }
+    return false;
 }
 
 bool TerminalCell::operator != (const TerminalCell& rhs) {
@@ -35,7 +53,13 @@ bool TerminalCell::operator != (const TerminalCell& rhs) {
 // https://habr.com/ru/articles/119436/
 // https://habr.com/ru/companies/macloud/articles/558316/
 void TerminalCell::Render() const {
-    printf("\033[%d;%d;%dm%s\033[0m", (int)(textStyle), int(backgroundColor), (int)fontColor, data.get());
+    auto fmtSettings = GetFormatSettings();
+    printf("\033[%d;%d;%dm%s\033[0m", 
+        (int)(fmtSettings.textStyle), 
+        int(fmtSettings.backgroundColor), 
+        (int)fmtSettings.fontColor, 
+        data.get()
+    );
 
     // \033[38;2;<r>;<g>;<b>m           #Select RGB foreground color
     // \033[48; 2; <r>; <g>; <b>m       #Select RGB background color
@@ -48,28 +72,14 @@ TerminalCell::TerminalCell(const Rune& rune)
     : data(rune) 
 {}
 
-TerminalCell::TerminalCell(const Rune& rune, const FontColor& fColor)
+TerminalCell::TerminalCell(const Rune& rune, const FormatSettings* formatSettings)
     : data(rune)
-    , fontColor(fColor)
+    , formatSettings(formatSettings)
 {}
 
-TerminalCell::TerminalCell(const Rune& rune, const FontColor& fColor, const BackgroundColor& bColor)
-    : data(rune)
-    , fontColor(fColor)
-    , backgroundColor(bColor)
-{}
-
-TerminalCell::TerminalCell(const Rune& rune, const FontColor& fColor, const BackgroundColor& bColor, const TextStyle& tStyle)
-    : data(rune)
-    , fontColor(fColor)
-    , backgroundColor(bColor)
-    , textStyle(tStyle)
-{}
 
 TerminalCell::TerminalCell(const TerminalCell& other)
     : data(other.data)
-    , fontColor(other.fontColor)
-    , backgroundColor(other.backgroundColor)
-    , textStyle(other.textStyle)
     , parent(other.parent)
+    , formatSettings(other.formatSettings)
 {}

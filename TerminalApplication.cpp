@@ -54,7 +54,7 @@ TerminalApplication::TerminalApplication()  {
 
     auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
     IvanWindow->SetName("Ivan");
-    IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
+    //IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
     auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
@@ -72,7 +72,7 @@ TerminalApplication::TerminalApplication()  {
 
     auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);
     IgorWindow->SetName("Igor");
-    IgorWindow->SetBackground(TerminalCell(' ', FontColor::Brightcyan));
+    //IgorWindow->SetBackground(TerminalCell(' ', FontColor::Brightcyan));
     IgorWindow->SetBorderColor(FontColor::Green);
     auto IgorLabel = TerminalLabel::Create("Игорь", TerminalCoord{ .row = 0, .col = 3 });
     IgorWindow->AddControl(IgorLabel);
@@ -86,7 +86,7 @@ TerminalApplication::TerminalApplication()  {
 
     auto DanilWindow = CreateTerminalWindow(5, 12, 22, 45);
     DanilWindow->SetName("Danil");
-    DanilWindow->SetBackground(TerminalCell(' ', FontColor::Brightred));
+    //DanilWindow->SetBackground(TerminalCell(' ', FontColor::Brightred));
     DanilWindow->SetBorderColor(FontColor::Red);
 
     auto DanilLabel = TerminalLabel::Create("Danil", TerminalCoord{ .col = 3 });

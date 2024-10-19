@@ -146,6 +146,7 @@
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
+    <ClCompile Include="TextFormat\FormatSettings.cpp" />
     <ClCompile Include="utils\common.cpp" />
     <ClCompile Include="utils\utf8string.cpp" />
   </ItemGroup>
