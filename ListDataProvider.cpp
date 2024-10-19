@@ -1,13 +1,13 @@
 #include "ListDataProvider.h"
 #include <algorithm>
 
-ListDataProvider::ListDataProvider(std::vector<Utf8String> data)
-    : data(std::move(data))
+ListDataProvider::ListDataProvider(std::vector<Utf8String> items)
+    : items(std::move(items))
     , pos(0)
 {}
 
 const Utf8String& ListDataProvider::Get() const {
-    return data[pos];
+    return items[pos];
 }
 
 bool ListDataProvider::Next() {
@@ -15,7 +15,7 @@ bool ListDataProvider::Next() {
         return false;
     }
     ++pos;
-    OnChange(data[pos-1], data[pos]);
+    OnChange(items[pos-1], items[pos]);
     return true;
 }
 
@@ -23,7 +23,7 @@ bool ListDataProvider::HasNext() {
     if (pos == -1) {
         return false;
     }
-    return pos + 1 < data.size();
+    return pos + 1 < items.size();
 }
 
 bool ListDataProvider::Prev() {
@@ -31,7 +31,7 @@ bool ListDataProvider::Prev() {
         return false;
     }
     --pos;
-    OnChange(data[pos + 1], data[pos]);
+    OnChange(items[pos + 1], items[pos]);
     return true;
 }
 
@@ -43,15 +43,15 @@ bool ListDataProvider::HasPrev() {
 }
 
 bool ListDataProvider::Empty() const {
-    return data.empty();
+    return items.empty();
 }
 
 short ListDataProvider::MaxLen() const {
-    if (data.empty()) {
+    if (items.empty()) {
         return 0;
     }
 
-    return (short)std::max_element(data.begin(), data.end(),
+    return (short)std::max_element(items.begin(), items.end(),
         [](const Utf8String& lhs, const Utf8String& rhs) {
             return lhs.size() < rhs.size();
         })->size();

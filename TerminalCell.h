@@ -24,7 +24,7 @@ public:
     bool operator != (const TerminalCell& rhs);
 
 private:
-    Rune data = Rune(" ");
+    Rune rune = Rune(" ");
 
     TerminalControl* parent = nullptr;
     const FormatSettings* formatSettings = nullptr;

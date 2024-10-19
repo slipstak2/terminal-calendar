@@ -29,8 +29,8 @@ TerminalControl* TerminalCell::GetParent() {
 
 bool TerminalCell::operator == (const TerminalCell& rhs) {
     bool isEqual =  
-        std::tie(data, parent, formatSettings) == 
-        std::tie(rhs.data, rhs.parent, rhs.formatSettings);
+        std::tie(rune, parent, formatSettings) ==
+        std::tie(rhs.rune, rhs.parent, rhs.formatSettings);
     if (!isEqual) {
         return false;
     }
@@ -58,7 +58,7 @@ void TerminalCell::Render() const {
         (int)(fmtSettings.textStyle), 
         int(fmtSettings.backgroundColor), 
         (int)fmtSettings.fontColor, 
-        data.get()
+        rune.get()
     );
 
     // \033[38;2;<r>;<g>;<b>m           #Select RGB foreground color
@@ -69,17 +69,17 @@ void TerminalCell::Render() const {
 }
 
 TerminalCell::TerminalCell(const Rune& rune) 
-    : data(rune) 
+    : rune(rune)
 {}
 
 TerminalCell::TerminalCell(const Rune& rune, const FormatSettings* formatSettings)
-    : data(rune)
+    : rune(rune)
     , formatSettings(formatSettings)
 {}
 
 
 TerminalCell::TerminalCell(const TerminalCell& other)
-    : data(other.data)
+    : rune(other.rune)
     , parent(other.parent)
     , formatSettings(other.formatSettings)
 {}

@@ -9,6 +9,8 @@ public:
 
     TerminalLabelSwitcher(ListDataProviderPtr dataProvider, TerminalCoord position);
 
+    void SetLabelFormatSettings(const FormatSettings labelFormatSettings);
+
 protected:
     void CheckState();
 protected:

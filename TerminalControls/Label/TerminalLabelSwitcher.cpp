@@ -46,3 +46,7 @@ void TerminalLabelSwitcher::CheckState() {
     Utf8String rightText = dataProvider->HasNext() ? " ▶" : " ▷";
     btnRight->SetText(rightText);
 }
+
+void TerminalLabelSwitcher::SetLabelFormatSettings(const FormatSettings labelFormatSettings) {
+    label->SetFormatSettings(labelFormatSettings);
+}

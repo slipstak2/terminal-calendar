@@ -76,6 +76,9 @@ public:
     const FormatSettings& GetFormatSettings() {
         return formatSettings;
     }
+    void SetFormatSettings(FormatSettings newFormatSettings) {
+        formatSettings = newFormatSettings;
+    }
 public:
     void Flush();
 protected:

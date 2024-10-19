@@ -20,7 +20,7 @@ public:
 
     void AddChangeCallback(ChangeCallback changeCallback);
 protected:
-    std::vector<Utf8String> data;
+    std::vector<Utf8String> items;
     int pos = -1;
 protected:
     void OnChange(const Utf8String& prev, const Utf8String& current);

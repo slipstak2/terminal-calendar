@@ -54,7 +54,6 @@ TerminalApplication::TerminalApplication()  {
 
     auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
     IvanWindow->SetName("Ivan");
-    //IvanWindow->SetBackground(TerminalCell(' ', FontColor::Brightyellow));
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
     auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
@@ -72,7 +71,6 @@ TerminalApplication::TerminalApplication()  {
 
     auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);
     IgorWindow->SetName("Igor");
-    //IgorWindow->SetBackground(TerminalCell(' ', FontColor::Brightcyan));
     IgorWindow->SetBorderColor(FontColor::Green);
     auto IgorLabel = TerminalLabel::Create("Игорь", TerminalCoord{ .row = 0, .col = 3 });
     IgorWindow->AddControl(IgorLabel);
@@ -80,6 +78,7 @@ TerminalApplication::TerminalApplication()  {
     std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрик$on", "Митрофан" };
     auto familyDataProvider= ListDataProvider::Create(family);
     auto LRLabel = TerminalLabelSwitcher::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
+    LRLabel->SetLabelFormatSettings({ .textStyle = TextStyle::Overline });
     IgorWindow->AddControl(LRLabel);
 
     AddWindow(IgorWindow);
