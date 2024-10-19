@@ -31,6 +31,9 @@
     <Filter Include="Source Files\TerminalControls\Label">
       <UniqueIdentifier>{19f80de3-3f68-49f9-aefb-1c3d1b285c46}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TextFormat">
+      <UniqueIdentifier>{73560a0d-1f73-4884-8dab-e8f6be0574e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="terminal-calendar.cpp">
@@ -86,13 +89,7 @@
     <ClInclude Include="utils\utf8string.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="FontColor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BackgroundColor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerminalRectangle.h">
@@ -122,9 +119,6 @@
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TextStyle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h">
       <Filter>Header Files\TerminalControls\Label</Filter>
     </ClInclude>
@@ -136,6 +130,18 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h">
       <Filter>Header Files\TerminalControls\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\BackgroundColor.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\FontColor.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\TextStyle.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\FormatSettings.h">
+      <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

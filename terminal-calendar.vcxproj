@@ -150,8 +150,6 @@
     <ClCompile Include="utils\utf8string.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackgroundColor.h" />
-    <ClInclude Include="FontColor.h" />
     <ClInclude Include="ListDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalCell.h" />
@@ -166,7 +164,10 @@
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />
-    <ClInclude Include="TextStyle.h" />
+    <ClInclude Include="TextFormat\BackgroundColor.h" />
+    <ClInclude Include="TextFormat\FontColor.h" />
+    <ClInclude Include="TextFormat\FormatSettings.h" />
+    <ClInclude Include="TextFormat\TextStyle.h" />
     <ClInclude Include="utils\common.h" />
     <ClInclude Include="utils\utf8string.h" />
   </ItemGroup>

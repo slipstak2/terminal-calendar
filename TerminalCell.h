@@ -1,9 +1,9 @@
 #pragma once
 
 #include "utils/utf8string.h"
-#include "FontColor.h"
-#include "BackgroundColor.h"
-#include "TextStyle.h"
+#include "TextFormat/FontColor.h"
+#include "TextFormat/BackgroundColor.h"
+#include "TextFormat/TextStyle.h"
 
 class TerminalCell {
 public:
