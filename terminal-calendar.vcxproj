@@ -162,6 +162,7 @@
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
     <ClInclude Include="TerminalControls\TerminalControl.h" />
+    <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />

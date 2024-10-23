@@ -149,6 +149,9 @@
     <ClInclude Include="TextFormat\FormatSettings.h">
       <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalListView.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
