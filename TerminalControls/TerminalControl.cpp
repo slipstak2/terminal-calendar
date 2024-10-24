@@ -25,6 +25,10 @@ void TerminalControl::SetSize(TerminalSize newSize) {
     }
 }
 
+void TerminalControl::SetPosition(TerminalCoord newPosition) {
+    position = newPosition;
+}
+
 void TerminalControl::SetParentWindow(TerminalWindow* newParentWindow) {
     parentWindow = newParentWindow;
     for (auto& control : controls) {

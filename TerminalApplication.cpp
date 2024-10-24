@@ -57,6 +57,9 @@ TerminalApplication::TerminalApplication()  {
     auto debugListView = TerminalListView::Create(TerminalCoord{ .row = 1, .col = 88 }, TerminalSize{.height = 28, .width = 30});
     backgroundWindow->AddControl(debugListView);
 
+    debugListView->AddItem("message #1");
+    debugListView->AddItem("message #2");
+
     auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
     IvanWindow->SetName("Ivan");
     IvanWindow->SetBorderColor(FontColor::Yellow);

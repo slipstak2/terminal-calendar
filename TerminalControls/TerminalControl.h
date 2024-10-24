@@ -36,7 +36,8 @@ public:
     TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings);
     virtual void AddControl(TerminalControlPtr control);
 
-    void SetSize(TerminalSize size);
+    void SetSize(TerminalSize newSize);
+    void SetPosition(TerminalCoord newPosition);
 
     void SetParentWindow(TerminalWindow* parentWindow);
 
