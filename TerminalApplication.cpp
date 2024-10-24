@@ -7,6 +7,7 @@
 #include "TerminalRootControl.h"
 #include "TerminalLabelSwitcher.h"
 #include "ListDataProvider.h"
+#include "TerminalListView.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -50,7 +51,11 @@ TerminalApplication::TerminalApplication()  {
     rootControl = TerminalRootControl::Create(rows, cols);
     canvas = TerminalCanvas::Create(outputHandle, rows, cols);
 
-    AddWindow(CreateBackgroundWindow(rows, cols));
+    auto backgroundWindow = CreateBackgroundWindow(rows, cols);
+    AddWindow(backgroundWindow);
+
+    auto debugListView = TerminalListView::Create(TerminalCoord{ .row = 1, .col = 88 }, TerminalSize{.height = 28, .width = 30});
+    backgroundWindow->AddControl(debugListView);
 
     auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
     IvanWindow->SetName("Ivan");

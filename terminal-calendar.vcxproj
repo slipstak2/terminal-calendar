@@ -144,6 +144,7 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />

@@ -24,6 +24,7 @@ public:
         LABEL_DATA_PROVIDER,
         LABEL_SWITCHER,
         BUTTON,
+        LIST_VIEW,
         WINDOW
     };
     static const TerminalControl::Kind KIND = Kind::CONTROL;

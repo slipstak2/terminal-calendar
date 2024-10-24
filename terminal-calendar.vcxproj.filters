@@ -87,6 +87,9 @@
     <ClCompile Include="TextFormat\FormatSettings.cpp">
       <Filter>Source Files\TextFormat</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalListView.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
