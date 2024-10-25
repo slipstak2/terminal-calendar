@@ -1,5 +1,6 @@
 #pragma once
 #include "TerminalCompositeControl.h"
+#include "ListViewDataProvider.h"
 
 class TerminalListView : public TerminalCompositeControl {
 public:
@@ -12,6 +13,7 @@ public:
 
     void FlushSelf() override;
 protected:
+    ListViewDataProvider provider;
     std::vector<TerminalLabelPtr> items;
 
 };

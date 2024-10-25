@@ -9,6 +9,8 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 }
 
 void TerminalListView::AddItem(std::string value) {
+    provider.AddItem(value);
+
     auto label = TerminalLabel::Create(Utf8String(value), TerminalCoord{});
     AddControl(label);
     items.push_back(label);

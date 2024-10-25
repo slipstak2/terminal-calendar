@@ -57,8 +57,9 @@ TerminalApplication::TerminalApplication()  {
     auto debugListView = TerminalListView::Create(TerminalCoord{ .row = 1, .col = 88 }, TerminalSize{.height = 28, .width = 30});
     backgroundWindow->AddControl(debugListView);
 
-    debugListView->AddItem("message #1");
-    debugListView->AddItem("message #2");
+    for (int i = 1; i < 60; ++i) {
+        debugListView->AddItem("message #" + std::to_string(i)) ;
+    }
 
     auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
     IvanWindow->SetName("Ivan");
