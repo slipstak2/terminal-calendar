@@ -19,7 +19,7 @@ const Utf8String& TerminalLabelDataProvider::Get() const {
     return Utf8String::Empty;
 }
 
-short TerminalLabelDataProvider::Size() const {
+short TerminalLabelDataProvider::Length() const {
     if (dataProvider && !dataProvider->Empty()) {
         return dataProvider->MaxLen();
     }

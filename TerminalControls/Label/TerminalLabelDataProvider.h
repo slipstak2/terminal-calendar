@@ -11,7 +11,7 @@ public:
 public:
     TerminalLabelDataProvider(ListDataProviderPtr dataProvider, TerminalCoord position);
     const Utf8String& Get() const override;
-    short Size() const override;
+    short Length() const override;
 
 protected:
     ListDataProviderPtr dataProvider = nullptr;

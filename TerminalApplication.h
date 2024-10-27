@@ -19,7 +19,6 @@ public:
 
     void FullRender();
 
-
 private:
     HANDLE inputHandle;
     HANDLE outputHandle;

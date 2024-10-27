@@ -11,9 +11,10 @@ public:
 
 public:
     TerminalLabel(const Utf8String& label, TerminalCoord position);
+    TerminalLabel(TerminalCoord position, TerminalSize size);
 
     const Utf8String& Get() const override;
-    short Size() const override;
+    short Length() const override;
     void SetText(const Utf8String& newText);
 
 protected:

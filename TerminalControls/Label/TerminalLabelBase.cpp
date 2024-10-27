@@ -7,7 +7,7 @@ TerminalLabelBase::TerminalLabelBase(TerminalCoord position, TerminalSize size)
 
 void TerminalLabelBase::FlushSelf() {
     const Utf8String& s = Get();
-    short len = Size();
+    short len = Length();
     Utf8String target(" ", len);
     short offset = short(target.size() - s.size() + 1) / 2;
     for (int i = 0; i < s.size(); ++i) {

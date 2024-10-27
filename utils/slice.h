@@ -12,12 +12,16 @@ public:
 
     const Utf8String& operator [] (size_t index) const {
         if (index >= length) {
-            return "";
+            return Utf8String::Empty;
         }
         if (offset + index >= container.size()) {
-            return "";
+            return Utf8String::Empty;
         }
         return container[offset + index];
+    }
+
+    size_t size() {
+        return length;
     }
 
 protected:

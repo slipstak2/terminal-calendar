@@ -57,7 +57,7 @@ TerminalApplication::TerminalApplication()  {
     auto debugListView = TerminalListView::Create(TerminalCoord{ .row = 1, .col = 88 }, TerminalSize{.height = 28, .width = 30});
     backgroundWindow->AddControl(debugListView);
 
-    for (int i = 1; i < 60; ++i) {
+    for (int i = 1; i < 10; ++i) {
         debugListView->AddItem("message #" + std::to_string(i)) ;
     }
 

@@ -14,6 +14,4 @@ public:
     void FlushSelf() override;
 protected:
     ListViewDataProvider provider;
-    std::vector<TerminalLabelPtr> items;
-
 };

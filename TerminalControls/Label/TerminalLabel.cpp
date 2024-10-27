@@ -6,15 +6,20 @@ TerminalLabel::TerminalLabel(const Utf8String& label, TerminalCoord position)
     , text(label)
 {}
 
+TerminalLabel::TerminalLabel(TerminalCoord position, TerminalSize size)
+    : TerminalLabelBase(position, size)
+    , text(Utf8String::Empty)
+{}
+
 const Utf8String& TerminalLabel::Get() const {
     return text;
 }
 
-short TerminalLabel::Size() const {
+short TerminalLabel::Length() const {
     return (short)text.size();
 }
 
 void TerminalLabel::SetText(const Utf8String& newText) { // TODO: Separate TerminalLabel and TerminalDataProviderLabel
-    assert(newText.size() <= text.size());
+    assert(newText.size() <= Width());
     text = newText;
 }

@@ -6,25 +6,21 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 {
     formatSettings.backgroundColor = BackgroundColor::Black;
     formatSettings.fontColor = FontColor::Yellow;
+
+    for (short row = 0; row < Height(); ++row) {
+        auto label = TerminalLabel::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
+        AddControl(label);
+    }
 }
 
 void TerminalListView::AddItem(std::string value) {
     provider.AddItem(value);
-
-    auto label = TerminalLabel::Create(Utf8String(value), TerminalCoord{});
-    AddControl(label);
-    items.push_back(label);
 }
 
 void TerminalListView::FlushSelf() {
-    for (int i = 0; i < items.size(); ++i) {
-        items[i]->SetPosition({ .row = (short)i, .col = 0 });
+    auto slice = provider.GetLast(Height());
+    for (int i = 0; i < slice.size(); ++i) {
+        auto& text = slice[i];
+        controls[i]->As<TerminalLabel>()->SetText(text);
     }
-
-    for (int row = 0; row < Height(); ++row) {
-        for (int col = 0; col < Width(); ++col) {
-            data[row][col] = CreateCell('M');
-        }
-    }
-
 }

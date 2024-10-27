@@ -61,6 +61,11 @@ public:
         return this->IsKindOf(T::KIND) ? static_cast<const T*>(this) : nullptr;
     }
 
+    template<class T>
+    T* As() {
+        return this->IsKindOf(T::KIND) ? static_cast<T*>(this) : nullptr;
+    }
+
     void AddClickCallback(ClickCallback clkCallback) {
         clickCallbacks.push_back(std::move(clkCallback));
     }

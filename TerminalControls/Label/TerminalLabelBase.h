@@ -11,7 +11,7 @@ public:
     TerminalLabelBase(TerminalCoord position, TerminalSize size);
     
     virtual const Utf8String& Get() const = 0;
-    virtual short Size() const = 0;
+    virtual short Length() const = 0;
 
 protected:
     void FlushSelf() override;
