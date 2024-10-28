@@ -6,8 +6,23 @@ TerminalLabelBase::TerminalLabelBase(TerminalCoord position, TerminalSize size)
 }
 
 void TerminalLabelBase::FlushSelf() {
-    const Utf8String& s = Get();
-    short len = Length();
+    FlushSelfAllignLeft(Get());
+}
+
+void TerminalLabelBase::FlushSelfAllignLeft(const Utf8String& s) {
+    short len = Width();
+    for (int i = 0; i < len; ++i) {
+        if (i < s.size()) {
+            data[0][i] = CreateCell(s[i]);
+        }
+        else {
+            data[0][i] = CreateBackgroundCell(" ");
+        }
+    }
+}
+
+void TerminalLabelBase::FlushSelfAllignCenter(const Utf8String& s) {
+    short len = Width();
     Utf8String target(" ", len);
     short offset = short(target.size() - s.size() + 1) / 2;
     for (int i = 0; i < s.size(); ++i) {

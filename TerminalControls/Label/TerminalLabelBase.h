@@ -15,4 +15,7 @@ public:
 
 protected:
     void FlushSelf() override;
+
+    void FlushSelfAllignLeft(const Utf8String& text);
+    void FlushSelfAllignCenter(const Utf8String& text);
 };

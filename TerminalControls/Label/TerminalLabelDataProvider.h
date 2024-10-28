@@ -13,6 +13,8 @@ public:
     const Utf8String& Get() const override;
     short Length() const override;
 
+    void FlushSelf() override;
+
 protected:
     ListDataProviderPtr dataProvider = nullptr;
 };
