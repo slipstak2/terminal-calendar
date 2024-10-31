@@ -37,6 +37,7 @@ void TerminalControl::SetParentWindow(TerminalWindow* newParentWindow) {
 }
 
 void TerminalControl::AddControl(TerminalControlPtr control) {
+    control->parent = this;
     controls.push_back(control);
 }
 
@@ -60,4 +61,8 @@ void TerminalControl::FlushControls() {
             }
         }
     }
+}
+
+std::vector<TerminalControlPtr>& TerminalControl::GetControls() {
+    return controls;
 }

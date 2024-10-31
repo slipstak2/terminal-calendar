@@ -8,6 +8,10 @@ uint8_t utf8SymbolLen(uint8_t firstSymbol) {
     return 0;
 }
 
+Rune::Rune() {
+    clear();
+}
+
 Rune::Rune(char c) {
     clear();
     data[0] = c;
@@ -52,6 +56,10 @@ Utf8String::Utf8String(const char* s, short len) {
     runes.resize(len, c);
 }
 
+Utf8String::Utf8String(const Rune& rune) {
+    runes.resize(1, rune);
+}
+
 Utf8String::Utf8String(const std::string& s) {
     Init(s.data());
 }
@@ -65,6 +73,19 @@ const Rune& Utf8String::operator[] (size_t idx) const {
 
 Rune& Utf8String::operator[] (size_t idx) {
     return runes[idx];
+}
+
+Utf8String Utf8String::operator + (const Utf8String& rhs) {
+    Utf8String result;
+    result.runes.resize(size() + rhs.size());
+    for (size_t i = 0; i < size(); ++i) {
+        result.runes[i] = runes[i];
+    }
+    for (size_t i = size(); i < result.size(); ++i) {
+        result.runes[i] = rhs[i - size()];
+    }
+
+    return result;
 }
 
 void Utf8String::Init(const char* data) {

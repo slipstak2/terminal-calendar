@@ -146,6 +146,7 @@
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
+    <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />
@@ -168,6 +169,7 @@
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
+    <ClInclude Include="TerminalRadioButton.h" />
     <ClInclude Include="TerminalRectangle.h" />
     <ClInclude Include="TextFormat\BackgroundColor.h" />
     <ClInclude Include="TextFormat\FontColor.h" />

@@ -93,6 +93,9 @@
     <ClCompile Include="ListViewDataProvider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalRadioButton.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="utils\slice.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalRadioButton.h">
+      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -24,6 +24,7 @@ public:
         LABEL_DATA_PROVIDER,
         LABEL_SWITCHER,
         BUTTON,
+        RADIO_BUTTON,
         LIST_VIEW,
         WINDOW
     };
@@ -80,20 +81,29 @@ public:
     TerminalWindow* GetParentWindow() {
         return parentWindow;
     }
+
+    TerminalControl* GetParent() {
+        return parent;
+    }
+
     const FormatSettings& GetFormatSettings() {
         return formatSettings;
     }
     void SetFormatSettings(FormatSettings newFormatSettings) {
         formatSettings = newFormatSettings;
     }
+
+    std::vector<TerminalControlPtr>& GetControls();
+
 public:
     void Flush();
+    std::string debug = "";
 protected:
     void FlushControls();
     virtual void FlushSelf() = 0;
 
 protected:
-    TerminalControlPtr parent = nullptr;
+    TerminalControl* parent = nullptr;
     TerminalWindow* parentWindow = nullptr;
     std::vector<TerminalControlPtr> controls;
     std::vector<std::vector<TerminalCell>> data;

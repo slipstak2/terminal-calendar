@@ -8,6 +8,7 @@
 #include "TerminalLabelSwitcher.h"
 #include "ListDataProvider.h"
 #include "TerminalListView.h"
+#include "TerminalRadioButton.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -99,6 +100,12 @@ TerminalApplication::TerminalApplication()  {
 
     auto DanilLabel = TerminalLabel::Create("Danil", TerminalCoord{ .col = 3 });
     DanilWindow->AddControl(DanilLabel);
+
+    auto rbBorderOn = TerminalRadioButton::Create("On", TerminalCoord{ .row = 2, .col = 5 });
+    DanilWindow->AddControl(rbBorderOn);
+
+    auto rbBorderOff = TerminalRadioButton::Create("Off", TerminalCoord{ .row = 4, .col = 5 });
+    DanilWindow->AddControl(rbBorderOff);
     AddWindow(DanilWindow);
 }
 

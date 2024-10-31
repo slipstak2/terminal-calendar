@@ -3,6 +3,7 @@
 
 class Rune {
 public:
+    Rune();
     Rune(char c);
     Rune(const char* s);
     Rune(const char* s, uint8_t len);
@@ -30,10 +31,12 @@ public:
     Utf8String(char c);
     Utf8String(const char* s);
     Utf8String(const char* s, short len);
+    Utf8String(const Rune& rune);
     Utf8String(const std::string& s);
     size_t size() const;
     const Rune& operator[] (size_t idx) const;
     Rune& operator[] (size_t idx);
+    Utf8String operator + (const Utf8String& rhs);
 
 protected:
     std::vector<Rune> runes;
