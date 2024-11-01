@@ -96,6 +96,12 @@
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalBorderControl.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderFormat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="TerminalRadioButton.h">
       <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalBorderControl.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="BorderFormat.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

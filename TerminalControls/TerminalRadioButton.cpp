@@ -3,18 +3,22 @@
 
 // https://cloford.com/resources/charcodes/utf-8_geometric.htm
 // https://unicode.org/charts/PDF/U25A0.pdf
-const Rune TerminalRadioButton::EnableRune = Rune("▣");     //Rune("◉")
-const Rune TerminalRadioButton::DisableRune = Rune("□");    //Rune("◯")
+const Rune TerminalRadioButton::EnableRune  = Rune("◉"); // Rune("▣");
+const Rune TerminalRadioButton::DisableRune = Rune("◯"); // Rune("□");
 
 TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord position)
     : TerminalCompositeControl(position, TerminalSize{.height = 1, .width = (short)label.size() + 2})
 {
-    radioButton = TerminalButton::Create(Utf8String(DisableRune) + " ", TerminalCoord{.row = 0, .col = 0});
-    radioButton->AddClickCallback([this]() {
+    auto clickCallBack = [this]() {
         return SetEnable(true);
-        });
+        };
+    
+    radioButton = TerminalButton::Create(Utf8String(DisableRune) + " ", TerminalCoord{.row = 0, .col = 0});
+    radioButton->AddClickCallback(clickCallBack);
     AddControl(radioButton);
+    
     labelButton = TerminalButton::Create(label, TerminalCoord{ .row = 0, .col = ONE + ONE});
+    labelButton->AddClickCallback(clickCallBack);
     AddControl(labelButton);
 
     formatSettings.backgroundColor = BackgroundColor::Yellow;

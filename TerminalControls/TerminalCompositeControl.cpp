@@ -10,7 +10,7 @@ TerminalCompositeControl::TerminalCompositeControl(TerminalCoord position, Termi
 
 void TerminalCompositeControl::FlushSelf() {}
 
-void TerminalCompositeControl::AddControl(TerminalControlPtr control) {
+void TerminalCompositeControl::AddControl(TerminalControlPtr control) { //TODO: switch beetween windows
     control->SetParentWindow(parentWindow);
     TerminalControl::AddControl(control);
 }

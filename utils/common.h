@@ -39,3 +39,6 @@ using TerminalButtonPtr = std::shared_ptr<TerminalButton>;
 
 class ListDataProvider;
 using ListDataProviderPtr = std::shared_ptr<ListDataProvider>;
+
+class TerminalCompositeControl;
+using TerminalCompositeControlPtr = std::shared_ptr<TerminalCompositeControl>;

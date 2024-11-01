@@ -9,6 +9,7 @@
 #include "ListDataProvider.h"
 #include "TerminalListView.h"
 #include "TerminalRadioButton.h"
+#include "TerminalBorderControl.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -55,8 +56,16 @@ TerminalApplication::TerminalApplication()  {
     auto backgroundWindow = CreateBackgroundWindow(rows, cols);
     AddWindow(backgroundWindow);
 
-    auto debugListView = TerminalListView::Create(TerminalCoord{ .row = 1, .col = 88 }, TerminalSize{.height = 28, .width = 30});
-    backgroundWindow->AddControl(debugListView);
+    auto dbgGroupBox = TerminalBorderControl::Create(
+        "Debug info", 
+        TerminalCoord{ .row = 1, .col = 88 }, 
+        TerminalSize{ .height = 28, .width = 30 });
+    backgroundWindow->AddControl(dbgGroupBox);
+
+    auto debugListView = TerminalListView::Create(
+        TerminalCoord{ .row = 0, .col = 0 }, 
+        TerminalSize{ .height = dbgGroupBox->Height() - 2, .width = dbgGroupBox->Width() - 2 });
+    dbgGroupBox->AddControl(debugListView);
 
     for (int i = 1; i < 10; ++i) {
         debugListView->AddItem("message #" + std::to_string(i)) ;

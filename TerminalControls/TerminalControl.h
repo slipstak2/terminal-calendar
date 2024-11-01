@@ -26,6 +26,8 @@ public:
         BUTTON,
         RADIO_BUTTON,
         LIST_VIEW,
+        GROUP_BOX,
+        BORDER_CONTROL,
         WINDOW
     };
     static const TerminalControl::Kind KIND = Kind::CONTROL;

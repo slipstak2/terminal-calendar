@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BorderFormat.cpp" />
     <ClCompile Include="ListDataProvider.cpp" />
     <ClCompile Include="ListViewDataProvider.cpp" />
     <ClCompile Include="terminal-calendar.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
@@ -154,6 +156,7 @@
     <ClCompile Include="utils\utf8string.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BorderFormat.h" />
     <ClInclude Include="ListDataProvider.h" />
     <ClInclude Include="ListViewDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
     <ClInclude Include="TerminalControls\TerminalControl.h" />
+    <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
