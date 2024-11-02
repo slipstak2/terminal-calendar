@@ -1,3 +1,4 @@
+#pragma once 
 #include "TerminalCompositeControl.h"
 #include "BorderFormat.h"
 
@@ -9,16 +10,17 @@ public:
 
     TerminalBorderControl(const Utf8String& title, TerminalCoord position, TerminalSize size);
 
+    void SetBorderColor(const FontColor& borderColor);
+
     void AddControl(TerminalControlPtr control) override;
 
 protected:
     void FlushSelf() override;
 
-private:
+protected:
     void FlushUpBorder();
     void FlushBottomBorder();
 
-    TerminalCell BackgroundCell = CreateBackgroundCell(' ');
     FormatSettings borderFormatSettings = FormatSettings::Default;
     BorderFormat borderFormat = BorderFormat::Default;
 

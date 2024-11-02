@@ -53,12 +53,12 @@ TerminalApplication::TerminalApplication()  {
     rootControl = TerminalRootControl::Create(rows, cols);
     canvas = TerminalCanvas::Create(outputHandle, rows, cols);
 
-    auto backgroundWindow = CreateBackgroundWindow(rows, cols);
+    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = cols });
     AddWindow(backgroundWindow);
 
     auto dbgGroupBox = TerminalBorderControl::Create(
         "Debug info", 
-        TerminalCoord{ .row = 1, .col = 88 }, 
+        TerminalCoord{ .row = 1, .col = 89 }, 
         TerminalSize{ .height = 28, .width = 30 });
     backgroundWindow->AddControl(dbgGroupBox);
 
@@ -70,13 +70,9 @@ TerminalApplication::TerminalApplication()  {
     for (int i = 1; i < 10; ++i) {
         debugListView->AddItem("message #" + std::to_string(i)) ;
     }
-
-    auto IvanWindow = CreateTerminalWindow(3, 4, 15, 40);
-    IvanWindow->SetName("Ivan");
+    
+    auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
-
-    auto IvanLabel = TerminalLabel::Create("Иван", TerminalCoord{ .row = 0, .col = 5 });
-    IvanWindow->AddControl(IvanLabel);
 
     std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь"};
     auto MonthDataProviderPtr = ListDataProvider::Create(months);
@@ -88,11 +84,8 @@ TerminalApplication::TerminalApplication()  {
 
     AddWindow(IvanWindow);
 
-    auto IgorWindow = CreateTerminalWindow(10, 15, 13, 45);
-    IgorWindow->SetName("Igor");
+    auto IgorWindow = TerminalWindow::Create("Igor", TerminalCoord{ .row = 10, .col = 15 }, TerminalSize{ .height = 13, .width = 45 });
     IgorWindow->SetBorderColor(FontColor::Green);
-    auto IgorLabel = TerminalLabel::Create("Игорь", TerminalCoord{ .row = 0, .col = 3 });
-    IgorWindow->AddControl(IgorLabel);
 
     std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрик$on", "Митрофан" };
     auto familyDataProvider= ListDataProvider::Create(family);
@@ -102,13 +95,8 @@ TerminalApplication::TerminalApplication()  {
 
     AddWindow(IgorWindow);
 
-    auto DanilWindow = CreateTerminalWindow(5, 12, 22, 45);
-    DanilWindow->SetName("Danil");
-    //DanilWindow->SetBackground(TerminalCell(' ', FontColor::Brightred));
+    auto DanilWindow = TerminalWindow::Create("Danil", TerminalCoord{ .row = 5, .col = 12 }, TerminalSize{ .height = 22, .width = 45 });
     DanilWindow->SetBorderColor(FontColor::Red);
-
-    auto DanilLabel = TerminalLabel::Create("Danil", TerminalCoord{ .col = 3 });
-    DanilWindow->AddControl(DanilLabel);
 
     auto rbBorderOn = TerminalRadioButton::Create("On", TerminalCoord{ .row = 2, .col = 5 });
     DanilWindow->AddControl(rbBorderOn);

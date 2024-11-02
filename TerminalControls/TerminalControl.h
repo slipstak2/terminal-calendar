@@ -109,6 +109,7 @@ protected:
     TerminalWindow* parentWindow = nullptr;
     std::vector<TerminalControlPtr> controls;
     std::vector<std::vector<TerminalCell>> data;
+    TerminalCell backgroundCell = CreateBackgroundCell('~');
 
     std::vector<ClickCallback> clickCallbacks;
 
