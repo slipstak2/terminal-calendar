@@ -6,11 +6,11 @@ class TerminalBorderControl : public TerminalCompositeControl {
 public:
     DECLARE_KIND(TerminalCompositeControl, TerminalControl::Kind::BORDER_CONTROL)
 
-    DECLARE_CREATE(TerminalBorderControl)
-
     TerminalBorderControl(const Utf8String& title, TerminalCoord position, TerminalSize size);
 
-    void SetBorderColor(const FontColor& borderColor);
+    void SetBorderColor(FontColor borderColor);
+    void SetTitleColor(FontColor titleColor);
+    void SetBorderFormat(BorderFormat borderFormat);
 
     void AddControl(TerminalControlPtr control) override;
 
@@ -25,5 +25,6 @@ protected:
     BorderFormat borderFormat = BorderFormat::Default;
 
 protected:
+    TerminalLabelPtr titleLabel;
     TerminalCompositeControlPtr containerControls;
 };

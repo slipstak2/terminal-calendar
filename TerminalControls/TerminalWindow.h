@@ -13,6 +13,7 @@ public:
         :TerminalBorderControl(title, position, size)
     {
         SetParentWindow(this);
+        SetBorderFormat(BorderFormat::Window);
     }
     void AddControl(TerminalControlPtr control) override;
 };

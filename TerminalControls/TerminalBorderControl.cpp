@@ -4,10 +4,7 @@
 TerminalBorderControl::TerminalBorderControl(const Utf8String& title, TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size){
 
-    borderFormatSettings.fontColor = FontColor::Magenta;
-
-    auto titleLabel = TerminalLabel::Create(title, TerminalCoord{.row = 0, .col = 3});
-    titleLabel->SetFormatSettings(FormatSettings{.fontColor = FontColor::Yellow});
+    titleLabel = TerminalLabel::Create(title, TerminalCoord{.row = 0, .col = 3});
     TerminalCompositeControl::AddControl(titleLabel);
 
     containerControls = TerminalCompositeControl::Create(TerminalCoord{ .row = 1, .col = 1 }, TerminalSize{.height = Height() - 2, .width = Width() - 2});
@@ -18,8 +15,16 @@ void TerminalBorderControl::AddControl(TerminalControlPtr control) {
     containerControls->AddControl(control);
 }
 
-void TerminalBorderControl::SetBorderColor(const FontColor& borderColor) {
+void TerminalBorderControl::SetBorderColor(FontColor borderColor) {
     borderFormatSettings.fontColor = borderColor;
+}
+
+void TerminalBorderControl::SetTitleColor(FontColor titleColor) {
+    titleLabel->SetFormatSettings(FormatSettings{ .fontColor = titleColor });
+}
+
+void TerminalBorderControl::SetBorderFormat(BorderFormat borderFormat) {
+    this->borderFormat = borderFormat;
 }
 
 void TerminalBorderControl::FlushUpBorder() {

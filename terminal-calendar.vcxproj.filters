@@ -102,6 +102,9 @@
     <ClCompile Include="BorderFormat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="BorderFormat.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalGroupBox.h">
+      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

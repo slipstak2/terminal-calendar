@@ -9,7 +9,7 @@
 #include "ListDataProvider.h"
 #include "TerminalListView.h"
 #include "TerminalRadioButton.h"
-#include "TerminalBorderControl.h"
+#include "TerminalGroupBox.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -56,11 +56,14 @@ TerminalApplication::TerminalApplication()  {
     auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = cols });
     AddWindow(backgroundWindow);
 
-    auto dbgGroupBox = TerminalBorderControl::Create(
+    auto dbgGroupBox = TerminalGroupBox::Create(
         "Debug info", 
         TerminalCoord{ .row = 1, .col = 89 }, 
         TerminalSize{ .height = 28, .width = 30 });
     backgroundWindow->AddControl(dbgGroupBox);
+
+    dbgGroupBox->SetBorderColor(FontColor::Magenta);
+    dbgGroupBox->SetTitleColor(FontColor::Yellow);
 
     auto debugListView = TerminalListView::Create(
         TerminalCoord{ .row = 0, .col = 0 }, 
