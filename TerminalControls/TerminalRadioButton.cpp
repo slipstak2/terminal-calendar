@@ -29,6 +29,11 @@ bool TerminalRadioButton::SetEnable(bool isEnable) {
     this->isEnable = isEnable;
     radioButton->SetText(this->isEnable ? Utf8String(EnableRune) : Utf8String(DisableRune) + " ");
 
+    if (isChanged) {
+        if (changedCallback != nullptr) {
+            changedCallback(this);
+        }
+    }
     if (isEnable) {
         for (auto broControl : parent->GetControls()) {
             if (auto rb = broControl->As<TerminalRadioButton>(); rb != nullptr) {
@@ -40,4 +45,8 @@ bool TerminalRadioButton::SetEnable(bool isEnable) {
     }
     return isChanged;
     // TODO: disable all RadioButton for parent controls
+}
+
+bool TerminalRadioButton::GetEnable() {
+    return isEnable;
 }

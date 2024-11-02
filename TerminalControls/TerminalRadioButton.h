@@ -1,6 +1,9 @@
 ﻿#include "TerminalButton.h"
 #include "TerminalCompositeControl.h"
 
+class TerminalRadioButton;
+using RadioButtonChangedCallback = std::function<void(TerminalRadioButton* sender)>;
+
 class TerminalRadioButton : public TerminalCompositeControl {
 public:
     DECLARE_KIND(TerminalCompositeControl, TerminalControl::Kind::RADIO_BUTTON)
@@ -11,7 +14,14 @@ public:
 
 public:
     bool SetEnable(bool isEnable);
+    bool GetEnable();
 
+    void SetOnChangedCallback(RadioButtonChangedCallback changedCallback) {
+        this->changedCallback = changedCallback;
+    }
+
+protected:
+    RadioButtonChangedCallback changedCallback = nullptr;
 protected:
     bool isEnable = false;
     TerminalButtonPtr radioButton;

@@ -101,12 +101,26 @@ TerminalApplication::TerminalApplication()  {
     auto DanilWindow = TerminalWindow::Create("Danil", TerminalCoord{ .row = 5, .col = 12 }, TerminalSize{ .height = 22, .width = 45 });
     DanilWindow->SetBorderColor(FontColor::Red);
 
-    auto rbBorderOn = TerminalRadioButton::Create("On", TerminalCoord{ .row = 2, .col = 5 });
-    DanilWindow->AddControl(rbBorderOn);
+    auto rbBorderCyan = TerminalRadioButton::Create("Border Cyan", TerminalCoord{ .row = 2, .col = 5 });
+    DanilWindow->AddControl(rbBorderCyan);
 
-    auto rbBorderOff = TerminalRadioButton::Create("Off", TerminalCoord{ .row = 4, .col = 5 });
-    DanilWindow->AddControl(rbBorderOff);
+    auto rbBorderBrightcyan = TerminalRadioButton::Create("Border Bright cyan", TerminalCoord{ .row = 4, .col = 5 });
+    DanilWindow->AddControl(rbBorderBrightcyan);
     AddWindow(DanilWindow);
+
+    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, dbgGroupBox](TerminalRadioButton* sender) {
+        if (!sender->GetEnable()) {
+            return;
+        }
+        if (sender == rbBorderCyan.get()) {
+            dbgGroupBox->SetBorderColor(FontColor::Cyan); // TODO: not set =)
+        }
+        if (sender == rbBorderBrightcyan.get()) {
+            dbgGroupBox->SetBorderColor(FontColor::Brightcyan);
+        }
+    };
+    rbBorderCyan->SetOnChangedCallback(radioButtonChanged);
+    rbBorderBrightcyan->SetOnChangedCallback(radioButtonChanged);
 }
 
 void TerminalApplication::AddWindow(TerminalWindowPtr window) {
