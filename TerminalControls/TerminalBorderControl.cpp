@@ -27,6 +27,10 @@ void TerminalBorderControl::SetBorderFormat(BorderFormat borderFormat) {
     this->borderFormat = borderFormat;
 }
 
+void TerminalBorderControl::SetBorderVisible(bool isVisible) {
+    borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Сonceal;
+}
+
 void TerminalBorderControl::FlushUpBorder() {
     short row = 0;
     data[row][0] = CreateCell(borderFormat.UpLeft(), &borderFormatSettings);

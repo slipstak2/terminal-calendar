@@ -10,6 +10,7 @@
 #include "TerminalListView.h"
 #include "TerminalRadioButton.h"
 #include "TerminalGroupBox.h"
+#include "TerminalCheckBox.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -104,16 +105,20 @@ TerminalApplication::TerminalApplication()  {
     auto rbBorderCyan = TerminalRadioButton::Create("Border Cyan", TerminalCoord{ .row = 2, .col = 5 });
     DanilWindow->AddControl(rbBorderCyan);
 
-    auto rbBorderBrightcyan = TerminalRadioButton::Create("Border Bright cyan", TerminalCoord{ .row = 4, .col = 5 });
+    auto rbBorderBrightcyan = TerminalRadioButton::Create("Border Bright cyan", TerminalCoord{ .row = 3, .col = 5 });
     DanilWindow->AddControl(rbBorderBrightcyan);
+
+    auto cbBorder = TerminalCheckBox::Create("Border visible", TerminalCoord{ .row = 5, .col = 5 });
+    cbBorder->SetChecked(true);
+    DanilWindow->AddControl(cbBorder);
     AddWindow(DanilWindow);
 
-    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, dbgGroupBox](TerminalRadioButton* sender) {
-        if (!sender->GetEnable()) {
+    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, dbgGroupBox](TerminalRadioButton* sender, bool isSelected) {
+        if (!isSelected) {
             return;
         }
         if (sender == rbBorderCyan.get()) {
-            dbgGroupBox->SetBorderColor(FontColor::Cyan); // TODO: not set =)
+            dbgGroupBox->SetBorderColor(FontColor::Cyan);
         }
         if (sender == rbBorderBrightcyan.get()) {
             dbgGroupBox->SetBorderColor(FontColor::Brightcyan);
@@ -121,6 +126,11 @@ TerminalApplication::TerminalApplication()  {
     };
     rbBorderCyan->SetOnChangedCallback(radioButtonChanged);
     rbBorderBrightcyan->SetOnChangedCallback(radioButtonChanged);
+
+    auto cbBorderChanged = [dbgGroupBox](TerminalCheckBox* sender, bool isChecked) {
+        dbgGroupBox->SetBorderVisible(isChecked);
+    };
+    cbBorder->SetOnChangedCallback(cbBorderChanged);
 }
 
 void TerminalApplication::AddWindow(TerminalWindowPtr window) {

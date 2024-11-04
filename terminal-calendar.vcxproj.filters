@@ -105,6 +105,9 @@
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalCheckBox.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -176,9 +179,6 @@
     <ClInclude Include="utils\slice.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalRadioButton.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderControl.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
@@ -186,6 +186,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalGroupBox.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalCheckBox.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalRadioButton.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>

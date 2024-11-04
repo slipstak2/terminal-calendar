@@ -3,17 +3,17 @@
 
 // https://cloford.com/resources/charcodes/utf-8_geometric.htm
 // https://unicode.org/charts/PDF/U25A0.pdf
-const Rune TerminalRadioButton::EnableRune  = Rune("◉"); // Rune("▣");
-const Rune TerminalRadioButton::DisableRune = Rune("◯"); // Rune("□");
+const Rune TerminalRadioButton::SelectedRune  = Rune("◉"); // Rune("▣");
+const Rune TerminalRadioButton::UnselectedRune = Rune("◯"); // Rune("□");
 
 TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord position)
     : TerminalCompositeControl(position, TerminalSize{.height = 1, .width = (short)label.size() + 2})
 {
     auto clickCallBack = [this]() {
-        return SetEnable(true);
+        return SetSelected(true);
         };
     
-    radioButton = TerminalButton::Create(Utf8String(DisableRune) + " ", TerminalCoord{.row = 0, .col = 0});
+    radioButton = TerminalButton::Create(Utf8String(UnselectedRune) + " ", TerminalCoord{.row = 0, .col = 0});
     radioButton->AddClickCallback(clickCallBack);
     AddControl(radioButton);
     
@@ -24,29 +24,28 @@ TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord 
     formatSettings.backgroundColor = BackgroundColor::Yellow;
 }
 
-bool TerminalRadioButton::SetEnable(bool isEnable) {
-    bool isChanged = this->isEnable != isEnable;
-    this->isEnable = isEnable;
-    radioButton->SetText(this->isEnable ? Utf8String(EnableRune) : Utf8String(DisableRune) + " ");
+bool TerminalRadioButton::SetSelected(bool isSelected) {
+    bool isChanged = this->isSelected != isSelected;
+    this->isSelected = isSelected;
+    radioButton->SetText(this->isSelected ? Utf8String(SelectedRune) : Utf8String(UnselectedRune) + " ");
 
     if (isChanged) {
         if (changedCallback != nullptr) {
-            changedCallback(this);
+            changedCallback(this, isSelected);
         }
     }
-    if (isEnable) {
+    if (isSelected) {
         for (auto broControl : parent->GetControls()) {
             if (auto rb = broControl->As<TerminalRadioButton>(); rb != nullptr) {
                 if (rb != this) {
-                    rb->SetEnable(false);
+                    rb->SetSelected(false);
                 }
             }
         }
     }
     return isChanged;
-    // TODO: disable all RadioButton for parent controls
 }
 
-bool TerminalRadioButton::GetEnable() {
-    return isEnable;
+bool TerminalRadioButton::GetSelected() {
+    return isSelected;
 }

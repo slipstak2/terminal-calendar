@@ -25,6 +25,7 @@ public:
         LABEL_SWITCHER,
         BUTTON,
         RADIO_BUTTON,
+        CHECK_BOX,
         LIST_VIEW,
         GROUP_BOX,
         BORDER_CONTROL,

@@ -2,7 +2,7 @@
 #include "TerminalCompositeControl.h"
 
 class TerminalRadioButton;
-using RadioButtonChangedCallback = std::function<void(TerminalRadioButton* sender)>;
+using RadioButtonChangedCallback = std::function<void(TerminalRadioButton* sender, bool isSelected)>;
 
 class TerminalRadioButton : public TerminalCompositeControl {
 public:
@@ -13,8 +13,8 @@ public:
     TerminalRadioButton(const Utf8String& label, TerminalCoord position);
 
 public:
-    bool SetEnable(bool isEnable);
-    bool GetEnable();
+    bool SetSelected(bool isSelect);
+    bool GetSelected();
 
     void SetOnChangedCallback(RadioButtonChangedCallback changedCallback) {
         this->changedCallback = changedCallback;
@@ -23,10 +23,10 @@ public:
 protected:
     RadioButtonChangedCallback changedCallback = nullptr;
 protected:
-    bool isEnable = false;
+    bool isSelected = false;
     TerminalButtonPtr radioButton;
     TerminalButtonPtr labelButton;
 protected:
-    static const Rune EnableRune;
-    static const Rune DisableRune;
+    static const Rune SelectedRune;
+    static const Rune UnselectedRune;
 };

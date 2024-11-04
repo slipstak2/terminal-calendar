@@ -11,6 +11,7 @@ public:
     void SetBorderColor(FontColor borderColor);
     void SetTitleColor(FontColor titleColor);
     void SetBorderFormat(BorderFormat borderFormat);
+    void SetBorderVisible(bool isVisible);
 
     void AddControl(TerminalControlPtr control) override;
 
