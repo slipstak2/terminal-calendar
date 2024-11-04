@@ -99,7 +99,7 @@ public:
 
 public:
     void Flush();
-    std::string debug = "";
+    int tag = 0;
 protected:
     void FlushControls();
     virtual void FlushSelf() = 0;

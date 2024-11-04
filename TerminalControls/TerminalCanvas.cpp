@@ -23,6 +23,7 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
 
     for (short col = 0; col < cols; ++col) {
         for (short row = 0; row < rows; ++row) {
+            data[row][col].MakeSnapshot();
             if (data[row][col] != rootControl->data[row][col]) {
                 SetCursorPosition(col, row);
                 rootControl->data[row][col].Render();

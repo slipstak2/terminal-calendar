@@ -28,16 +28,7 @@ TerminalControl* TerminalCell::GetParent() {
 }
 
 bool TerminalCell::operator == (const TerminalCell& rhs) {
-    bool isEqual =  
-        std::tie(rune, parent, formatSettings) ==
-        std::tie(rhs.rune, rhs.parent, rhs.formatSettings);
-    if (!isEqual) {
-        return false;
-    }
-    if (formatSettings && rhs.formatSettings) {
-        return *formatSettings == *rhs.formatSettings;
-    }
-    return false;
+    return std::tie(snapshot, parent) == std::tie(rhs.snapshot, rhs.parent);
 }
 
 bool TerminalCell::operator != (const TerminalCell& rhs) {
@@ -87,11 +78,4 @@ TerminalCell::TerminalCell(const Rune& rune)
 TerminalCell::TerminalCell(const Rune& rune, const FormatSettings* formatSettings)
     : rune(rune)
     , formatSettings(formatSettings)
-{}
-
-
-TerminalCell::TerminalCell(const TerminalCell& other)
-    : rune(other.rune)
-    , parent(other.parent)
-    , formatSettings(other.formatSettings)
 {}

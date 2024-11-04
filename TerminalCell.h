@@ -11,7 +11,6 @@ public:
     TerminalCell() = default;
     explicit TerminalCell(const Rune& rune);
     TerminalCell(const Rune& rune, const FormatSettings* formatSettings);
-    TerminalCell(const TerminalCell& other);
 
     const TerminalControl* GetParent() const;
     TerminalControl* GetParent();
@@ -22,10 +21,23 @@ public:
     void Render() const;
     bool operator == (const TerminalCell& rhs);
     bool operator != (const TerminalCell& rhs);
+protected:
+    struct TerminalCellSnapshot {
+        Rune rune;
+        FormatSettings formatSettings;
+        bool operator == (const TerminalCellSnapshot& rhs) {
+            return std::tie(rune, formatSettings) == std::tie(rhs.rune, rhs.formatSettings);
+        }
+    };
+public:
+    void MakeSnapshot() {
+        snapshot = TerminalCellSnapshot{ .rune = rune, .formatSettings = GetFormatSettings()};
+    }
 
 private:
     Rune rune = Rune(" ");
-
-    TerminalControl* parent = nullptr;
     const FormatSettings* formatSettings = nullptr;
+    TerminalControl* parent = nullptr;
+
+    TerminalCellSnapshot snapshot;
 };
