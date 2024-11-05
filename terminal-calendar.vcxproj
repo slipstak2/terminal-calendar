@@ -183,6 +183,7 @@
     <ClInclude Include="TextFormat\FontColor.h" />
     <ClInclude Include="TextFormat\FormatSettings.h" />
     <ClInclude Include="TextFormat\TextStyle.h" />
+    <ClInclude Include="TimeProfiler.h" />
     <ClInclude Include="utils\common.h" />
     <ClInclude Include="utils\slice.h" />
     <ClInclude Include="utils\utf8string.h" />

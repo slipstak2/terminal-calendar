@@ -19,6 +19,9 @@ public:
 
     void FullRender();
 
+protected:
+    TerminalListViewPtr debugListView;
+
 private:
     HANDLE inputHandle;
     HANDLE outputHandle;

@@ -12,6 +12,8 @@
 #include "TerminalGroupBox.h"
 #include "TerminalCheckBox.h"
 
+#include "TimeProfiler.h"
+
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
     exit(1);
@@ -66,15 +68,11 @@ TerminalApplication::TerminalApplication()  {
     dbgGroupBox->SetBorderColor(FontColor::Magenta);
     dbgGroupBox->SetTitleColor(FontColor::Yellow);
 
-    auto debugListView = TerminalListView::Create(
+    debugListView = TerminalListView::Create(
         TerminalCoord{ .row = 0, .col = 0 }, 
         TerminalSize{ .height = dbgGroupBox->Height() - 2, .width = dbgGroupBox->Width() - 2 });
     dbgGroupBox->AddControl(debugListView);
 
-    for (int i = 1; i < 10; ++i) {
-        debugListView->AddItem("message #" + std::to_string(i)) ;
-    }
-    
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
@@ -146,9 +144,18 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
     auto clickControl = clickCell.GetParent();
     auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
 
+    TimeProfiler tp;
     bool isMoveToTop = rootControl->MoveToTop(clickWnd);
+    if (isMoveToTop) {
+        debugListView->AddItem("MoveToTop: " + tp.GetStr());
+    }
+    
     bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick() : false;
+
     if (isMoveToTop || isApplyClickOK) {
+        tp.Get();
+        FullRender();
+        debugListView->AddItem("FullRender: " + tp.GetStr());
         FullRender();
     }
 }
