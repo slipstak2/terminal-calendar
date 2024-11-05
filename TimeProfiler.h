@@ -16,7 +16,7 @@ public:
     std::string GetStr() {
         static const std::string format[4] = { "%.f ns", "%.f us", "%.f ms", "%.3f s"};
         int pos = 0;
-        double dur = Get();
+        double dur = (double)Get();
         while (dur >= 1000 && pos < 3) {
             dur /= 1000;
             pos++;

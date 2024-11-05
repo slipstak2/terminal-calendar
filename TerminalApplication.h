@@ -20,7 +20,7 @@ public:
     void FullRender();
 
 protected:
-    TerminalListViewPtr debugListView;
+    TerminalBorderListViewPtr dbgListView;
 
 private:
     HANDLE inputHandle;

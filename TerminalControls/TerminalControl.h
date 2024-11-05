@@ -27,8 +27,11 @@ public:
         RADIO_BUTTON,
         CHECK_BOX,
         LIST_VIEW,
+        BORDER_LIST_VIEW,
         GROUP_BOX,
         BORDER_CONTROL,
+        VERTICAL_SCROLL,
+        VERTICAL_SCROLL_BAR,
         WINDOW
     };
     static const TerminalControl::Kind KIND = Kind::CONTROL;
@@ -96,6 +99,14 @@ public:
         formatSettings = newFormatSettings;
     }
 
+    void SetVisible(bool isVisible) {
+        this->isVisible = isVisible;
+    }
+
+    bool IsVisible() const {
+        return isVisible;
+    }
+
     std::vector<TerminalControlPtr>& GetControls();
 
 public:
@@ -115,4 +126,5 @@ protected:
     std::vector<ClickCallback> clickCallbacks;
 
     FormatSettings formatSettings = FormatSettings::Default;
+    bool isVisible = true;
 };

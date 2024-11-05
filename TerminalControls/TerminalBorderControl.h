@@ -14,6 +14,7 @@ public:
     void SetBorderVisible(bool isVisible);
 
     void AddControl(TerminalControlPtr control) override;
+    void AddControlOnBorder(TerminalControlPtr control);
 
 protected:
     void FlushSelf() override;

@@ -108,6 +108,15 @@
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">
@@ -192,6 +201,18 @@
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalRadioButton.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeProfiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalBorderListView.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalVerticalScroll.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>

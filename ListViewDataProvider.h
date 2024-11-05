@@ -12,7 +12,9 @@ public:
 
     void AddItem(const Utf8String& item);
 
-    slice<Utf8String> GetLast(int length);
+    int TotalItems() const;
+
+    slice<Utf8String> GetView(int offset, int length);
 
 protected:
     std::deque<Utf8String> items;

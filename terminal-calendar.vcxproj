@@ -143,6 +143,7 @@
     <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelSwitcher.cpp" />
+    <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
@@ -152,6 +153,8 @@
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
+    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />
     <ClCompile Include="utils\common.cpp" />
@@ -167,6 +170,7 @@
     <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelSwitcher.h" />
+    <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
     <ClInclude Include="TerminalControls\TerminalButton.h" />
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
@@ -177,6 +181,8 @@
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
+    <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
+    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />
     <ClInclude Include="TextFormat\BackgroundColor.h" />

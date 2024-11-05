@@ -9,7 +9,7 @@
 #include "ListDataProvider.h"
 #include "TerminalListView.h"
 #include "TerminalRadioButton.h"
-#include "TerminalGroupBox.h"
+#include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
 
 #include "TimeProfiler.h"
@@ -59,19 +59,18 @@ TerminalApplication::TerminalApplication()  {
     auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = cols });
     AddWindow(backgroundWindow);
 
-    auto dbgGroupBox = TerminalGroupBox::Create(
-        "Debug info", 
-        TerminalCoord{ .row = 1, .col = 89 }, 
+    dbgListView = TerminalBorderListView::Create("Debug info",
+        TerminalCoord{ .row = 1, .col = 89 },
         TerminalSize{ .height = 28, .width = 30 });
-    backgroundWindow->AddControl(dbgGroupBox);
 
-    dbgGroupBox->SetBorderColor(FontColor::Magenta);
-    dbgGroupBox->SetTitleColor(FontColor::Yellow);
+    backgroundWindow->AddControl(dbgListView);
 
-    debugListView = TerminalListView::Create(
-        TerminalCoord{ .row = 0, .col = 0 }, 
-        TerminalSize{ .height = dbgGroupBox->Height() - 2, .width = dbgGroupBox->Width() - 2 });
-    dbgGroupBox->AddControl(debugListView);
+    dbgListView->SetBorderColor(FontColor::Magenta);
+    dbgListView->SetTitleColor(FontColor::Yellow);
+
+    for (int i = 0; i < 25; ++i) {
+        dbgListView->AddItem("#" + std::to_string(i + 1) + " message");
+    }
 
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
@@ -111,22 +110,22 @@ TerminalApplication::TerminalApplication()  {
     DanilWindow->AddControl(cbBorder);
     AddWindow(DanilWindow);
 
-    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, dbgGroupBox](TerminalRadioButton* sender, bool isSelected) {
+    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, this](TerminalRadioButton* sender, bool isSelected) {
         if (!isSelected) {
             return;
         }
         if (sender == rbBorderCyan.get()) {
-            dbgGroupBox->SetBorderColor(FontColor::Cyan);
+            dbgListView->SetBorderColor(FontColor::Cyan);
         }
         if (sender == rbBorderBrightcyan.get()) {
-            dbgGroupBox->SetBorderColor(FontColor::Brightcyan);
+            dbgListView->SetBorderColor(FontColor::Brightcyan);
         }
     };
     rbBorderCyan->SetOnChangedCallback(radioButtonChanged);
     rbBorderBrightcyan->SetOnChangedCallback(radioButtonChanged);
 
-    auto cbBorderChanged = [dbgGroupBox](TerminalCheckBox* sender, bool isChecked) {
-        dbgGroupBox->SetBorderVisible(isChecked);
+    auto cbBorderChanged = [this](TerminalCheckBox* sender, bool isChecked) {
+        dbgListView->SetBorderVisible(isChecked);
     };
     cbBorder->SetOnChangedCallback(cbBorderChanged);
 }
@@ -147,7 +146,9 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
     TimeProfiler tp;
     bool isMoveToTop = rootControl->MoveToTop(clickWnd);
     if (isMoveToTop) {
-        debugListView->AddItem("MoveToTop: " + tp.GetStr());
+        if (isCtrl) {
+            dbgListView->AddItem("MoveToTop: " + tp.GetStr());
+        }
     }
     
     bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick() : false;
@@ -155,7 +156,9 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
     if (isMoveToTop || isApplyClickOK) {
         tp.Get();
         FullRender();
-        debugListView->AddItem("FullRender: " + tp.GetStr());
+        if (isCtrl) {
+            dbgListView->AddItem("FullRender: " + tp.GetStr());
+        }
         FullRender();
     }
 }

@@ -5,14 +5,18 @@ TerminalBorderControl::TerminalBorderControl(const Utf8String& title, TerminalCo
     : TerminalCompositeControl(position, size){
 
     titleLabel = TerminalLabel::Create(title, TerminalCoord{.row = 0, .col = 3});
-    TerminalCompositeControl::AddControl(titleLabel);
+    AddControlOnBorder(titleLabel);
 
     containerControls = TerminalCompositeControl::Create(TerminalCoord{ .row = 1, .col = 1 }, TerminalSize{.height = Height() - 2, .width = Width() - 2});
-    TerminalCompositeControl::AddControl(containerControls);
+    AddControlOnBorder(containerControls);
 }
 
 void TerminalBorderControl::AddControl(TerminalControlPtr control) {
     containerControls->AddControl(control);
+}
+
+void TerminalBorderControl::AddControlOnBorder(TerminalControlPtr control) {
+    TerminalCompositeControl::AddControl(control);
 }
 
 void TerminalBorderControl::SetBorderColor(FontColor borderColor) {

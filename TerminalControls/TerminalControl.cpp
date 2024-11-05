@@ -52,6 +52,9 @@ void TerminalControl::Flush() {
 
 void TerminalControl::FlushControls() {
     for (TerminalControlPtr control : controls) {
+        if (!control->IsVisible()) {
+            continue;
+        }
         control->Flush();
         for (short row = control->RowBeg(); row <= control->RowEnd(); ++row) {
             for (short col = control->ColBeg(); col <= control->ColEnd(); ++col) {
