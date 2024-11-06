@@ -25,3 +25,7 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
     });
     AddControl(btnDown);
 }
+
+void TerminalVerticalScrollBar::CheckVisible() {
+    SetVisible(verticalScroll->NeedScroll());
+}

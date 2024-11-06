@@ -13,6 +13,7 @@ public:
     void SetTitleColor(FontColor titleColor);
     void SetBorderVisible(bool isVisible);
     void AddItem(const std::string& value);
+    bool RemoveLastItem();
 
 protected:
     TerminalGroupBoxPtr groupBox;

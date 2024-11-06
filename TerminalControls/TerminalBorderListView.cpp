@@ -21,10 +21,13 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         listView, 
         TerminalCoord{.row = 1, .col = groupBox->Width() - 1},
         TerminalSize{.height = groupBox->Height() - 2, .width = 1});
-    //verticalScrollbar->SetVisible(false);
 
     groupBox->AddControl(listView);
     groupBox->AddControlOnBorder(verticalScrollbar);
+
+    listView->AddChangeItemsCallback([this](const TerminalListView* listView, int curItemsCount, int prvItemsCount) {
+        verticalScrollbar->CheckVisible();
+        });
 }
 
 void TerminalBorderListView::SetBorderColor(FontColor borderColor) {
@@ -37,6 +40,10 @@ void TerminalBorderListView::SetTitleColor(FontColor titleColor) {
 
 void TerminalBorderListView::AddItem(const std::string& value) {
     listView->AddItem(value);
+}
+
+bool TerminalBorderListView::RemoveLastItem() {
+    return listView->RemoveLastItem();
 }
 
 void TerminalBorderListView::SetBorderVisible(bool isVisible) {

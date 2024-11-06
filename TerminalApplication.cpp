@@ -108,6 +108,12 @@ TerminalApplication::TerminalApplication()  {
     auto cbBorder = TerminalCheckBox::Create("Border visible", TerminalCoord{ .row = 5, .col = 5 });
     cbBorder->SetChecked(true);
     DanilWindow->AddControl(cbBorder);
+
+    auto btnRemoveLastItem = TerminalButton::Create("Remove last item", TerminalCoord{ .row = 6, .col = 5 });
+    btnRemoveLastItem->AddClickCallback([this]() {
+        return dbgListView->RemoveLastItem();
+        });
+    DanilWindow->AddControl(btnRemoveLastItem);
     AddWindow(DanilWindow);
 
     auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, this](TerminalRadioButton* sender, bool isSelected) {

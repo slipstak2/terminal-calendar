@@ -9,6 +9,7 @@ public:
 
 public:
     TerminalVerticalScrollBar(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size);
+    void CheckVisible();
 
 protected:
     TerminalListViewPtr listView;
