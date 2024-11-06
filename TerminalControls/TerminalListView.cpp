@@ -4,9 +4,6 @@
 TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
 {
-    formatSettings.backgroundColor = BackgroundColor::Black;
-    formatSettings.fontColor = FontColor::Yellow;
-
     provider.AddChangeItemsCallback([this](const ListViewDataProvider* provider, int curItemsCount, int prvItemsCount) {
         OnChangeItemsCount(curItemsCount, prvItemsCount);
         });
@@ -32,18 +29,39 @@ void TerminalListView::AddItem(const std::string& value) {
 
 bool TerminalListView::RemoveLastItem() {
     bool isRemove = provider.RemoveLastItem();
-    viewOffset = NormalizeOffset(viewOffset);
+    ChangeOffset(0);
     return isRemove;
+}
+
+bool TerminalListView::NeedScroll() {
+    return Height() < TotalItems();
+}
+
+bool TerminalListView::HasUp() {
+    return viewOffset > 0;
+}
+
+bool TerminalListView::HasDown() {
+    return viewOffset < MaxViewOffset();
 }
 
 void TerminalListView::AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback) {
     changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
 }
 
-void TerminalListView::OnChangeItemsCount(int curItemsCount, int prvItemsCount)
-{
+void TerminalListView::AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback) {
+    changeOffsetCallbacks.push_back(std::move(changeOffsetCallback));
+}
+
+void TerminalListView::OnChangeItemsCount(int curItemsCount, int prvItemsCount) {
     for (auto& callback : changeItemsCountCallbacks) {
         callback(this, curItemsCount, prvItemsCount);
+    }
+}
+
+void TerminalListView::OnChangeOffset(int curOffset, int prvOffset) {
+    for (auto& callback : changeOffsetCallbacks) {
+        callback(this, curOffset, prvOffset);
     }
 }
 
@@ -55,7 +73,11 @@ bool TerminalListView::ChangeOffset(int delta) {
     int initViewOffset = viewOffset;
     viewOffset += delta;
     viewOffset = NormalizeOffset(viewOffset);
-    return viewOffset != initViewOffset;
+    if (viewOffset != initViewOffset) {
+        OnChangeOffset(viewOffset, initViewOffset);
+        return true;
+    }
+    return false;
 }
 
 int TerminalListView::MaxViewOffset() {

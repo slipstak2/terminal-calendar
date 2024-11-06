@@ -27,6 +27,6 @@ protected:
     TerminalButtonPtr radioButton;
     TerminalButtonPtr labelButton;
 protected:
-    static const Rune SelectedRune;
-    static const Rune UnselectedRune;
+    static const Utf8String SelectedTitle;
+    static const Utf8String UnselectedTitle;
 };

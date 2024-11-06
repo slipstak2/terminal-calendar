@@ -10,6 +10,7 @@ public:
 public:
     TerminalVerticalScrollBar(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size);
     void CheckVisible();
+    void CheckState();
 
 protected:
     TerminalListViewPtr listView;
@@ -17,4 +18,10 @@ protected:
     TerminalButtonPtr btnUp;
     TerminalVerticalScrollPtr verticalScroll;
     TerminalButtonPtr btnDown;
+
+protected:
+    static const Utf8String UpActive;
+    static const Utf8String UpInactive;
+    static const Utf8String DownActive;
+    static const Utf8String DownInactive;
 };

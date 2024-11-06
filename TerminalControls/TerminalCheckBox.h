@@ -29,7 +29,6 @@ protected:
     TerminalButtonPtr checkedButton;
     TerminalButtonPtr labelButton;
 protected:
-    static const Rune CheckedRune;
-    static const Rune UncheckedRune;
-
+    static const Utf8String CheckedTitle;
+    static const Utf8String UncheckedTitle;
 };

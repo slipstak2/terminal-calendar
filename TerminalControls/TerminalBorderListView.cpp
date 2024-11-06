@@ -28,6 +28,9 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
     listView->AddChangeItemsCallback([this](const TerminalListView* listView, int curItemsCount, int prvItemsCount) {
         verticalScrollbar->CheckVisible();
         });
+    listView->AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
+        verticalScrollbar->CheckState();
+        });
 }
 
 void TerminalBorderListView::SetBorderColor(FontColor borderColor) {

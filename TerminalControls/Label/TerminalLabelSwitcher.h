@@ -19,4 +19,9 @@ protected:
     TerminalButtonPtr btnLeft;
     TerminalLabelDataProviderPtr  label;
     TerminalButtonPtr btnRight;
+protected:
+    static const Utf8String LeftActive;
+    static const Utf8String LeftInactive;
+    static const Utf8String RightActive;
+    static const Utf8String RightInactive;
 };

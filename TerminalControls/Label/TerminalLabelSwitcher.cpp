@@ -3,13 +3,20 @@
 #include "ListDataProvider.h"
 #include "TerminalLabelDataProvider.h"
 
+// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
+// https://www.utf8icons.com/character/9658/black-right-pointing-pointer
+const Utf8String TerminalLabelSwitcher::LeftActive    = "◀ ";
+const Utf8String TerminalLabelSwitcher::LeftInactive  = "◁ ";
+const Utf8String TerminalLabelSwitcher::RightActive   = " ▶";
+const Utf8String TerminalLabelSwitcher::RightInactive = " ▷";
+
 TerminalLabelSwitcher::TerminalLabelSwitcher(ListDataProviderPtr dataProvider, TerminalCoord position)
     : TerminalCompositeControl(position)
     , dataProvider(dataProvider)
 {
-    btnLeft = TerminalButton::Create("◀ ", TerminalCoord{ .row = 0, .col = 0 });
+    btnLeft = TerminalButton::Create(LeftActive, TerminalCoord{ .row = 0, .col = 0 });
     label = TerminalLabelDataProvider::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE });
-    btnRight = TerminalButton::Create(" ▶", TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
+    btnRight = TerminalButton::Create(RightActive, TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
 
     btnLeft->AddClickCallback([dataProvider, this]() {
         bool result = dataProvider->Prev();
@@ -37,14 +44,9 @@ TerminalLabelSwitcher::TerminalLabelSwitcher(ListDataProviderPtr dataProvider, T
     SetSize({ .height = 1, .width = btnRight->ColEnd() + ONE });
 }
 
-// https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle
-// https://www.utf8icons.com/character/9658/black-right-pointing-pointer
 void TerminalLabelSwitcher::CheckState() {
-    Utf8String leftText = dataProvider->HasPrev() ? "◀ " : "◁ ";
-    btnLeft->SetText(leftText);
-
-    Utf8String rightText = dataProvider->HasNext() ? " ▶" : " ▷";
-    btnRight->SetText(rightText);
+    btnLeft->SetText(dataProvider->HasPrev() ? LeftActive : LeftInactive);
+    btnRight->SetText(dataProvider->HasNext() ? RightActive : RightInactive);
 }
 
 void TerminalLabelSwitcher::SetLabelFormatSettings(const FormatSettings labelFormatSettings) {

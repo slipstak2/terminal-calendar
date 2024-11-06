@@ -3,8 +3,8 @@
 
 // https://cloford.com/resources/charcodes/utf-8_geometric.htm
 // https://unicode.org/charts/PDF/U25A0.pdf
-const Rune TerminalRadioButton::SelectedRune  = Rune("◉"); // Rune("▣");
-const Rune TerminalRadioButton::UnselectedRune = Rune("◯"); // Rune("□");
+const Utf8String TerminalRadioButton::SelectedTitle   = "◉ "; // Rune("▣");
+const Utf8String TerminalRadioButton::UnselectedTitle = "◯ "; // Rune("□");
 
 TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord position)
     : TerminalCompositeControl(position, TerminalSize{.height = 1, .width = (short)label.size() + 2})
@@ -13,11 +13,11 @@ TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord 
         return SetSelected(true);
         };
     
-    radioButton = TerminalButton::Create(Utf8String(UnselectedRune) + " ", TerminalCoord{.row = 0, .col = 0});
+    radioButton = TerminalButton::Create(UnselectedTitle, TerminalCoord{.row = 0, .col = 0});
     radioButton->AddClickCallback(clickCallBack);
     AddControl(radioButton);
     
-    labelButton = TerminalButton::Create(label, TerminalCoord{ .row = 0, .col = ONE + ONE});
+    labelButton = TerminalButton::Create(label, TerminalCoord{ .row = 0, .col = radioButton->Width()});
     labelButton->AddClickCallback(clickCallBack);
     AddControl(labelButton);
 
@@ -27,7 +27,7 @@ TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord 
 bool TerminalRadioButton::SetSelected(bool isSelected) {
     bool isChanged = this->isSelected != isSelected;
     this->isSelected = isSelected;
-    radioButton->SetText(this->isSelected ? Utf8String(SelectedRune) : Utf8String(UnselectedRune) + " ");
+    radioButton->SetText(this->isSelected ? SelectedTitle : UnselectedTitle);
 
     if (isChanged) {
         if (changedCallback != nullptr) {

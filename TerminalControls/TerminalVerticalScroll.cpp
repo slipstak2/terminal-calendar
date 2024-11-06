@@ -29,7 +29,3 @@ void TerminalVerticalScroll::FlushSelf() {
         data[row][0] = backgroundCell;
     }
 }
-
-bool TerminalVerticalScroll::NeedScroll() {
-    return listView->Height() < listView->TotalItems();
-}

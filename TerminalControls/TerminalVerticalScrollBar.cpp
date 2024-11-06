@@ -3,11 +3,17 @@
 #include "TerminalVerticalScroll.h"
 #include "TerminalListView.h"
 
+
+const Utf8String TerminalVerticalScrollBar::UpActive        = "▲";
+const Utf8String TerminalVerticalScrollBar::UpInactive      = "△";
+const Utf8String TerminalVerticalScrollBar::DownActive      = "▼";
+const Utf8String TerminalVerticalScrollBar::DownInactive    = "▽";
+
 TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
     , listView(listView)
 {
-    btnUp = TerminalButton::Create("▲", TerminalCoord{.row = 0, .col = 0});
+    btnUp = TerminalButton::Create(UpActive, TerminalCoord{.row = 0, .col = 0});
     btnUp->AddClickCallback([listView]() {
         return listView->ChangeOffset(-1);
     });
@@ -19,13 +25,19 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
         TerminalSize{.height = size.height - 2, .width = size.width});
     AddControl(verticalScroll);
 
-    btnDown = TerminalButton::Create("▼", TerminalCoord{ .row = Height() - 1, .col = 0});
+    btnDown = TerminalButton::Create(DownActive, TerminalCoord{ .row = Height() - 1, .col = 0});
     btnDown->AddClickCallback([listView]() {
         return listView->ChangeOffset(1);
     });
     AddControl(btnDown);
+    CheckState();
 }
 
 void TerminalVerticalScrollBar::CheckVisible() {
-    SetVisible(verticalScroll->NeedScroll());
+    SetVisible(listView->NeedScroll());
+}
+
+void TerminalVerticalScrollBar::CheckState() {
+    btnUp->SetText(listView->HasUp() ? UpActive : UpInactive);
+    btnDown->SetText(listView->HasDown() ? DownActive : DownInactive);
 }
