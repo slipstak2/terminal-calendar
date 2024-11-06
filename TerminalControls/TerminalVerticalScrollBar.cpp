@@ -2,6 +2,7 @@
 #include "TerminalButton.h"
 #include "TerminalVerticalScroll.h"
 #include "TerminalListView.h"
+#include <cassert>
 
 
 const Utf8String TerminalVerticalScrollBar::UpActive        = "▲";
@@ -23,6 +24,19 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
         listView,
         TerminalCoord{ .row = 1, .col = 0 }, 
         TerminalSize{.height = size.height - 2, .width = size.width});
+
+    verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord position) {
+        assert(position.col == 0);
+        if(position.row < verticalScroll->OffsetHeight()) {
+            this->listView->ChangeOffset(-(this->listView->Height() - 1));
+        } else if (position.row >= verticalScroll->OffsetHeight() + verticalScroll->ScrollHeight()) {
+            this->listView->ChangeOffset(this->listView->Height() - 1);
+        }
+        else {
+            return false; // click on scroll
+        }
+        return true;
+        });
     AddControl(verticalScroll);
 
     btnDown = TerminalButton::Create(DownActive, TerminalCoord{ .row = Height() - 1, .col = 0});

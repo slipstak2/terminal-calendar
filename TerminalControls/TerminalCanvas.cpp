@@ -10,12 +10,12 @@ void TerminalCanvas::SetCursorPosition(short x, short y) {
     SetConsoleCursorPosition(outputHandle, {x, y});
 }
 
-const TerminalCell& TerminalCanvas::Get(short row, short col) const {
-    return data[row][col];
+const TerminalCell& TerminalCanvas::Get(TerminalCoord position) const {
+    return data[position.row][position.col];
 }
 
-TerminalCell& TerminalCanvas::Get(short row, short col) {
-    return data[row][col];
+TerminalCell& TerminalCanvas::Get(TerminalCoord position) {
+    return data[position.row][position.col];
 }
 
 void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {

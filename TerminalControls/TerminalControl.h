@@ -12,6 +12,7 @@
     bool IsKindOf(TerminalControl::Kind _kind) const override { return _kind != KIND ? base::IsKindOf(_kind) : true; }
 
 using ClickCallback = std::function<bool()>;
+using ClickCallbackWithPosition = std::function<bool(TerminalCoord)>;
 
 class TerminalControl : public TerminalRectangle {
     friend class TerminalCanvas;
@@ -77,10 +78,22 @@ public:
         clickCallbacks.push_back(std::move(clickCallback));
     }
 
-    bool ApplyMouseLeftClick() {
+    void AddClickCallbackWithPosition(ClickCallbackWithPosition clickCallback) {
+        clickCallbacksWithPosition.push_back(std::move(clickCallback));
+    }
+
+    TerminalCoord GetRelativePosition(TerminalCoord absPosition);
+
+    bool ApplyMouseLeftClick(TerminalCoord absPosition) {
         bool isApply = false;
-        for (auto clickCallback : clickCallbacks) {
+        for (auto& clickCallback : clickCallbacks) {
             isApply |= clickCallback();
+        }
+        if (!clickCallbacksWithPosition.empty()) {
+            TerminalCoord relPosition = GetRelativePosition(absPosition);
+            for (auto& clickCallback : clickCallbacksWithPosition) {
+                isApply |= clickCallback(relPosition);
+            }
         }
         return isApply;
     }
@@ -124,6 +137,7 @@ protected:
     TerminalCell backgroundCell = CreateBackgroundCell('~');
 
     std::vector<ClickCallback> clickCallbacks;
+    std::vector<ClickCallbackWithPosition> clickCallbacksWithPosition;
 
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;

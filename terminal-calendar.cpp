@@ -1,6 +1,3 @@
-// terminal-calandar.4cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
 #include <iostream>
 #include <Windows.h>
 #include "TerminalApplication.h"

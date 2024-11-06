@@ -5,6 +5,8 @@ struct TerminalCoord {
     short col = 0;
 };
 
+TerminalCoord operator - (const TerminalCoord& lhs, const TerminalCoord& rhs);
+
 struct TerminalSize {
     short height = 0;
     short width = 0;

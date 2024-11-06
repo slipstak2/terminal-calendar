@@ -1,13 +1,14 @@
 #pragma once
 #include "utils/common.h"
 #include "TerminalCell.h"
+#include "TerminalRectangle.h"
 #include <Windows.h>
 
 class TerminalCanvas {
 public:
     static TerminalCanvasPtr Create(HANDLE outputHandle, short rows, short cols);
-    const TerminalCell& Get(short row, short col) const;
-    TerminalCell& Get(short row, short col);
+    const TerminalCell& Get(TerminalCoord position) const;
+    TerminalCell& Get(TerminalCoord position);
     void Render(TerminalRootControlPtr rootControl);
 private:
     void SetCursorPosition(short x, short y);

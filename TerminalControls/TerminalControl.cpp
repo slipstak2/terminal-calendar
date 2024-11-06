@@ -69,3 +69,10 @@ void TerminalControl::FlushControls() {
 std::vector<TerminalControlPtr>& TerminalControl::GetControls() {
     return controls;
 }
+
+TerminalCoord TerminalControl::GetRelativePosition(TerminalCoord absPosition) {
+    if (parent) {
+        return parent->GetRelativePosition(absPosition) - position;
+    }
+    return absPosition - position;
+}

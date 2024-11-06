@@ -68,7 +68,7 @@ TerminalApplication::TerminalApplication()  {
     dbgListView->SetBorderColor(FontColor::Magenta);
     dbgListView->SetTitleColor(FontColor::Yellow);
 
-    for (int i = 0; i < 25; ++i) {
+    for (int i = 0; i < 175; ++i) {
         dbgListView->AddItem("#" + std::to_string(i + 1) + " message");
     }
 
@@ -110,6 +110,7 @@ TerminalApplication::TerminalApplication()  {
     DanilWindow->AddControl(cbBorder);
 
     auto btnRemoveLastItem = TerminalButton::Create("Remove last item", TerminalCoord{ .row = 6, .col = 5 });
+
     btnRemoveLastItem->AddClickCallback([this]() {
         return dbgListView->RemoveLastItem();
         });
@@ -144,8 +145,8 @@ void TerminalApplication::FullRender() {
     canvas->Render(rootControl);
 }
 
-void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
-    auto clickCell = canvas->Get(row, col);
+void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl) {
+    auto clickCell = canvas->Get(absPosition);
     auto clickControl = clickCell.GetParent();
     auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
 
@@ -157,7 +158,7 @@ void TerminalApplication::OnMouseLeftClick(short row, short col, bool isCtrl) {
         }
     }
     
-    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick() : false;
+    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
 
     if (isMoveToTop || isApplyClickOK) {
         tp.Get();
@@ -199,7 +200,9 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
             info = "Up";
         }
         if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-            OnMouseLeftClick(mouseEvent.dwMousePosition.Y, mouseEvent.dwMousePosition.X, mouseEvent.dwControlKeyState & LEFT_CTRL_PRESSED);
+            OnMouseLeftClick(TerminalCoord{
+                .row = mouseEvent.dwMousePosition.Y,
+                .col = mouseEvent.dwMousePosition.X }, mouseEvent.dwControlKeyState & LEFT_CTRL_PRESSED);
             info = "LeftButton";
         }
         if (mouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED) {
