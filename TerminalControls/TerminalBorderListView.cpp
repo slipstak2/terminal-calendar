@@ -21,6 +21,7 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         listView, 
         TerminalCoord{.row = 1, .col = groupBox->Width() - 1},
         TerminalSize{.height = groupBox->Height() - 2, .width = 1});
+    verticalScrollbar->CheckVisible();
 
     groupBox->AddControl(listView);
     groupBox->AddControlOnBorder(verticalScrollbar);

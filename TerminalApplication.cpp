@@ -65,12 +65,13 @@ TerminalApplication::TerminalApplication()  {
 
     backgroundWindow->AddControl(dbgListView);
 
+    auto borderListView = TerminalBorderListView::Create("BorderListView",
+        TerminalCoord{ .row = 1, .col = 69 },
+        TerminalSize{ .height = 28, .width = 20 });
+    backgroundWindow->AddControl(borderListView);
+
     dbgListView->SetBorderColor(FontColor::Magenta);
     dbgListView->SetTitleColor(FontColor::Yellow);
-
-    for (int i = 0; i < 175; ++i) {
-        dbgListView->AddItem("#" + std::to_string(i + 1) + " message");
-    }
 
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
@@ -109,30 +110,42 @@ TerminalApplication::TerminalApplication()  {
     cbBorder->SetChecked(true);
     DanilWindow->AddControl(cbBorder);
 
-    auto btnRemoveLastItem = TerminalButton::Create("Remove last item", TerminalCoord{ .row = 6, .col = 5 });
-
-    btnRemoveLastItem->AddClickCallback([this]() {
-        return dbgListView->RemoveLastItem();
+    auto btnAddNewItem = TerminalButton::Create("+ Add new item", TerminalCoord{ .row = 7, .col = 5 });
+    btnAddNewItem->AddClickCallback([borderListView]() {
+        static int num = 0;
+        borderListView->AddItem("#" + std::to_string(++num) + " message");
+        return true;
         });
+
+    auto btnRemoveLastItem = TerminalButton::Create("- Remove last item", TerminalCoord{ .row = 8, .col = 5 });
+
+    btnRemoveLastItem->AddClickCallback([borderListView]() {
+        return borderListView->RemoveLastItem();
+        });
+    DanilWindow->AddControl(btnAddNewItem);
     DanilWindow->AddControl(btnRemoveLastItem);
     AddWindow(DanilWindow);
 
-    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, this](TerminalRadioButton* sender, bool isSelected) {
+    for (int i = 0; i < 175; ++i) {
+        btnAddNewItem->ApplyMouseLeftClick(TerminalCoord());
+    }
+
+    auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, borderListView](TerminalRadioButton* sender, bool isSelected) {
         if (!isSelected) {
             return;
         }
         if (sender == rbBorderCyan.get()) {
-            dbgListView->SetBorderColor(FontColor::Cyan);
+            borderListView->SetBorderColor(FontColor::Cyan);
         }
         if (sender == rbBorderBrightcyan.get()) {
-            dbgListView->SetBorderColor(FontColor::Brightcyan);
+            borderListView->SetBorderColor(FontColor::Brightcyan);
         }
     };
     rbBorderCyan->SetOnChangedCallback(radioButtonChanged);
     rbBorderBrightcyan->SetOnChangedCallback(radioButtonChanged);
 
-    auto cbBorderChanged = [this](TerminalCheckBox* sender, bool isChecked) {
-        dbgListView->SetBorderVisible(isChecked);
+    auto cbBorderChanged = [borderListView](TerminalCheckBox* sender, bool isChecked) {
+        borderListView->SetBorderVisible(isChecked);
     };
     cbBorder->SetOnChangedCallback(cbBorderChanged);
 }
