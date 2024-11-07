@@ -12,6 +12,7 @@ public:
     void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
     void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
     void OnMouseLeftClick(TerminalCoord position, bool isCtrl);
+    void OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl);
     void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
     void Run();
 

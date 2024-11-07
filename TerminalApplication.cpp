@@ -170,6 +170,23 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
     }
 }
 
+void TerminalApplication::OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl) {
+    auto clickCell = canvas->Get(absPosition);
+    auto clickControl = clickCell.GetParent();
+
+    TimeProfiler tp;
+    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
+
+    if (isApplyClickOK) {
+        tp.Get();
+        FullRender();
+        if (isCtrl) {
+            dbgListView->AddItem("DC FullRender: " + tp.GetStr());
+        }
+        FullRender();
+    }
+}
+
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
     std::string dir = key.bKeyDown ? "Down" : "Up";
     if (key.bKeyDown && key.uChar.AsciiChar == 'q') {
@@ -181,6 +198,11 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
     std::string info;
     if (mouseEvent.dwEventFlags != 0) { // just click
         if (mouseEvent.dwEventFlags & DOUBLE_CLICK) {
+            if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
+                OnMouseDoubleClick(TerminalCoord{
+                    .row = mouseEvent.dwMousePosition.Y,
+                    .col = mouseEvent.dwMousePosition.X }, mouseEvent.dwControlKeyState& LEFT_CTRL_PRESSED);
+            }
             info += "Double click";
         }
         if (mouseEvent.dwEventFlags & MOUSE_MOVED) {
