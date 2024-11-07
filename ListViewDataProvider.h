@@ -6,7 +6,7 @@
 #include <functional>
 
 class ListViewDataProvider;
-using ListViewDataProviderChangedItemsCountCallback = std::function<void(const ListViewDataProvider* provider, int curItemsCount, int prvItemsCount)>;
+using ListViewDataProviderChangedItemsCountCallback = std::function<void(const ListViewDataProvider* provider, size_t curItemsCount, size_t prvItemsCount)>;
 
 class ListViewDataProvider {
 public:
@@ -26,7 +26,7 @@ public:
         changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
     }
 protected:
-    void OnChangeItemsCount(int curItemsCount, int prvItemsCount);
+    void OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount);
 
 protected:
     std::deque<Utf8String> items;

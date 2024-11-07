@@ -25,7 +25,7 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
     groupBox->AddControl(listView);
     groupBox->AddControlOnBorder(verticalScrollbar);
 
-    listView->AddChangeItemsCallback([this](const TerminalListView* listView, int curItemsCount, int prvItemsCount) {
+    listView->AddChangeItemsCallback([this](const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount) {
         verticalScrollbar->CheckVisible();
         });
     listView->AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {

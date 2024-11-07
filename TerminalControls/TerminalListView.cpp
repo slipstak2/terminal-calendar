@@ -4,7 +4,7 @@
 TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
 {
-    provider.AddChangeItemsCallback([this](const ListViewDataProvider* provider, int curItemsCount, int prvItemsCount) {
+    provider.AddChangeItemsCallback([this](const ListViewDataProvider* provider, size_t curItemsCount, size_t prvItemsCount) {
         OnChangeItemsCount(curItemsCount, prvItemsCount);
         });
 
@@ -53,7 +53,7 @@ void TerminalListView::AddChangeOffsetCallback(TerminalListViewChangedOffsetCall
     changeOffsetCallbacks.push_back(std::move(changeOffsetCallback));
 }
 
-void TerminalListView::OnChangeItemsCount(int curItemsCount, int prvItemsCount) {
+void TerminalListView::OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount) {
     for (auto& callback : changeItemsCountCallbacks) {
         callback(this, curItemsCount, prvItemsCount);
     }
@@ -95,11 +95,11 @@ int TerminalListView::NormalizeOffset(int offset) {
 
 void TerminalListView::FlushSelf() {
     auto slice = provider.GetView(viewOffset, Height());
-    for (int i = 0; i < slice.size(); ++i) {
+    for (size_t i = 0; i < slice.size(); ++i) {
         auto& text = slice[i];
         controls[i]->As<TerminalLabel>()->SetText(text);
     }
-    for (int i = slice.size(); i < Height(); ++i) {
+    for (size_t i = slice.size(); i < Height(); ++i) {
         controls[i]->As<TerminalLabel>()->SetText("");
     }
 }

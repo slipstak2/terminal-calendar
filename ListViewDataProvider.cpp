@@ -14,7 +14,7 @@ bool ListViewDataProvider::RemoveLastItem() {
     return false;
 }
 
-void ListViewDataProvider::OnChangeItemsCount(int curItemsCount, int prvItemsCount)
+void ListViewDataProvider::OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount)
 {
     for (auto& callback : changeItemsCountCallbacks) {
         callback(this, curItemsCount, prvItemsCount);
@@ -22,7 +22,7 @@ void ListViewDataProvider::OnChangeItemsCount(int curItemsCount, int prvItemsCou
 }
 
 int ListViewDataProvider::TotalItems() const {
-    return items.size();
+    return (int)items.size();
 }
 
 slice<Utf8String> ListViewDataProvider::GetView(int offset, int length) {

@@ -3,7 +3,7 @@
 #include "ListViewDataProvider.h"
 
 class TerminalListView;
-using TerminalListViewChangedItemsCountCallback = std::function<void(const TerminalListView* listView, int curItemsCount, int prvItemsCount)>;
+using TerminalListViewChangedItemsCountCallback = std::function<void(const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount)>;
 using TerminalListViewChangedOffsetCallback = std::function<void(const TerminalListView* listView, int curOffset, int prvOffset)>;
 
 class TerminalListView : public TerminalCompositeControl {
@@ -36,7 +36,7 @@ public:
     void AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback);
     void AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback);
 protected:
-    void OnChangeItemsCount(int curItemsCount, int prvItemsCount);
+    void OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount);
     void OnChangeOffset(int curOffset, int prvOffset);
 
     std::vector<TerminalListViewChangedItemsCountCallback> changeItemsCountCallbacks;
