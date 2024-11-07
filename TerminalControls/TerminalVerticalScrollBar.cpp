@@ -2,7 +2,6 @@
 #include "TerminalButton.h"
 #include "TerminalVerticalScroll.h"
 #include "TerminalListView.h"
-#include <cassert>
 
 
 const Utf8String TerminalVerticalScrollBar::UpActive        = "▲";

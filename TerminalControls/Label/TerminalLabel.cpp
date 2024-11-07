@@ -1,5 +1,4 @@
 #include "TerminalLabel.h"
-#include <cassert>
 
 TerminalLabel::TerminalLabel(const Utf8String& label, TerminalCoord position)
     : TerminalLabelBase(position, { .height = 1, .width = (short)label.size() })

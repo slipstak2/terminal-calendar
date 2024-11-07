@@ -158,10 +158,12 @@ void TerminalApplication::FullRender() {
     canvas->Render(rootControl);
 }
 
-void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl) {
-    auto clickCell = canvas->Get(absPosition);
+void TerminalApplication::OnMouseLeftClick(TerminalCoord position, bool isCtrl, bool isFromDoubleClick) {
+    auto clickCell = canvas->Get(position);
     auto clickControl = clickCell.GetParent();
     auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
+
+    TryDraggingStart(clickControl, position);
 
     TimeProfiler tp;
     bool isMoveToTop = rootControl->MoveToTop(clickWnd);
@@ -171,33 +173,60 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
         }
     }
     
-    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
+    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(position) : false;
 
     if (isMoveToTop || isApplyClickOK) {
         tp.Get();
         FullRender();
         if (isCtrl) {
-            dbgListView->AddItem("FullRender: " + tp.GetStr());
+            dbgListView->AddItem((isFromDoubleClick ? "DC " : "") +  std::string("FullRender: ") + tp.GetStr());
         }
         FullRender();
     }
 }
 
-void TerminalApplication::OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl) {
-    auto clickCell = canvas->Get(absPosition);
-    auto clickControl = clickCell.GetParent();
+void TerminalApplication::OnMouseDoubleClick(TerminalCoord position, bool isCtrl) {
+    OnMouseLeftClick(position, isCtrl, true);
+}
 
-    TimeProfiler tp;
-    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
+void TerminalApplication::OnMouseUp(TerminalCoord position) {
+    TryDraggingStop();
+}
 
-    if (isApplyClickOK) {
-        tp.Get();
-        FullRender();
-        if (isCtrl) {
-            dbgListView->AddItem("DC FullRender: " + tp.GetStr());
-        }
+void TerminalApplication::OnMouseMoved(TerminalCoord position) {
+    if (TryDragging(position)) {
         FullRender();
     }
+}
+
+bool TerminalApplication::TryDraggingStart(TerminalControl* control, TerminalCoord position) {
+    if (control != nullptr && control->IsDraggable() && control->TryDraggingStart(position)) {
+        draggingControl = control;
+        draggingStartPoint = position;
+        return true;
+    }
+    return false;
+}
+
+bool TerminalApplication::TryDragging(TerminalCoord position) {
+    if (draggingControl) {
+        if (position == draggingStartPoint) {
+            return false;
+        }
+        TerminalCoord delta = position - draggingStartPoint;
+        draggingControl->TryDragging(delta);
+        draggingStartPoint = position;
+        return true;
+    }
+    return false;
+}
+
+bool TerminalApplication::TryDraggingStop() {
+    if (draggingControl) {
+        draggingControl = nullptr;
+        return true;
+    }
+    return false;
 }
 
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
@@ -209,16 +238,19 @@ void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
 
 void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
     std::string info;
+    TerminalCoord position{
+        .row = mouseEvent.dwMousePosition.Y,
+        .col = mouseEvent.dwMousePosition.X 
+    };
     if (mouseEvent.dwEventFlags != 0) { // just click
         if (mouseEvent.dwEventFlags & DOUBLE_CLICK) {
             if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-                OnMouseDoubleClick(TerminalCoord{
-                    .row = mouseEvent.dwMousePosition.Y,
-                    .col = mouseEvent.dwMousePosition.X }, mouseEvent.dwControlKeyState& LEFT_CTRL_PRESSED);
+                OnMouseDoubleClick(position, mouseEvent.dwControlKeyState& LEFT_CTRL_PRESSED);
             }
             info += "Double click";
         }
         if (mouseEvent.dwEventFlags & MOUSE_MOVED) {
+            OnMouseMoved(position);
             info += "Move [" + std::to_string(mouseEvent.dwMousePosition.X) + ", " + std::to_string(mouseEvent.dwMousePosition.Y) + "]";
         }
         if (mouseEvent.dwEventFlags & MOUSE_WHEELED) {
@@ -232,12 +264,11 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
     }
     else {
         if (mouseEvent.dwButtonState == 0) {
+            OnMouseUp(position);
             info = "Up";
         }
         if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-            OnMouseLeftClick(TerminalCoord{
-                .row = mouseEvent.dwMousePosition.Y,
-                .col = mouseEvent.dwMousePosition.X }, mouseEvent.dwControlKeyState & LEFT_CTRL_PRESSED);
+            OnMouseLeftClick(position, mouseEvent.dwControlKeyState & LEFT_CTRL_PRESSED);
             info = "LeftButton";
         }
         if (mouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED) {

@@ -6,6 +6,7 @@ struct TerminalCoord {
 };
 
 TerminalCoord operator - (const TerminalCoord& lhs, const TerminalCoord& rhs);
+bool operator == (const TerminalCoord& lhs, const TerminalCoord& rhs);
 
 struct TerminalSize {
     short height = 0;

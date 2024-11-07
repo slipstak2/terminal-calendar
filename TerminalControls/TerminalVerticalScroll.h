@@ -9,9 +9,15 @@ public:
     DECLARE_CREATE(TerminalVerticalScroll)
 
     TerminalVerticalScroll(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size);
+    
+    bool IsDraggable() override;
+    bool TryDraggingStart(TerminalCoord absPosition) override;
+    bool TryDragging(TerminalCoord delta) override;
+
 protected:
     int ScrollHeight();
     int OffsetHeight();
+    int ItemsPerCell();
 
 public:
     void FlushSelf() override;

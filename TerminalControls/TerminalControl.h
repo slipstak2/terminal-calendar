@@ -120,6 +120,17 @@ public:
         return isVisible;
     }
 
+    virtual bool IsDraggable() {
+        return false;
+    }
+    virtual bool TryDraggingStart(TerminalCoord absPosition) {
+        return false;
+    }
+
+    virtual bool TryDragging(TerminalCoord delta) {
+        return false;
+    }
+
     std::vector<TerminalControlPtr>& GetControls();
 
 public:

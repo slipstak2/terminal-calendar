@@ -9,6 +9,23 @@ TerminalVerticalScroll::TerminalVerticalScroll(TerminalListViewPtr listView, Ter
     backgroundCell = CreateBackgroundCell(' ');
 }
 
+bool TerminalVerticalScroll::IsDraggable() {
+    return true;
+}
+
+bool TerminalVerticalScroll::TryDraggingStart(TerminalCoord absPosition) {
+    TerminalCoord position = GetRelativePosition(absPosition);
+    assert(position.col == 0);
+    return OffsetHeight() <= position.row && position.row < OffsetHeight() + ScrollHeight();
+}
+
+bool TerminalVerticalScroll::TryDragging(TerminalCoord delta) {
+    if (delta.row != 0) {
+        return listView->ChangeOffset(delta.row * ItemsPerCell());
+    }
+    return false;
+}
+
 void TerminalVerticalScroll::FlushSelf() {
     int offsetH = OffsetHeight();
     int scrollH = ScrollHeight();
@@ -41,4 +58,9 @@ int TerminalVerticalScroll::OffsetHeight() {
     int offsetHeight = (int)round((double)viewItems * listView->viewOffset / totalItems);
     offsetHeight = std::min(offsetHeight, Height() - ScrollHeight());
     return offsetHeight;
+}
+int TerminalVerticalScroll::ItemsPerCell() {
+    int viewItems = listView->Height();
+    int totalItems = listView->TotalItems();
+    return totalItems / viewItems;
 }
