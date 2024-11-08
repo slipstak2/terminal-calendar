@@ -57,8 +57,7 @@ public:
     }
     template<class ...Args>
     TerminalCell CreateBackgroundCell(Args... args) {
-        TerminalCell cell(std::forward<Args>(args)...);
-        cell.SetParent(this);
+        TerminalCell cell = CreateCell(args...);
         cell.SetFormatSettings(&FormatSettings::Default);
         return cell;
     }
@@ -128,6 +127,10 @@ public:
     }
 
     virtual bool TryDragging(TerminalCoord delta) {
+        return false;
+    }
+    
+    virtual bool TryDraggingStop() {
         return false;
     }
 

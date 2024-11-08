@@ -32,7 +32,7 @@ protected:
     bool TryDraggingStart(TerminalControl* control, TerminalCoord position);
     bool TryDragging(TerminalCoord position);
     bool TryDraggingStop();
-    TerminalCoord draggingStartPoint;
+    TerminalCoord draggingBasePoint;
     TerminalControl* draggingControl;
 
 private:

@@ -163,7 +163,7 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord position, bool isCtrl, 
     auto clickControl = clickCell.GetParent();
     auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
 
-    TryDraggingStart(clickControl, position);
+    bool isDraggingStart = TryDraggingStart(clickControl, position);
 
     TimeProfiler tp;
     bool isMoveToTop = rootControl->MoveToTop(clickWnd);
@@ -175,7 +175,7 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord position, bool isCtrl, 
     
     bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(position) : false;
 
-    if (isMoveToTop || isApplyClickOK) {
+    if (isMoveToTop || isApplyClickOK || isDraggingStart) {
         tp.Get();
         FullRender();
         if (isCtrl) {
@@ -190,7 +190,9 @@ void TerminalApplication::OnMouseDoubleClick(TerminalCoord position, bool isCtrl
 }
 
 void TerminalApplication::OnMouseUp(TerminalCoord position) {
-    TryDraggingStop();
+    if (TryDraggingStop()) {
+        FullRender();
+    }
 }
 
 void TerminalApplication::OnMouseMoved(TerminalCoord position) {
@@ -202,7 +204,7 @@ void TerminalApplication::OnMouseMoved(TerminalCoord position) {
 bool TerminalApplication::TryDraggingStart(TerminalControl* control, TerminalCoord position) {
     if (control != nullptr && control->IsDraggable() && control->TryDraggingStart(position)) {
         draggingControl = control;
-        draggingStartPoint = position;
+        draggingBasePoint = position;
         return true;
     }
     return false;
@@ -210,12 +212,13 @@ bool TerminalApplication::TryDraggingStart(TerminalControl* control, TerminalCoo
 
 bool TerminalApplication::TryDragging(TerminalCoord position) {
     if (draggingControl) {
-        if (position == draggingStartPoint) {
+        if (position == draggingBasePoint) {
             return false;
         }
-        TerminalCoord delta = position - draggingStartPoint;
-        draggingControl->TryDragging(delta);
-        draggingStartPoint = position;
+        TerminalCoord delta = position - draggingBasePoint;
+        if (draggingControl->TryDragging(delta)) {
+            draggingBasePoint = position;
+        }
         return true;
     }
     return false;
@@ -223,6 +226,7 @@ bool TerminalApplication::TryDragging(TerminalCoord position) {
 
 bool TerminalApplication::TryDraggingStop() {
     if (draggingControl) {
+        draggingControl->TryDraggingStop();
         draggingControl = nullptr;
         return true;
     }

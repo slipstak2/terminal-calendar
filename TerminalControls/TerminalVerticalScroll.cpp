@@ -16,7 +16,24 @@ bool TerminalVerticalScroll::IsDraggable() {
 bool TerminalVerticalScroll::TryDraggingStart(TerminalCoord absPosition) {
     TerminalCoord position = GetRelativePosition(absPosition);
     assert(position.col == 0);
-    return OffsetHeight() <= position.row && position.row < OffsetHeight() + ScrollHeight();
+    if (OffsetHeight() <= position.row && position.row < OffsetHeight() + ScrollHeight()) {
+        if (isScrollDragging) {
+            return false;
+        }
+        isScrollDragging = true;
+        std::swap(scrollFormatSettings, draggingScrollFormatSettings);
+        return true;
+    }
+    return false;
+}
+
+bool TerminalVerticalScroll::TryDraggingStop() {
+    if (isScrollDragging == false) {
+        return false;
+    }
+    isScrollDragging = false;
+    std::swap(scrollFormatSettings, draggingScrollFormatSettings);
+    return true;
 }
 
 bool TerminalVerticalScroll::TryDragging(TerminalCoord delta) {
@@ -34,7 +51,7 @@ void TerminalVerticalScroll::FlushSelf() {
         data[row][0] = backgroundCell;
     }
     for (int row = offsetH; row < offsetH + scrollH; ++row) {
-        data[row][0] = CreateCell("█");
+        data[row][0] = CreateScrollCell("█");
     }
 
     for (int row = offsetH + scrollH; row < Height(); ++row) {
@@ -62,5 +79,5 @@ int TerminalVerticalScroll::OffsetHeight() {
 int TerminalVerticalScroll::ItemsPerCell() {
     int viewItems = listView->Height();
     int totalItems = listView->TotalItems();
-    return totalItems / viewItems;
+    return (int)round((double)totalItems / viewItems);
 }

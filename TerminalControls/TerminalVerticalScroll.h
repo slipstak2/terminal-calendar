@@ -9,10 +9,20 @@ public:
     DECLARE_CREATE(TerminalVerticalScroll)
 
     TerminalVerticalScroll(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size);
+
+    template<class ...Args>
+    TerminalCell CreateScrollCell(Args... args) {
+        TerminalCell cell = CreateCell(args...);
+        cell.SetFormatSettings(&scrollFormatSettings);
+        return cell;
+    }
     
     bool IsDraggable() override;
     bool TryDraggingStart(TerminalCoord absPosition) override;
     bool TryDragging(TerminalCoord delta) override;
+    bool TryDraggingStop() override;
+protected:
+    bool isScrollDragging = false;
 
 protected:
     int ScrollHeight();
@@ -23,4 +33,6 @@ public:
     void FlushSelf() override;
 protected:
     TerminalListViewPtr listView;
+    FormatSettings scrollFormatSettings = FormatSettings::Default;
+    FormatSettings draggingScrollFormatSettings = FormatSettings{ .fontColor = FontColor::Brightblue}; // FormatSettings().SetFontColor(FontColor::Brightred);
 };
