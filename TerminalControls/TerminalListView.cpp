@@ -13,10 +13,6 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         return SetSelectedItem(relPosition.row + viewOffset);
         };
 
-    AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset){
-        UpdateViewSelectedItem();
-        });
-
     for (short row = 0; row < Height(); ++row) {
         auto label = TerminalLabelFixedWidth::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
         label->AddClickCallbackWithPosition([clickCallback](TerminalCoord relPosition, TerminalCoord absPosition) {
@@ -25,6 +21,12 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 
         AddControl(label);
     }
+    AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
+        UpdateViewSelectedItem();
+        });
+    AddMouseWheelCallback([this](short wheelValue) {
+        return ChangeOffset(wheelValue > 0 ? -3 : 3);
+    });
 }
 
 void TerminalListView::AddItem(const std::string& value) {

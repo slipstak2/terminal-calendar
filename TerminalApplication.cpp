@@ -161,12 +161,14 @@ void TerminalApplication::FullRender() {
 void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick) {
     auto clickCell = canvas->Get(absPosition);
     auto clickControl = clickCell.GetParent();
-    auto clickWnd = clickControl ? clickControl->GetParentWindow() : nullptr;
+    auto clickWindow = clickControl ? clickControl->GetParentWindow() : nullptr;
+
+    SetFocusControl(clickControl, clickWindow);
 
     bool isDraggingStart = TryDraggingStart(clickControl, absPosition);
 
     TimeProfiler tp;
-    bool isMoveToTop = rootControl->MoveToTop(clickWnd);
+    bool isMoveToTop = rootControl->MoveToTop(clickWindow);
     if (isMoveToTop) {
         if (isCtrl) {
             dbgListView->AddItem("MoveToTop: " + tp.GetStr());
@@ -198,6 +200,14 @@ void TerminalApplication::OnMouseUp(TerminalCoord absPosition) {
 void TerminalApplication::OnMouseMoved(TerminalCoord absPosition) {
     if (TryDragging(absPosition)) {
         FullRender();
+    }
+}
+
+void TerminalApplication::OnMouseWheeled(short value) {
+    if (focusControl) {
+        if (focusControl->ApplyMouseWheeled(value)) {
+            FullRender();
+        }
     }
 }
 
@@ -233,6 +243,19 @@ bool TerminalApplication::TryDraggingStop() {
     return false;
 }
 
+void TerminalApplication::SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow) {
+    if (clickControl) {
+        if (clickControl->IsFocusable()) {
+            focusControl = clickControl;
+        }
+    }
+    else if (clickWindow) {
+        if (clickWindow->IsFocusable()) {
+            focusControl = clickWindow;
+        }
+    }
+}
+
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
     std::string dir = key.bKeyDown ? "Down" : "Up";
     if (key.bKeyDown && key.uChar.AsciiChar == 'q') {
@@ -258,8 +281,8 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
             info += "Move [" + std::to_string(mouseEvent.dwMousePosition.X) + ", " + std::to_string(mouseEvent.dwMousePosition.Y) + "]";
         }
         if (mouseEvent.dwEventFlags & MOUSE_WHEELED) {
-            long value0 = GET_WHEEL_DELTA_WPARAM(mouseEvent.dwButtonState);
-            long value = HIWORD(mouseEvent.dwButtonState);
+            short value = GET_WHEEL_DELTA_WPARAM(mouseEvent.dwButtonState);
+            OnMouseWheeled(value);
             info += "MOUSE_WHEELED: " + std::to_string(value);
         }
         if (mouseEvent.dwEventFlags & MOUSE_HWHEELED) {

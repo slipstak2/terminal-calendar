@@ -30,9 +30,12 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
     listView->AddChangeItemsCallback([this](const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount) {
         verticalScrollbar->CheckVisible();
         });
+
     listView->AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
         verticalScrollbar->CheckState();
         });
+
+    groupBox->GetTitle()->SetFocusable(false);
     groupBox->GetTitle()->AddClickCallback([this]() {
         if (listView->GetSelectedItem() == -1) {
             return false;

@@ -13,6 +13,7 @@
 
 using ClickCallback = std::function<bool()>;
 using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
+using MouseWheelCallback = std::function<bool(short)>;
 
 class TerminalControl : public TerminalRectangle {
     friend class TerminalCanvas;
@@ -82,6 +83,10 @@ public:
         clickCallbacksWithPosition.push_back(std::move(clickCallback));
     }
 
+    void AddMouseWheelCallback(MouseWheelCallback mouseWheelCallback) {
+        mouseWheelCallbacks.push_back(mouseWheelCallback);
+    }
+
     TerminalCoord GetRelativePosition(TerminalCoord absPosition);
 
     bool ApplyMouseLeftClick(TerminalCoord absPosition) {
@@ -96,6 +101,19 @@ public:
             }
         }
         return isApply;
+    }
+    bool ApplyMouseWheeled(short value) {
+        if (!mouseWheelCallbacks.empty()) {
+            bool isApply = false;
+            for (auto& mouseWheelCallback : mouseWheelCallbacks) {
+                isApply |= mouseWheelCallback(value);
+            }
+            return isApply;
+        } else if (parent) {
+            return parent->ApplyMouseWheeled(value);
+        }
+        return false;
+
     }
     TerminalWindow* GetParentWindow() {
         return parentWindow;
@@ -120,9 +138,18 @@ public:
         return isVisible;
     }
 
+    bool IsFocusable() {
+        return isFocusable;
+    }
+
+    void SetFocusable(bool isFocusable) {
+        this->isFocusable = isFocusable;
+    }
+ 
     virtual bool IsDraggable() {
         return false;
     }
+
     virtual bool TryDraggingStart(TerminalCoord absPosition) {
         return false;
     }
@@ -153,7 +180,9 @@ protected:
 
     std::vector<ClickCallback> clickCallbacks;
     std::vector<ClickCallbackWithPosition> clickCallbacksWithPosition;
+    std::vector<MouseWheelCallback> mouseWheelCallbacks;
 
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;
+    bool isFocusable = true;
 };

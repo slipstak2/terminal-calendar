@@ -17,6 +17,7 @@ public:
     void OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl);
     void OnMouseUp(TerminalCoord absPosition);
     void OnMouseMoved(TerminalCoord absPosition);
+    void OnMouseWheeled(short value);
 
     void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
     void Run();
@@ -35,9 +36,13 @@ protected:
     TerminalCoord draggingBasePoint;
     TerminalControl* draggingControl;
 
+protected:
+    void SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow);
+
 private:
     HANDLE inputHandle;
     HANDLE outputHandle;
     TerminalCanvasPtr canvas;
     TerminalRootControlPtr rootControl;
+    TerminalControl* focusControl = nullptr;
 };
