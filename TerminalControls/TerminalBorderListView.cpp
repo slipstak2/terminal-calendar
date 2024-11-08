@@ -1,6 +1,7 @@
 #include "TerminalBorderListView.h"
 #include "TerminalListView.h"
 #include "TerminalGroupBox.h"
+#include "TerminalLabel.h"
 #include "TerminalVerticalScrollBar.h"
 
 
@@ -31,6 +32,18 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         });
     listView->AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
         verticalScrollbar->CheckState();
+        });
+    groupBox->GetTitle()->AddClickCallback([this]() {
+        if (listView->GetSelectedItem() == -1) {
+            return false;
+        }
+        if (!listView->IsSelectedItemInView()) {
+            listView->NavigateOnSelectedItem();
+        }
+        else {
+            listView->SetSelectedItem(-1);
+        }
+        return true;
         });
 }
 

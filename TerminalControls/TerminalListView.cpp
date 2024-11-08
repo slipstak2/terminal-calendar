@@ -13,6 +13,10 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         return SetSelectedItem(relPosition.row + viewOffset);
         };
 
+    AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset){
+        UpdateViewSelectedItem();
+        });
+
     for (short row = 0; row < Height(); ++row) {
         auto label = TerminalLabel::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
         label->AddClickCallbackWithPosition([clickCallback](TerminalCoord relPosition, TerminalCoord absPosition) {
@@ -79,9 +83,12 @@ int TerminalListView::TotalItems() const{
 }
 
 bool TerminalListView::ChangeOffset(int delta) {
+    return SetOffset(viewOffset + delta);
+}
+
+bool TerminalListView::SetOffset(int newOffset) {
     int initViewOffset = viewOffset;
-    viewOffset += delta;
-    viewOffset = NormalizeOffset(viewOffset);
+    viewOffset = NormalizeOffset(newOffset);
     if (viewOffset != initViewOffset) {
         OnChangeOffset(viewOffset, initViewOffset);
         return true;
@@ -118,10 +125,33 @@ bool TerminalListView::SetSelectedItem(int itemNum) {
         return false;
     }
     selectedItem = itemNum;
-    if (selectedItem != -1) {
-        int viewSelectedItem = selectedItem - viewOffset;
-        controls[viewSelectedItem]->SetFormatSettings(FormatSettings{ .textStyle = TextStyle::Inverse });
+    UpdateViewSelectedItem();
+    return true;
+}
+
+int TerminalListView::GetSelectedItem() {
+    return selectedItem;
+}
+
+bool TerminalListView::IsSelectedItemInView() {
+    if (selectedItem == -1) {
+        return false;
+    }
+    return viewOffset <= selectedItem && selectedItem < viewOffset + Height();
+}
+bool TerminalListView::NavigateOnSelectedItem() {
+    if (selectedItem == -1) {
+        return false;
+    }
+    SetOffset(selectedItem - Height() / 2);
+    return false;
+}
+
+void TerminalListView::UpdateViewSelectedItem() {
+    int viewSelectedItem = selectedItem - viewOffset;
+    for (size_t row = 0; row < controls.size(); ++row) {
+        controls[row]->SetFormatSettings(
+            FormatSettings{ .textStyle = (row == viewSelectedItem ? TextStyle::Inverse : TextStyle::Default) });
     }
 
-    return true;
 }

@@ -15,6 +15,7 @@ public:
 
     void AddControl(TerminalControlPtr control) override;
     void AddControlOnBorder(TerminalControlPtr control);
+    TerminalLabelPtr GetTitle() const;
 
 protected:
     void FlushSelf() override;

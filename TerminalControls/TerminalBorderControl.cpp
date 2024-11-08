@@ -19,6 +19,10 @@ void TerminalBorderControl::AddControlOnBorder(TerminalControlPtr control) {
     TerminalCompositeControl::AddControl(control);
 }
 
+TerminalLabelPtr TerminalBorderControl::GetTitle() const {
+    return titleLabel;
+}
+
 void TerminalBorderControl::SetBorderColor(FontColor borderColor) {
     borderFormatSettings.fontColor = borderColor;
 }

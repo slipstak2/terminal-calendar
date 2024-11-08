@@ -22,11 +22,17 @@ public:
     bool HasDown();
 
     int TotalItems() const;
+    bool SetOffset(int newOffset);
     bool ChangeOffset(int delta);
     void FlushSelf() override;
 
 public:
     bool SetSelectedItem(int itemNum);
+    int GetSelectedItem();
+    bool IsSelectedItemInView();
+    bool NavigateOnSelectedItem();
+protected:
+    void UpdateViewSelectedItem();
 
 protected:
     int MaxViewOffset();
