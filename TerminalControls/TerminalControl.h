@@ -12,7 +12,7 @@
     bool IsKindOf(TerminalControl::Kind _kind) const override { return _kind != KIND ? base::IsKindOf(_kind) : true; }
 
 using ClickCallback = std::function<bool()>;
-using ClickCallbackWithPosition = std::function<bool(TerminalCoord)>;
+using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
 
 class TerminalControl : public TerminalRectangle {
     friend class TerminalCanvas;
@@ -91,7 +91,7 @@ public:
         if (!clickCallbacksWithPosition.empty()) {
             TerminalCoord relPosition = GetRelativePosition(absPosition);
             for (auto& clickCallback : clickCallbacksWithPosition) {
-                isApply |= clickCallback(relPosition);
+                isApply |= clickCallback(relPosition, absPosition);
             }
         }
         return isApply;

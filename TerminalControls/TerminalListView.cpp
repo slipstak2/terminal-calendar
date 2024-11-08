@@ -8,8 +8,17 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         OnChangeItemsCount(curItemsCount, prvItemsCount);
         });
 
+    auto clickCallback = [this](TerminalCoord absPosition) {
+        TerminalCoord relPosition = GetRelativePosition(absPosition);
+        return SetSelectedItem(relPosition.row + viewOffset);
+        };
+
     for (short row = 0; row < Height(); ++row) {
         auto label = TerminalLabel::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
+        label->AddClickCallbackWithPosition([clickCallback](TerminalCoord relPosition, TerminalCoord absPosition) {
+            return clickCallback(absPosition);
+            });
+
         AddControl(label);
     }
 }
@@ -102,4 +111,17 @@ void TerminalListView::FlushSelf() {
     for (size_t i = slice.size(); i < Height(); ++i) {
         controls[i]->As<TerminalLabel>()->SetText("");
     }
+}
+
+bool TerminalListView::SetSelectedItem(int itemNum) {
+    if (selectedItem == itemNum) {
+        return false;
+    }
+    selectedItem = itemNum;
+    if (selectedItem != -1) {
+        int viewSelectedItem = selectedItem - viewOffset;
+        controls[viewSelectedItem]->SetFormatSettings(FormatSettings{ .textStyle = TextStyle::Inverse });
+    }
+
+    return true;
 }

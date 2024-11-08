@@ -25,12 +25,16 @@ public:
     bool ChangeOffset(int delta);
     void FlushSelf() override;
 
+public:
+    bool SetSelectedItem(int itemNum);
+
 protected:
     int MaxViewOffset();
     int NormalizeOffset(int offset);
 protected:
     ListViewDataProvider provider;
     int viewOffset = 0;
+    int selectedItem = -1;
 
 public:
     void AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback);

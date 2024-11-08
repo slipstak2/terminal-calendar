@@ -13,10 +13,10 @@ public:
     void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
     
     void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
-    void OnMouseLeftClick(TerminalCoord position, bool isCtrl, bool isFromDoubleClick = false);
-    void OnMouseDoubleClick(TerminalCoord position, bool isCtrl);
-    void OnMouseUp(TerminalCoord position);
-    void OnMouseMoved(TerminalCoord position);
+    void OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick = false);
+    void OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl);
+    void OnMouseUp(TerminalCoord absPosition);
+    void OnMouseMoved(TerminalCoord absPosition);
 
     void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
     void Run();
@@ -29,8 +29,8 @@ protected:
     TerminalBorderListViewPtr dbgListView;
 
 protected:
-    bool TryDraggingStart(TerminalControl* control, TerminalCoord position);
-    bool TryDragging(TerminalCoord position);
+    bool TryDraggingStart(TerminalControl* control, TerminalCoord absPosition);
+    bool TryDragging(TerminalCoord absPosition);
     bool TryDraggingStop();
     TerminalCoord draggingBasePoint;
     TerminalControl* draggingControl;

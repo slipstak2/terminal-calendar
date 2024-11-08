@@ -7,8 +7,8 @@
 class TerminalCanvas {
 public:
     static TerminalCanvasPtr Create(HANDLE outputHandle, short rows, short cols);
-    const TerminalCell& Get(TerminalCoord position) const;
-    TerminalCell& Get(TerminalCoord position);
+    const TerminalCell& Get(TerminalCoord absPosition) const;
+    TerminalCell& Get(TerminalCoord absPosition);
     void Render(TerminalRootControlPtr rootControl);
 private:
     void SetCursorPosition(short x, short y);

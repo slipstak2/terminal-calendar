@@ -24,11 +24,11 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
         TerminalCoord{ .row = 1, .col = 0 }, 
         TerminalSize{.height = size.height - 2, .width = size.width});
 
-    verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord position) {
-        assert(position.col == 0);
-        if(position.row < verticalScroll->OffsetHeight()) {
+    verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord relPosition, TerminalCoord absPosition) {
+        assert(relPosition.col == 0);
+        if(relPosition.row < verticalScroll->OffsetHeight()) {
             this->listView->ChangeOffset(-(this->listView->Height() - 1));
-        } else if (position.row >= verticalScroll->OffsetHeight() + verticalScroll->ScrollHeight()) {
+        } else if (relPosition.row >= verticalScroll->OffsetHeight() + verticalScroll->ScrollHeight()) {
             this->listView->ChangeOffset(this->listView->Height() - 1);
         }
         else {
