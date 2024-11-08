@@ -22,6 +22,7 @@ public:
         COMPOSITE_CONTROL,
         LABEL_BASE,
         LABEL,
+        LABEL_FIXED_WIDTH,
         LABEL_DATA_PROVIDER,
         LABEL_SWITCHER,
         BUTTON,

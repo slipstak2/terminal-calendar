@@ -6,7 +6,9 @@
 
 class FormatSettings {
 public:
-    static FormatSettings Default;
+    static const FormatSettings Default;
+    static const FormatSettings ScrollDefault;
+    static const FormatSettings ScrollDragging;
 public:
     bool operator == (const FormatSettings& rhs) const;
 public:

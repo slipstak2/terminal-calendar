@@ -29,6 +29,9 @@ using TerminalRootControlPtr = std::shared_ptr<TerminalRootControl>;
 class TerminalLabel;
 using TerminalLabelPtr = std::shared_ptr<TerminalLabel>;
 
+class TerminalLabelFixedWidth;
+using TerminalLabelFixedWidthPtr = std::shared_ptr<TerminalLabelFixedWidth>;
+
 class TerminalLabelDataProvider;
 using TerminalLabelDataProviderPtr = std::shared_ptr<TerminalLabelDataProvider>;
 

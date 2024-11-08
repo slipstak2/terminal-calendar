@@ -1,7 +1,9 @@
 #include "FormatSettings.h"
 #include <tuple>
 
-FormatSettings FormatSettings::Default;
+const FormatSettings FormatSettings::Default;
+const FormatSettings FormatSettings::ScrollDefault = FormatSettings{.fontColor = FontColor::Brightwhite};
+const FormatSettings FormatSettings::ScrollDragging = FormatSettings{ .fontColor = FontColor::Brightblue};
 
 bool FormatSettings::operator == (const FormatSettings& rhs) const {
     return 

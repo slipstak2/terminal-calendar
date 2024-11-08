@@ -1,5 +1,5 @@
 #include "TerminalListView.h"
-#include "TerminalLabel.h"
+#include "TerminalLabelFixedWidth.h"
 
 TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
@@ -18,7 +18,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         });
 
     for (short row = 0; row < Height(); ++row) {
-        auto label = TerminalLabel::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
+        auto label = TerminalLabelFixedWidth::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
         label->AddClickCallbackWithPosition([clickCallback](TerminalCoord relPosition, TerminalCoord absPosition) {
             return clickCallback(absPosition);
             });
@@ -113,10 +113,10 @@ void TerminalListView::FlushSelf() {
     auto slice = provider.GetView(viewOffset, Height());
     for (size_t i = 0; i < slice.size(); ++i) {
         auto& text = slice[i];
-        controls[i]->As<TerminalLabel>()->SetText(text);
+        controls[i]->As<TerminalLabelFixedWidth>()->SetText(text);
     }
     for (size_t i = slice.size(); i < Height(); ++i) {
-        controls[i]->As<TerminalLabel>()->SetText("");
+        controls[i]->As<TerminalLabelFixedWidth>()->SetText("");
     }
 }
 

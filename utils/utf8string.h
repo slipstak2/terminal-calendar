@@ -37,6 +37,7 @@ public:
     const Rune& operator[] (size_t idx) const;
     Rune& operator[] (size_t idx);
     Utf8String operator + (const Utf8String& rhs);
+    void resize(int size, Rune defaultRune);
 
 protected:
     std::vector<Rune> runes;

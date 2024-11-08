@@ -21,7 +21,7 @@ bool TerminalVerticalScroll::TryDraggingStart(TerminalCoord absPosition) {
             return false;
         }
         isScrollDragging = true;
-        std::swap(scrollFormatSettings, draggingScrollFormatSettings);
+        scrollFormatSettings = FormatSettings::ScrollDragging;
         return true;
     }
     return false;
@@ -32,7 +32,7 @@ bool TerminalVerticalScroll::TryDraggingStop() {
         return false;
     }
     isScrollDragging = false;
-    std::swap(scrollFormatSettings, draggingScrollFormatSettings);
+    scrollFormatSettings = FormatSettings::ScrollDefault;
     return true;
 }
 

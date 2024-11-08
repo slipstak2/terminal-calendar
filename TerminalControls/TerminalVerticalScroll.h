@@ -33,6 +33,5 @@ public:
     void FlushSelf() override;
 protected:
     TerminalListViewPtr listView;
-    FormatSettings scrollFormatSettings = FormatSettings::Default;
-    FormatSettings draggingScrollFormatSettings = FormatSettings{ .fontColor = FontColor::Brightblue}; // FormatSettings().SetFontColor(FontColor::Brightred);
+    FormatSettings scrollFormatSettings = FormatSettings::ScrollDefault;
 };

@@ -144,6 +144,7 @@
     <ClCompile Include="TerminalControls\Label\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp" />
+    <ClCompile Include="TerminalControls\Label\TerminalLabelFixedWidth.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelSwitcher.cpp" />
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="TerminalControls\Label\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h" />
+    <ClInclude Include="TerminalControls\Label\TerminalLabelFixedWidth.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelSwitcher.h" />
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
     <ClInclude Include="TerminalControls\TerminalButton.h" />

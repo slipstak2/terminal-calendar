@@ -96,3 +96,7 @@ void Utf8String::Init(const char* data) {
         pos += len;
     }
 }
+
+void Utf8String::resize(int size, Rune defaultRune) {
+    runes.resize(size, defaultRune);
+}

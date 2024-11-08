@@ -11,7 +11,6 @@ public:
 
 public:
     TerminalLabel(const Utf8String& label, TerminalCoord position);
-    TerminalLabel(TerminalCoord position, TerminalSize size);
 
     const Utf8String& Get() const override;
     short Length() const override;
