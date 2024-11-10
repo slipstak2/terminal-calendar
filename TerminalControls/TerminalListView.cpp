@@ -27,6 +27,9 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     AddMouseWheelCallback([this](short wheelValue) {
         return ChangeOffset(wheelValue > 0 ? -3 : 3);
     });
+    AddKeyPressUpOrDownCallbacks([this](bool isUp) {
+        return UpdateMoveSelectedItem(isUp);
+        });
 }
 
 void TerminalListView::AddItem(const std::string& value) {
@@ -123,6 +126,9 @@ void TerminalListView::FlushSelf() {
 }
 
 bool TerminalListView::SetSelectedItem(int itemNum) {
+    if (itemNum < 0 || itemNum >= TotalItems()) {
+        return false;
+    }
     if (selectedItem == itemNum) {
         return false;
     }
@@ -155,5 +161,24 @@ void TerminalListView::UpdateViewSelectedItem() {
         controls[row]->SetFormatSettings(
             FormatSettings{ .textStyle = (row == viewSelectedItem ? TextStyle::Inverse : TextStyle::Default) });
     }
+}
 
+bool TerminalListView::UpdateMoveSelectedItem(bool isUp) {
+    if (!IsSelectedItemInView()) {
+        NavigateOnSelectedItem();
+    }
+    bool isChange = false;
+    if (isUp) {
+        isChange |= SetSelectedItem(selectedItem - 1);
+        if (!IsSelectedItemInView()) {
+            isChange |= ChangeOffset(-1);
+        }
+    }
+    else {
+        isChange |= SetSelectedItem(selectedItem + 1);
+        if (!IsSelectedItemInView()) {
+            isChange |= ChangeOffset(1);
+        }
+    }
+    return isChange;
 }

@@ -211,6 +211,14 @@ void TerminalApplication::OnMouseWheeled(short value) {
     }
 }
 
+void TerminalApplication::OnKeyPressUpOrDown(bool isUp) {
+    if (focusControl) {
+        if (focusControl->ApplyKeyPressUpOrDown(isUp)) {
+            FullRender();
+        }
+    }
+}
+
 bool TerminalApplication::TryDraggingStart(TerminalControl* control, TerminalCoord absPosition) {
     if (control != nullptr && control->IsDraggable() && control->TryDraggingStart(absPosition)) {
         draggingControl = control;
@@ -258,6 +266,11 @@ void TerminalApplication::SetFocusControl(TerminalControl* clickControl, Termina
 
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
     std::string dir = key.bKeyDown ? "Down" : "Up";
+    if (key.bKeyDown) {
+        if (key.wVirtualKeyCode == VK_UP || key.wVirtualKeyCode == VK_DOWN) {
+            OnKeyPressUpOrDown(key.wVirtualKeyCode == VK_UP);
+        }
+    }
     if (key.bKeyDown && key.uChar.AsciiChar == 'q') {
         exit(0);
     }

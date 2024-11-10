@@ -19,6 +19,8 @@ public:
     void OnMouseMoved(TerminalCoord absPosition);
     void OnMouseWheeled(short value);
 
+    void OnKeyPressUpOrDown(bool isUp);
+
     void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
     void Run();
 

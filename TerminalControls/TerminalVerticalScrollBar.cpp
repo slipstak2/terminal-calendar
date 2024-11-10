@@ -23,6 +23,7 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
         listView,
         TerminalCoord{ .row = 1, .col = 0 }, 
         TerminalSize{.height = size.height - 2, .width = size.width});
+    verticalScroll->SetFocusable(false); // move focus on vertical scroolbar(may be)
 
     verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord relPosition, TerminalCoord absPosition) {
         assert(relPosition.col == 0);

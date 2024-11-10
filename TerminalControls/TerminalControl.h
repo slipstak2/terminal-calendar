@@ -14,6 +14,7 @@
 using ClickCallback = std::function<bool()>;
 using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
 using MouseWheelCallback = std::function<bool(short)>;
+using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
 class TerminalControl : public TerminalRectangle {
     friend class TerminalCanvas;
@@ -87,6 +88,10 @@ public:
         mouseWheelCallbacks.push_back(mouseWheelCallback);
     }
 
+    void AddKeyPressUpOrDownCallbacks(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {
+        keyPressUpOrDownCallbacks.push_back(keyPressUpOrDownCallback);
+    }
+
     TerminalCoord GetRelativePosition(TerminalCoord absPosition);
 
     bool ApplyMouseLeftClick(TerminalCoord absPosition) {
@@ -113,7 +118,20 @@ public:
             return parent->ApplyMouseWheeled(value);
         }
         return false;
+    }
 
+    bool ApplyKeyPressUpOrDown(bool isUp) {
+        if (!keyPressUpOrDownCallbacks.empty()) {
+            bool isApply = false;
+            for (auto& keyPressUpOrDownCallback : keyPressUpOrDownCallbacks) {
+                isApply |= keyPressUpOrDownCallback(isUp);
+            }
+            return isApply;
+        }
+        else if (parent) {
+            return parent->ApplyKeyPressUpOrDown(isUp);
+        }
+        return false;
     }
     TerminalWindow* GetParentWindow() {
         return parentWindow;
@@ -181,6 +199,7 @@ protected:
     std::vector<ClickCallback> clickCallbacks;
     std::vector<ClickCallbackWithPosition> clickCallbacksWithPosition;
     std::vector<MouseWheelCallback> mouseWheelCallbacks;
+    std::vector<KeyPressUpOrDownCallback> keyPressUpOrDownCallbacks;
 
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;

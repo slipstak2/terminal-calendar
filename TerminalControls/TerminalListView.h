@@ -33,6 +33,7 @@ public:
     bool NavigateOnSelectedItem();
 protected:
     void UpdateViewSelectedItem();
+    bool UpdateMoveSelectedItem(bool isUp);
 
 protected:
     int MaxViewOffset();
