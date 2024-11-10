@@ -1,5 +1,6 @@
 ﻿#include "TerminalCell.h"
 #include "TerminalControl.h"
+#include "TerminalControlsConfig.h"
 
 void TerminalCell::SetParent(TerminalControl* newParent) {
     parent = newParent;
@@ -44,14 +45,21 @@ bool TerminalCell::operator != (const TerminalCell& rhs) {
 // https://habr.com/ru/articles/119436/
 // https://habr.com/ru/companies/macloud/articles/558316/
 void TerminalCell::Render() const {
-    auto fmtSettings = GetFormatSettings();
-    
-    printf("\033[%d;%d;%dm%s\033[0m", 
-        (int)(fmtSettings.textStyle), 
-        int(fmtSettings.backgroundColor), 
-        (int)fmtSettings.fontColor, 
-        rune.get()
-    );
+    if (TControlsConfig().simpleRender) {
+        printf("%s",
+            rune.get()
+        );
+    }
+    else {
+        auto fmtSettings = GetFormatSettings();
+
+        printf("\033[%d;%d;%dm%s\033[0m",
+            (int)(fmtSettings.textStyle),
+            int(fmtSettings.backgroundColor),
+            (int)fmtSettings.fontColor,
+            rune.get()
+        );
+    }
 
     // \033[53
     // \033[38;2;201;200;59m    полный спектр rbg для цвета и фона

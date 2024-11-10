@@ -11,6 +11,7 @@
 #include "TerminalRadioButton.h"
 #include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
+#include "TerminalControlsConfig.h"
 
 #include "TimeProfiler.h"
 
@@ -58,6 +59,13 @@ TerminalApplication::TerminalApplication()  {
 
     auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = cols });
     AddWindow(backgroundWindow);
+
+    auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height()-1, .col = 3 });
+    isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+        TControlsConfig().simpleRender = isChecked;
+        FullRender();
+        });
+    backgroundWindow->AddControlOnBorder(isSimpleRender);
 
     dbgListView = TerminalBorderListView::Create("Debug info",
         TerminalCoord{ .row = 1, .col = 89 },

@@ -18,7 +18,7 @@ public:
     bool SetChecked(bool isCheck);
     bool GetChecked();
 
-    void SetOnChangedCallback(CheckBoxChangedCallback changedCallback) {
+    void SetOnChangedCallback(CheckBoxChangedCallback changedCallback) { // rename on Add
         this->changedCallback = changedCallback;
     }
 
