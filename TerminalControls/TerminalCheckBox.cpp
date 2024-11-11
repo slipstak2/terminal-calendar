@@ -38,3 +38,7 @@ bool TerminalCheckBox::SetChecked(bool isChecked) {
 bool TerminalCheckBox::GetChecked() {
     return isChecked;
 }
+
+void TerminalCheckBox::SetLabelFormatSettings(FormatSettings labelFormatSettings) {
+    labelButton->SetFormatSettings(labelFormatSettings);
+}

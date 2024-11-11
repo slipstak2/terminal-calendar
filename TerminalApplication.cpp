@@ -61,12 +61,21 @@ TerminalApplication::TerminalApplication()  {
     AddWindow(backgroundWindow);
 
     auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height()-1, .col = 3 });
+    isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
     isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().simpleRender = isChecked;
         FullRender();
         });
     backgroundWindow->AddControlOnBorder(isSimpleRender);
 
+    auto isProfileEnable = TerminalCheckBox::Create("Time profiler ",
+        TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isSimpleRender->ColEnd() + 2 });
+    isProfileEnable->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+        TControlsConfig().profileEnable = isChecked;
+        });
+    isProfileEnable->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Yellow });
+
+    backgroundWindow->AddControlOnBorder(isProfileEnable);
     dbgListView = TerminalBorderListView::Create("Debug info",
         TerminalCoord{ .row = 1, .col = 89 },
         TerminalSize{ .height = 28, .width = 30 });
@@ -178,7 +187,7 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
     TimeProfiler tp;
     bool isMoveToTop = rootControl->MoveToTop(clickWindow);
     if (isMoveToTop) {
-        if (isCtrl) {
+        if (TControlsConfig().profileEnable) {
             dbgListView->AddItem("MoveToTop: " + tp.GetStr());
         }
     }
@@ -188,7 +197,7 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
     if (isMoveToTop || isApplyClickOK || isDraggingStart) {
         tp.Get();
         FullRender();
-        if (isCtrl) {
+        if (TControlsConfig().profileEnable) {
             dbgListView->AddItem((isFromDoubleClick ? "DC " : "") +  std::string("FullRender: ") + tp.GetStr());
         }
         FullRender();

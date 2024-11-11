@@ -22,6 +22,8 @@ public:
         this->changedCallback = changedCallback;
     }
 
+    void SetLabelFormatSettings(FormatSettings labelFormatSettings);
+
 protected:
     CheckBoxChangedCallback changedCallback = nullptr;
 protected:
