@@ -13,7 +13,6 @@
 #include "TerminalCheckBox.h"
 #include "TerminalControlsConfig.h"
 
-#include "TimeProfiler.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -89,6 +88,11 @@ TerminalApplication::TerminalApplication()  {
 
     dbgListView->SetBorderColor(FontColor::Magenta);
     dbgListView->SetTitleColor(FontColor::Yellow);
+
+    TControlsConfig().tp.SetCallback([this](const std::string& message) {
+        dbgListView->AddItem(message);
+        return true;
+        });
 
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
@@ -184,21 +188,21 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
 
     bool isDraggingStart = TryDraggingStart(clickControl, absPosition);
 
-    TimeProfiler tp;
+    TControlsConfig().tp.Get();
     bool isMoveToTop = rootControl->MoveToTop(clickWindow);
     if (isMoveToTop) {
         if (TControlsConfig().profileEnable) {
-            dbgListView->AddItem("MoveToTop: " + tp.GetStr());
+            TControlsConfig().tp.Fix("MoveToTop: ");
         }
     }
     
     bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
 
     if (isMoveToTop || isApplyClickOK || isDraggingStart) {
-        tp.Get();
+        TControlsConfig().tp.Get();
         FullRender();
         if (TControlsConfig().profileEnable) {
-            dbgListView->AddItem((isFromDoubleClick ? "DC " : "") +  std::string("FullRender: ") + tp.GetStr());
+            TControlsConfig().tp.Fix((isFromDoubleClick ? "DC " : "") + std::string("FullRender: "));
         }
         FullRender();
     }

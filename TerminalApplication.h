@@ -5,6 +5,8 @@
 #include <Windows.h>
 #include <optional>
 
+#include "TimeProfiler.h"
+
 
 class TerminalApplication {
 public:
@@ -47,4 +49,7 @@ private:
     TerminalCanvasPtr canvas;
     TerminalRootControlPtr rootControl;
     TerminalControl* focusControl = nullptr;
+
+protected:
+    ;
 };

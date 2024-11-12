@@ -1,5 +1,9 @@
 #pragma once
 #include <chrono>
+#include <string>
+#include <functional>
+
+using TimeProfilerCallback = std::function<bool(const std::string& message)>;
 
 class TimeProfiler {
 public:
@@ -26,6 +30,16 @@ public:
         sprintf_s(buf, format[pos].data(), dur);
         return buf;
     }
+
+    void Fix(const std::string& title) {
+        if (callback) {
+            callback(title + GetStr());
+        }
+    }
+    void SetCallback(TimeProfilerCallback callback) {
+        this->callback = callback;
+    }
 protected:
     std::chrono::time_point<std::chrono::steady_clock> prv;
+    TimeProfilerCallback callback;
 };
