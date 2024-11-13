@@ -126,6 +126,9 @@
     <ClCompile Include="TerminalControls\TerminalControlsConfig.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="TimeProfiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils\common.h">

@@ -1,45 +1,33 @@
 #pragma once
+
 #include <chrono>
 #include <string>
 #include <functional>
+#include <stack>
+#include <cassert>
 
 using TimeProfilerCallback = std::function<bool(const std::string& message)>;
 
 class TimeProfiler {
 public:
-    TimeProfiler() {
-        prv = std::chrono::steady_clock::now();
-    }
-    int64_t Get() {
-        auto cur = std::chrono::steady_clock::now();
-        const std::chrono::duration<int64_t, std::nano> diff = cur - prv;
-        prv = cur;
+    void Push(const std::string& title);
 
-        return diff.count();
-    }
-    std::string GetStr() {
-        static const std::string format[4] = { "%.f ns", "%.f us", "%.f ms", "%.3f s"};
-        int pos = 0;
-        double dur = (double)Get();
-        while (dur >= 1000 && pos < 3) {
-            dur /= 1000;
-            pos++;
-        }
+    void Pop(const std::string& title, bool shouldCommit = true);
+    
+    void Commit(const std::string& title, int64_t nano);
+    
+    void SetCallback(TimeProfilerCallback callback);
 
-        char buf[200];
-        sprintf_s(buf, format[pos].data(), dur);
-        return buf;
-    }
-
-    void Fix(const std::string& title) {
-        if (callback) {
-            callback(title + GetStr());
-        }
-    }
-    void SetCallback(TimeProfilerCallback callback) {
-        this->callback = callback;
-    }
 protected:
-    std::chrono::time_point<std::chrono::steady_clock> prv;
+    std::chrono::time_point<std::chrono::steady_clock> Now();
+    
+    std::string GetStr(int64_t nano);
+
+protected:
     TimeProfilerCallback callback;
+    std::stack<std::chrono::time_point<std::chrono::steady_clock>> timeMarks;
+    std::stack<std::string> timeMarksTitle;
+
+public:
+    bool forceShouldNotCommit = false;
 };

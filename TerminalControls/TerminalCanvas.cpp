@@ -23,12 +23,13 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
     rootControl->Flush();
 
     int renderCount = 0;
-    TControlsConfig().tp.Get();
+    TimeProfiler& tp = TControlsConfig().tp;
+    tp.Push("Render");
     for (short col = 0; col < cols; ++col) {
         for (short row = 0; row < rows; ++row) {
             data[row][col].MakeSnapshot();
             //rootControl->data[row][col].MakeSnapshot(); // TODO: think comparation
-            if (data[row][col] != rootControl->data[row][col]) {
+            if (data[row][col].GetSnapshot() != rootControl->data[row][col] || true) {
                 renderCount++;
                 SetCursorPosition(col, row);
                 rootControl->data[row][col].Render();
@@ -36,5 +37,5 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
             }
         }
     }
-    TControlsConfig().tp.Fix("   Render[" + std::to_string(renderCount) + "]: ");
+    tp.Pop("Render[" + std::to_string(renderCount) + "]");
 }

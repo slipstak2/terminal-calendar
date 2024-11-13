@@ -21,7 +21,6 @@ short TerminalLabelFixedWidth::Length() const {
 }
 
 void TerminalLabelFixedWidth::SetText(const Utf8String& newText) {
-    assert(newText.size() <= Width());
     text = newText;
     InitRenderText();
 }

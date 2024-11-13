@@ -188,23 +188,21 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
 
     bool isDraggingStart = TryDraggingStart(clickControl, absPosition);
 
-    TControlsConfig().tp.Get();
+    TimeProfiler& tp = TControlsConfig().tp;
+    tp.Push("MoveToTop");
     bool isMoveToTop = rootControl->MoveToTop(clickWindow);
-    if (isMoveToTop) {
-        if (TControlsConfig().profileEnable) {
-            TControlsConfig().tp.Fix("MoveToTop: ");
-        }
-    }
+    tp.Pop("MoveToTop", isMoveToTop);
     
     bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
 
     if (isMoveToTop || isApplyClickOK || isDraggingStart) {
-        TControlsConfig().tp.Get();
+        TimeProfiler& tp = TControlsConfig().tp;
+        tp.Push("FullRender");
         FullRender();
-        if (TControlsConfig().profileEnable) {
-            TControlsConfig().tp.Fix((isFromDoubleClick ? "DC " : "") + std::string("FullRender: "));
-        }
+        tp.Pop("FullRender" + std::string(isFromDoubleClick ? "DC " : ""));
+        tp.forceShouldNotCommit = true;
         FullRender();
+        tp.forceShouldNotCommit = false;
     }
 }
 

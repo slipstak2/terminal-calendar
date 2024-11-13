@@ -12,7 +12,7 @@ public:
         memcpy(data, r.data, sizeof(data));
         return *this;
     }
-    bool operator == (const Rune& r) {
+    bool operator == (const Rune& r) const {
         return memcmp(data, r.data, sizeof(data)) == 0;
     }
 

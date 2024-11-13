@@ -19,19 +19,23 @@ public:
     void SetFormatSettings(const FormatSettings* formatSettings);
     const FormatSettings& GetFormatSettings() const;
     void Render() const;
-    bool operator == (const TerminalCell& rhs);
-    bool operator != (const TerminalCell& rhs);
-protected:
+public:
     struct TerminalCellSnapshot {
         Rune rune;
         FormatSettings formatSettings;
-        bool operator == (const TerminalCellSnapshot& rhs) {
-            return std::tie(rune, formatSettings) == std::tie(rhs.rune, rhs.formatSettings);
+        bool operator == (const TerminalCell& rhs) const {
+            return std::tie(rune, formatSettings) == std::tie(rhs.rune, rhs.GetFormatSettings());
+        }
+        bool operator != (const TerminalCell& rhs) const {
+            return !(*this == rhs);
         }
     };
 public:
     void MakeSnapshot() {
         snapshot = TerminalCellSnapshot{ .rune = rune, .formatSettings = GetFormatSettings()};
+    }
+    const TerminalCellSnapshot& GetSnapshot() {
+        return snapshot;
     }
 
 private:

@@ -28,14 +28,6 @@ TerminalControl* TerminalCell::GetParent() {
     return parent;
 }
 
-bool TerminalCell::operator == (const TerminalCell& rhs) {
-    return std::tie(snapshot, parent) == std::tie(rhs.snapshot, rhs.parent);
-}
-
-bool TerminalCell::operator != (const TerminalCell& rhs) {
-    return !(*this == rhs);
-}
-
 // https://habr.com/ru/articles/119436/
 // 
 // 
@@ -45,14 +37,15 @@ bool TerminalCell::operator != (const TerminalCell& rhs) {
 // https://habr.com/ru/articles/119436/
 // https://habr.com/ru/companies/macloud/articles/558316/
 void TerminalCell::Render() const {
+    auto fmtSettings = GetFormatSettings();
+
     if (TControlsConfig().simpleRender) {
-        printf("%s",
+        printf("\033[%dm%s\033[0m",
+            (int)(fmtSettings.textStyle),
             rune.get()
         );
     }
     else {
-        auto fmtSettings = GetFormatSettings();
-
         printf("\033[%d;%d;%dm%s\033[0m",
             (int)(fmtSettings.textStyle),
             int(fmtSettings.backgroundColor),
