@@ -4,8 +4,9 @@
 
 class TerminalControlsConfig {
 public:
-    bool simpleRender = false;
+    bool isSimpleRender = false;
     bool profileEnable = false;
+    bool isFullRender = false;
     TimeProfiler tp;
 };
 

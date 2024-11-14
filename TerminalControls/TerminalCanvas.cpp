@@ -29,12 +29,12 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
         for (short row = 0; row < rows; ++row) {
             data[row][col].MakeSnapshot();
             //rootControl->data[row][col].MakeSnapshot(); // TODO: think comparation
-            if (data[row][col].GetSnapshot() != rootControl->data[row][col] || true) {
+            if (data[row][col].GetSnapshot() != rootControl->data[row][col] || TControlsConfig().isFullRender) {
                 renderCount++;
                 SetCursorPosition(col, row);
                 rootControl->data[row][col].Render();
-                data[row][col] = rootControl->data[row][col];
             }
+            data[row][col] = rootControl->data[row][col];
         }
     }
     tp.Pop("Render[" + std::to_string(renderCount) + "]");

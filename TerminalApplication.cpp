@@ -59,22 +59,31 @@ TerminalApplication::TerminalApplication()  {
     auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = cols });
     AddWindow(backgroundWindow);
 
-    auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height()-1, .col = 3 });
-    isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
-    isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
-        TControlsConfig().simpleRender = isChecked;
-        FullRender();
-        });
-    backgroundWindow->AddControlOnBorder(isSimpleRender);
-
     auto isProfileEnable = TerminalCheckBox::Create("Time profiler ",
-        TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isSimpleRender->ColEnd() + 2 });
+        TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = 3 });
     isProfileEnable->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().profileEnable = isChecked;
         });
     isProfileEnable->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Yellow });
-
     backgroundWindow->AddControlOnBorder(isProfileEnable);
+
+    auto isFullRender = TerminalCheckBox::Create("Full render ", TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isProfileEnable->ColEnd() + 2 });
+    isFullRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+        TControlsConfig().isFullRender = isChecked;
+        });
+    isFullRender->SetLabelFormatSettings(FormatSettings{. fontColor = FontColor::Brightblue});
+    backgroundWindow->AddControlOnBorder(isFullRender);
+
+    auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height()-1, .col = isFullRender->ColEnd() + 2});
+    isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
+    isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+        TControlsConfig().isSimpleRender = isChecked;
+        FullRender();
+        });
+    backgroundWindow->AddControlOnBorder(isSimpleRender);
+
+
+
     dbgListView = TerminalBorderListView::Create("Debug info",
         TerminalCoord{ .row = 1, .col = 89 },
         TerminalSize{ .height = 28, .width = 30 });

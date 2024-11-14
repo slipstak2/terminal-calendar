@@ -39,7 +39,7 @@ TerminalControl* TerminalCell::GetParent() {
 void TerminalCell::Render() const {
     auto fmtSettings = GetFormatSettings();
 
-    if (TControlsConfig().simpleRender) {
+    if (TControlsConfig().isSimpleRender) {
         printf("\033[%dm%s\033[0m",
             (int)(fmtSettings.textStyle),
             rune.get()

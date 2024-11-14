@@ -184,7 +184,6 @@ public:
 
 public:
     void Flush();
-    int tag = 0;
 protected:
     void FlushControls();
     virtual void FlushSelf() = 0;
