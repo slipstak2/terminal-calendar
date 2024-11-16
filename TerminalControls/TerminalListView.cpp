@@ -126,8 +126,10 @@ void TerminalListView::FlushSelf() {
 }
 
 bool TerminalListView::SetSelectedItem(int itemNum) {
-    if (itemNum < 0 || itemNum >= TotalItems()) {
-        return false;
+    if (itemNum != -1) {
+        if (itemNum < 0 || itemNum >= TotalItems()) {
+            return false;
+        }
     }
     if (selectedItem == itemNum) {
         return false;

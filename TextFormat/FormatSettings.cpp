@@ -10,3 +10,7 @@ bool FormatSettings::operator == (const FormatSettings& rhs) const {
         std::tie(fontColor, backgroundColor, textStyle) == 
         std::tie(rhs.fontColor, rhs.backgroundColor, rhs.textStyle);
 }
+
+bool FormatSettings::IsDefault() const {
+    return *this == Default;
+}

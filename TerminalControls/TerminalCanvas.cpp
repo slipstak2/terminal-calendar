@@ -27,13 +27,16 @@ void TerminalCanvas::Render(TerminalRootControlPtr rootControl) {
     tp.Push("Render");
     for (short col = 0; col < cols; ++col) {
         for (short row = 0; row < rows; ++row) {
-            if (data[row][col].GetSnapshot() != rootControl->data[row][col] || TControlsConfig().isFullRender) {
+            TerminalCell& prevFrameCell = data[row][col];
+            TerminalCell& curFrameCell = rootControl->data[row][col];
+
+            if (prevFrameCell.GetSnapshot() != curFrameCell || TControlsConfig().isFullRender) {
                 renderCount++;
                 SetCursorPosition(col, row);
-                rootControl->data[row][col].Render();
+                curFrameCell.Render();
             }
-            data[row][col] = rootControl->data[row][col];
-            data[row][col].MakeSnapshot();
+            prevFrameCell = curFrameCell;
+            prevFrameCell.MakeSnapshot();
         }
     }
     tp.Pop("Render[" + std::to_string(renderCount) + "]");

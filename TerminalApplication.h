@@ -13,6 +13,7 @@ public:
     TerminalApplication();
 
     void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
+    void OnKeyPressUpOrDown(bool isUp);
     
     void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
     void OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick = false);
@@ -21,14 +22,14 @@ public:
     void OnMouseMoved(TerminalCoord absPosition);
     void OnMouseWheeled(short value);
 
-    void OnKeyPressUpOrDown(bool isUp);
-
     void OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent);
+    void OnWindowResize(short rows, short cols);
+
     void Run();
 
     void AddWindow(TerminalWindowPtr window);
 
-    void FullRender();
+    void FrameRender(bool isFullRender = false);
 
 protected:
     TerminalBorderListViewPtr dbgListView;

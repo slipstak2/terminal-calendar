@@ -78,7 +78,7 @@ TerminalApplication::TerminalApplication()  {
     isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
     isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().isSimpleRender = isChecked;
-        FullRender();
+        FrameRender(true);
         });
     backgroundWindow->AddControlOnBorder(isSimpleRender);
 
@@ -88,15 +88,15 @@ TerminalApplication::TerminalApplication()  {
         TerminalCoord{ .row = 1, .col = 89 },
         TerminalSize{ .height = 28, .width = 30 });
 
+    dbgListView->SetBorderColor(FontColor::Magenta);
+    dbgListView->SetTitleColor(FontColor::Yellow);
     backgroundWindow->AddControl(dbgListView);
 
     auto borderListView = TerminalBorderListView::Create("BorderListView",
         TerminalCoord{ .row = 1, .col = 69 },
         TerminalSize{ .height = 28, .width = 20 });
+    borderListView->SetTitleColor(FontColor::Brightgreen);
     backgroundWindow->AddControl(borderListView);
-
-    dbgListView->SetBorderColor(FontColor::Magenta);
-    dbgListView->SetTitleColor(FontColor::Yellow);
 
     TControlsConfig().tp.SetCallback([this](const std::string& message) {
         dbgListView->AddItem(message);
@@ -184,8 +184,15 @@ void TerminalApplication::AddWindow(TerminalWindowPtr window) {
     rootControl->AddControl(window);
 }
 
-void TerminalApplication::FullRender() {
+void TerminalApplication::FrameRender(bool isFullRender) {
+    if (isFullRender) {
+        TControlsConfig().isFullRender = true;
+    }
     canvas->Render(rootControl);
+
+    if (isFullRender) {
+        TControlsConfig().isFullRender = false;
+    }
 }
 
 void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick) {
@@ -206,11 +213,11 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
 
     if (isMoveToTop || isApplyClickOK || isDraggingStart) {
         TimeProfiler& tp = TControlsConfig().tp;
-        tp.Push("FullRender");
-        FullRender();
-        tp.Pop("FullRender" + std::string(isFromDoubleClick ? "DC " : ""));
+        tp.Push("FrameRender");
+        FrameRender();
+        tp.Pop("FrameRender" + std::string(isFromDoubleClick ? "DC " : ""));
         tp.forceShouldNotCommit = true;
-        FullRender();
+        FrameRender();
         tp.forceShouldNotCommit = false;
     }
 }
@@ -221,20 +228,20 @@ void TerminalApplication::OnMouseDoubleClick(TerminalCoord absPosition, bool isC
 
 void TerminalApplication::OnMouseUp(TerminalCoord absPosition) {
     if (TryDraggingStop()) {
-        FullRender();
+        FrameRender();
     }
 }
 
 void TerminalApplication::OnMouseMoved(TerminalCoord absPosition) {
     if (TryDragging(absPosition)) {
-        FullRender();
+        FrameRender();
     }
 }
 
 void TerminalApplication::OnMouseWheeled(short value) {
     if (focusControl) {
         if (focusControl->ApplyMouseWheeled(value)) {
-            FullRender();
+            FrameRender();
         }
     }
 }
@@ -242,7 +249,7 @@ void TerminalApplication::OnMouseWheeled(short value) {
 void TerminalApplication::OnKeyPressUpOrDown(bool isUp) {
     if (focusControl) {
         if (focusControl->ApplyKeyPressUpOrDown(isUp)) {
-            FullRender();
+            FrameRender();
         }
     }
 }
@@ -355,7 +362,12 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
     //std::cout << "OnMouseEvent: " << info << std::endl;
 }
 
+void TerminalApplication::OnWindowResize(short rows, short cols) {
+    FrameRender(true);
+}
+
 void TerminalApplication::OnWindowResizeEvent(const WINDOW_BUFFER_SIZE_RECORD& windowSizeEvent) {
+    OnWindowResize(windowSizeEvent.dwSize.Y, windowSizeEvent.dwSize.X);
     //std::cout << "WINDOW_BUFFER_SIZE_RECORD: " << windowSizeEvent.dwSize.X << " : " << windowSizeEvent.dwSize.Y << std::endl;
 }
 
@@ -363,7 +375,7 @@ void TerminalApplication::Run() {
     DWORD cc;
     INPUT_RECORD irec;
 
-    FullRender();
+    FrameRender();
     for (;;) {
         ReadConsoleInput(inputHandle, &irec, 1, &cc);
         if (irec.EventType == KEY_EVENT) {

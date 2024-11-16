@@ -11,6 +11,7 @@ public:
     static const FormatSettings ScrollDragging;
 public:
     bool operator == (const FormatSettings& rhs) const;
+    bool IsDefault() const;
 public:
     BackgroundColor backgroundColor = BackgroundColor::Default;
     FontColor fontColor = FontColor::Default;
