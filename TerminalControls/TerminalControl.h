@@ -203,4 +203,7 @@ protected:
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;
     bool isFocusable = true;
+
+public:
+    int tag; // for debug don't erase
 };
