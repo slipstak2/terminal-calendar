@@ -154,6 +154,10 @@ TerminalApplication::TerminalApplication()  {
         });
     DanilWindow->AddControl(btnAddNewItem);
     DanilWindow->AddControl(btnRemoveLastItem);
+
+    auto hyperLink = TerminalLabel::Create("Hyper link", TerminalCoord{ .row = 10, .col = 30 });
+    DanilWindow->AddControl(hyperLink);
+
     AddWindow(DanilWindow);
 
     for (int i = 0; i < 175; ++i) {
