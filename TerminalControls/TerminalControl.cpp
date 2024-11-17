@@ -25,6 +25,10 @@ void TerminalControl::SetSize(TerminalSize newSize) {
     }
 }
 
+void TerminalControl::Resize(short rows, short cols) {
+    SetSize(TerminalSize{.height = rows, .width = cols});
+}
+
 void TerminalControl::SetPosition(TerminalCoord newPosition) {
     position = newPosition;
 }

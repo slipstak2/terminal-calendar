@@ -48,6 +48,7 @@ public:
     virtual void AddControl(TerminalControlPtr control);
 
     void SetSize(TerminalSize newSize);
+    void Resize(short rows, short cols);
     void SetPosition(TerminalCoord newPosition);
 
     void SetParentWindow(TerminalWindow* parentWindow);

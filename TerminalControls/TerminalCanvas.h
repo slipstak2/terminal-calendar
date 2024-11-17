@@ -10,12 +10,10 @@ public:
     const TerminalCell& Get(TerminalCoord absPosition) const;
     TerminalCell& Get(TerminalCoord absPosition);
     void Render(TerminalRootControlPtr rootControl);
+    void Resize(short rows, short cols);
 private:
     void SetCursorPosition(short x, short y);
-    TerminalCanvas(HANDLE outputHandle, short rows, short cols) : outputHandle(outputHandle), rows(rows), cols(cols)
-    {
-        data.resize(rows, std::vector<TerminalCell>(cols));
-    }
+    TerminalCanvas(HANDLE outputHandle, short rows, short cols);
 private:
     HANDLE outputHandle;
     short rows;

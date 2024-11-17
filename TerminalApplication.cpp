@@ -188,6 +188,7 @@ void TerminalApplication::FrameRender(bool isFullRender) {
     if (isFullRender) {
         TControlsConfig().isFullRender = true;
     }
+
     canvas->Render(rootControl);
 
     if (isFullRender) {
@@ -363,6 +364,8 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
 }
 
 void TerminalApplication::OnWindowResize(short rows, short cols) {
+    canvas->Resize(rows, cols);
+    rootControl->Resize(rows, cols);
     FrameRender(true);
 }
 
