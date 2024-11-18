@@ -14,6 +14,8 @@
 using ClickCallback = std::function<bool()>;
 using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
 using MouseWheelCallback = std::function<bool(short)>;
+using MouseOverCallback = std::function<bool()>;
+using MouseOutCallback = std::function<bool()>;
 using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
 class TerminalControl : public TerminalRectangle {
@@ -89,6 +91,14 @@ public:
         mouseWheelCallbacks.push_back(mouseWheelCallback);
     }
 
+    void AddMouseOverCallback(MouseOverCallback mouseOverCallback) {
+        mouseOverCallbacks.push_back(mouseOverCallback);
+    }
+
+    void AddMouseOutCallback(MouseOutCallback mouseOutCallback) {
+        mouseOutCallbacks.push_back(mouseOutCallback);
+    }
+
     void AddKeyPressUpOrDownCallbacks(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {
         keyPressUpOrDownCallbacks.push_back(keyPressUpOrDownCallback);
     }
@@ -119,6 +129,22 @@ public:
             return parent->ApplyMouseWheeled(value);
         }
         return false;
+    }
+
+    bool ApplyMouseOver() {
+        bool isApply = false;
+        for (auto& mouseOverCallback : mouseOverCallbacks) {
+            isApply |= mouseOverCallback();
+        }
+        return isApply;
+    }
+
+    bool ApplyMouseOut() {
+        bool isApply = false;
+        for (auto& mouseOutCallback : mouseOutCallbacks) {
+            isApply |= mouseOutCallback();
+        }
+        return isApply;
     }
 
     bool ApplyKeyPressUpOrDown(bool isUp) {
@@ -199,6 +225,9 @@ protected:
     std::vector<ClickCallback> clickCallbacks;
     std::vector<ClickCallbackWithPosition> clickCallbacksWithPosition;
     std::vector<MouseWheelCallback> mouseWheelCallbacks;
+    // https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave
+    std::vector<MouseOverCallback> mouseOverCallbacks;
+    std::vector<MouseOutCallback> mouseOutCallbacks;
     std::vector<KeyPressUpOrDownCallback> keyPressUpOrDownCallbacks;
 
     FormatSettings formatSettings = FormatSettings::Default;

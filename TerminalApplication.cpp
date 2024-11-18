@@ -155,8 +155,19 @@ TerminalApplication::TerminalApplication()  {
     DanilWindow->AddControl(btnAddNewItem);
     DanilWindow->AddControl(btnRemoveLastItem);
 
-    auto hyperLink = TerminalLabel::Create("Hyper link", TerminalCoord{ .row = 10, .col = 30 });
-    DanilWindow->AddControl(hyperLink);
+    for (short i = 0; i < 3; ++i) {
+        auto hyperLink = TerminalLabel::Create("Hyper link", TerminalCoord{ .row = 10 + i, .col = 30 });
+        hyperLink->AddMouseOverCallback([hyperLink]() {
+            hyperLink->SetFormatSettings(FormatSettings{ .fontColor = FontColor::Brightblue, .textStyle = TextStyle::Underline });
+            return true;
+            });
+        hyperLink->AddMouseOutCallback([hyperLink]() {
+            hyperLink->SetFormatSettings(FormatSettings::Default);
+            return true;
+            });
+        DanilWindow->AddControl(hyperLink);
+    }
+
 
     AddWindow(DanilWindow);
 
@@ -238,9 +249,14 @@ void TerminalApplication::OnMouseUp(TerminalCoord absPosition) {
 }
 
 void TerminalApplication::OnMouseMoved(TerminalCoord absPosition) {
-    if (TryDragging(absPosition)) {
+    auto cellUnderMouse = canvas->Get(absPosition);
+    auto curUnderMouseControl = cellUnderMouse.GetParent();
+
+    if (TryDragging(absPosition) | TryMouseOver(curUnderMouseControl) | TryMouseOut(curUnderMouseControl)) {
         FrameRender();
     }
+
+    prvUnderMouseControl = curUnderMouseControl;
 }
 
 void TerminalApplication::OnMouseWheeled(short value) {
@@ -259,6 +275,25 @@ void TerminalApplication::OnKeyPressUpOrDown(bool isUp) {
     }
 }
 
+bool TerminalApplication::TryMouseOver(TerminalControl* curUnderMouseControl) {
+    if (curUnderMouseControl == nullptr) {
+        return false;
+    }
+    if (curUnderMouseControl != prvUnderMouseControl) {
+        return curUnderMouseControl->ApplyMouseOver();
+    }
+    return false;
+}
+
+bool TerminalApplication::TryMouseOut(TerminalControl* curUnderMouseControl) {
+    if (prvUnderMouseControl == nullptr) {
+        return false;
+    }
+    if (prvUnderMouseControl != curUnderMouseControl) {
+        return prvUnderMouseControl->ApplyMouseOut();
+    }
+    return false;
+}
 bool TerminalApplication::TryDraggingStart(TerminalControl* control, TerminalCoord absPosition) {
     if (control != nullptr && control->IsDraggable() && control->TryDraggingStart(absPosition)) {
         draggingControl = control;

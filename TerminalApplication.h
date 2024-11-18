@@ -35,6 +35,11 @@ protected:
     TerminalBorderListViewPtr dbgListView;
 
 protected:
+    bool TryMouseOver(TerminalControl* curUnderMouseControl);
+    bool TryMouseOut(TerminalControl* curUnderMouseControl);
+
+    TerminalControl* prvUnderMouseControl = nullptr;
+protected:
     bool TryDraggingStart(TerminalControl* control, TerminalCoord absPosition);
     bool TryDragging(TerminalCoord absPosition);
     bool TryDraggingStop();
