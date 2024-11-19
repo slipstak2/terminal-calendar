@@ -159,6 +159,9 @@ TerminalApplication::TerminalApplication()  {
         auto hyperLink = TerminalLabel::Create("Hyper link", TerminalCoord{ .row = 10 + i, .col = 30 });
         hyperLink->AddMouseOverCallback([hyperLink]() {
             hyperLink->SetFormatSettings(FormatSettings{ .fontColor = FontColor::Brightblue, .textStyle = TextStyle::Underline });
+            LPCTSTR cursor = IDC_CROSS;
+            auto hCursor = LoadCursor(NULL, cursor);
+            auto x = SetCursor(hCursor);
             return true;
             });
         hyperLink->AddMouseOutCallback([hyperLink]() {
