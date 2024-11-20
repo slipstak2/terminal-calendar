@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/utf8string.h"
+#include "utf8string.h"
 #include <functional>
 
 using ChangeCallback = std::function<bool(const Utf8String& prev, const Utf8String& current)>;

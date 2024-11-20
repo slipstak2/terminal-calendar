@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\utils">
-      <UniqueIdentifier>{83fb275d-cece-4139-9686-a53a5048d4f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\utils">
-      <UniqueIdentifier>{cf9fd606-6281-4d64-99e2-7fab0ac9789a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\TerminalControls">
       <UniqueIdentifier>{0e08b601-7003-48df-aa1d-6c330ebe12bb}</UniqueIdentifier>
     </Filter>
@@ -45,9 +39,6 @@
     <ClCompile Include="TerminalCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="utils\utf8string.cpp">
-      <Filter>Source Files\utils</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -65,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp">
       <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="utils\common.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp">
       <Filter>Source Files\TerminalControls</Filter>
@@ -131,12 +119,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="utils\common.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\utf8string.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -196,9 +178,6 @@
     </ClInclude>
     <ClInclude Include="ListViewDataProvider.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils\slice.h">
-      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderControl.h">
       <Filter>Header Files\TerminalControls</Filter>

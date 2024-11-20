@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/utf8string.h"
+#include "utf8string.h"
 #include "TextFormat/FontColor.h"
 #include "TextFormat/BackgroundColor.h"
 #include "TextFormat/TextStyle.h"

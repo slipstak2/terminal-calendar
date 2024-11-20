@@ -1,5 +1,5 @@
 #pragma once
-#include "utils/common.h"
+#include "common.h"
 #include "TerminalCell.h"
 #include "TerminalRectangle.h"
 #include <Windows.h>

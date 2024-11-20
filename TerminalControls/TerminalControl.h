@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/common.h"
+#include "common.h"
 #include "TerminalRectangle.h"
 #include "TerminalCell.h"
 #include "TextFormat/FormatSettings.h"

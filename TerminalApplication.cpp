@@ -1,4 +1,4 @@
-﻿#include "utils/common.h"
+﻿#include "common.h"
 #include "TerminalApplication.h"
 #include "TerminalCanvas.h"
 #include "TerminalLabel.h"

@@ -1,6 +1,6 @@
 #pragma once
-#include "utils/common.h"
-#include "utils/utf8string.h"
+#include "common.h"
+#include "utf8string.h"
 #include "TerminalLabelBase.h"
 
 class TerminalLabel : public TerminalLabelBase {

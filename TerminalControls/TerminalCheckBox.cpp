@@ -1,5 +1,5 @@
 #include "TerminalCheckBox.h"
-#include "utils/utf8string.h"
+#include "utf8string.h"
 
 const Utf8String TerminalCheckBox::CheckedTitle   = "▣ ";// ☒ ☑ ▣
 const Utf8String TerminalCheckBox::UncheckedTitle = "□ ";
