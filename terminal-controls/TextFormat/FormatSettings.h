@@ -1,8 +1,8 @@
 #pragma once
 
-#include "TextFormat/BackgroundColor.h"
-#include "TextFormat/FontColor.h"
-#include "TextFormat/TextStyle.h"
+#include "BackgroundColor.h"
+#include "FontColor.h"
+#include "TextStyle.h"
 
 class FormatSettings {
 public:

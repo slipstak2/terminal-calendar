@@ -106,7 +106,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)common;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)common;$(ProjectDir)terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)common;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)common;$(ProjectDir)terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -161,7 +161,6 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="TerminalRectangle.cpp" />
-    <ClCompile Include="TextFormat\FormatSettings.cpp" />
     <ClCompile Include="TimeProfiler.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,10 +190,6 @@
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="TerminalRectangle.h" />
-    <ClInclude Include="TextFormat\BackgroundColor.h" />
-    <ClInclude Include="TextFormat\FontColor.h" />
-    <ClInclude Include="TextFormat\FormatSettings.h" />
-    <ClInclude Include="TextFormat\TextStyle.h" />
     <ClInclude Include="TimeProfiler.h" />
   </ItemGroup>
   <ItemGroup>
@@ -203,6 +198,9 @@
   <ItemGroup>
     <ProjectReference Include="common\common.vcxproj">
       <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
+    </ProjectReference>
+    <ProjectReference Include="terminal-controls\terminal-controls.vcxproj">
+      <Project>{81f27dcf-e165-4c1c-847e-02ae75564417}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
