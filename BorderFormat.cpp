@@ -1,7 +1,6 @@
 ﻿#include "BorderFormat.h"
 
 
-
 Utf8String BOX_DRAWINGS_LIGHT_ARC = "│─╭╮╰╯";
 Utf8String BOX_DRAWINGS_LIGHT       = "│─┌┐└┘";
 Utf8String BOX_DRAWINGS_HEAVY = "┃━┏┓┗┛";
