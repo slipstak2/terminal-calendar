@@ -1,10 +1,9 @@
 #pragma once
 
 #include "utf8string.h"
-#include "TextFormat/FontColor.h"
-#include "TextFormat/BackgroundColor.h"
-#include "TextFormat/TextStyle.h"
 #include "TextFormat/FormatSettings.h"
+
+class TerminalControl;
 
 class TerminalCell {
 public:

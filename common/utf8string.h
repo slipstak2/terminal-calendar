@@ -1,28 +1,8 @@
 #pragma once
-#include "common.h"
 
-class Rune {
-public:
-    Rune();
-    Rune(char c);
-    Rune(const char* s);
-    Rune(const char* s, uint8_t len);
-    const uint8_t* get() const;
-    Rune& operator = (const Rune& r) {
-        memcpy(data, r.data, sizeof(data));
-        return *this;
-    }
-    bool operator == (const Rune& r) const {
-        return memcmp(data, r.data, sizeof(data)) == 0;
-    }
-
-protected:
-    uint8_t data[4 + 1];
-
-private:
-    inline void clear();
-    inline void copy(const char* s, uint8_t len);
-};
+#include "rune.h"
+#include <vector>
+#include <string>
 
 class Utf8String {
 public:
@@ -34,10 +14,12 @@ public:
     Utf8String(const Rune& rune);
     Utf8String(const std::string& s);
     size_t size() const;
+    void resize(int size, Rune defaultRune);
+
     const Rune& operator[] (size_t idx) const;
     Rune& operator[] (size_t idx);
+
     Utf8String operator + (const Utf8String& rhs);
-    void resize(int size, Rune defaultRune);
 
 protected:
     std::vector<Rune> runes;

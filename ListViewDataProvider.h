@@ -1,7 +1,9 @@
 #pragma once
 
+#include "common.h"
 #include "utf8string.h"
 #include "slice.h"
+
 #include <deque>
 #include <functional>
 
