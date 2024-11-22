@@ -1,6 +1,7 @@
-#include "gtest/gtest.h"
-
+ï»¿#include "gtest/gtest.h"
 #include "rune.h"
+
+#include <Windows.h>
 
 TEST(Runes, ConstructorEngTests) {
     Rune r("abc");
@@ -9,9 +10,11 @@ TEST(Runes, ConstructorEngTests) {
 }
 
 TEST(Runes, ConstructorRusTests) {
-    char s[] = "Á";
-    Rune r("ÁÂÃÄ");
-    EXPECT_EQ(2, utf8SymbolLen('Á'));
-    Rune target("Á");
+
+    SetConsoleOutputCP(CP_UTF8);
+    char s[] = "Ð‘";
+    Rune r("Ð‘Ð’Ð“Ð”");
+    Rune target("Ð‘");
     EXPECT_EQ(r, target);
+    EXPECT_EQ(2, r.size());
 }

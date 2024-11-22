@@ -12,34 +12,41 @@ uint8_t utf8SymbolLen(uint8_t firstSymbol) {
 
 Rune::Rune() {
     clear();
+    bytes = 0;
 }
 
 Rune::Rune(char c) {
     clear();
     data[0] = c;
+    bytes = 1;
 }
 
 Rune::Rune(const char* s) {
     clear();
-    uint8_t len = utf8SymbolLen(s[0]);
-    copy(s, len);
+    bytes = utf8SymbolLen(s[0]);
+    copy(s, bytes);
 }
 
-Rune::Rune(const char* s, uint8_t len) {
+Rune::Rune(const char* s, uint8_t bytes) {
     clear();
-    copy(s, len);
+    this->bytes = bytes;
+    copy(s, bytes);
 }
 
 const uint8_t* Rune::get() const {
     return data;
 }
 
+uint8_t Rune::size() const {
+    return bytes;
+}
+
 void Rune::clear() {
     memset(data, 0, sizeof(data));
 }
 
-void Rune::copy(const char* s, uint8_t len) {
-    memcpy(data, s, len);
+void Rune::copy(const char* s, uint8_t bytes) {
+    memcpy(data, s, bytes);
 }
 
 Rune& Rune::operator = (const Rune& r) {
