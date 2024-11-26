@@ -1,0 +1,4 @@
+Enter code in hex format(english keyboard layout). Select this and press Alt + X:
+
+U+2C97 = ⲗ
+𑐕
