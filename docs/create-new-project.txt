@@ -1,0 +1,5 @@
+1. Project(right click) -> Properties -> 
+											General -> C++ Language Standard: C++20
+											Advanced -> Character Set: Use Unicode Character Set
+											C/C++ -> Command Line: /utf-8
+2. All source reconvert to UTF-8 (with BOM)

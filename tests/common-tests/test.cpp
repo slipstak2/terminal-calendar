@@ -1,4 +1,5 @@
-﻿#include "gtest/gtest.h"
+﻿#include "pch.h"
+
 #include "rune.h"
 
 #include <Windows.h>
