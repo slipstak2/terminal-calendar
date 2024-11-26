@@ -14,3 +14,4 @@
 /common-test/x64/Debug
 /common-test/x64/Release
 /packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7
+/tests/common-tests/x64/Debug
