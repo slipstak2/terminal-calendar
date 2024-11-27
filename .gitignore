@@ -15,3 +15,5 @@
 /tests/common-tests/x64/Debug
 /tests/common-tests/x64/Release
 /demo/x64/Debug
+/demo/x64/Release
+/terminal-calendar/x64/Debug
