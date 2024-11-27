@@ -72,9 +72,6 @@
     <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp">
       <Filter>Source Files\TerminalControls\Label</Filter>
     </ClCompile>
-    <ClCompile Include="TextFormat\FormatSettings.cpp">
-      <Filter>Source Files\TextFormat</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -160,18 +157,6 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h">
       <Filter>Header Files\TerminalControls\Label</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFormat\BackgroundColor.h">
-      <Filter>Header Files\TextFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFormat\FontColor.h">
-      <Filter>Header Files\TextFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFormat\TextStyle.h">
-      <Filter>Header Files\TextFormat</Filter>
-    </ClInclude>
-    <ClInclude Include="TextFormat\FormatSettings.h">
-      <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalListView.h">
       <Filter>Header Files\TerminalControls</Filter>

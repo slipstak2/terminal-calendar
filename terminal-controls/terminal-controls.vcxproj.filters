@@ -13,21 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\TextFormat">
+      <UniqueIdentifier>{a8ca1d59-220b-4107-9150-afb87eb8dc20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextFormat">
+      <UniqueIdentifier>{734a3fca-43ad-4558-9a78-3835dc28d8aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="framework.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TextFormat\BackgroundColor.h">
+      <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="TextFormat\FontColor.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\FormatSettings.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextFormat\TextStyle.h">
+      <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="terminal-controls.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="TextFormat\FormatSettings.cpp">
+      <Filter>Source Files\TextFormat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
