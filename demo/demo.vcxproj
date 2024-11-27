@@ -24,7 +24,7 @@
     <ProjectGuid>{fa0770df-c086-4bb7-9038-545b40ed1648}</ProjectGuid>
     <RootNamespace>terminalcalendar</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>terminal-calendar</ProjectName>
+    <ProjectName>demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

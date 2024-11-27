@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CE67055F
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common-tests", "tests\common-tests\common-tests.vcxproj", "{7B271809-6E78-47BA-AE8B-FE1B9FFE9464}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "terminal-calendar", "terminal-calendar\terminal-calendar.vcxproj", "{FA0770DF-C086-4BB7-9038-545B40ED1648}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "demo\demo.vcxproj", "{FA0770DF-C086-4BB7-9038-545B40ED1648}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
