@@ -36,9 +36,6 @@
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ListDataProvider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalControl.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -68,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="ListViewDataProvider.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp">
       <Filter>Source Files\TerminalControls</Filter>
@@ -116,9 +110,6 @@
     <ClInclude Include="TerminalApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ListDataProvider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalControl.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
@@ -151,9 +142,6 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalListView.h">
       <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
-    <ClInclude Include="ListViewDataProvider.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderControl.h">
       <Filter>Header Files\TerminalControls</Filter>

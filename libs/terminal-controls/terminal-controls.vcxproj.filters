@@ -25,6 +25,12 @@
     <Filter Include="Source Files\BorderFormat">
       <UniqueIdentifier>{bb655c29-a427-42df-98f1-d4a7df23b25c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\DataProviders">
+      <UniqueIdentifier>{6317d918-638a-41ca-9ae3-3b95f6541d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\DataProviders">
+      <UniqueIdentifier>{43ff9716-8608-4d9e-b108-e89002fde88c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -42,6 +48,12 @@
     <ClInclude Include="BorderFormat\BorderFormat.h">
       <Filter>Header Files\BorderFormat</Filter>
     </ClInclude>
+    <ClInclude Include="DataProviders\ListDataProvider.h">
+      <Filter>Header Files\DataProviders</Filter>
+    </ClInclude>
+    <ClInclude Include="DataProviders\ListViewDataProvider.h">
+      <Filter>Header Files\DataProviders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -49,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="BorderFormat\BorderFormat.cpp">
       <Filter>Source Files\BorderFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProviders\ListDataProvider.cpp">
+      <Filter>Source Files\DataProviders</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProviders\ListViewDataProvider.cpp">
+      <Filter>Source Files\DataProviders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

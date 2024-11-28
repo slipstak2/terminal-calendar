@@ -136,8 +136,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ListDataProvider.cpp" />
-    <ClCompile Include="ListViewDataProvider.cpp" />
     <ClCompile Include="demo.cpp" />
     <ClCompile Include="TerminalApplication.cpp" />
     <ClCompile Include="TerminalCell.cpp" />
@@ -164,8 +162,6 @@
     <ClCompile Include="TimeProfiler.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ListDataProvider.h" />
-    <ClInclude Include="ListViewDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalCell.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabel.h" />

@@ -1,6 +1,6 @@
 #pragma once
 #include "TerminalCompositeControl.h"
-#include "ListViewDataProvider.h"
+#include "DataProviders/ListViewDataProvider.h"
 
 class TerminalVerticalScrollBar : public TerminalCompositeControl {
 public:

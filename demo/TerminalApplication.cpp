@@ -6,7 +6,7 @@
 #include "TerminalWindow.h"
 #include "TerminalRootControl.h"
 #include "TerminalLabelSwitcher.h"
-#include "ListDataProvider.h"
+#include "DataProviders/ListDataProvider.h"
 #include "TerminalListView.h"
 #include "TerminalRadioButton.h"
 #include "TerminalBorderListView.h"

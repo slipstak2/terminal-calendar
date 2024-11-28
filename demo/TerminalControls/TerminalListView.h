@@ -1,6 +1,6 @@
 #pragma once
 #include "TerminalCompositeControl.h"
-#include "ListViewDataProvider.h"
+#include "DataProviders/ListViewDataProvider.h"
 
 class TerminalListView;
 using TerminalListViewChangedItemsCountCallback = std::function<void(const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount)>;

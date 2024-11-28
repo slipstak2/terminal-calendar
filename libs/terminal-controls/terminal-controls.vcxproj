@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
+    <ClInclude Include="DataProviders\ListDataProvider.h" />
+    <ClInclude Include="DataProviders\ListViewDataProvider.h" />
     <ClInclude Include="TextFormat\BackgroundColor.h" />
     <ClInclude Include="TextFormat\FontColor.h" />
     <ClInclude Include="TextFormat\FormatSettings.h" />
@@ -27,6 +29,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
+    <ClCompile Include="DataProviders\ListDataProvider.cpp" />
+    <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />
   </ItemGroup>
   <ItemGroup>

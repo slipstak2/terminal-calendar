@@ -1,5 +1,5 @@
 #include "TerminalLabelDataProvider.h"
-#include "ListDataProvider.h"
+#include "DataProviders/ListDataProvider.h"
 
 
 TerminalLabelDataProvider::TerminalLabelDataProvider(ListDataProviderPtr dataProvider, TerminalCoord position)
