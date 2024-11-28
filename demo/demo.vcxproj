@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -198,7 +198,7 @@
     <ProjectReference Include="..\libs\common\common.vcxproj">
       <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\terminal-controls\terminal-controls.vcxproj">
+    <ProjectReference Include="..\libs\terminal-controls\terminal-controls.vcxproj">
       <Project>{81f27dcf-e165-4c1c-847e-02ae75564417}</Project>
     </ProjectReference>
   </ItemGroup>
