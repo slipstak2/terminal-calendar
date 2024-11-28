@@ -30,9 +30,6 @@
     <ClCompile Include="demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalCell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,20 +84,14 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalRectangle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\Label\TerminalLabelFixedWidth.cpp">
       <Filter>Source Files\TerminalControls\Label</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalCell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TerminalCell.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalRectangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -149,9 +140,6 @@
     <ClInclude Include="TerminalControls\TerminalRadioButton.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TimeProfiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
@@ -163,6 +151,9 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\Label\TerminalLabelFixedWidth.h">
       <Filter>Header Files\TerminalControls\Label</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalCell.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

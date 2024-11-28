@@ -1,4 +1,4 @@
-#include "TerminalRectangle.h"
+#include "TerminalCoord.h"
 #include <tuple>
 
 TerminalCoord operator - (const TerminalCoord& lhs, const TerminalCoord& rhs) {

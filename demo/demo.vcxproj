@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -157,7 +157,6 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
-    <ClCompile Include="TerminalRectangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalApplication.h" />
@@ -181,8 +180,6 @@
     <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
-    <ClInclude Include="TerminalRectangle.h" />
-    <ClInclude Include="TimeProfiler.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />

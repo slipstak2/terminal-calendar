@@ -22,6 +22,9 @@
     <ClInclude Include="BorderFormat\BorderFormat.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
     <ClInclude Include="DataProviders\ListViewDataProvider.h" />
+    <ClInclude Include="TerminalGeometry\TerminalCoord.h" />
+    <ClInclude Include="TerminalGeometry\TerminalRectangle.h" />
+    <ClInclude Include="TerminalGeometry\TerminalSize.h" />
     <ClInclude Include="TextFormat\BackgroundColor.h" />
     <ClInclude Include="TextFormat\FontColor.h" />
     <ClInclude Include="TextFormat\FormatSettings.h" />
@@ -31,6 +34,9 @@
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
+    <ClCompile Include="TerminalGeometry\TerminalCoord.cpp" />
+    <ClCompile Include="TerminalGeometry\TerminalRectangle.cpp" />
+    <ClCompile Include="TerminalGeometry\TerminalSize.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -128,7 +134,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -146,7 +152,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

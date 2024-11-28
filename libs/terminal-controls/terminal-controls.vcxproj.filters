@@ -31,6 +31,12 @@
     <Filter Include="Source Files\DataProviders">
       <UniqueIdentifier>{43ff9716-8608-4d9e-b108-e89002fde88c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TerminalGeometry">
+      <UniqueIdentifier>{29337e66-3f03-4823-9473-3fe15fc87972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TerminalGeometry">
+      <UniqueIdentifier>{076ac8a3-68aa-473b-90cd-4b2e389460d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -54,6 +60,15 @@
     <ClInclude Include="DataProviders\ListViewDataProvider.h">
       <Filter>Header Files\DataProviders</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalGeometry\TerminalRectangle.h">
+      <Filter>Header Files\TerminalGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalGeometry\TerminalCoord.h">
+      <Filter>Header Files\TerminalGeometry</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalGeometry\TerminalSize.h">
+      <Filter>Header Files\TerminalGeometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -67,6 +82,15 @@
     </ClCompile>
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp">
       <Filter>Source Files\DataProviders</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalGeometry\TerminalRectangle.cpp">
+      <Filter>Source Files\TerminalGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalGeometry\TerminalCoord.cpp">
+      <Filter>Source Files\TerminalGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalGeometry\TerminalSize.cpp">
+      <Filter>Source Files\TerminalGeometry</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
