@@ -81,6 +81,9 @@
     <ClInclude Include="TerminalCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalCompositeControl.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -109,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="TerminalCell.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalCompositeControl.cpp">
+      <Filter>Source Files\Controls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
