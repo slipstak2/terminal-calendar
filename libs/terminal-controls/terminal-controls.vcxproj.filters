@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Controls">
       <UniqueIdentifier>{ac39b2c7-cfea-439a-b323-d04bb89deb3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Controls\Labels">
+      <UniqueIdentifier>{26ab7425-3d7d-43bd-830b-7ad13c1f0126}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controls\Labels">
+      <UniqueIdentifier>{292b5aa9-7de7-4a1c-b869-534c23303894}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -84,6 +90,24 @@
     <ClInclude Include="Controls\TerminalCompositeControl.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\Labels\TerminalLabel.h">
+      <Filter>Header Files\Controls\Labels</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Labels\TerminalLabelBase.h">
+      <Filter>Header Files\Controls\Labels</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Labels\TerminalLabelDataProvider.h">
+      <Filter>Header Files\Controls\Labels</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Labels\TerminalLabelFixedWidth.h">
+      <Filter>Header Files\Controls\Labels</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\Labels\TerminalLabelSwitcher.h">
+      <Filter>Header Files\Controls\Labels</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\TerminalButton.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -115,6 +139,21 @@
     </ClCompile>
     <ClCompile Include="Controls\TerminalCompositeControl.cpp">
       <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Labels\TerminalLabel.cpp">
+      <Filter>Source Files\Controls\Labels</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Labels\TerminalLabelBase.cpp">
+      <Filter>Source Files\Controls\Labels</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Labels\TerminalLabelDataProvider.cpp">
+      <Filter>Source Files\Controls\Labels</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Labels\TerminalLabelFixedWidth.cpp">
+      <Filter>Source Files\Controls\Labels</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\Labels\TerminalLabelSwitcher.cpp">
+      <Filter>Source Files\Controls\Labels</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
