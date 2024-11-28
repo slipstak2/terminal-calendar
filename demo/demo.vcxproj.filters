@@ -93,12 +93,6 @@
     <ClCompile Include="TerminalControls\Label\TerminalLabelFixedWidth.cpp">
       <Filter>Source Files\TerminalControls\Label</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalControlsConfig.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="TimeProfiler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalCell.h">
@@ -169,9 +163,6 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\Label\TerminalLabelFixedWidth.h">
       <Filter>Header Files\TerminalControls\Label</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalControlsConfig.h">
-      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

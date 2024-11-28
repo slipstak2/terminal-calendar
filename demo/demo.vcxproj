@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -150,7 +150,6 @@
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalControlsConfig.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
@@ -159,7 +158,6 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="TerminalRectangle.cpp" />
-    <ClCompile Include="TimeProfiler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalApplication.h" />
@@ -176,7 +174,6 @@
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
     <ClInclude Include="TerminalControls\TerminalControl.h" />
     <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
-    <ClInclude Include="TerminalControls\TerminalControlsConfig.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
@@ -196,6 +193,9 @@
     </ProjectReference>
     <ProjectReference Include="..\libs\terminal-controls\terminal-controls.vcxproj">
       <Project>{81f27dcf-e165-4c1c-847e-02ae75564417}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\utils\utils.vcxproj">
+      <Project>{68e4d47a-a5b3-44a9-ac84-3e2a013d6074}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

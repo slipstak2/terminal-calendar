@@ -4,7 +4,6 @@
 #include <string>
 #include <functional>
 #include <stack>
-#include <cassert>
 
 using TimeProfilerCallback = std::function<bool(const std::string& message)>;
 

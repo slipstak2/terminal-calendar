@@ -1,6 +1,6 @@
 #include "TerminalLabelSwitcher.h"
 #include "TerminalButton.h"
-#include "ListDataProvider.h"
+#include "DataProviders/ListDataProvider.h"
 #include "TerminalLabelDataProvider.h"
 
 // https://www.utf8icons.com/character/9656/black-right-pointing-small-triangle

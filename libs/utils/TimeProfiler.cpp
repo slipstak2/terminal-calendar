@@ -1,6 +1,8 @@
 #include "TimeProfiler.h"
 #include "TerminalControlsConfig.h"
 
+#include <cassert>
+
 void TimeProfiler::Push(const std::string& title) {
     timeMarksTitle.push(title);
     timeMarks.push(Now());
