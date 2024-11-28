@@ -19,6 +19,12 @@
     <Filter Include="Source Files\TextFormat">
       <UniqueIdentifier>{734a3fca-43ad-4558-9a78-3835dc28d8aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\BorderFormat">
+      <UniqueIdentifier>{79dd5e57-8f49-4f80-a0ee-bbd7539b58da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\BorderFormat">
+      <UniqueIdentifier>{bb655c29-a427-42df-98f1-d4a7df23b25c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -33,10 +39,16 @@
     <ClInclude Include="TextFormat\TextStyle.h">
       <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
+    <ClInclude Include="BorderFormat\BorderFormat.h">
+      <Filter>Header Files\BorderFormat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
       <Filter>Source Files\TextFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="BorderFormat\BorderFormat.cpp">
+      <Filter>Source Files\BorderFormat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

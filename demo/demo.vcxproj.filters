@@ -25,12 +25,6 @@
     <Filter Include="Source Files\TerminalControls\Label">
       <UniqueIdentifier>{19f80de3-3f68-49f9-aefb-1c3d1b285c46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\TextFormat">
-      <UniqueIdentifier>{73560a0d-1f73-4884-8dab-e8f6be0574e3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TextFormat">
-      <UniqueIdentifier>{4dfb761d-0d5a-4db5-a3c1-886eae98de09}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp">
@@ -83,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalBorderControl.cpp">
       <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="BorderFormat.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp">
       <Filter>Source Files\TerminalControls</Filter>
@@ -166,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderControl.h">
       <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
-    <ClInclude Include="BorderFormat.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalGroupBox.h">
       <Filter>Header Files\TerminalControls</Filter>

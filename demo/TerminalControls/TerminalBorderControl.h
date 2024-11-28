@@ -1,6 +1,6 @@
 #pragma once 
 #include "TerminalCompositeControl.h"
-#include "BorderFormat.h"
+#include "BorderFormat/BorderFormat.h"
 
 class TerminalBorderControl : public TerminalCompositeControl {
 public:
