@@ -20,8 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
+    <ClInclude Include="Controls\TerminalControl.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
     <ClInclude Include="DataProviders\ListViewDataProvider.h" />
+    <ClInclude Include="TerminalCell.h" />
     <ClInclude Include="TerminalGeometry\TerminalCoord.h" />
     <ClInclude Include="TerminalGeometry\TerminalRectangle.h" />
     <ClInclude Include="TerminalGeometry\TerminalSize.h" />
@@ -32,8 +34,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
+    <ClCompile Include="Controls\TerminalControl.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
+    <ClCompile Include="TerminalCell.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalCoord.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalRectangle.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalSize.cpp" />
@@ -134,7 +138,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -152,7 +156,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

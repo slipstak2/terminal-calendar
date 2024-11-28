@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\Controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\Controls;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -138,7 +138,6 @@
   <ItemGroup>
     <ClCompile Include="demo.cpp" />
     <ClCompile Include="TerminalApplication.cpp" />
-    <ClCompile Include="TerminalCell.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp" />
     <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp" />
@@ -148,7 +147,6 @@
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
@@ -160,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalApplication.h" />
-    <ClInclude Include="TerminalCell.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h" />
     <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h" />
@@ -171,7 +168,6 @@
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
-    <ClInclude Include="TerminalControls\TerminalControl.h" />
     <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />

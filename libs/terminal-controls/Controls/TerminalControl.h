@@ -1,7 +1,7 @@
 #pragma once
 
 #include "common.h"
-#include "TerminalRectangle.h"
+#include "TerminalGeometry/TerminalRectangle.h"
 #include "TerminalCell.h"
 #include "TextFormat/FormatSettings.h"
 #include <functional>

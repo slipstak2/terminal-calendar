@@ -37,6 +37,12 @@
     <Filter Include="Source Files\TerminalGeometry">
       <UniqueIdentifier>{076ac8a3-68aa-473b-90cd-4b2e389460d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Controls">
+      <UniqueIdentifier>{b3dbfdd6-2e32-4e01-8960-77f372a31a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controls">
+      <UniqueIdentifier>{ac39b2c7-cfea-439a-b323-d04bb89deb3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -69,6 +75,12 @@
     <ClInclude Include="TerminalGeometry\TerminalSize.h">
       <Filter>Header Files\TerminalGeometry</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalControl.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalCell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -91,6 +103,12 @@
     </ClCompile>
     <ClCompile Include="TerminalGeometry\TerminalSize.cpp">
       <Filter>Source Files\TerminalGeometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalControl.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalCell.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
