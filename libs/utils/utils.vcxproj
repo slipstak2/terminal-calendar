@@ -19,11 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\common\common.vcxproj">
-      <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="TerminalControlsConfig.h" />
     <ClInclude Include="TimeProfiler.h" />
   </ItemGroup>
