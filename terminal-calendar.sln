@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common-tests", "tests\commo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo", "demo\demo.vcxproj", "{FA0770DF-C086-4BB7-9038-545B40ED1648}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "terminal-calendar", "terminal-calendar\terminal-calendar.vcxproj", "{470C31CC-38C8-442C-9725-AEDD37116EAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -53,6 +55,14 @@ Global
 		{FA0770DF-C086-4BB7-9038-545B40ED1648}.Release|x64.Build.0 = Release|x64
 		{FA0770DF-C086-4BB7-9038-545B40ED1648}.Release|x86.ActiveCfg = Release|Win32
 		{FA0770DF-C086-4BB7-9038-545B40ED1648}.Release|x86.Build.0 = Release|Win32
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Debug|x64.ActiveCfg = Debug|x64
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Debug|x64.Build.0 = Debug|x64
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Debug|x86.ActiveCfg = Debug|Win32
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Debug|x86.Build.0 = Debug|Win32
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Release|x64.ActiveCfg = Release|x64
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Release|x64.Build.0 = Release|x64
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Release|x86.ActiveCfg = Release|Win32
+		{470C31CC-38C8-442C-9725-AEDD37116EAF}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

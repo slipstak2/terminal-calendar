@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{fa0770df-c086-4bb7-9038-545b40ed1648}</ProjectGuid>
+    <ProjectGuid>{470c31cc-38c8-442c-9725-aedd37116eaf}</ProjectGuid>
     <RootNamespace>terminalcalendar</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>demo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -105,10 +104,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\common;$(ProjectDir)..\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,10 +118,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\common;$(ProjectDir)..\terminal-controls;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,73 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BorderFormat.cpp" />
-    <ClCompile Include="ListDataProvider.cpp" />
-    <ClCompile Include="ListViewDataProvider.cpp" />
-    <ClCompile Include="demo.cpp" />
-    <ClCompile Include="TerminalApplication.cpp" />
-    <ClCompile Include="TerminalCell.cpp" />
-    <ClCompile Include="TerminalControls\Label\TerminalLabel.cpp" />
-    <ClCompile Include="TerminalControls\Label\TerminalLabelDataProvider.cpp" />
-    <ClCompile Include="TerminalControls\Label\TerminalLabelBase.cpp" />
-    <ClCompile Include="TerminalControls\Label\TerminalLabelFixedWidth.cpp" />
-    <ClCompile Include="TerminalControls\Label\TerminalLabelSwitcher.cpp" />
-    <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
-    <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
-    <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
-    <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalControlsConfig.cpp" />
-    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
-    <ClCompile Include="TerminalControls\TerminalListView.cpp" />
-    <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
-    <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
-    <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
-    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
-    <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
-    <ClCompile Include="TerminalRectangle.cpp" />
-    <ClCompile Include="TimeProfiler.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="BorderFormat.h" />
-    <ClInclude Include="ListDataProvider.h" />
-    <ClInclude Include="ListViewDataProvider.h" />
-    <ClInclude Include="TerminalApplication.h" />
-    <ClInclude Include="TerminalCell.h" />
-    <ClInclude Include="TerminalControls\Label\TerminalLabel.h" />
-    <ClInclude Include="TerminalControls\Label\TerminalLabelBase.h" />
-    <ClInclude Include="TerminalControls\Label\TerminalLabelDataProvider.h" />
-    <ClInclude Include="TerminalControls\Label\TerminalLabelFixedWidth.h" />
-    <ClInclude Include="TerminalControls\Label\TerminalLabelSwitcher.h" />
-    <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
-    <ClInclude Include="TerminalControls\TerminalButton.h" />
-    <ClInclude Include="TerminalControls\TerminalCanvas.h" />
-    <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
-    <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
-    <ClInclude Include="TerminalControls\TerminalControl.h" />
-    <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
-    <ClInclude Include="TerminalControls\TerminalControlsConfig.h" />
-    <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
-    <ClInclude Include="TerminalControls\TerminalListView.h" />
-    <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
-    <ClInclude Include="TerminalControls\TerminalRootControl.h" />
-    <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
-    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
-    <ClInclude Include="TerminalControls\TerminalWindow.h" />
-    <ClInclude Include="TerminalRectangle.h" />
-    <ClInclude Include="TimeProfiler.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\common\common.vcxproj">
-      <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\terminal-controls\terminal-controls.vcxproj">
-      <Project>{81f27dcf-e165-4c1c-847e-02ae75564417}</Project>
-    </ProjectReference>
+    <ClCompile Include="terminal-calendar.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
