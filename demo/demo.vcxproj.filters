@@ -27,12 +27,6 @@
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalCanvas.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalRootControl.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -58,12 +52,6 @@
   <ItemGroup>
     <ClInclude Include="TerminalApplication.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalCanvas.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalRootControl.h">
-      <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalListView.h">
       <Filter>Header Files\TerminalControls</Filter>

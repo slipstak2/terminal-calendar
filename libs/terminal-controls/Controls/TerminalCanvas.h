@@ -1,7 +1,7 @@
 #pragma once
 #include "common.h"
 #include "TerminalCell.h"
-#include "TerminalRectangle.h"
+#include "TerminalGeometry/TerminalRectangle.h"
 #include <Windows.h>
 
 class TerminalCanvas {

@@ -114,6 +114,12 @@
     <ClInclude Include="Controls\TerminalWindow.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalCanvas.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\TerminalRootControl.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -165,6 +171,12 @@
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="Controls\TerminalWindow.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalCanvas.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalRootControl.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
   </ItemGroup>
