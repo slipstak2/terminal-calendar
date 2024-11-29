@@ -49,13 +49,10 @@ protected:
 protected:
     void SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow);
 
-private:
+protected:
     HANDLE inputHandle;
     HANDLE outputHandle;
     TerminalCanvasPtr canvas;
     TerminalRootControlPtr rootControl;
     TerminalControl* focusControl = nullptr;
-
-protected:
-    ;
 };

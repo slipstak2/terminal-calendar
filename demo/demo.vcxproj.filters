@@ -24,9 +24,6 @@
     <ClCompile Include="demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalApplication.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -48,11 +45,14 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
+    <ClCompile Include="DemoTerminalApplication.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoTerminalApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TerminalApplication.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalListView.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>

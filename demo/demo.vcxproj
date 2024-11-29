@@ -137,7 +137,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp" />
-    <ClCompile Include="TerminalApplication.cpp" />
+    <ClCompile Include="DemoTerminalApplication.cpp" />
+    <ClCompile Include="DemoTerminalApplication.h" />
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
@@ -147,7 +148,6 @@
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
     <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />

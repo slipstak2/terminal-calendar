@@ -120,6 +120,9 @@
     <ClInclude Include="Controls\TerminalRootControl.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -178,6 +181,9 @@
     </ClCompile>
     <ClCompile Include="Controls\TerminalRootControl.cpp">
       <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalApplication.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

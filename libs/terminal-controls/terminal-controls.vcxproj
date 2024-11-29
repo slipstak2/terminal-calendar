@@ -34,6 +34,7 @@
     <ClInclude Include="Controls\TerminalWindow.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
     <ClInclude Include="DataProviders\ListViewDataProvider.h" />
+    <ClInclude Include="TerminalApplication.h" />
     <ClInclude Include="TerminalCell.h" />
     <ClInclude Include="TerminalGeometry\TerminalCoord.h" />
     <ClInclude Include="TerminalGeometry\TerminalRectangle.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Controls\TerminalWindow.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
+    <ClCompile Include="TerminalApplication.cpp" />
     <ClCompile Include="TerminalCell.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalCoord.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalRectangle.cpp" />

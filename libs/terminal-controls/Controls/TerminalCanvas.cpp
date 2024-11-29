@@ -24,6 +24,10 @@ void TerminalCanvas::Resize(short newRows, short newCols) {
     cols = newCols;
 }
 
+TerminalSize TerminalCanvas::Size() const {
+    return TerminalSize{ .height = rows, .width = cols };
+}
+
 void TerminalCanvas::SetCursorPosition(short x, short y) {
     SetConsoleCursorPosition(outputHandle, {x, y});
 }

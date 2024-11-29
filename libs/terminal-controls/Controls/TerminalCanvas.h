@@ -11,6 +11,7 @@ public:
     TerminalCell& Get(TerminalCoord absPosition);
     void Render(TerminalRootControlPtr rootControl);
     void Resize(short rows, short cols);
+    TerminalSize Size() const;
 private:
     void SetCursorPosition(short x, short y);
     TerminalCanvas(HANDLE outputHandle, short rows, short cols);
