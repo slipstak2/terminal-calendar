@@ -147,7 +147,6 @@
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
-    <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalApplication.h" />
@@ -160,7 +159,6 @@
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
-    <ClInclude Include="TerminalControls\TerminalWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />
