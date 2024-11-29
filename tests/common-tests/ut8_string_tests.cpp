@@ -33,3 +33,14 @@ TEST_F(Utf8StringTests, ConstructorDiffLetters) {
         EXPECT_EQ(capitals[idx], runes[idx]);
     }
 }
+
+
+TEST_F(Utf8StringTests, RuneMust5bytes) {
+    Rune owl("🦉");
+    char s[] = "123";
+    char buffer[64];
+    memset(buffer, 1, sizeof(buffer));
+    sprintf(buffer, "%s", owl.get());
+    Utf8String str(buffer);
+    EXPECT_EQ(1, str.size());
+}

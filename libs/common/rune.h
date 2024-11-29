@@ -15,8 +15,8 @@ public:
     bool operator == (const Rune& r) const;
 
 protected:
-    uint8_t data[4 + 1];
     uint8_t bytes = 0;
+    uint8_t data[4 + 1];
 
 private:
     inline void clear();
