@@ -108,6 +108,9 @@
     <ClInclude Include="Controls\TerminalButton.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalBorderControl.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -154,6 +157,9 @@
     </ClCompile>
     <ClCompile Include="Controls\Labels\TerminalLabelSwitcher.cpp">
       <Filter>Source Files\Controls\Labels</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalBorderControl.cpp">
+      <Filter>Source Files\Controls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

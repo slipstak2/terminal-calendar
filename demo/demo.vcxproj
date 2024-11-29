@@ -141,7 +141,6 @@
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
-    <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
     <ClInclude Include="TerminalControls\TerminalCanvas.h" />
     <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
-    <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
