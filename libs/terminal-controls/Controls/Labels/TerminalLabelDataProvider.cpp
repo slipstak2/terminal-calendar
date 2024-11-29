@@ -1,15 +1,16 @@
 #include "TerminalLabelDataProvider.h"
 #include "DataProviders/ListDataProvider.h"
 
-
 TerminalLabelDataProvider::TerminalLabelDataProvider(ListDataProviderPtr dataProvider, TerminalCoord position)
-    : TerminalLabelBase(position, { .height = 1, .width = dataProvider->MaxLen() })
+    : TerminalLabelBase(position, { .height = 1, .width = dataProvider ? dataProvider->MaxLen(): 0 })
     , dataProvider(dataProvider)
 {
     auto onChangeData = [](const Utf8String& prev, const Utf8String& current) {
         return true;
     };
-    dataProvider->AddChangeCallback(onChangeData);
+    if (dataProvider) {
+        dataProvider->AddChangeCallback(onChangeData);
+    }
 }
 
 const Utf8String& TerminalLabelDataProvider::Get() const {

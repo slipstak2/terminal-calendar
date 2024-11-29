@@ -4,7 +4,7 @@
 
 class TerminalLabelDataProvider : public TerminalLabelBase {
 public:
-    DECLARE_KIND(TerminalControl, TerminalControl::Kind::LABEL_DATA_PROVIDER)
+    DECLARE_KIND(TerminalLabelBase, TerminalControl::Kind::LABEL_DATA_PROVIDER)
 
     DECLARE_CREATE(TerminalLabelDataProvider)
 

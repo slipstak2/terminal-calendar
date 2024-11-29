@@ -20,6 +20,7 @@ public:
     Rune& operator[] (size_t idx);
 
     Utf8String operator + (const Utf8String& rhs);
+    bool operator == (const Utf8String& rhs) const;
 
 protected:
     std::vector<Rune> runes;

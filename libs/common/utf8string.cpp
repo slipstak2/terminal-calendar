@@ -43,8 +43,11 @@ Utf8String Utf8String::operator + (const Utf8String& rhs) {
     for (size_t i = size(); i < result.size(); ++i) {
         result.runes[i] = rhs[i - size()];
     }
-
     return result;
+}
+
+bool Utf8String::operator == (const Utf8String& rhs) const {
+    return runes == rhs.runes;
 }
 
 void Utf8String::Init(const char* data) {
