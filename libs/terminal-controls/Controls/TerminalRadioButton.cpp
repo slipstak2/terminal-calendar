@@ -30,11 +30,11 @@ bool TerminalRadioButton::SetSelected(bool isSelected) {
     radioButton->SetText(this->isSelected ? SelectedTitle : UnselectedTitle);
 
     if (isChanged) {
-        if (changedCallback != nullptr) {
+        for (auto& changedCallback : changedCallbacks) {
             changedCallback(this, isSelected);
         }
     }
-    if (isSelected) {
+    if (isSelected && parent) {
         for (auto broControl : parent->GetControls()) {
             if (auto rb = broControl->As<TerminalRadioButton>(); rb != nullptr) {
                 if (rb != this) {

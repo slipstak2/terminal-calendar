@@ -149,8 +149,8 @@ DemoTerminalApplication::DemoTerminalApplication()
             borderListView->SetBorderColor(FontColor::Brightcyan);
         }
         };
-    rbBorderCyan->SetOnChangedCallback(radioButtonChanged);
-    rbBorderBrightcyan->SetOnChangedCallback(radioButtonChanged);
+    rbBorderCyan->AddOnChangedCallback(radioButtonChanged);
+    rbBorderBrightcyan->AddOnChangedCallback(radioButtonChanged);
 
     auto cbBorderChanged = [borderListView](TerminalCheckBox* sender, bool isChecked) {
         borderListView->SetBorderVisible(isChecked);

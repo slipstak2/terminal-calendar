@@ -16,12 +16,12 @@ public:
     bool SetSelected(bool isSelect);
     bool GetSelected();
 
-    void SetOnChangedCallback(RadioButtonChangedCallback changedCallback) {
-        this->changedCallback = changedCallback;
+    void AddOnChangedCallback(RadioButtonChangedCallback changedCallback) {
+        changedCallbacks.push_back(changedCallback);
     }
 
 protected:
-    RadioButtonChangedCallback changedCallback = nullptr;
+    std::vector<RadioButtonChangedCallback> changedCallbacks;
 protected:
     bool isSelected = false;
     TerminalButtonPtr radioButton;
