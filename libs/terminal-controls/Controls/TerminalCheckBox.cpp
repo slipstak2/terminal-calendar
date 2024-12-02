@@ -28,7 +28,7 @@ bool TerminalCheckBox::SetChecked(bool isChecked) {
     checkedButton->SetText(this->isChecked ? CheckedTitle :UncheckedTitle);
 
     if (isChanged) {
-        if (changedCallback != nullptr) {
+        for (auto& changedCallback : changedCallbacks) {
             changedCallback(this, isChecked);
         }
     }

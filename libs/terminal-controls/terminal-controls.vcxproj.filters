@@ -123,6 +123,12 @@
     <ClInclude Include="TerminalApplication.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalGroupBox.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\TerminalCheckBox.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -184,6 +190,12 @@
     </ClCompile>
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalGroupBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalCheckBox.cpp">
+      <Filter>Source Files\Controls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

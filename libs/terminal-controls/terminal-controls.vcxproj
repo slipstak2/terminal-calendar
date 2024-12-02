@@ -28,8 +28,10 @@
     <ClInclude Include="Controls\TerminalBorderControl.h" />
     <ClInclude Include="Controls\TerminalButton.h" />
     <ClInclude Include="Controls\TerminalCanvas.h" />
+    <ClInclude Include="Controls\TerminalCheckBox.h" />
     <ClInclude Include="Controls\TerminalCompositeControl.h" />
     <ClInclude Include="Controls\TerminalControl.h" />
+    <ClInclude Include="Controls\TerminalGroupBox.h" />
     <ClInclude Include="Controls\TerminalRootControl.h" />
     <ClInclude Include="Controls\TerminalWindow.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
@@ -53,8 +55,10 @@
     <ClCompile Include="Controls\Labels\TerminalLabelSwitcher.cpp" />
     <ClCompile Include="Controls\TerminalBorderControl.cpp" />
     <ClCompile Include="Controls\TerminalCanvas.cpp" />
+    <ClCompile Include="Controls\TerminalCheckBox.cpp" />
     <ClCompile Include="Controls\TerminalCompositeControl.cpp" />
     <ClCompile Include="Controls\TerminalControl.cpp" />
+    <ClCompile Include="Controls\TerminalGroupBox.cpp" />
     <ClCompile Include="Controls\TerminalRootControl.cpp" />
     <ClCompile Include="Controls\TerminalWindow.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />

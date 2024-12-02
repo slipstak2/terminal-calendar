@@ -140,8 +140,6 @@
     <ClCompile Include="DemoTerminalApplication.cpp" />
     <ClCompile Include="DemoTerminalApplication.h" />
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
-    <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
-    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
@@ -149,8 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
-    <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
-    <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />

@@ -26,14 +26,14 @@ DemoTerminalApplication::DemoTerminalApplication()
 
     auto isProfileEnable = TerminalCheckBox::Create("Time profiler ",
         TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = 3 });
-    isProfileEnable->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isProfileEnable->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().profileEnable = isChecked;
         });
     isProfileEnable->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Yellow });
     backgroundWindow->AddControlOnBorder(isProfileEnable);
 
     auto isFullRender = TerminalCheckBox::Create("Full render ", TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isProfileEnable->ColEnd() + 2 });
-    isFullRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isFullRender->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().isFullRender = isChecked;
         });
     isFullRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Brightblue });
@@ -41,7 +41,7 @@ DemoTerminalApplication::DemoTerminalApplication()
 
     auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isFullRender->ColEnd() + 2 });
     isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
-    isSimpleRender->SetOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isSimpleRender->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().isSimpleRender = isChecked;
         FrameRender(true);
         });
@@ -155,5 +155,5 @@ DemoTerminalApplication::DemoTerminalApplication()
     auto cbBorderChanged = [borderListView](TerminalCheckBox* sender, bool isChecked) {
         borderListView->SetBorderVisible(isChecked);
         };
-    cbBorder->SetOnChangedCallback(cbBorderChanged);
+    cbBorder->AddOnChangedCallback(cbBorderChanged);
 }

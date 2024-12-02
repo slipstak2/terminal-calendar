@@ -18,14 +18,14 @@ public:
     bool SetChecked(bool isCheck);
     bool GetChecked();
 
-    void SetOnChangedCallback(CheckBoxChangedCallback changedCallback) { // rename on Add
-        this->changedCallback = changedCallback;
+    void AddOnChangedCallback(CheckBoxChangedCallback changedCallback) {
+        changedCallbacks.push_back(changedCallback);
     }
 
     void SetLabelFormatSettings(FormatSettings labelFormatSettings);
 
 protected:
-    CheckBoxChangedCallback changedCallback = nullptr;
+    std::vector<CheckBoxChangedCallback> changedCallbacks;
 protected:
     bool isChecked = false;
     TerminalButtonPtr checkedButton;
