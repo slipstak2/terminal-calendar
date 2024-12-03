@@ -8,8 +8,9 @@ using TerminalListViewChangedOffsetCallback = std::function<void(const TerminalL
 
 class TerminalListView : public TerminalCompositeControl {
     friend class TerminalVerticalScroll;
+    friend class TerminalListViewTests;
 public:
-    DECLARE_KIND(TerminalControl, TerminalControl::Kind::LIST_VIEW)
+    DECLARE_KIND(TerminalCompositeControl, TerminalControl::Kind::LIST_VIEW)
     DECLARE_CREATE(TerminalListView)
 
 public:
@@ -24,6 +25,8 @@ public:
     int TotalItems() const;
     bool SetOffset(int newOffset);
     bool ChangeOffset(int delta);
+    int GetOffset() const;
+
     void FlushSelf() override;
 
 public:
@@ -31,9 +34,9 @@ public:
     int GetSelectedItem();
     bool IsSelectedItemInView();
     bool NavigateOnSelectedItem();
+    bool MoveSelectedItem(bool isUp);
 protected:
     void UpdateViewSelectedItem();
-    bool UpdateMoveSelectedItem(bool isUp);
 
 protected:
     int MaxViewOffset();

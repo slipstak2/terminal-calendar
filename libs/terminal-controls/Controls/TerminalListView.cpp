@@ -28,7 +28,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         return ChangeOffset(wheelValue > 0 ? -3 : 3);
     });
     AddKeyPressUpOrDownCallbacks([this](bool isUp) {
-        return UpdateMoveSelectedItem(isUp);
+        return MoveSelectedItem(isUp);
         });
 }
 
@@ -89,6 +89,10 @@ int TerminalListView::TotalItems() const{
 
 bool TerminalListView::ChangeOffset(int delta) {
     return SetOffset(viewOffset + delta);
+}
+
+int TerminalListView::GetOffset() const {
+    return viewOffset;
 }
 
 bool TerminalListView::SetOffset(int newOffset) {
@@ -165,15 +169,17 @@ void TerminalListView::UpdateViewSelectedItem() {
     }
 }
 
-bool TerminalListView::UpdateMoveSelectedItem(bool isUp) {
+bool TerminalListView::MoveSelectedItem(bool isUp) {
     if (!IsSelectedItemInView()) {
         NavigateOnSelectedItem();
     }
     bool isChange = false;
     if (isUp) {
-        isChange |= SetSelectedItem(selectedItem - 1);
-        if (!IsSelectedItemInView()) {
-            isChange |= ChangeOffset(-1);
+        if (selectedItem != 0) {
+            isChange |= SetSelectedItem(selectedItem - 1);
+            if (!IsSelectedItemInView()) {
+                isChange |= ChangeOffset(-1);
+            }
         }
     }
     else {

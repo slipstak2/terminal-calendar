@@ -140,13 +140,11 @@
     <ClCompile Include="DemoTerminalApplication.cpp" />
     <ClCompile Include="DemoTerminalApplication.h" />
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
-    <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
-    <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
   </ItemGroup>
