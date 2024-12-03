@@ -31,6 +31,13 @@ void ShowConsoleCursor(bool showFlag) {
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 
+
+TerminalSize TerminalApplication::GetTerminalConsoleSize() const {
+    TerminalSize size;
+    GetWindowSize(outputHandle, size.height, size.width);
+    return size;
+}
+
 TerminalApplication::TerminalApplication()  {
     inputHandle = GetStdHandle(STD_INPUT_HANDLE);
     if (inputHandle == NULL) {

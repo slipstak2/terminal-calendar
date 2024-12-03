@@ -132,6 +132,13 @@ DemoTerminalApplication::DemoTerminalApplication()
         DanilWindow->AddControl(hyperLink);
     }
 
+    auto btnShowSize = TerminalButton::Create("Show Size   ", TerminalCoord{.row = 11, .col = 5});
+    btnShowSize->AddClickCallback([btnShowSize, this]() {
+        btnShowSize->SetText(GetTerminalConsoleSize().ToString());
+        return true; });
+
+    DanilWindow->AddControl(btnShowSize);
+
     AddWindow(DanilWindow);
 
     for (int i = 0; i < 175; ++i) {
