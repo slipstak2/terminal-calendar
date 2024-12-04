@@ -43,6 +43,7 @@ Links/Future:
 Bugs:
     1. TerminalControlsConfigs оказался в проекта utils =)
     2. Периодически на старте некорректная отрисовка (помогает запуск с отладчиком) (Windows 10 - домашний комп)
+        Несколько раз срабатывает WindowsResize
 
 Доработки/Refactoring:
     (MS#1) + Разделить Label на обычный Label - базовый класс для Button и на DataProviderLabel
@@ -51,4 +52,4 @@ Bugs:
 Features:
     (MS#1) +  ListView для возможности интерактивной отладки
     (MS#1) +  Наводка на Label -> появляется нижнее подчеркивание
-    * Drag-and-Drop Windows
+    (MS#1) +  Drag-and-Drop Windows

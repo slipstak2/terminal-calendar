@@ -16,4 +16,9 @@ public:
         SetBorderFormat(BorderFormat::Window);
     }
     void AddControl(TerminalControlPtr control) override;
+
+    bool IsDraggable() override;
+    bool TryDraggingStart(TerminalCoord absPosition) override;
+    bool TryDragging(TerminalCoord delta) override;
+    bool TryDraggingStop() override;
 };
