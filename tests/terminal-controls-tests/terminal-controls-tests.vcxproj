@@ -57,7 +57,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\libs\common;$(ProjectDir)..\..\libs\terminal-controls;$(ProjectDir)..\..\libs\terminal-controls\Controls;$(ProjectDir)..\..\libs\terminal-controls\Controls\Labels;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\libs\common;$(ProjectDir)..\..\libs\terminal-controls;$(ProjectDir)..\..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\..\libs\terminal-controls\TerminalControls\Labels;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
@@ -90,7 +90,7 @@
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\libs\common;$(ProjectDir)..\..\libs\terminal-controls;$(ProjectDir)..\..\libs\terminal-controls\Controls;$(ProjectDir)..\..\libs\terminal-controls\Controls\Labels;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)..\..\libs\common;$(ProjectDir)..\..\libs\terminal-controls;$(ProjectDir)..\..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\..\libs\terminal-controls\TerminalControls\Labels;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>

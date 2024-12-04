@@ -20,25 +20,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
-    <ClInclude Include="Controls\Labels\TerminalLabel.h" />
-    <ClInclude Include="Controls\Labels\TerminalLabelBase.h" />
-    <ClInclude Include="Controls\Labels\TerminalLabelDataProvider.h" />
-    <ClInclude Include="Controls\Labels\TerminalLabelFixedWidth.h" />
-    <ClInclude Include="Controls\Labels\TerminalLabelSwitcher.h" />
-    <ClInclude Include="Controls\TerminalBorderControl.h" />
-    <ClInclude Include="Controls\TerminalBorderListView.h" />
-    <ClInclude Include="Controls\TerminalButton.h" />
-    <ClInclude Include="Controls\TerminalCanvas.h" />
-    <ClInclude Include="Controls\TerminalCheckBox.h" />
-    <ClInclude Include="Controls\TerminalCompositeControl.h" />
-    <ClInclude Include="Controls\TerminalControl.h" />
-    <ClInclude Include="Controls\TerminalGroupBox.h" />
-    <ClInclude Include="Controls\TerminalListView.h" />
-    <ClInclude Include="Controls\TerminalRadioButton.h" />
-    <ClInclude Include="Controls\TerminalRootControl.h" />
-    <ClInclude Include="Controls\TerminalVerticalScroll.h" />
-    <ClInclude Include="Controls\TerminalVerticalScrollBar.h" />
-    <ClInclude Include="Controls\TerminalWindow.h" />
+    <ClInclude Include="TerminalControls\Labels\TerminalLabel.h" />
+    <ClInclude Include="TerminalControls\Labels\TerminalLabelBase.h" />
+    <ClInclude Include="TerminalControls\Labels\TerminalLabelDataProvider.h" />
+    <ClInclude Include="TerminalControls\Labels\TerminalLabelFixedWidth.h" />
+    <ClInclude Include="TerminalControls\Labels\TerminalLabelSwitcher.h" />
+    <ClInclude Include="TerminalControls\TerminalBorderControl.h" />
+    <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
+    <ClInclude Include="TerminalControls\TerminalButton.h" />
+    <ClInclude Include="TerminalControls\TerminalCanvas.h" />
+    <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
+    <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
+    <ClInclude Include="TerminalControls\TerminalControl.h" />
+    <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
+    <ClInclude Include="TerminalControls\TerminalListView.h" />
+    <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
+    <ClInclude Include="TerminalControls\TerminalRootControl.h" />
+    <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
+    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
+    <ClInclude Include="TerminalControls\TerminalWindow.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
     <ClInclude Include="DataProviders\ListViewDataProvider.h" />
     <ClInclude Include="TerminalApplication.h" />
@@ -53,24 +53,24 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
-    <ClCompile Include="Controls\Labels\TerminalLabel.cpp" />
-    <ClCompile Include="Controls\Labels\TerminalLabelBase.cpp" />
-    <ClCompile Include="Controls\Labels\TerminalLabelDataProvider.cpp" />
-    <ClCompile Include="Controls\Labels\TerminalLabelFixedWidth.cpp" />
-    <ClCompile Include="Controls\Labels\TerminalLabelSwitcher.cpp" />
-    <ClCompile Include="Controls\TerminalBorderControl.cpp" />
-    <ClCompile Include="Controls\TerminalBorderListView.cpp" />
-    <ClCompile Include="Controls\TerminalCanvas.cpp" />
-    <ClCompile Include="Controls\TerminalCheckBox.cpp" />
-    <ClCompile Include="Controls\TerminalCompositeControl.cpp" />
-    <ClCompile Include="Controls\TerminalControl.cpp" />
-    <ClCompile Include="Controls\TerminalGroupBox.cpp" />
-    <ClCompile Include="Controls\TerminalListView.cpp" />
-    <ClCompile Include="Controls\TerminalRadioButton.cpp" />
-    <ClCompile Include="Controls\TerminalRootControl.cpp" />
-    <ClCompile Include="Controls\TerminalVerticalScroll.cpp" />
-    <ClCompile Include="Controls\TerminalVerticalScrollBar.cpp" />
-    <ClCompile Include="Controls\TerminalWindow.cpp" />
+    <ClCompile Include="TerminalControls\Labels\TerminalLabel.cpp" />
+    <ClCompile Include="TerminalControls\Labels\TerminalLabelBase.cpp" />
+    <ClCompile Include="TerminalControls\Labels\TerminalLabelDataProvider.cpp" />
+    <ClCompile Include="TerminalControls\Labels\TerminalLabelFixedWidth.cpp" />
+    <ClCompile Include="TerminalControls\Labels\TerminalLabelSwitcher.cpp" />
+    <ClCompile Include="TerminalControls\TerminalBorderControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
+    <ClCompile Include="TerminalControls\TerminalCanvas.cpp" />
+    <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
+    <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
+    <ClCompile Include="TerminalControls\TerminalListView.cpp" />
+    <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
+    <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
+    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
+    <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
     <ClCompile Include="TerminalApplication.cpp" />
@@ -175,7 +175,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Controls;$(ProjectDir)\Controls\Labels;$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\TerminalControls;$(ProjectDir)\TerminalControls\Labels;$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -193,7 +193,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\Controls;$(ProjectDir)\Controls\Labels;$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\TerminalControls;$(ProjectDir)\TerminalControls\Labels;$(ProjectDir)..\common;$(ProjectDir)..\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -1,5 +1,5 @@
 ﻿#include "TerminalCell.h"
-#include "Controls/TerminalControl.h"
+#include "TerminalControl.h"
 #include "TerminalControlsConfig.h"
 
 void TerminalCell::SetParent(TerminalControl* newParent) {

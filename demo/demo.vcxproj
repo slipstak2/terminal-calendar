@@ -107,7 +107,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\Controls;$(ProjectDir)..\libs\terminal-controls\Controls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\libs\terminal-controls\TerminalControls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +125,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\Controls;$(ProjectDir)..\libs\terminal-controls\Controls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\libs\terminal-controls\TerminalControls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
