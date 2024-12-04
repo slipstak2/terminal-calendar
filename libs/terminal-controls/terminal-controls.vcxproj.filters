@@ -141,6 +141,9 @@
     <ClInclude Include="Controls\TerminalVerticalScrollBar.h">
       <Filter>Header Files\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\TerminalBorderListView.h">
+      <Filter>Header Files\Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -219,6 +222,9 @@
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
     <ClCompile Include="Controls\TerminalVerticalScrollBar.cpp">
+      <Filter>Source Files\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\TerminalBorderListView.cpp">
       <Filter>Source Files\Controls</Filter>
     </ClCompile>
   </ItemGroup>

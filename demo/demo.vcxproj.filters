@@ -13,19 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\TerminalControls">
-      <UniqueIdentifier>{0e08b601-7003-48df-aa1d-6c330ebe12bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\TerminalControls">
-      <UniqueIdentifier>{e9ff8938-8a6e-4e37-a81c-aa06a1f009bc}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="demo.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
     <ClCompile Include="DemoTerminalApplication.h">
       <Filter>Header Files</Filter>
@@ -33,11 +24,6 @@
     <ClCompile Include="DemoTerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="TerminalControls\TerminalBorderListView.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />

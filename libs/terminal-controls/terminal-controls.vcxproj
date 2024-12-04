@@ -26,6 +26,7 @@
     <ClInclude Include="Controls\Labels\TerminalLabelFixedWidth.h" />
     <ClInclude Include="Controls\Labels\TerminalLabelSwitcher.h" />
     <ClInclude Include="Controls\TerminalBorderControl.h" />
+    <ClInclude Include="Controls\TerminalBorderListView.h" />
     <ClInclude Include="Controls\TerminalButton.h" />
     <ClInclude Include="Controls\TerminalCanvas.h" />
     <ClInclude Include="Controls\TerminalCheckBox.h" />
@@ -58,6 +59,7 @@
     <ClCompile Include="Controls\Labels\TerminalLabelFixedWidth.cpp" />
     <ClCompile Include="Controls\Labels\TerminalLabelSwitcher.cpp" />
     <ClCompile Include="Controls\TerminalBorderControl.cpp" />
+    <ClCompile Include="Controls\TerminalBorderListView.cpp" />
     <ClCompile Include="Controls\TerminalCanvas.cpp" />
     <ClCompile Include="Controls\TerminalCheckBox.cpp" />
     <ClCompile Include="Controls\TerminalCompositeControl.cpp" />
