@@ -115,6 +115,7 @@
     </ClCompile>
     <ClCompile Include="terminal-list-view-tests.cpp" />
     <ClCompile Include="terminal-radio-button-tests.cpp" />
+    <ClCompile Include="terminal-vertical-scroll-tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

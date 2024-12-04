@@ -24,7 +24,7 @@ public:
 protected:
     bool isScrollDragging = false;
 
-protected:
+public: // For tests. Should be protected
     int ScrollHeight();
     int OffsetHeight();
     int ItemsPerCell();

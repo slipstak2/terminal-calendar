@@ -30,9 +30,6 @@
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
     <ClCompile Include="DemoTerminalApplication.h">
       <Filter>Header Files</Filter>
     </ClCompile>
@@ -45,9 +42,6 @@
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderListView.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
-    <ClInclude Include="TerminalControls\TerminalVerticalScroll.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
   </ItemGroup>
