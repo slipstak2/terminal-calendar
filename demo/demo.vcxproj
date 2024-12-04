@@ -140,11 +140,9 @@
     <ClCompile Include="DemoTerminalApplication.cpp" />
     <ClCompile Include="DemoTerminalApplication.h" />
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp" />
-    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TerminalControls\TerminalBorderListView.h" />
-    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="TODO.txt" />

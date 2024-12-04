@@ -24,9 +24,6 @@
     <ClCompile Include="demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp">
-      <Filter>Source Files\TerminalControls</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -38,9 +35,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h">
-      <Filter>Header Files\TerminalControls</Filter>
-    </ClInclude>
     <ClInclude Include="TerminalControls\TerminalBorderListView.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>

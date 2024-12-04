@@ -36,6 +36,7 @@
     <ClInclude Include="Controls\TerminalRadioButton.h" />
     <ClInclude Include="Controls\TerminalRootControl.h" />
     <ClInclude Include="Controls\TerminalVerticalScroll.h" />
+    <ClInclude Include="Controls\TerminalVerticalScrollBar.h" />
     <ClInclude Include="Controls\TerminalWindow.h" />
     <ClInclude Include="DataProviders\ListDataProvider.h" />
     <ClInclude Include="DataProviders\ListViewDataProvider.h" />
@@ -66,6 +67,7 @@
     <ClCompile Include="Controls\TerminalRadioButton.cpp" />
     <ClCompile Include="Controls\TerminalRootControl.cpp" />
     <ClCompile Include="Controls\TerminalVerticalScroll.cpp" />
+    <ClCompile Include="Controls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="Controls\TerminalWindow.cpp" />
     <ClCompile Include="DataProviders\ListDataProvider.cpp" />
     <ClCompile Include="DataProviders\ListViewDataProvider.cpp" />
