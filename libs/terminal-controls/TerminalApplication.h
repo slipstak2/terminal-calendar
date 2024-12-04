@@ -11,6 +11,7 @@
 class TerminalApplication {
 public:
     TerminalApplication();
+    TerminalSize GetTerminalConsoleSize() const;
 
     void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
     void OnKeyPressUpOrDown(bool isUp);
