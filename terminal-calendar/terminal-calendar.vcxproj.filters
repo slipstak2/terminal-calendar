@@ -18,5 +18,13 @@
     <ClCompile Include="terminal-calendar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TerminalCalendarApplication.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="TerminalCalendarApplication.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

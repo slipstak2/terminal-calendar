@@ -53,6 +53,9 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <Import Project="..\libs\terminal-controls\terminal-controls.props" />
+  <Import Project="..\libs\utils\utils.props" />
+  <Import Project="..\libs\common\common.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -107,7 +110,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\libs\terminal-controls\TerminalControls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -125,7 +128,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>$(ProjectDir)TerminalControls\Label;$(ProjectDir)TerminalControls;$(ProjectDir)..\libs\common;$(ProjectDir)..\libs\utils;$(ProjectDir)..\libs\terminal-controls;$(ProjectDir)..\libs\terminal-controls\TerminalControls;$(ProjectDir)..\libs\terminal-controls\TerminalControls\Labels;$(ProjectDir)..\libs\terminal-controls\TerminalGeometry;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>

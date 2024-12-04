@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="DepsVariables">
+    <TERMINAL_CONTROLS_PROJ_ROOT>$(SolutionDir)libs\terminal-controls</TERMINAL_CONTROLS_PROJ_ROOT>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(TERMINAL_CONTROLS_PROJ_ROOT);$(TERMINAL_CONTROLS_PROJ_ROOT)\TerminalControls;$(TERMINAL_CONTROLS_PROJ_ROOT)\TerminalControls\Labels;$(TERMINAL_CONTROLS_PROJ_ROOT)\TerminalGeometry;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>
