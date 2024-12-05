@@ -26,3 +26,11 @@ bool TerminalRootControl::MoveToTop(const TerminalControl* window) {
     }
     return true;
 }
+
+void TerminalRootControl::FlushSelf() {
+    for (short row = 0; row < Height(); ++row) {
+        for (short col = 0; col < Width(); ++col) {
+            data[row][col] = CreateBackgroundCell(".");
+        }
+    }
+}

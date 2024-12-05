@@ -9,5 +9,5 @@ public:
 
     TerminalRootControl(short rows, short cols);
     bool MoveToTop(const TerminalControl* window);
-    void FlushSelf() {}
+    void FlushSelf() override;
 };
