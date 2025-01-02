@@ -2,7 +2,7 @@
 
 void TerminalWindow::AddControl(TerminalControlPtr control) {
     control->SetParentWindow(this);
-    TerminalControl::AddControl(control);
+    TerminalBorderControl::AddControl(control);
 }
 
 bool TerminalWindow::IsDraggable() {

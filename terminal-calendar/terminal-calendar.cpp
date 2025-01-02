@@ -8,14 +8,14 @@ int main()
 {
     SetConsoleOutputCP(CP_UTF8);
 
-    //TerminalCalendarApplication app;
-    //app.Run();
+    TerminalCalendarApplication app;
+    app.Run();
 
-    freopen("field.txt", "r", stdin);
-    std::string row;
-    while (getline(std::cin, row)) {
-        std::cout << row << std::endl;
-    }
+    //freopen("field.txt", "r", stdin);
+    //std::string row;
+    //while (getline(std::cin, row)) {
+    //    std::cout << row << std::endl;
+    //}
 
     return 0;
 }

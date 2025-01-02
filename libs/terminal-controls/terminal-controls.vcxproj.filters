@@ -49,6 +49,12 @@
     <Filter Include="Source Files\TerminalControls\Labels">
       <UniqueIdentifier>{292b5aa9-7de7-4a1c-b869-534c23303894}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TerminalControls\Date">
+      <UniqueIdentifier>{e477ba8f-0a67-4614-a5b2-d8c26dcf9528}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TerminalControls\Date">
+      <UniqueIdentifier>{573faaa3-526d-4cf9-a7d5-5661f7b40973}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -144,6 +150,9 @@
     <ClInclude Include="TerminalControls\TerminalBorderListView.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h">
+      <Filter>Header Files\TerminalControls\Date</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -226,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Date\TerminalMonthSwitcher.cpp">
+      <Filter>Source Files\TerminalControls\Date</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -38,6 +38,7 @@ public:
         BORDER_CONTROL,
         VERTICAL_SCROLL,
         VERTICAL_SCROLL_BAR,
+        MONTH_SWITCHER,
         WINDOW
     };
     static const TerminalControl::Kind KIND = Kind::CONTROL;
