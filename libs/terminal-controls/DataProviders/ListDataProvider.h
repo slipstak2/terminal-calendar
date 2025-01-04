@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "utf8string.h"
+#include "ListDataSet.h"
 #include <functional>
 
 using ChangeCallback = std::function<bool(const Utf8String& prev, const Utf8String& current)>;
@@ -10,7 +11,7 @@ class ListDataProvider {
 public:
     DECLARE_CREATE(ListDataProvider)
 
-    ListDataProvider(std::vector<Utf8String> data);
+    ListDataProvider(ListDataSetPtr dataSet);
     const Utf8String& Get() const;
     bool Next();
     bool HasNext();
@@ -21,7 +22,7 @@ public:
 
     void AddChangeCallback(ChangeCallback changeCallback);
 protected:
-    std::vector<Utf8String> items;
+    ListDataSetPtr dataSet;
     int pos = -1;
 protected:
     void OnChange(const Utf8String& prev, const Utf8String& current);

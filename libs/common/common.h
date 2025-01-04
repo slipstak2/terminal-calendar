@@ -10,7 +10,7 @@ extern short ONE;
 
 #define DECLARE_CREATE(T)                                         \
     template<class... Args>                                       \
-    static std::shared_ptr<T> Create(Args... args) {              \
+    static std::shared_ptr<T> Create(Args&&... args) {              \
         return std::make_shared<T>(std::forward<Args>(args)...);  \
     }
 
@@ -40,6 +40,9 @@ using TerminalLabelSwitcherPtr = std::shared_ptr<TerminalLabelSwitcher>;
 
 class TerminalButton;
 using TerminalButtonPtr = std::shared_ptr<TerminalButton>;
+
+class ListDataSet;
+using ListDataSetPtr = std::shared_ptr<ListDataSet>;
 
 class ListDataProvider;
 using ListDataProviderPtr = std::shared_ptr<ListDataProvider>;

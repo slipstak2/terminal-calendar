@@ -153,6 +153,9 @@
     <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h">
       <Filter>Header Files\TerminalControls\Date</Filter>
     </ClInclude>
+    <ClInclude Include="DataProviders\ListDataSet.h">
+      <Filter>Header Files\DataProviders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -238,6 +241,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\Date\TerminalMonthSwitcher.cpp">
       <Filter>Source Files\TerminalControls\Date</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProviders\ListDataSet.cpp">
+      <Filter>Source Files\DataProviders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

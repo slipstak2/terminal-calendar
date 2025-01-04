@@ -22,8 +22,9 @@ TEST_F(LabelDataProviderTests, Empty) {
 
 TEST_F(LabelDataProviderTests, Elements3) {
     std::vector<Utf8String> data{ "Первый", "-Второй-", "Third" };
+    auto dataSet = ListDataSet::Create(data);
 
-    auto dataProvider = ListDataProvider::Create(data);
+    auto dataProvider = ListDataProvider::Create(dataSet);
     auto labelDataProvider = TerminalLabelDataProvider::Create(dataProvider, TerminalCoord());
     EXPECT_EQ(data[1].size(), labelDataProvider->Length()); // 8
 

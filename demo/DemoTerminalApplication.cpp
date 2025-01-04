@@ -71,7 +71,8 @@ DemoTerminalApplication::DemoTerminalApplication()
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
     std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь" };
-    auto MonthDataProviderPtr = ListDataProvider::Create(months);
+    auto monthDataSet = ListDataSet::Create(months);
+    auto MonthDataProviderPtr = ListDataProvider::Create(monthDataSet);
     MonthDataProviderPtr->Next();
     MonthDataProviderPtr->Next();
 
@@ -84,7 +85,8 @@ DemoTerminalApplication::DemoTerminalApplication()
     IgorWindow->SetBorderColor(FontColor::Green);
 
     std::vector<Utf8String> family{ "Маша", "Верунчик или Берунчик", "Юрик$on", "Митрофан" };
-    auto familyDataProvider = ListDataProvider::Create(family);
+    auto familyDataSet = ListDataSet::Create(family);
+    auto familyDataProvider = ListDataProvider::Create(familyDataSet);
     auto LRLabel = TerminalLabelSwitcher::Create(familyDataProvider, TerminalCoord{ .row = 3, .col = 3 });
     LRLabel->SetLabelFormatSettings({ .textStyle = TextStyle::Overline });
     IgorWindow->AddControl(LRLabel);
