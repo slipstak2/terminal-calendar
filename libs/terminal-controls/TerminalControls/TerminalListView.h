@@ -42,6 +42,7 @@ protected:
     int MaxViewOffset();
     int NormalizeOffset(int offset);
 protected:
+    ListDynamicDataSetPtr dataSet = ListDynamicDataSet::Create();
     ListViewDataProvider provider;
     int viewOffset = 0;
     int selectedItem = -1;

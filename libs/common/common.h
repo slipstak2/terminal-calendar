@@ -47,6 +47,9 @@ using ListDataSetPtr = std::shared_ptr<ListDataSet>;
 class ListDataProvider;
 using ListDataProviderPtr = std::shared_ptr<ListDataProvider>;
 
+class ListDynamicDataSet;
+using ListDynamicDataSetPtr = std::shared_ptr<ListDynamicDataSet>;
+
 class TerminalCompositeControl;
 using TerminalCompositeControlPtr = std::shared_ptr<TerminalCompositeControl>;
 

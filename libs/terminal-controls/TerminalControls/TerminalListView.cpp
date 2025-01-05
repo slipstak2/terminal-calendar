@@ -3,8 +3,9 @@
 
 TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
+    , provider(dataSet)
 {
-    provider.AddChangeItemsCallback([this](const ListViewDataProvider* provider, size_t curItemsCount, size_t prvItemsCount) {
+    dataSet->AddChangeItemsCallback([this](const ListDynamicDataSet* ds, size_t curItemsCount, size_t prvItemsCount) {
         OnChangeItemsCount(curItemsCount, prvItemsCount);
         });
 
@@ -39,14 +40,14 @@ void TerminalListView::AddItem(const std::string& value) {
             incOffset = true;
         }
     }
-    provider.AddItem(value);
+    dataSet->AddItem(value);
     if (incOffset) {
         ChangeOffset(1);
     }
 }
 
 bool TerminalListView::RemoveLastItem() {
-    bool isRemove = provider.RemoveLastItem();
+    bool isRemove = dataSet->RemoveLastItem();
     ChangeOffset(0);
     return isRemove;
 }
@@ -84,7 +85,7 @@ void TerminalListView::OnChangeOffset(int curOffset, int prvOffset) {
 }
 
 int TerminalListView::TotalItems() const{
-    return provider.TotalItems();
+    return dataSet->TotalItems();
 }
 
 bool TerminalListView::ChangeOffset(int delta) {

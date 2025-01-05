@@ -49,7 +49,7 @@ DemoTerminalApplication::DemoTerminalApplication()
 
 
     dbgListView = TerminalBorderListView::Create("Debug info",
-        TerminalCoord{ .row = 1, .col = 89 },
+        TerminalCoord{ .row = 0, .col = 88 },
         TerminalSize{ .height = 28, .width = 30 });
 
     dbgListView->SetBorderColor(FontColor::Magenta);
@@ -57,7 +57,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     backgroundWindow->AddControl(dbgListView);
 
     auto borderListView = TerminalBorderListView::Create("BorderListView",
-        TerminalCoord{ .row = 1, .col = 69 },
+        TerminalCoord{ .row = 0, .col = 68 },
         TerminalSize{ .height = 28, .width = 20 });
     borderListView->SetTitleColor(FontColor::Brightgreen);
     backgroundWindow->AddControl(borderListView);
