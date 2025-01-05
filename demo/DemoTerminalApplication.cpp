@@ -70,8 +70,6 @@ DemoTerminalApplication::DemoTerminalApplication()
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
-    std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь" };
-    auto monthDataSet = ListDataSet::Create(months);
     auto MonthDataProviderPtr = ListDataProvider::Create(monthDataSet);
     MonthDataProviderPtr->Next();
     MonthDataProviderPtr->Next();

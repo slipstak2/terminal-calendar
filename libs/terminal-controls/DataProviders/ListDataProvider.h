@@ -12,6 +12,7 @@ public:
     DECLARE_CREATE(ListDataProvider)
 
     ListDataProvider(ListDataSetPtr dataSet);
+    ListDataProvider(ListDataSetPtr dataSet, int pos);
     const Utf8String& Get() const;
     bool Next();
     bool HasNext();

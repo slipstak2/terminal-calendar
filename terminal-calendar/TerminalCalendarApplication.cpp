@@ -22,9 +22,17 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     TerminalSize size = canvas->Size();
     short rows = size.height, cols = size.width;
 
-    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = rows, .width = 60 });
+    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 32, .width = 72 });
     AddWindow(backgroundWindow);
 
-    auto month3 = TerminalMonthSwitcher::Create(3, TerminalCoord{.row = 0, .col = 0});
-    backgroundWindow->AddControlOnBorder(month3);
+    int month = 0;
+    for (short row = 0; row < 4; ++row) {
+        for (short col = 0; col < 3; ++col) {
+            auto monthLabel = TerminalMonthSwitcher::Create(month++, TerminalCoord{
+                .row = row * TerminalMonthSwitcher::DefaultHeight(), 
+                .col = col * TerminalMonthSwitcher::DefaultWidth()
+                });
+            backgroundWindow->AddControlOnBorder(monthLabel);
+        }
+    }
 }

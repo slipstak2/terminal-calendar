@@ -29,3 +29,7 @@ short ListDataSet::MaxLen() const {
             return lhs.size() < rhs.size();
         })->size();
 }
+
+
+std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь" };
+ListDataSetPtr monthDataSet = ListDataSet::Create(months);

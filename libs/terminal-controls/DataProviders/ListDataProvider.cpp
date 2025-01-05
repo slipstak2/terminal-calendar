@@ -6,6 +6,11 @@ ListDataProvider::ListDataProvider(ListDataSetPtr dataSet)
     , pos(0)
 {}
 
+ListDataProvider::ListDataProvider(ListDataSetPtr dataSet, int pos)
+    : dataSet(dataSet)
+    , pos(pos)
+{}
+
 const Utf8String& ListDataProvider::Get() const {
     return (*dataSet)[pos];
 }
