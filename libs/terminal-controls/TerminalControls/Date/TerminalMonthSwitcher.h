@@ -9,10 +9,10 @@ public:
 
     DECLARE_CREATE(TerminalMonthSwitcher)
 
-    TerminalMonthSwitcher(int month, TerminalCoord position);
+    TerminalMonthSwitcher(int year, int month, TerminalCoord position);
 
 public:
-    static short DefaultHeight() { return 1 + 5 + 2; };
+    static short DefaultHeight() { return 1 + 5 + 2 + 1; };
     static short DefaultWidth() { return 2 * 7 + 8 + 2; };
 
 protected:

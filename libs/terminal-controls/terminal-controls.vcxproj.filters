@@ -159,6 +159,9 @@
     <ClInclude Include="DataProviders\ListDynamicDataSet.h">
       <Filter>Header Files\DataProviders</Filter>
     </ClInclude>
+    <ClInclude Include="DataProviders\ListDataSetNumSequence.h">
+      <Filter>Header Files\DataProviders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -249,6 +252,9 @@
       <Filter>Source Files\DataProviders</Filter>
     </ClCompile>
     <ClCompile Include="DataProviders\ListDynamicDataSet.cpp">
+      <Filter>Source Files\DataProviders</Filter>
+    </ClCompile>
+    <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp">
       <Filter>Source Files\DataProviders</Filter>
     </ClCompile>
   </ItemGroup>

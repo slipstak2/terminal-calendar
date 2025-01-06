@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
     <ClInclude Include="DataProviders\ListDataSet.h" />
+    <ClInclude Include="DataProviders\ListDataSetNumSequence.h" />
     <ClInclude Include="DataProviders\ListDynamicDataSet.h" />
     <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabel.h" />
@@ -57,6 +58,7 @@
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
     <ClCompile Include="DataProviders\ListDataSet.cpp" />
+    <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp" />
     <ClCompile Include="DataProviders\ListDynamicDataSet.cpp" />
     <ClCompile Include="TerminalControls\Date\TerminalMonthSwitcher.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabel.cpp" />

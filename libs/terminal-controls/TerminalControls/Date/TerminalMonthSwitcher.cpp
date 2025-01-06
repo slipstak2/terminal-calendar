@@ -1,7 +1,36 @@
 #include "TerminalMonthSwitcher.h"
 #include "TerminalLabel.h"
+#include <chrono>
 
-TerminalMonthSwitcher::TerminalMonthSwitcher(int month, TerminalCoord position)
+std::string getRow(std::string& s, std::chrono::year_month_day& d) {
+    int wbeg = std::chrono::weekday(d).iso_encoding() - 1;
+    s += " ";
+    
+    for (int wday = 0; wday < wbeg; ++wday) {
+        s += "   ";
+    }
+    for (int wday = wbeg; wday < 7; ++wday) {
+        if (d.ok()) {
+            auto day = static_cast<unsigned>(d.day());
+            std::string cur = std::to_string(day);
+            if (cur.size() < 2) {
+                s += ' ';
+            }
+            s += cur;
+
+            d = d.year() / d.month() / (d.day() + std::chrono::days{ 1 });
+        }
+        else {
+            s += "  ";
+        }
+        s += ' ';
+    }
+
+    s += " ";
+    return s;
+}
+
+TerminalMonthSwitcher::TerminalMonthSwitcher(int year, int month, TerminalCoord position)
     : TerminalBorderControl("", position, TerminalSize{.height = DefaultHeight(), .width = DefaultWidth()})
     , provider(monthDataSet, month)
 
@@ -10,16 +39,20 @@ TerminalMonthSwitcher::TerminalMonthSwitcher(int month, TerminalCoord position)
     auto monthLabel = TerminalLabel::Create(provider.Get(), TerminalCoord{ .row = 0, .col = offset });
     AddControlOnBorder(monthLabel);
 
+    auto date = std::chrono::year(year) / std::chrono::month(month + 1) / std::chrono::day(1);
+    auto date_end = std::chrono::year(year) / std::chrono::month(month + 1) / std::chrono::last;
+
+    std::string s;
+    s.reserve(DefaultWidth());
+ 
+
     auto headerLabel = TerminalLabel::Create(" Пн Вт Ср Чт Пт Сб Вс ", TerminalCoord{ .row = 0, .col = 0 });
-    auto week0 =       TerminalLabel::Create("        1  2  3  4  5 ", TerminalCoord{ .row = 1, .col = 0 });
-    auto week1 =       TerminalLabel::Create("  6  7  8  9 10 11 12 ", TerminalCoord{ .row = 2, .col = 0 });
-    auto week2 =       TerminalLabel::Create(" 13 14 15 16 17 18 19 ", TerminalCoord{ .row = 3, .col = 0 });
-    auto week3 =       TerminalLabel::Create(" 20 21 22 23 24 25 26 ", TerminalCoord{ .row = 4, .col = 0 });
-    auto week4 =       TerminalLabel::Create(" 27 28 29 30 31       ", TerminalCoord{ .row = 5, .col = 0 });
     AddControl(headerLabel);
-    AddControl(week0);
-    AddControl(week1);
-    AddControl(week2);
-    AddControl(week3);
-    AddControl(week4);
+    short row_num = 1;
+    while (date.ok()) {
+        s.clear();
+        getRow(s, date);
+        auto weekLabel = TerminalLabel::Create(s, TerminalCoord{ .row = row_num++, .col = 0 });
+        AddControl(weekLabel);
+    }
 }

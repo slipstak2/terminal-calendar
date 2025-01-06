@@ -22,14 +22,23 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     TerminalSize size = canvas->Size();
     short rows = size.height, cols = size.width;
 
-    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 32, .width = 72 });
+    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 38, .width = 72 });
     AddWindow(backgroundWindow);
 
+    std::vector<Utf8String> years{ "2025", "2026", "2027", "2028" };
+    auto yearsDataSet = ListDataSet::Create(years);
+    auto yearsDataProvider = ListDataProvider::Create(yearsDataSet);
+    short year_label_offset = (backgroundWindow->Width() - 8) / 2;
+    auto yearsLabel = TerminalLabelSwitcher::Create(yearsDataProvider, TerminalCoord{ .row = 0, .col = year_label_offset });
+    yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
+    backgroundWindow->AddControlOnBorder(yearsLabel);
+
+    short offset_row = 2;
     int month = 0;
     for (short row = 0; row < 4; ++row) {
         for (short col = 0; col < 3; ++col) {
-            auto monthLabel = TerminalMonthSwitcher::Create(month++, TerminalCoord{
-                .row = row * TerminalMonthSwitcher::DefaultHeight(), 
+            auto monthLabel = TerminalMonthSwitcher::Create(2025, month++, TerminalCoord{
+                .row = offset_row + row * TerminalMonthSwitcher::DefaultHeight(), 
                 .col = col * TerminalMonthSwitcher::DefaultWidth()
                 });
             backgroundWindow->AddControlOnBorder(monthLabel);
