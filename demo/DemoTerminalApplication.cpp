@@ -70,7 +70,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     auto IvanWindow = TerminalWindow::Create("Ivan", TerminalCoord{ .row = 3, .col = 4 }, TerminalSize{ .height = 15, .width = 40 });
     IvanWindow->SetBorderColor(FontColor::Yellow);
 
-    auto MonthDataProviderPtr = ListDataProvider::Create(monthDataSet);
+    auto MonthDataProviderPtr = ListDataProvider::Create(monthsDataSet);
     MonthDataProviderPtr->Next();
     MonthDataProviderPtr->Next();
 

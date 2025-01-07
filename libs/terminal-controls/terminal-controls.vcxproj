@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
     <ClInclude Include="DataProviders\ListDataSet.h" />
+    <ClInclude Include="DataProviders\ListDataSetBase.h" />
     <ClInclude Include="DataProviders\ListDataSetNumSequence.h" />
     <ClInclude Include="DataProviders\ListDynamicDataSet.h" />
     <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h" />

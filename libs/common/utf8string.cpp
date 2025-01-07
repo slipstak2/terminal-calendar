@@ -23,6 +23,10 @@ Utf8String::Utf8String(const std::string& s) {
     Init(s.data());
 }
 
+bool Utf8String::empty() const {
+    return runes.empty();
+}
+
 size_t Utf8String::size() const {
     return runes.size();
 }

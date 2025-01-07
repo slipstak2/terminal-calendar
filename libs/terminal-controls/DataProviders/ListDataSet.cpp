@@ -5,17 +5,17 @@ ListDataSet::ListDataSet(std::vector<Utf8String> data)
 {}
 
 const Utf8String& ListDataSet::operator[] (size_t index) const {
-    if (0 <= index && index < items.size()) {
+    if (IsValidIndex(index)) {
         return items[index];
     }
     return Utf8String::Empty;
 }
 
-size_t ListDataSet::size() const {
-    return items.size();
+bool ListDataSet::IsValidIndex(size_t index) const {
+    return 0 <= index && index < items.size();
 }
 
-bool ListDataSet::empty() const {
+bool ListDataSet::Empty() const {
     return items.empty();
 }
 
@@ -32,4 +32,4 @@ short ListDataSet::MaxLen() const {
 
 
 std::vector<Utf8String> months{ "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль" , "Август" , "Сентябрь" , "Октябрь" , "Ноябрь" , "Декабрь" };
-ListDataSetPtr monthDataSet = ListDataSet::Create(months);
+ListDataSetPtr monthsDataSet = ListDataSet::Create(months);

@@ -11,8 +11,8 @@ class ListDataProvider {
 public:
     DECLARE_CREATE(ListDataProvider)
 
-    ListDataProvider(ListDataSetPtr dataSet);
-    ListDataProvider(ListDataSetPtr dataSet, int pos);
+    ListDataProvider(ListDataSetBasePtr dataSet);
+    ListDataProvider(ListDataSetBasePtr dataSet, int pos);
     const Utf8String& Get() const;
     bool Next();
     bool HasNext();
@@ -23,7 +23,7 @@ public:
 
     void AddChangeCallback(ChangeCallback changeCallback);
 protected:
-    ListDataSetPtr dataSet;
+    ListDataSetBasePtr dataSet;
     int pos = -1;
 protected:
     void OnChange(const Utf8String& prev, const Utf8String& current);

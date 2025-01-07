@@ -1,21 +1,22 @@
 #pragma once
 
-#include <vector>
-#include "Utf8String.h"
+#include "ListDataSetBase.h"
 #include "common.h"
 
-class ListDataSet {
+#include <vector>
+
+class ListDataSet : public ListDataSetBase {
 public:
     DECLARE_CREATE(ListDataSet);
 
     explicit ListDataSet(std::vector<Utf8String> items);
-    const Utf8String& operator[] (size_t index) const;
-    size_t size() const;
-    bool empty() const;
-    short MaxLen() const;
+    const Utf8String& operator[] (size_t index) const override;
+    bool IsValidIndex(size_t index) const override;
+    bool Empty() const override;
+    short MaxLen() const override;
 
 protected:
     std::vector<Utf8String> items;
 };
 
-extern ListDataSetPtr monthDataSet;
+extern ListDataSetPtr monthsDataSet;

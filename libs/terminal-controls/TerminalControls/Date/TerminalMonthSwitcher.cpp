@@ -32,10 +32,10 @@ std::string getRow(std::string& s, std::chrono::year_month_day& d) {
 
 TerminalMonthSwitcher::TerminalMonthSwitcher(int year, int month, TerminalCoord position)
     : TerminalBorderControl("", position, TerminalSize{.height = DefaultHeight(), .width = DefaultWidth()})
-    , provider(monthDataSet, month)
+    , provider(monthsDataSet, month)
 
 {
-    short offset = (Width() - provider.Get().size()) / 2;
+    short offset = (Width() - (short)provider.Get().size()) / 2;
     auto monthLabel = TerminalLabel::Create(provider.Get(), TerminalCoord{ .row = 0, .col = offset });
     AddControlOnBorder(monthLabel);
 

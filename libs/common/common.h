@@ -41,8 +41,14 @@ using TerminalLabelSwitcherPtr = std::shared_ptr<TerminalLabelSwitcher>;
 class TerminalButton;
 using TerminalButtonPtr = std::shared_ptr<TerminalButton>;
 
+class ListDataSetBase;
+using ListDataSetBasePtr = std::shared_ptr<ListDataSetBase>;
+
 class ListDataSet;
 using ListDataSetPtr = std::shared_ptr<ListDataSet>;
+
+class ListDataSetNumSequence;
+using ListDataSetNumSequencePtr = std::shared_ptr<ListDataSetNumSequence>;
 
 class ListDataProvider;
 using ListDataProviderPtr = std::shared_ptr<ListDataProvider>;

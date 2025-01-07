@@ -1,14 +1,14 @@
 #include "ListDataProvider.h"
 #include <algorithm>
 
-ListDataProvider::ListDataProvider(ListDataSetPtr dataSet)
+ListDataProvider::ListDataProvider(ListDataSetBasePtr dataSet)
     : dataSet(dataSet)
     , pos(0)
 {}
 
-ListDataProvider::ListDataProvider(ListDataSetPtr dataSet, int pos)
+ListDataProvider::ListDataProvider(ListDataSetBasePtr dataSet, int pos)
     : dataSet(dataSet)
-    , pos(pos)
+    , pos(pos == -1 ? 0 : pos)
 {}
 
 const Utf8String& ListDataProvider::Get() const {
@@ -28,7 +28,7 @@ bool ListDataProvider::HasNext() {
     if (pos == -1) {
         return false;
     }
-    return pos + 1 < dataSet->size();
+    return dataSet->IsValidIndex(pos + 1);
 }
 
 bool ListDataProvider::Prev() {
@@ -48,7 +48,7 @@ bool ListDataProvider::HasPrev() {
 }
 
 bool ListDataProvider::Empty() const {
-    return dataSet->empty();
+    return dataSet->Empty();
 }
 
 short ListDataProvider::MaxLen() const {

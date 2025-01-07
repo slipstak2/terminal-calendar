@@ -162,6 +162,9 @@
     <ClInclude Include="DataProviders\ListDataSetNumSequence.h">
       <Filter>Header Files\DataProviders</Filter>
     </ClInclude>
+    <ClInclude Include="DataProviders\ListDataSetBase.h">
+      <Filter>Header Files\DataProviders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">

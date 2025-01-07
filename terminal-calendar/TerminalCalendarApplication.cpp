@@ -13,6 +13,7 @@
 #include "TerminalCheckBox.h"
 #include "TerminalControlsConfig.h"
 #include "Date/TerminalMonthSwitcher.h"
+#include "DataProviders/ListDataSetNumSequence.h"
 
 #include "TerminalCalendarApplication.h"
 
@@ -25,9 +26,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 38, .width = 72 });
     AddWindow(backgroundWindow);
 
-    std::vector<Utf8String> years{ "2025", "2026", "2027", "2028" };
-    auto yearsDataSet = ListDataSet::Create(years);
-    auto yearsDataProvider = ListDataProvider::Create(yearsDataSet);
+    auto yearsDataProvider = ListDataProvider::Create(yearsDataSet, yearsDataSet->GetPos(2025));
     short year_label_offset = (backgroundWindow->Width() - 8) / 2;
     auto yearsLabel = TerminalLabelSwitcher::Create(yearsDataProvider, TerminalCoord{ .row = 0, .col = year_label_offset });
     yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
