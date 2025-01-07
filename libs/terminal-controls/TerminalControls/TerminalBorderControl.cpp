@@ -19,6 +19,10 @@ void TerminalBorderControl::AddControlOnBorder(TerminalControlPtr control) {
     TerminalCompositeControl::AddControl(control);
 }
 
+std::vector<TerminalControlPtr>& TerminalBorderControl::GetControlsOnBorder() {
+    return TerminalCompositeControl::GetControls();
+}
+
 TerminalLabelPtr TerminalBorderControl::GetTitle() const {
     return titleLabel;
 }

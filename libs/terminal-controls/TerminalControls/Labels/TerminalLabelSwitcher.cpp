@@ -52,3 +52,7 @@ void TerminalLabelSwitcher::CheckState() {
 void TerminalLabelSwitcher::SetLabelFormatSettings(const FormatSettings labelFormatSettings) {
     label->SetFormatSettings(labelFormatSettings);
 }
+
+void TerminalLabelSwitcher::AddChangeCallback(ChangeCallback changeCallback) {
+    dataProvider->AddChangeCallback(changeCallback);
+}

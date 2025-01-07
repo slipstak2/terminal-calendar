@@ -1,5 +1,6 @@
 #pragma once
 #include "TerminalCompositeControl.h"
+#include "DataProviders/ListDataProvider.h"
 
 class TerminalLabelSwitcher : public TerminalCompositeControl {
 public:
@@ -11,13 +12,15 @@ public:
 
     void SetLabelFormatSettings(const FormatSettings labelFormatSettings);
 
+    void AddChangeCallback(ChangeCallback changeCallback);
+
 protected:
     void CheckState();
 protected:
     ListDataProviderPtr dataProvider;
 
     TerminalButtonPtr btnLeft;
-    TerminalLabelDataProviderPtr  label;
+    TerminalLabelDataProviderPtr label;
     TerminalButtonPtr btnRight;
 protected:
     static const Utf8String LeftActive;

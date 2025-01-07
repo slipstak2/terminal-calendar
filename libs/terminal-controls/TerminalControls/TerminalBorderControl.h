@@ -15,6 +15,8 @@ public:
 
     void AddControl(TerminalControlPtr control) override;
     void AddControlOnBorder(TerminalControlPtr control);
+
+    std::vector<TerminalControlPtr>& GetControlsOnBorder();
     TerminalLabelPtr GetTitle() const;
 
 protected:

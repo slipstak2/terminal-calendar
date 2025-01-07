@@ -30,17 +30,29 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     short year_label_offset = (backgroundWindow->Width() - 8) / 2;
     auto yearsLabel = TerminalLabelSwitcher::Create(yearsDataProvider, TerminalCoord{ .row = 0, .col = year_label_offset });
     yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
+
     backgroundWindow->AddControlOnBorder(yearsLabel);
 
-    short offset_row = 2;
-    int month = 0;
-    for (short row = 0; row < 4; ++row) {
-        for (short col = 0; col < 3; ++col) {
-            auto monthLabel = TerminalMonthSwitcher::Create(2025, month++, TerminalCoord{
-                .row = offset_row + row * TerminalMonthSwitcher::DefaultHeight(), 
-                .col = col * TerminalMonthSwitcher::DefaultWidth()
-                });
-            backgroundWindow->AddControlOnBorder(monthLabel);
+    auto fillMonthsData = [backgroundWindow](int year) {
+        auto controls = backgroundWindow->GetControlsOnBorder(); // TODO: clear old months
+        short offset_row = 2;
+        int month = 0;
+        for (short row = 0; row < 4; ++row) {
+            for (short col = 0; col < 3; ++col) {
+                auto monthLabel = TerminalMonthSwitcher::Create(year, month++, TerminalCoord{
+                    .row = offset_row + row * TerminalMonthSwitcher::DefaultHeight(),
+                    .col = col * TerminalMonthSwitcher::DefaultWidth()
+                    });
+                backgroundWindow->AddControlOnBorder(monthLabel);
+            }
         }
-    }
+     };
+
+    yearsLabel->AddChangeCallback([fillMonthsData](const Utf8String& prev, const Utf8String& current) {
+        int year = (current[0].get()[0] - '0') * 1000 + (current[1].get()[0] - '0') * 100 + (current[2].get()[0] - '0') * 10 + (current[3].get()[0] - '0') * 1;
+        fillMonthsData(year);
+        return true;
+        });
+
+    fillMonthsData(2025);
 }
