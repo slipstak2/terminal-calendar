@@ -11,6 +11,8 @@
     TerminalControl::Kind GetKind() const override { return KIND; } \
     bool IsKindOf(TerminalControl::Kind _kind) const override { return _kind != KIND ? base::IsKindOf(_kind) : true; }
 
+using FilterControlCallback = std::function<bool(TerminalControlPtr)>;
+
 using ClickCallback = std::function<bool()>;
 using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
 using MouseWheelCallback = std::function<bool(short)>;
@@ -49,6 +51,7 @@ public:
     TerminalControl(TerminalCoord position, TerminalSize size);
     TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings);
     virtual void AddControl(TerminalControlPtr control);
+    int RemoveControls(std::vector<TerminalControlPtr>& controls, const FilterControlCallback& filterCallback);
 
     void SetSize(TerminalSize newSize);
     void Resize(short rows, short cols);

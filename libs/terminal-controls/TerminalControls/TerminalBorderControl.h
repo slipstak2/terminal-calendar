@@ -16,7 +16,7 @@ public:
     void AddControl(TerminalControlPtr control) override;
     void AddControlOnBorder(TerminalControlPtr control);
 
-    std::vector<TerminalControlPtr>& GetControlsOnBorder();
+    int RemoveControlsOnBorder(const FilterControlCallback& filterCallback);
     TerminalLabelPtr GetTitle() const;
 
 protected:

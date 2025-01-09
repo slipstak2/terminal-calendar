@@ -19,8 +19,8 @@ void TerminalBorderControl::AddControlOnBorder(TerminalControlPtr control) {
     TerminalCompositeControl::AddControl(control);
 }
 
-std::vector<TerminalControlPtr>& TerminalBorderControl::GetControlsOnBorder() {
-    return TerminalCompositeControl::GetControls();
+int TerminalBorderControl::RemoveControlsOnBorder(const FilterControlCallback& filterCallback) {
+    return RemoveControls(TerminalCompositeControl::GetControls(), filterCallback);
 }
 
 TerminalLabelPtr TerminalBorderControl::GetTitle() const {
