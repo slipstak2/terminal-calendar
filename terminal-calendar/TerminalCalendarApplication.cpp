@@ -59,4 +59,6 @@ TerminalCalendarApplication::TerminalCalendarApplication()
         });
 
     fillMonthsData(2025);
+
+    SetTerminalConsoleSize(40, 100);
 }

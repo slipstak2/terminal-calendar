@@ -23,6 +23,47 @@ void GetWindowSize(HANDLE outputHandle, short& rows, short& cols) {
     rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 }
 
+bool endsWith(const std::wstring& title, const std::string& match) {
+    if (title.size() < match.size()) {
+        return false;
+    }
+    auto itm = match.rbegin();
+    auto itt = title.rbegin();
+    while (itm != match.rend()) {
+        if (*itm != *itt) {
+            return false;
+        }
+        ++itm;
+        ++itt;
+    }
+    return true;
+}
+static BOOL CALLBACK enumWindowCallback(HWND func_hWnd, LPARAM lparam) {
+    int length = GetWindowTextLengthA(func_hWnd);
+
+    if (length != 0) {
+        std::wstring windowTitle;
+        windowTitle.resize(length);
+
+        windowTitle[length] = 0;
+        GetWindowText(func_hWnd, windowTitle.data(), length + 1); // ANSI version and func_hWnd
+
+        if (endsWith(windowTitle, "calendar.exe")) {
+            SetWindowPos(func_hWnd, NULL, 100, 100, 745, 765, 0x4000);
+        }
+    }
+    return TRUE;
+}
+
+int SetWindowSize(HANDLE outputHandle, short rows, short cols) {
+
+    //WCHAR pszNewWindowTitle[1024];
+    //HWND hwndFound = FindWindow(NULL, pszNewWindowTitle);
+    EnumWindows((WNDENUMPROC)enumWindowCallback, 0);
+
+    return 0;
+}
+
 void ShowConsoleCursor(bool showFlag) {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -36,6 +77,10 @@ TerminalSize TerminalApplication::GetTerminalConsoleSize() const {
     TerminalSize size;
     GetWindowSize(outputHandle, size.height, size.width);
     return size;
+}
+
+void TerminalApplication::SetTerminalConsoleSize(short rows, short cols) {
+    SetWindowSize(outputHandle, rows, cols);
 }
 
 TerminalApplication::TerminalApplication()  {
