@@ -24,5 +24,8 @@
     <ClInclude Include="utils\subtuple.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
+    <ClInclude Include="data-storage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
