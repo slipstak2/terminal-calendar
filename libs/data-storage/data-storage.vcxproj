@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data-storage.h" />
+    <ClInclude Include="data-view.hpp" />
     <ClInclude Include="utils\printer.h" />
     <ClInclude Include="utils\subtuple.h" />
   </ItemGroup>

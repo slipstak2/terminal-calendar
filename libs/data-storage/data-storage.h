@@ -12,6 +12,9 @@ namespace exp1 {
 
     template<typename... Values>
     class DataStorage {
+
+    public:
+#include "data-view.hpp"
     public:
         void Add(std::tuple<Values... >&& row) {
             rows.emplace_back(std::move(row));
@@ -23,6 +26,11 @@ namespace exp1 {
 
         const std::tuple<Values... >& Get(size_t idx) {
             return rows[idx];
+        }
+
+        template<size_t... Indexes>
+        auto View() {
+            return DataView<Indexes...>(*this);
         }
 
         void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {
