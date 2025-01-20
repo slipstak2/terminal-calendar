@@ -15,6 +15,30 @@ namespace exp1 {
 
     public:
 #include "data-view.hpp"
+
+        template<size_t... Indexes2>
+        static auto CreateDataView() {
+            return DataView<Indexes2...>(DataStorage());
+        }
+
+        template<typename... Values2>
+        static auto CreateDataStorage() {
+            return DataStorage<Values2...>()
+        }
+
+        template<typename DataViewT = decltype(CreateDataView())>
+        class DataSet {
+        public:
+            DataSet(DataViewT dataView) : dv(dataView)
+            {}
+
+            auto Get(size_t idx) {
+                return dv.Get(idx);
+            }
+
+        protected:
+            DataViewT dv;
+        };
     public:
         void Add(std::tuple<Values... >&& row) {
             rows.emplace_back(std::move(row));
@@ -31,6 +55,11 @@ namespace exp1 {
         template<size_t... Indexes>
         auto View() {
             return DataView<Indexes...>(*this);
+        }
+
+        template<size_t... Indexes>
+        auto Set() {
+            return DataSet(View<Indexes...>());
         }
 
         void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {

@@ -106,6 +106,7 @@
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="data-set-tests.cpp" />
     <ClCompile Include="data-storage-tests.cpp" />
     <ClCompile Include="data-view-tests.cpp" />
     <ClCompile Include="printer_tests.cpp" />
