@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="DepsVariables">
+    <DATA_STORAGE_PROJ_ROOT>$(SolutionDir)libs\data-storage</DATA_STORAGE_PROJ_ROOT>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(DATA_STORAGE_PROJ_ROOT);$(DATA_STORAGE_PROJ_ROOT)\utils;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+    </Link>
+  </ItemDefinitionGroup>
+</Project>

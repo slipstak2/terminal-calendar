@@ -8,8 +8,10 @@
 /packages/Microsoft.googletest.v140.windesktop.msvcstl.static.rt-dyn.1.8.1.7
 /tests/common-tests/x64
 /tests/terminal-controls-tests/x64
+/tests/data-storage-tests/x64
 /demo/x64
 /terminal-calendar/x64
 /libs/utils/x64
 /libs/common/x64
 /libs/terminal-controls/x64
+/libs/data-storage/x64
