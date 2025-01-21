@@ -8,9 +8,10 @@ TEST(TestDataView, Empty) {
     using namespace exp1;
 
     DataStorage<std::string, int, char> ds;
-    auto dv = ds.View<2, 0>();
+    DataView<decltype(ds), 2, 0> dv(ds);
     EXPECT_EQ(dv.Size(), 0);
 }
+
 
 TEST(TestDataView, Simple) {
     using namespace exp1;
@@ -21,7 +22,7 @@ TEST(TestDataView, Simple) {
     ds.Add(std::make_tuple<std::string, int, char>("Misha", 25, 'M'));
     ds.Add(std::make_tuple<std::string, int, char>("Masha", 38, 'F'));
 
-    auto dv = ds.View<2, 0>();
+    DataView<decltype(ds), 2, 0> dv(ds);
     EXPECT_EQ(dv.Size(), 3);
 
     dv.Print(ss, "");

@@ -14,31 +14,8 @@ namespace exp1 {
     class DataStorage {
 
     public:
-#include "data-view.hpp"
+//#include "data-view.hpp"
 
-        template<size_t... Indexes2>
-        static auto CreateDataView() {
-            return DataView<Indexes2...>(DataStorage());
-        }
-
-        template<typename... Values2>
-        static auto CreateDataStorage() {
-            return DataStorage<Values2...>()
-        }
-
-        template<typename DataViewT = decltype(CreateDataView())>
-        class DataSet {
-        public:
-            DataSet(DataViewT dataView) : dv(dataView)
-            {}
-
-            auto Get(size_t idx) {
-                return dv.Get(idx);
-            }
-
-        protected:
-            DataViewT dv;
-        };
     public:
         void Add(std::tuple<Values... >&& row) {
             rows.emplace_back(std::move(row));
@@ -50,16 +27,6 @@ namespace exp1 {
 
         const std::tuple<Values... >& Get(size_t idx) {
             return rows[idx];
-        }
-
-        template<size_t... Indexes>
-        auto View() {
-            return DataView<Indexes...>(*this);
-        }
-
-        template<size_t... Indexes>
-        auto Set() {
-            return DataSet(View<Indexes...>());
         }
 
         void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {
@@ -76,4 +43,51 @@ namespace exp1 {
         std::vector<std::tuple<Values... >> rows;
     };
 
+    template<typename DataStorageT, size_t... Indexes>
+    class DataView {
+    public:
+        DataView(DataStorageT& ds) : dataStorage(ds) {
+            indexes.resize(ds.Size());
+            for (size_t i = 0; i < indexes.size(); ++i) {
+                indexes[i] = i;
+            }
+        }
+
+        size_t Size() {
+            return indexes.size();
+        }
+
+        auto Get(size_t num) {
+            return subtuple<Indexes...>(dataStorage.Get(indexes[num]));
+        }
+
+        void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {
+            if (indexes.size()) {
+                print_tuple_pretty(Get(0), stream);
+            }
+            for (size_t num = 1; num < indexes.size(); ++num) {
+                stream << separator;
+                print_tuple_pretty(Get(num), stream);
+            }
+        }
+
+    protected:
+        std::vector<size_t> indexes;
+        DataStorageT& dataStorage;
+    };
+
+    template<typename DataViewT, typename DataStorageT>
+    class DataSet {
+    public:
+        DataSet(DataViewT dataView) : dv(dataView)
+        {}
+
+        auto Get(size_t idx) {
+            return dv.Get(idx);
+        }
+
+    protected:
+        DataViewT dv;
+        DataStorageT storage;
+    };
 } // exp1
