@@ -22,11 +22,24 @@ TEST(TestDataSet, Simple) {
 
     EXPECT_EQ(storage.Size(), 3);
     DataView<decltype(storage), 1, 0, 1> dv(storage);
-    DataSet<decltype(dv), DataStorage<int>> dataSet(dv);
 
-    auto Dan4ick = dataSet.Get(0);
-    std::stringstream ss;
-    
-    print_tuple_pretty(Dan4ick, ss);
-    EXPECT_EQ(ss.str(), "(28, Dan4ick, 28)");
+    auto fn = [](int age) {
+        return age + 10;
+        };
+
+    DataSet<decltype(dv), DataStorage<int>, int> dataSet(dv, fn);
+
+    {
+        auto Dan4ick = dataSet.Get(0);
+        std::stringstream ss;
+        print_tuple_pretty(Dan4ick, ss);
+        EXPECT_EQ(ss.str(), "(28, Dan4ick, 28)");
+    }
+
+    {
+        auto Dan4ick = dataSet.Get2(0);
+        std::stringstream ss;
+        print_tuple_pretty(Dan4ick, ss);
+        EXPECT_EQ(ss.str(), "(28, Dan4ick, 28, 38)");
+    }
 }

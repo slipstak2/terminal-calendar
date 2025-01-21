@@ -1,8 +1,8 @@
 #pragma once
 
-#pragma once
 #include <tuple>
 #include <vector>
+#include <functional>
 
 #include "subtuple.h"
 #include "printer.h"
@@ -76,14 +76,23 @@ namespace exp1 {
         DataStorageT& dataStorage;
     };
 
-    template<typename DataViewT, typename DataStorageT>
+    template<typename DataViewT, typename DataStorageT, typename T>
     class DataSet {
     public:
-        DataSet(DataViewT dataView) : dv(dataView)
-        {}
+        DataSet(DataViewT dataView, std::function<T(int)> fn) : dv(dataView)
+        {
+            for (int num = 0; num < dv.Size(); ++num) {
+                int age = std::get<0>(Get(num));
+                storage.Add(std::make_tuple<T>(fn(age)));
+            }
+        }
 
         auto Get(size_t idx) {
             return dv.Get(idx);
+        }
+
+        auto Get2(size_t num) {
+            return std::tuple_cat(dv.Get(num), storage.Get(num));
         }
 
     protected:
