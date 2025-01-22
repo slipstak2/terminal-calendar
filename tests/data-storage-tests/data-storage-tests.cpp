@@ -33,7 +33,7 @@
         return row1.getName() < row2.getName();
     }
 
-    view2 = storage.View<2, 0, 1>().Set(getAge).Sort(byName).View<1, 3>()
+    view2 = storage.View<2, 0, 1>().Set(genAge).Sort(byName).View<1, 3>()
 
     view2 == {
         tuple<std::string, int>("Dan4ick",  28),
