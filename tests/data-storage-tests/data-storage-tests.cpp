@@ -7,7 +7,7 @@
     DataStorage<std::string, int> storage;
     storage.Add(std::make_tuple<std::string, date, double>("Dan4ick",    {25.12.1996},   178.5));
     storage.Add(std::make_tuple<std::string, date, double>("Igor",       {09.09.1986},   185.2));
-    storage.Add(std::make_tuple<std::string, date, double>());
+    storage.Add(std::make_tuple<std::string, date, double>("Masha",      {02.12.1986},   175.0));
 
     DataView<2, 0, 1> view(storage);
 
