@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="data-storage.h" />
     <ClInclude Include="data-view.hpp" />
+    <ClInclude Include="data-field.h" />
     <ClInclude Include="utils\printer.h" />
     <ClInclude Include="utils\subtuple.h" />
   </ItemGroup>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
