@@ -24,6 +24,9 @@
     <ClInclude Include="utils\printer.h" />
     <ClInclude Include="utils\subtuple.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="readme.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
