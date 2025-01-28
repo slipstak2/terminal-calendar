@@ -82,6 +82,19 @@ DataField DataField::Date(std::chrono::year_month_day value) {
     return { FieldType::DATE, {.Date = value} };
 }
 
-Field CreateField::String(std::string_view name) {
-    return { name, DataField::String(name) };
+
+FieldDesc CreateField::Int(std::string name) {
+    return { std::move(name), FieldType::INT };
+}
+
+FieldDesc CreateField::String(std::string name) {
+    return { std::move(name), FieldType::STRING };
+}
+
+FieldDesc CreateField::Double(std::string name) {
+    return { std::move(name), FieldType::DOUBLE};
+}
+
+FieldDesc CreateField::Date(std::string name) {
+    return { std::move(name), FieldType::DATE };
 }

@@ -53,13 +53,15 @@ struct DataField {
     }
 };
 
-struct Field {
-    std::string_view name;
-    DataField data;
+struct FieldDesc {
+    std::string name;
+    FieldType type;
 };
 
-// CreateField::String("name"),
 class CreateField {
 public:
-    static Field String(std::string_view name);
+    static FieldDesc Int(std::string name);
+    static FieldDesc String(std::string name);
+    static FieldDesc Double(std::string name);
+    static FieldDesc Date(std::string name);
 };

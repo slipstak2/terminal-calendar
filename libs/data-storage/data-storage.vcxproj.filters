@@ -41,5 +41,8 @@
     <ClCompile Include="data-field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data-storage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,6 +1,55 @@
 #include "pch.h"
 
-#include <tuple>
+#include "data-storage.h"
+
+TEST(TestDataStorage, Create) {
+
+    DataStorage storage({ CreateField::String("name"), CreateField::Date("birthday") });
+
+    EXPECT_EQ(storage.FieldsCount(), 2);
+
+    auto& fd0 = storage.Field(0);
+    EXPECT_EQ(fd0.name, "name");
+    EXPECT_EQ(fd0.type, FieldType::STRING);
+
+    auto& fd1 = storage.Field(1);
+    EXPECT_EQ(fd1.name, "birthday");
+    EXPECT_EQ(fd1.type, FieldType::DATE);
+
+    {
+        DataRow& row = storage.CreateRow();
+        row.SetField<std::string>(0, "Dan4ick");
+        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
+            std::chrono::year(1996),
+            std::chrono::month(12),
+            std::chrono::day(25)
+        ));
+    }
+    {
+        DataRow& row = storage.CreateRow();
+        row.SetField<std::string>(0, "Igor");
+        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
+            std::chrono::year(1986),
+            std::chrono::month(9),
+            std::chrono::day(9)
+        ));
+    }
+    {
+        DataRow& row = storage.CreateRow();
+        row.SetField<std::string>(0, "Masha");
+        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
+            std::chrono::year(1986),
+            std::chrono::month(12),
+            std::chrono::day(2)
+        ));
+    }
+    
+    EXPECT_EQ(storage.RowsCount(), 3);
+
+    // TODO: check all rows;
+
+}
+
 
 /*
     DataStorage<std::string, int> storage;
