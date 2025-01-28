@@ -1,7 +1,6 @@
 #include "pch.h"
 
 #include "data-field.h"
-#include <tuple>
 
 
 TEST(TestDataField, Int) {
@@ -9,6 +8,13 @@ TEST(TestDataField, Int) {
 
     EXPECT_EQ(field.header.type, FieldType::INT);
     EXPECT_EQ(field.Get<int>(), 42);
+}
+
+TEST(TestDataField, String) {
+    DataField field = DataField::String("name");
+
+    EXPECT_EQ(field.header.type, FieldType::STRING);
+    EXPECT_EQ(field.Get<std::string_view>(), "name");
 }
 
 TEST(TestDataField, Double) {

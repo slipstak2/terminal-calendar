@@ -1,66 +1,24 @@
 #pragma once
 
 #include <chrono>
+#include <string>
+#include <string_view>
 
 enum class FieldType {
     INT,
     DOUBLE,
+    STRING,
     DATE
 };
 
-std::string STR(FieldType& fieldType) {
-    if (fieldType == FieldType::INT) {
-        return "INT";
-    }
-    if (fieldType == FieldType::DOUBLE) {
-        return "DOUBLE";
-    }
-    if (fieldType == FieldType::DATE) {
-        return "DATE";
-    }
-    return "UNKNOWN";
-}
+std::string STRING(FieldType& fieldType);
 
 template<typename T>
-std::string STR() {
-    return "UNKNOWN";
-}
-
-template<>
-std::string STR<int>() {
-    return "INT";
-}
-
-template<>
-std::string STR<double>() {
-    return "DOUBLE";
-}
-
-template<>
-std::string STR<std::chrono::year_month_day>() {
-    return "DATE";
-}
+std::string STR();
 
 
 template<typename T>
-bool CheckType(FieldType fieldType) {
-    return false;
-}
-
-template<>
-bool CheckType<int>(FieldType fieldType) {
-    return fieldType == FieldType::INT;
-}
-
-template<>
-bool CheckType<double>(FieldType fieldType) {
-    return fieldType == FieldType::DOUBLE;
-}
-
-template<>
-bool CheckType<std::chrono::year_month_day>(FieldType fieldType) {
-    return fieldType == FieldType::DATE;
-}
+bool CheckType(FieldType fieldType);
 
 
 struct Header {
@@ -69,6 +27,7 @@ struct Header {
 
 union FieldValue {
     int Int;
+    std::string_view String;
     double Double;
     std::chrono::year_month_day Date;
 };
@@ -76,27 +35,31 @@ union FieldValue {
 struct DataField {
     Header header;
     FieldValue val;
-
     
-    static DataField Int(int value) {
-        return { FieldType::INT, {.Int = value} };
-    }
-    static DataField Double(double value) {
-        return { FieldType::DOUBLE, {.Double = value} };
-    }
-
-    static DataField Date(std::chrono::year_month_day value) {
-        return { FieldType::DATE, {.Date = value} };
-    }
+    static DataField Int(int value);
+    static DataField String(std::string_view value);
+    static DataField Double(double value);
+    static DataField Date(std::chrono::year_month_day value);
 
     template<typename T>
     const T& Get() {
 #if defined(_DEBUG)
         if (!CheckType<T>(header.type)) {
-            std::string message = "Bad cast: " + STR(header.type) + " -> " + STR<T>();
+            std::string message = "Bad cast: " + STRING(header.type) + " -> " + STR<T>();
             throw std::runtime_error(message);
         }
 #endif
         return *reinterpret_cast<T*>(&val);
     }
+};
+
+struct Field {
+    std::string_view name;
+    DataField data;
+};
+
+// CreateField::String("name"),
+class CreateField {
+public:
+    static Field String(std::string_view name);
 };

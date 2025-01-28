@@ -6,6 +6,9 @@ CALL :RunTests .\x64\Release\common-tests.exe
 CALL :RunTests .\x64\Debug\terminal-controls-tests.exe
 CALL :RunTests .\x64\Release\terminal-controls-tests.exe
 
+CALL :RunTests .\x64\Debug\data-storage-tests.exe
+CALL :RunTests .\x64\Release\data-storage-tests.exe
+
 pause
 
 :RunTests

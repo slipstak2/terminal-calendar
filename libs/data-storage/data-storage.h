@@ -1,102 +1,46 @@
 #pragma once
-
-#include <tuple>
+#include "data-field.h"
 #include <vector>
-#include <functional>
+#include <map>
+/*
 
-#include "subtuple.h"
-#include "printer.h"
+struct DataRow {
+    std::vector<Field> fields;
+}
+
+struct DataRowEx {
+    DataRow data_row;
+    std::map<std::string_view, *Field> row_fields_mapping;
+}
+
+class DataStorage {
+    std::vector<DataRow> rows;
+
+    std::vector<std::string> ds_fields_name;
+    std::map<std::string_view, int> ds_fields_mapping;
+}
 
 
-namespace exp1 {
+DataStorage storage(
+    CreateField::String("name"),
+    CreateField::Date("birthday"),
+    CreateField::Double("height")
+);
 
-    template<typename... Values>
-    class DataStorage {
+storage.Add(MakeRow<std::string, date, double>("Dan4ick",    {25.12.1996},   178.5));
+storage.Add(MakeRow<std::string, date, double>("Igor",       {09.09.1986},   185.2));
+storage.Add(MakeRow<std::string, date, double>("Masha",      {02.12.1986},   175.0));
 
-    public:
-//#include "data-view.hpp"
+*/
 
-    public:
-        void Add(std::tuple<Values... >&& row) {
-            rows.emplace_back(std::move(row));
-        }
+struct DataRow {
+    std::vector<DataField> fields;
+};
 
-        size_t Size() {
-            return rows.size();
-        }
+class DataStorage {
+protected:
+    std::vector<DataRow> rows;
+    std::vector<std::string> ds_fields_name;
+    std::map<std::string_view, int> ds_fields_mapping;
 
-        const std::tuple<Values... >& Get(size_t idx) {
-            return rows[idx];
-        }
-
-        void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {
-            if (rows.size()) {
-                print_tuple_pretty(Get(0), stream);
-            }
-            for (size_t idx = 1; idx < rows.size(); ++idx) {
-                stream << separator;
-                print_tuple_pretty(Get(idx), stream);
-            }
-        }
-
-    protected:
-        std::vector<std::tuple<Values... >> rows;
-    };
-
-    template<typename DataStorageT, size_t... Indexes>
-    class DataView {
-    public:
-        DataView(DataStorageT& ds) : dataStorage(ds) {
-            indexes.resize(ds.Size());
-            for (size_t i = 0; i < indexes.size(); ++i) {
-                indexes[i] = i;
-            }
-        }
-
-        size_t Size() {
-            return indexes.size();
-        }
-
-        auto Get(size_t num) {
-            return subtuple<Indexes...>(dataStorage.Get(indexes[num]));
-        }
-
-        void Print(std::ostream& stream = std::cout, const std::string& separator = "\n") {
-            if (indexes.size()) {
-                print_tuple_pretty(Get(0), stream);
-            }
-            for (size_t num = 1; num < indexes.size(); ++num) {
-                stream << separator;
-                print_tuple_pretty(Get(num), stream);
-            }
-        }
-
-    protected:
-        std::vector<size_t> indexes;
-        DataStorageT& dataStorage;
-    };
-
-    template<typename DataViewT, typename DataStorageT, typename T>
-    class DataSet {
-    public:
-        DataSet(DataViewT dataView, std::function<T(int)> fn) : dv(dataView)
-        {
-            for (int num = 0; num < dv.Size(); ++num) {
-                int age = std::get<0>(Get(num));
-                storage.Add(std::make_tuple<T>(fn(age)));
-            }
-        }
-
-        auto Get(size_t idx) {
-            return dv.Get(idx);
-        }
-
-        auto Get2(size_t num) {
-            return std::tuple_cat(dv.Get(num), storage.Get(num));
-        }
-
-    protected:
-        DataViewT dv;
-        DataStorageT storage;
-    };
-} // exp1
+};
