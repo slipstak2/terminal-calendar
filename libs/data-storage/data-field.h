@@ -4,6 +4,30 @@
 #include <string>
 #include <string_view>
 
+namespace storage {
+    class date {
+    public:
+        date(int year, int month, int day) 
+            : data(std::chrono::year(year) / std::chrono::month(month) / std::chrono::day(day))
+        {}
+        int year() {
+            return static_cast<int>(data.year());
+        }
+        int month() {
+            return static_cast<unsigned int>(data.month());
+        }
+        int day() {
+            return static_cast<unsigned int>(data.day());
+        }
+        bool operator == (const date& other) const {
+            return data == other.data;
+        }
+    private:
+        std::chrono::year_month_day data;
+    };
+
+} // storage
+
 enum class FieldType {
     INT,
     DOUBLE,
@@ -29,8 +53,25 @@ union FieldValue {
     int Int;
     std::string_view String;
     double Double;
-    std::chrono::year_month_day Date;
+    storage::date Date;
 };
+
+template<typename T>
+bool CheckTypeInternal(FieldType fieldType);
+
+template<typename T>
+bool CheckType(FieldType fieldType) {
+    if (!CheckTypeInternal<T>(fieldType)) {
+#if defined(_DEBUG)
+        std::string message = "Bad cast: " + STRING(fieldType) + " -> " + STR<T>();
+        throw std::runtime_error(message);
+#else
+        return false;
+#endif
+    }
+    return true;
+}
+
 
 struct DataField {
     Header header;
@@ -39,7 +80,7 @@ struct DataField {
     static DataField Int(int value);
     static DataField String(std::string_view value);
     static DataField Double(double value);
-    static DataField Date(std::chrono::year_month_day value);
+    static DataField Date(storage::date value);
 
     template<typename T>
     const T& Get() {

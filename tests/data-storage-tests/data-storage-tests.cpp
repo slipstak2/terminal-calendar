@@ -2,7 +2,7 @@
 
 #include "data-storage.h"
 
-TEST(TestDataStorage, Create) {
+TEST(TestDataStorage, CreateStringDate) {
 
     DataStorage storage({ CreateField::String("name"), CreateField::Date("birthday") });
 
@@ -17,37 +17,72 @@ TEST(TestDataStorage, Create) {
     EXPECT_EQ(fd1.type, FieldType::DATE);
 
     {
-        DataRow& row = storage.CreateRow();
+        storage::date birhtday = storage::date(1996, 12, 25);
+        DataRow& row = storage.CreateEmptyRow();
         row.SetField<std::string>(0, "Dan4ick");
-        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
-            std::chrono::year(1996),
-            std::chrono::month(12),
-            std::chrono::day(25)
-        ));
+        row.SetField<storage::date>(1, birhtday);
+
+        std::string_view actual_name = row.GetField<std::string_view>(0);
+        EXPECT_EQ(actual_name, "Dan4ick");
+
+        storage::date actual_birthday = row.GetField<storage::date>(1);
+        EXPECT_EQ(actual_birthday, birhtday);
     }
     {
-        DataRow& row = storage.CreateRow();
+        DataRow& row = storage.CreateEmptyRow();
         row.SetField<std::string>(0, "Igor");
-        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
-            std::chrono::year(1986),
-            std::chrono::month(9),
-            std::chrono::day(9)
-        ));
+        row.SetField<storage::date>(1, storage::date(1986, 9, 9));
     }
     {
-        DataRow& row = storage.CreateRow();
+        DataRow& row = storage.CreateEmptyRow();
         row.SetField<std::string>(0, "Masha");
-        row.SetField<std::chrono::year_month_day>(1, std::chrono::year_month_day(
-            std::chrono::year(1986),
-            std::chrono::month(12),
-            std::chrono::day(2)
-        ));
+        row.SetField<storage::date>(1, storage::date(1986, 12, 2));
     }
     
     EXPECT_EQ(storage.RowsCount(), 3);
+}
 
-    // TODO: check all rows;
+TEST(TestDataStorage, CreateIntDouble) {
 
+    DataStorage storage({ CreateField::Int("id"), CreateField::Double("height") });
+
+    EXPECT_EQ(storage.FieldsCount(), 2);
+
+    auto& fd0 = storage.Field(0);
+    EXPECT_EQ(fd0.name, "id");
+    EXPECT_EQ(fd0.type, FieldType::INT);
+
+    auto& fd1 = storage.Field(1);
+    EXPECT_EQ(fd1.name, "height");
+    EXPECT_EQ(fd1.type, FieldType::DOUBLE);
+
+    {
+        DataRow& row = storage.CreateEmptyRow();
+        row.SetField<int>(0, 42);
+        row.SetField<double>(1, 175.5);
+
+        int actual_id = row.GetField<int>(0);
+        EXPECT_EQ(actual_id, 42);
+
+        double actual_height = row.GetField<double>(1);
+        EXPECT_EQ(actual_height, 175.5);
+    }
+    
+    EXPECT_EQ(storage.RowsCount(), 1);
+}
+
+TEST(TestDataStorage, RowGetters) {
+
+    DataStorage storage({ CreateField::String("name"), CreateField::Int("age") });
+
+   
+    {
+        DataRow& row = storage.CreateRow<std::string_view, int>("Dan4ick", 28);
+        std::string_view actual_name = row.GetField<std::string_view>(0);
+        //EXPECT_EQ(actual_name, "Dan4ick");
+    }
+
+    EXPECT_EQ(storage.RowsCount(), 1);
 }
 
 

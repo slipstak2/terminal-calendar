@@ -56,26 +56,58 @@ public:
     }
 
     template<typename T>
+    T& GetField(size_t num);
+
+    template<>
+    int& GetField<int>(size_t num) {
+        return fields[num].val.Int;
+    }
+
+    template<>
+    std::string_view& GetField<std::string_view>(size_t num) {
+        return fields[num].val.String;
+    }
+
+    template<>
+    double& GetField<double>(size_t num) {
+        return fields[num].val.Double;
+    }
+
+    template<>
+    storage::date& GetField<storage::date>(size_t num) {
+        return fields[num].val.Date;
+    }
+
+    template<typename T>
     void SetField(size_t num, T value);
 
     template<>
     void SetField<int>(size_t num, int value) {
+        CheckType<int>(fields[num].header.type);
         fields[num].val.Int = value;
     }
 
     template<>
     void SetField<std::string>(size_t num, std::string value) {
+        CheckType<std::string_view>(fields[num].header.type);
         fields[num].val.String = stringStorage.Add(std::move(value));
     }
 
     template<>
     void SetField<double>(size_t num, double value) {
+        CheckType<double>(fields[num].header.type);
         fields[num].val.Double= value;
     }
 
     template<>
-    void SetField<std::chrono::year_month_day>(size_t num, std::chrono::year_month_day value) {
+    void SetField<storage::date>(size_t num, storage::date value) {
+        CheckType<storage::date>(fields[num].header.type);
         fields[num].val.Date = value;
+    }
+
+    template<size_t...I/*, typename... Types*/>
+    void Fill(std::index_sequence<I...>/*, Types... args*/) {
+
     }
 
 protected:
@@ -99,10 +131,19 @@ public:
             ds_fields_mapping[ds_fields_desc.back().name] = ds_fields_desc.size() - 1;
         }
     }
-    DataRow& CreateRow() {
+    DataRow& CreateEmptyRow() {
         rows.emplace_back(row_dummy);
         return rows.back();
     }
+
+    template<typename... Types>
+    DataRow& CreateRow(Types... args) {
+        DataRow& row = CreateEmptyRow();
+        //row.Fill<Types...>(std::make_index_sequence<sizeof...(Types)>, args...);
+        row.Fill(std::make_index_sequence<sizeof...(Types)>());
+        return row;
+    }
+
 
     size_t RowsCount() {
         return rows.size();

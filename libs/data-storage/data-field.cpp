@@ -37,32 +37,27 @@ std::string STR<double>() {
 }
 
 template<>
-std::string STR<std::chrono::year_month_day>() {
+std::string STR<storage::date>() {
     return "DATE";
 }
 
-template<typename T>
-bool CheckType(FieldType fieldType) {
-    return false;
-}
-
 template<>
-bool CheckType<int>(FieldType fieldType) {
+bool CheckTypeInternal<int>(FieldType fieldType) {
     return fieldType == FieldType::INT;
 }
 
 template<>
-bool CheckType<std::string_view>(FieldType fieldType) {
+bool CheckTypeInternal<std::string_view>(FieldType fieldType) {
     return fieldType == FieldType::STRING;
 }
 
 template<>
-bool CheckType<double>(FieldType fieldType) {
+bool CheckTypeInternal<double>(FieldType fieldType) {
     return fieldType == FieldType::DOUBLE;
 }
 
 template<>
-bool CheckType<std::chrono::year_month_day>(FieldType fieldType) {
+bool CheckTypeInternal<storage::date>(FieldType fieldType) {
     return fieldType == FieldType::DATE;
 }
 
@@ -78,7 +73,7 @@ DataField DataField::Double(double value) {
     return { FieldType::DOUBLE, {.Double = value} };
 }
 
-DataField DataField::Date(std::chrono::year_month_day value) {
+DataField DataField::Date(storage::date value) {
     return { FieldType::DATE, {.Date = value} };
 }
 

@@ -25,15 +25,15 @@ TEST(TestDataField, Double) {
 }
 
 TEST(TestDataField, Date) {
-    std::chrono::year_month_day ymd = { std::chrono::year(2025) / std::chrono::month(1) / std::chrono::day(27) };
+    storage::date ymd(2025, 1, 27);
     DataField field = DataField::Date(ymd);
 
     EXPECT_EQ(field.header.type, FieldType::DATE);
-    EXPECT_EQ(field.Get<std::chrono::year_month_day>(), ymd);
+    EXPECT_EQ(field.Get<storage::date>(), ymd);
 }
 
 TEST(TestDataField, WrongCastDate) {
-    std::chrono::year_month_day ymd = { std::chrono::year(2025) / std::chrono::month(1) / std::chrono::day(27) };
+    storage::date ymd(2025, 1, 27);
     DataField field = DataField::Date(ymd);
 
 #if defined(_DEBUG)
