@@ -19,7 +19,7 @@ void TerminalBorderControl::AddControlOnBorder(TerminalControlPtr control) {
     TerminalCompositeControl::AddControl(control);
 }
 
-int TerminalBorderControl::RemoveControlsOnBorder(const FilterControlCallback& filterCallback) {
+size_t TerminalBorderControl::RemoveControlsOnBorder(const FilterControlCallback& filterCallback) {
     return RemoveControls(TerminalCompositeControl::GetControls(), filterCallback);
 }
 

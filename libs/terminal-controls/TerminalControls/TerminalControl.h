@@ -51,7 +51,7 @@ public:
     TerminalControl(TerminalCoord position, TerminalSize size);
     TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings);
     virtual void AddControl(TerminalControlPtr control);
-    int RemoveControls(std::vector<TerminalControlPtr>& controls, const FilterControlCallback& filterCallback);
+    size_t RemoveControls(std::vector<TerminalControlPtr>& controls, const FilterControlCallback& filterCallback);
 
     void SetSize(TerminalSize newSize);
     void Resize(short rows, short cols);

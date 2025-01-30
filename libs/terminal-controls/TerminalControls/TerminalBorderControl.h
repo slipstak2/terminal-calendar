@@ -16,7 +16,7 @@ public:
     void AddControl(TerminalControlPtr control) override;
     void AddControlOnBorder(TerminalControlPtr control);
 
-    int RemoveControlsOnBorder(const FilterControlCallback& filterCallback);
+    size_t RemoveControlsOnBorder(const FilterControlCallback& filterCallback);
     TerminalLabelPtr GetTitle() const;
 
 protected:

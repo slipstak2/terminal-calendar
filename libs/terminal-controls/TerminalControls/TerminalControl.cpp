@@ -45,9 +45,9 @@ void TerminalControl::AddControl(TerminalControlPtr control) {
     controls.push_back(control);
 }
 
-int TerminalControl::RemoveControls(std::vector<TerminalControlPtr>& controls, const FilterControlCallback& filterCallback) {
+size_t TerminalControl::RemoveControls(std::vector<TerminalControlPtr>& controls, const FilterControlCallback& filterCallback) {
     auto it = std::remove_if(controls.begin(), controls.end(), filterCallback);
-    int result = controls.end() - it;
+    size_t result = controls.end() - it;
     controls.erase(it, controls.end());
     return result;
 }

@@ -19,7 +19,8 @@ TEST(TestDataStorage, CreateStringDate) {
     {
         storage::date birhtday = storage::date(1996, 12, 25);
         DataRow& row = storage.CreateEmptyRow();
-        row.SetField<std::string>(0, "Dan4ick");
+        row.SetField<std::string>(0, "Dan4ick_");
+        row.SetField<std::string_view>(0, "Dan4ick"); // override
         row.SetField<storage::date>(1, birhtday);
 
         std::string_view actual_name = row.GetField<std::string_view>(0);
@@ -71,15 +72,23 @@ TEST(TestDataStorage, CreateIntDouble) {
     EXPECT_EQ(storage.RowsCount(), 1);
 }
 
-TEST(TestDataStorage, RowGetters) {
+TEST(TestDataStorage, CreateRow) {
 
     DataStorage storage({ CreateField::String("name"), CreateField::Int("age") });
-
-   
     {
-        DataRow& row = storage.CreateRow<std::string_view, int>("Dan4ick", 28);
-        std::string_view actual_name = row.GetField<std::string_view>(0);
-        //EXPECT_EQ(actual_name, "Dan4ick");
+        DataRow& row = storage.CreateRow<std::string, int>("Dan4ick", 28);
+        EXPECT_EQ(row.FieldsCount(), 2);
+        
+        std::string_view name_by_index = row.GetField<std::string_view>(0);
+        std::string_view name_by_field_name = storage.GetField<std::string_view>(row, "name");
+
+        EXPECT_EQ(name_by_index, "Dan4ick");
+        EXPECT_EQ(name_by_index, name_by_field_name);
+        
+        int age_by_index = row.GetField<int>(1);
+        int age_by_field_name = storage.GetField<int>(row, "age");
+        EXPECT_EQ(age_by_index, 28);
+        EXPECT_EQ(age_by_index, age_by_field_name);
     }
 
     EXPECT_EQ(storage.RowsCount(), 1);

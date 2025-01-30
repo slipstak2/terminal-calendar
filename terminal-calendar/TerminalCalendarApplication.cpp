@@ -34,7 +34,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     backgroundWindow->AddControlOnBorder(yearsLabel);
 
     auto fillMonthsData = [backgroundWindow](int year) {
-        int removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
+        size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthSwitcher>() != nullptr;
         });
         assert(removeControls == 0 || removeControls == 12);

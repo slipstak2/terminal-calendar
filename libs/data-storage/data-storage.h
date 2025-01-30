@@ -5,47 +5,18 @@
 #include <string_view>
 #include <map>
 #include <deque>
-/*
 
-struct DataRow {
-    std::vector<Field> fields;
-}
-
-struct DataRowEx {
-    DataRow data_row;
-    std::map<std::string_view, *Field> row_fields_mapping;
-}
-
-class DataStorage {
-    std::vector<DataRow> rows;
-
-    std::vector<std::string> ds_fields_name;
-    std::map<std::string_view, int> ds_fields_mapping;
-}
-
-
-DataStorage storage(
-    CreateField::String("name"),
-    CreateField::Date("birthday"),
-    CreateField::Double("height")
-);
-
-storage.Add(MakeRow<std::string, date, double>("Dan4ick",    {25.12.1996},   178.5));
-storage.Add(MakeRow<std::string, date, double>("Igor",       {09.09.1986},   185.2));
-storage.Add(MakeRow<std::string, date, double>("Masha",      {02.12.1986},   175.0));
-
-*/
 
 class StringHeapStorage {
-
 public:
-    std::string_view Add(std::string s) {
-        data.emplace_back(s);
+    std::string_view Add(std::string_view sv) {
+        data.emplace_back(sv);
         return data.back();
     }
 protected:
     std::deque<std::string> data;
 };
+
 class DataRow {
 public:
     DataRow(std::initializer_list<FieldDesc> l) {
@@ -94,6 +65,12 @@ public:
     }
 
     template<>
+    void SetField<std::string_view>(size_t num, std::string_view value) {
+        CheckType<std::string_view>(fields[num].header.type);
+        fields[num].val.String = stringStorage.Add(value);
+    }
+
+    template<>
     void SetField<double>(size_t num, double value) {
         CheckType<double>(fields[num].header.type);
         fields[num].val.Double= value;
@@ -105,9 +82,24 @@ public:
         fields[num].val.Date = value;
     }
 
-    template<size_t...I/*, typename... Types*/>
-    void Fill(std::index_sequence<I...>/*, Types... args*/) {
+    template<typename T>
+    void FillImpl(size_t num, T t) {
+        SetField<T>(num, t);
+    }
 
+    template<typename T, typename ...Types>
+    void FillImpl(size_t num, T t, Types... args) {
+        FillImpl(num, t);
+        FillImpl(num + 1, args...);
+    }
+
+    template<typename... Types>
+    void Fill(Types... args) {
+        FillImpl(0, args...);
+    }
+
+    size_t FieldsCount() {
+        return fields.size();
     }
 
 protected:
@@ -139,11 +131,14 @@ public:
     template<typename... Types>
     DataRow& CreateRow(Types... args) {
         DataRow& row = CreateEmptyRow();
-        //row.Fill<Types...>(std::make_index_sequence<sizeof...(Types)>, args...);
-        row.Fill(std::make_index_sequence<sizeof...(Types)>());
+        row.Fill(args...);
         return row;
     }
 
+    template<typename T>
+    T& GetField(DataRow& row, std::string_view field_name) {
+        return row.GetField<T>(ds_fields_mapping[field_name]);
+    }
 
     size_t RowsCount() {
         return rows.size();
@@ -157,12 +152,10 @@ public:
         return ds_fields_desc[idx];
     }
     
-
 protected:
     DataRow row_dummy;
     std::vector<DataRow> rows;
 
     std::vector<FieldDesc> ds_fields_desc;
-    std::map<std::string_view, int> ds_fields_mapping;
-
+    std::map<std::string_view, size_t> ds_fields_mapping;
 };
