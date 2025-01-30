@@ -27,25 +27,25 @@ public:
     }
 
     template<typename T>
-    T& GetField(size_t num);
+    const T& GetField(size_t num);
 
     template<>
-    int& GetField<int>(size_t num) {
+    const int& GetField<int>(size_t num) {
         return fields[num].val.Int;
     }
 
     template<>
-    std::string_view& GetField<std::string_view>(size_t num) {
+    const std::string_view& GetField<std::string_view>(size_t num) {
         return fields[num].val.String;
     }
 
     template<>
-    double& GetField<double>(size_t num) {
+    const double& GetField<double>(size_t num) {
         return fields[num].val.Double;
     }
 
     template<>
-    storage::date& GetField<storage::date>(size_t num) {
+    const storage::date& GetField<storage::date>(size_t num) {
         return fields[num].val.Date;
     }
 
@@ -102,12 +102,19 @@ public:
         return fields.size();
     }
 
+    bool operator == (const DataRow& other) const {
+        return fields == other.fields;
+    }
+
 protected:
     std::vector<DataField> fields;
     static StringHeapStorage stringStorage;
 };
 
 class DataStorage {
+public:
+    using Ptr = std::shared_ptr<DataStorage>;
+
 public:
 
     DataStorage(std::initializer_list<FieldDesc> l) : row_dummy(l) {
@@ -136,8 +143,12 @@ public:
     }
 
     template<typename T>
-    T& GetField(DataRow& row, std::string_view field_name) {
+    const T& GetField(DataRow& row, std::string_view field_name) {
         return row.GetField<T>(ds_fields_mapping[field_name]);
+    }
+
+    const DataRow& GetRow(size_t idx) const {
+        return rows[idx];
     }
 
     size_t RowsCount() {

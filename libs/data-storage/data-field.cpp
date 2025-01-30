@@ -93,3 +93,8 @@ FieldDesc CreateField::Double(std::string name) {
 FieldDesc CreateField::Date(std::string name) {
     return { std::move(name), FieldType::DATE };
 }
+
+
+bool operator == (const FieldValue& lhs, const FieldValue& rhs) {
+    return memcmp(&lhs, &rhs, sizeof(lhs)) == 0;
+}

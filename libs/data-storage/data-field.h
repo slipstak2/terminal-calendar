@@ -47,6 +47,10 @@ bool CheckType(FieldType fieldType);
 
 struct Header {
     FieldType type;
+
+    bool operator == (const Header& other) const {
+        return type == other.type;
+    }
 };
 
 union FieldValue {
@@ -55,6 +59,8 @@ union FieldValue {
     double Double;
     storage::date Date;
 };
+
+bool operator == (const FieldValue& lhs, const FieldValue& rhs);
 
 template<typename T>
 bool CheckTypeInternal(FieldType fieldType);
@@ -91,6 +97,10 @@ struct DataField {
         }
 #endif
         return *reinterpret_cast<T*>(&val);
+    }
+
+    bool operator == (const DataField& other) const {
+        return std::tie(header, val) == std::tie(other.header, other.val);
     }
 };
 

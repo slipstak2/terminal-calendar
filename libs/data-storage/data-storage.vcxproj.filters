@@ -27,10 +27,10 @@
     <ClInclude Include="data-storage.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="data-view.hpp">
+    <ClInclude Include="data-field.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="data-field.h">
+    <ClInclude Include="data-view.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

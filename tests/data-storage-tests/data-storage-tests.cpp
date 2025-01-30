@@ -78,6 +78,8 @@ TEST(TestDataStorage, CreateRow) {
     {
         DataRow& row = storage.CreateRow<std::string, int>("Dan4ick", 28);
         EXPECT_EQ(row.FieldsCount(), 2);
+        const DataRow& row_actual = storage.GetRow(0);
+        EXPECT_EQ(row, row_actual);
         
         std::string_view name_by_index = row.GetField<std::string_view>(0);
         std::string_view name_by_field_name = storage.GetField<std::string_view>(row, "name");
