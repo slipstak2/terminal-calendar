@@ -8,8 +8,8 @@ public:
     static DataViewPtr Create(DataStoragePtr s) {
         return DataViewPtr(new DataView(s));
     }
-    static DataViewPtr Create(DataStoragePtr s, std::vector<size_t>&& fields_perm) {
-        return DataViewPtr(new DataView(s, std::move(fields_perm)));
+    static DataViewPtr Create(DataStoragePtr s, std::vector<size_t>&& fields_idx) {
+        return DataViewPtr(new DataView(s, std::move(fields_idx)));
     }
 
     size_t RowsCount() const {
@@ -27,7 +27,7 @@ private:
         InitAllFields();
     }
 
-    DataView(DataStoragePtr s, std::vector<size_t>&& fields_perm) : storage(s), fields_idx(std::move(fields_perm)){
+    DataView(DataStoragePtr s, std::vector<size_t>&& fields_idx) : storage(s), fields_idx(std::move(fields_idx)){
         InitAllRows();
     }
 

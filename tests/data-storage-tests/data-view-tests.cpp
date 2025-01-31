@@ -61,9 +61,7 @@ TEST_F(TestDataView, CreateAllField_SingleField) {
     EXPECT_EQ("Dan4ick", view_row.GetField<std::string_view>(0));
 }
 
-TEST_F(TestDataView, CreateAllField_TwoFields) {
-
-    auto view = DataView::Create(storage, { 1, 0 });
+void TestTwoFields(DataViewPtr view) {
     EXPECT_EQ(view->RowsCount(), 3);
 
     DataRow view_row = view->GetRow(0);
@@ -71,7 +69,17 @@ TEST_F(TestDataView, CreateAllField_TwoFields) {
 
     EXPECT_EQ(view_row.GetRawField(0).header.type, FieldType::STRING);  // 1
     EXPECT_EQ(view_row.GetRawField(1).header.type, FieldType::INT);     // 0
-    
+
     EXPECT_EQ("Dan4ick", view_row.GetField<std::string_view>(0));
     EXPECT_EQ(1, view_row.GetField<int>(1));
+}
+
+TEST_F(TestDataView, CreateAllField_TwoFields) {
+    auto view = DataView::Create(storage, { 1, 0 });
+    TestTwoFields(view);
+}
+
+TEST_F(TestDataView, CreateFromDataStorage) {
+    auto view = storage->View({ 1, 0 });
+    TestTwoFields(view);
 }

@@ -1,5 +1,8 @@
 #pragma once
+
+#include "common.h"
 #include "data-field.h"
+
 #include <vector>
 #include <string>
 #include <string_view>
@@ -146,13 +149,16 @@ public:
 protected:
     DataRow result;
 };
-class DataStorage {
+
+class DataStorage: public std::enable_shared_from_this<DataStorage> {
 public:
     static std::shared_ptr<DataStorage> Create(std::initializer_list<FieldDesc> fds) {
         return std::shared_ptr<DataStorage>(new DataStorage(fds));
     }
 
 public:
+    DataViewPtr View(std::vector<size_t>&& fields_idx);
+
     DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
         return rows.back();
@@ -174,7 +180,6 @@ public:
         return rows[idx];
     }
 
-        
     DataRow GetRow(size_t idx, const std::vector<size_t>& fields_idx) {
         const DataRow& row = rows[idx];
         DataRowBuilder builder(fields_idx.size());
