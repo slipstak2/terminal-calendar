@@ -79,3 +79,6 @@ using TerminalMonthSwitcherPtr = std::shared_ptr<TerminalMonthSwitcher>;
 
 class DataStorage;
 using DataStoragePtr = std::shared_ptr<DataStorage>;
+
+class DataView;
+using DataViewPtr = std::shared_ptr<DataView>;

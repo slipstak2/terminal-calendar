@@ -5,8 +5,11 @@
 
 class DataView {
 public:
-    static std::shared_ptr<DataView> Create(DataStoragePtr s) {
-        return std::shared_ptr<DataView>(new DataView(s));
+    static DataViewPtr Create(DataStoragePtr s) {
+        return DataViewPtr(new DataView(s));
+    }
+    static DataViewPtr Create(DataStoragePtr s, std::vector<size_t>&& fields_perm) {
+        return DataViewPtr(new DataView(s, std::move(fields_perm)));
     }
 
     size_t RowsCount() const {
@@ -20,12 +23,22 @@ public:
 
 private:
     DataView(DataStoragePtr s) : storage(s) {
+        InitAllRows();
+        InitAllFields();
+    }
+
+    DataView(DataStoragePtr s, std::vector<size_t>&& fields_perm) : storage(s), fields_idx(std::move(fields_perm)){
+        InitAllRows();
+    }
+
+    void InitAllRows() {
         size_t rows_cnt = storage->RowsCount();
         rows_idx.resize(rows_cnt);
         for (size_t idx = 0; idx < rows_cnt; ++idx) {
             rows_idx[idx] = idx;
         }
-
+    }
+    void InitAllFields() {
         size_t fields_cnt = storage->FieldsCount();
         fields_idx.resize(fields_cnt);
         for (size_t idx = 0; idx < fields_cnt; ++idx) {
