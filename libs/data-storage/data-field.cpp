@@ -62,19 +62,19 @@ bool CheckTypeInternal<storage::date>(FieldType fieldType) {
 }
 
 DataField DataField::Int(int value) {
-    return { FieldType::INT, {.Int = value} };
+    return { FieldType::INT, FieldValue(value)};
 }
 
 DataField DataField::String(std::string_view value) {
-    return { FieldType::STRING, {.String = value} };
+    return { FieldType::STRING, FieldValue(value)};
 }
 
 DataField DataField::Double(double value) {
-    return { FieldType::DOUBLE, {.Double = value} };
+    return { FieldType::DOUBLE, FieldValue(value)};
 }
 
 DataField DataField::Date(storage::date value) {
-    return { FieldType::DATE, {.Date = value} };
+    return { FieldType::DATE, FieldValue(value)};
 }
 
 

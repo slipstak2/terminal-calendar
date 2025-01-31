@@ -17,8 +17,14 @@ protected:
     std::deque<std::string> data;
 };
 
+
+class DataRowBuilder;
+
 class DataRow {
+    friend class DataRowBuilder;
+
 public:
+    DataRow() = default;
     DataRow(std::initializer_list<FieldDesc> l) {
         fields.reserve(l.size());
         for (const FieldDesc& fd : l) {
@@ -27,26 +33,30 @@ public:
     }
 
     template<typename T>
-    const T& GetField(size_t num);
+    const T& GetField(size_t num) const;
 
     template<>
-    const int& GetField<int>(size_t num) {
-        return fields[num].val.Int;
+    const int& GetField<int>(size_t field_idx) const{
+        return fields[field_idx].val.Int;
     }
 
     template<>
-    const std::string_view& GetField<std::string_view>(size_t num) {
-        return fields[num].val.String;
+    const std::string_view& GetField<std::string_view>(size_t field_idx) const{
+        return fields[field_idx].val.String;
     }
 
     template<>
-    const double& GetField<double>(size_t num) {
-        return fields[num].val.Double;
+    const double& GetField<double>(size_t field_idx) const{
+        return fields[field_idx].val.Double;
     }
 
     template<>
-    const storage::date& GetField<storage::date>(size_t num) {
-        return fields[num].val.Date;
+    const storage::date& GetField<storage::date>(size_t field_idx) const{
+        return fields[field_idx].val.Date;
+    }
+
+    const DataField& GetRawField(size_t field_idx) const {
+        return fields[field_idx];
     }
 
     template<typename T>
@@ -102,8 +112,17 @@ public:
         return fields.size();
     }
 
+    void ReserveFieldsCount(size_t fields_count) {
+        fields.reserve(fields_count);
+    }
+
     bool operator == (const DataRow& other) const {
         return fields == other.fields;
+    }
+
+private:
+    void AddField(const DataField& field) {
+        fields.emplace_back(field);
     }
 
 protected:
@@ -111,6 +130,22 @@ protected:
     static StringHeapStorage stringStorage;
 };
 
+//
+class DataRowBuilder {
+public:
+    DataRowBuilder() = default;
+    DataRowBuilder(size_t fields_count) {
+        result.ReserveFieldsCount(fields_count);
+    }
+    void Add(const DataField& field) {
+        result.AddField(field);
+    }
+    const DataRow& Result() const {
+        return result;
+    }
+protected:
+    DataRow result;
+};
 class DataStorage {
 public:
     static std::shared_ptr<DataStorage> Create(std::initializer_list<FieldDesc> fds) {
@@ -118,14 +153,14 @@ public:
     }
 
 public:
-    DataRow& CreateEmptyRow() {
+    DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
         return rows.back();
     }
 
     template<typename... Types>
-    DataRow& CreateRow(Types... args) {
-        DataRow& row = CreateEmptyRow();
+    DataRow& AddRow(Types... args) {
+        DataRow& row = AddEmptyRow();
         row.Fill(args...);
         return row;
     }
@@ -137,6 +172,16 @@ public:
 
     const DataRow& GetRow(size_t idx) const {
         return rows[idx];
+    }
+
+        
+    DataRow GetRow(size_t idx, const std::vector<size_t>& fields_idx) {
+        const DataRow& row = rows[idx];
+        DataRowBuilder builder(fields_idx.size());
+        for (size_t field_idx : fields_idx) {
+            builder.Add(row.GetRawField(field_idx));
+        }
+        return builder.Result();
     }
 
     size_t RowsCount() {

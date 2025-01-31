@@ -54,6 +54,31 @@ struct Header {
 };
 
 union FieldValue {
+    FieldValue() {
+        Clear();
+    }
+
+    FieldValue(int value): Int(value) {
+        Clear();
+        Int = value;
+    }
+    FieldValue(std::string_view value) {
+        Clear();
+        String = value;
+    }
+    FieldValue(double value) {
+        Clear();
+        Double = value;
+    }
+    FieldValue(storage::date value) {
+        Clear();
+        Date = value;
+    }
+
+    inline void Clear() {
+        memset(this, 0, sizeof(*this));;
+    }
+
     int Int;
     std::string_view String;
     double Double;
@@ -82,7 +107,7 @@ bool CheckType(FieldType fieldType) {
 struct DataField {
     Header header;
     FieldValue val;
-    
+
     static DataField Int(int value);
     static DataField String(std::string_view value);
     static DataField Double(double value);

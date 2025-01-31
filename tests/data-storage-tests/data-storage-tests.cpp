@@ -18,7 +18,7 @@ TEST(TestDataStorage, CreateStringDate) {
 
     {
         storage::date birhtday = storage::date(1996, 12, 25);
-        DataRow& row = storage->CreateEmptyRow();
+        DataRow& row = storage->AddEmptyRow();
         row.SetField<std::string>(0, "Dan4ick_");
         row.SetField<std::string_view>(0, "Dan4ick"); // override
         row.SetField<storage::date>(1, birhtday);
@@ -30,12 +30,12 @@ TEST(TestDataStorage, CreateStringDate) {
         EXPECT_EQ(actual_birthday, birhtday);
     }
     {
-        DataRow& row = storage->CreateEmptyRow();
+        DataRow& row = storage->AddEmptyRow();
         row.SetField<std::string>(0, "Igor");
         row.SetField<storage::date>(1, storage::date(1986, 9, 9));
     }
     {
-        DataRow& row = storage->CreateEmptyRow();
+        DataRow& row = storage->AddEmptyRow();
         row.SetField<std::string>(0, "Masha");
         row.SetField<storage::date>(1, storage::date(1986, 12, 2));
     }
@@ -58,7 +58,7 @@ TEST(TestDataStorage, CreateIntDouble) {
     EXPECT_EQ(fd1.type, FieldType::DOUBLE);
 
     {
-        DataRow& row = storage->CreateEmptyRow();
+        DataRow& row = storage->AddEmptyRow();
         row.SetField<int>(0, 42);
         row.SetField<double>(1, 175.5);
 
@@ -76,7 +76,7 @@ TEST(TestDataStorage, CreateRow) {
 
     auto storage = DataStorage::Create({ CreateField::String("name"), CreateField::Int("age") });
     {
-        DataRow& row = storage->CreateRow<std::string, int>("Dan4ick", 28);
+        DataRow& row = storage->AddRow<std::string, int>("Dan4ick", 28);
         EXPECT_EQ(row.FieldsCount(), 2);
         const DataRow& row_actual = storage->GetRow(0);
         EXPECT_EQ(row, row_actual);
