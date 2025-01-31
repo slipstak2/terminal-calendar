@@ -42,7 +42,7 @@ short ListDataSetNumSequence::MaxLen() const {
 int ListDataSetNumSequence::GetPos(int value) {
     size_t index = (value - segBeg) / delta;
     if (IsValidIndex(index) && Value(index) == value) {
-        return index;
+        return static_cast<int>(index);
     }
     return -1;
 }

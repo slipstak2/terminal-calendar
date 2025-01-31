@@ -1,10 +1,11 @@
 #pragma once
 
+#include "common.h"
 #include "data-storage.h"
 
 class DataView {
 public:
-    DataView(DataStorage::Ptr s) : storage(s) {
+    DataView(DataStoragePtr s) : storage(s) {
         size_t cnt = storage->RowsCount();
         indexes.reserve(cnt);
         for (size_t idx = 0; idx < cnt; ++idx) {
@@ -13,6 +14,6 @@ public:
     }
 
 protected:
-    std::shared_ptr<DataStorage> storage;
+    DataStoragePtr storage;
     std::vector<size_t> indexes;
 };

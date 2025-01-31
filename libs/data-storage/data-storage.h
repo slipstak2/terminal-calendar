@@ -113,23 +113,11 @@ protected:
 
 class DataStorage {
 public:
-    using Ptr = std::shared_ptr<DataStorage>;
+    static std::shared_ptr<DataStorage> Create(std::initializer_list<FieldDesc> fds) {
+        return std::shared_ptr<DataStorage>(new DataStorage(fds));
+    }
 
 public:
-
-    DataStorage(std::initializer_list<FieldDesc> l) : row_dummy(l) {
-        ds_fields_desc.reserve(l.size());
-
-        for (const FieldDesc& fd : l) {
-            if (ds_fields_mapping.contains(fd.name)) {
-                std::string message = "Field with name " + std::string(fd.name) + " already exists";
-                throw std::runtime_error(message);
-            }
-
-            ds_fields_desc.push_back(fd);
-            ds_fields_mapping[ds_fields_desc.back().name] = ds_fields_desc.size() - 1;
-        }
-    }
     DataRow& CreateEmptyRow() {
         rows.emplace_back(row_dummy);
         return rows.back();
@@ -161,6 +149,21 @@ public:
 
     const FieldDesc& Field(size_t idx) {
         return ds_fields_desc[idx];
+    }
+
+private:
+    explicit DataStorage(std::initializer_list<FieldDesc> fds) : row_dummy(fds) {
+        ds_fields_desc.reserve(fds.size());
+
+        for (const FieldDesc& fd : fds) {
+            if (ds_fields_mapping.contains(fd.name)) {
+                std::string message = "Field with name " + std::string(fd.name) + " already exists";
+                throw std::runtime_error(message);
+            }
+
+            ds_fields_desc.push_back(fd);
+            ds_fields_mapping[ds_fields_desc.back().name] = ds_fields_desc.size() - 1;
+        }
     }
     
 protected:
