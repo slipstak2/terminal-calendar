@@ -3,13 +3,19 @@
 #include "common.h"
 #include "data-storage.h"
 
+#define BY_IDX(...)     std::vector<size_t>{ __VA_ARGS__ }
+#define BY_NAME(...)    std::vector<std::string_view>{ __VA_ARGS__ }
+
 class DataView {
 public:
     static DataViewPtr Create(DataStoragePtr s) {
         return DataViewPtr(new DataView(s));
     }
-    static DataViewPtr Create(DataStoragePtr s, std::vector<size_t>&& fields_idx) {
-        return DataViewPtr(new DataView(s, std::move(fields_idx)));
+    static DataViewPtr Create(DataStoragePtr s, const std::vector<size_t>& fields_idx) {
+        return DataViewPtr(new DataView(s, fields_idx));
+    }
+    static DataViewPtr Create(DataStoragePtr s, const std::vector<std::string_view>& fields_name) {
+        return DataViewPtr(new DataView(s, s->GetFieldsIdx(fields_name)));
     }
 
     size_t RowsCount() const {
@@ -27,7 +33,7 @@ private:
         InitAllFields();
     }
 
-    DataView(DataStoragePtr s, std::vector<size_t>&& fields_idx) : storage(s), fields_idx(std::move(fields_idx)){
+    DataView(DataStoragePtr s, std::vector<size_t> fields_idx) : storage(s), fields_idx(std::move(fields_idx)){
         InitAllRows();
     }
 

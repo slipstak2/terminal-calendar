@@ -1,10 +1,9 @@
 #include "pch.h"
 
-#include <tuple>
 #include "data-storage.h"
 #include "data-view.h"
 
-class TestDataView : public ::testing::Test {
+class TestDataViewCreate : public ::testing::Test {
 
 public:
     static void SetUpTestCase() {
@@ -15,12 +14,11 @@ public:
     }
 public:
     static DataStoragePtr storage;
-    static storage::date Dan4ickBirthday;
 };
 
-DataStoragePtr TestDataView::storage;
+DataStoragePtr TestDataViewCreate::storage;
 
-TEST_F(TestDataView, CreateAllFields_SameOrder) {
+TEST_F(TestDataViewCreate, AllFields_SameOrder) {
 
     auto view = DataView::Create(storage);
     EXPECT_EQ(view->RowsCount(), 3);
@@ -32,7 +30,7 @@ TEST_F(TestDataView, CreateAllFields_SameOrder) {
     }
 }
 
-TEST_F(TestDataView, CreateAllField_OtherOrder) {
+TEST_F(TestDataViewCreate, AllField_OtherOrder) {
 
     auto view = DataView::Create(storage, { 2, 0, 1});
     EXPECT_EQ(view->RowsCount(), 3);
@@ -49,7 +47,7 @@ TEST_F(TestDataView, CreateAllField_OtherOrder) {
     EXPECT_EQ("Dan4ick", view_row.GetField<std::string_view>(2));
 }
 
-TEST_F(TestDataView, CreateAllField_SingleField) {
+TEST_F(TestDataViewCreate, AllField_SingleField) {
 
     auto view = DataView::Create(storage, { 1 });
     EXPECT_EQ(view->RowsCount(), 3);
@@ -74,12 +72,18 @@ void TestTwoFields(DataViewPtr view) {
     EXPECT_EQ(1, view_row.GetField<int>(1));
 }
 
-TEST_F(TestDataView, CreateAllField_TwoFields) {
-    auto view = DataView::Create(storage, { 1, 0 });
-    TestTwoFields(view);
+TEST_F(TestDataViewCreate, AllField_TwoFields) {
+    auto view_by_idx = DataView::Create(storage, BY_IDX(1, 0));
+    TestTwoFields(view_by_idx);
+
+    auto view_by_name = DataView::Create(storage, BY_NAME( "name", "id" ));
+    TestTwoFields(view_by_name);
 }
 
-TEST_F(TestDataView, CreateFromDataStorage) {
-    auto view = storage->View({ 1, 0 });
-    TestTwoFields(view);
+TEST_F(TestDataViewCreate, FromDataStorage) {
+    auto view_by_idx = storage->View(BY_IDX( 1, 0 ));
+    TestTwoFields(view_by_idx);
+
+    auto view_by_name = storage->View(BY_NAME( "name", "id" ));
+    TestTwoFields(view_by_name);
 }

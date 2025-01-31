@@ -157,7 +157,11 @@ public:
     }
 
 public:
-    DataViewPtr View(std::vector<size_t>&& fields_idx);
+    DataViewPtr View();
+    DataViewPtr View(const std::vector<size_t>& fields_idx);
+    DataViewPtr View(const std::vector<std::string_view>& fields_name);
+
+    std::vector<size_t> GetFieldsIdx(const std::vector<std::string_view>& fields_name);
 
     DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
