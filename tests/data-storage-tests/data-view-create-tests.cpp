@@ -32,7 +32,7 @@ TEST_F(TestDataViewCreate, AllFields_SameOrder) {
 
 TEST_F(TestDataViewCreate, AllField_OtherOrder) {
 
-    auto view = DataView::Create(storage, { 2, 0, 1});
+    auto view = DataView::Create(storage, 2, 0, 1);
     EXPECT_EQ(view->RowsCount(), 3);
 
     DataRow view_row = view->GetRow(0);
@@ -49,7 +49,7 @@ TEST_F(TestDataViewCreate, AllField_OtherOrder) {
 
 TEST_F(TestDataViewCreate, AllField_SingleField) {
 
-    auto view = DataView::Create(storage, { 1 });
+    auto view = DataView::Create(storage, 1);
     EXPECT_EQ(view->RowsCount(), 3);
 
     DataRow view_row = view->GetRow(0);
@@ -73,17 +73,23 @@ void TestTwoFields(DataViewPtr view) {
 }
 
 TEST_F(TestDataViewCreate, AllField_TwoFields) {
-    auto view_by_idx = DataView::Create(storage, BY_IDX(1, 0));
+    auto view_by_idx = DataView::Create(storage, 1, 0);
     TestTwoFields(view_by_idx);
 
-    auto view_by_name = DataView::Create(storage, BY_NAME( "name", "id" ));
+    auto view_by_name = DataView::Create(storage, "name", "id");
     TestTwoFields(view_by_name);
 }
 
 TEST_F(TestDataViewCreate, FromDataStorage) {
-    auto view_by_idx = storage->View(BY_IDX( 1, 0 ));
+    auto view_by_idx = storage->View(1, 0);
     TestTwoFields(view_by_idx);
 
-    auto view_by_name = storage->View(BY_NAME( "name", "id" ));
+    auto view_by_name = storage->View("name", "id");
     TestTwoFields(view_by_name);
+
+    auto view_by_mix1 = storage->View(1, "id");
+    TestTwoFields(view_by_mix1);
+
+    auto view_by_mix2 = storage->View("name", 0);
+    TestTwoFields(view_by_mix2);
 }

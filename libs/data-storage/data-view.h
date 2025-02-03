@@ -3,19 +3,31 @@
 #include "common.h"
 #include "data-storage.h"
 
-#define BY_IDX(...)     std::vector<size_t>{ __VA_ARGS__ }
-#define BY_NAME(...)    std::vector<std::string_view>{ __VA_ARGS__ }
-
 class DataView {
 public:
     static DataViewPtr Create(DataStoragePtr s) {
         return DataViewPtr(new DataView(s));
     }
-    static DataViewPtr Create(DataStoragePtr s, const std::vector<size_t>& fields_idx) {
+    template<typename ...FieldTypes>
+    static DataViewPtr Create(DataStoragePtr s, FieldTypes... fields) {
+        std::vector<size_t> fields_idx;
+        fields_idx.reserve(sizeof...(fields));
+        (..., (fields_idx.push_back(s->GetFieldIndex(fields))));
+
         return DataViewPtr(new DataView(s, fields_idx));
     }
-    static DataViewPtr Create(DataStoragePtr s, const std::vector<std::string_view>& fields_name) {
-        return DataViewPtr(new DataView(s, s->GetFieldsIdx(fields_name)));
+
+    template<typename T>
+    size_t GetFieldIndex(T value);
+
+    template<>  
+    size_t GetFieldIndex(int field_index) {
+        return field_index;
+    }
+
+    template<>
+    size_t GetFieldIndex<const char*>(const char* field_name) {
+        return storage->GetFieldIndex(field_name);
     }
 
     size_t RowsCount() const {

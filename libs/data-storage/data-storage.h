@@ -158,10 +158,19 @@ public:
 
 public:
     DataViewPtr View();
-    DataViewPtr View(const std::vector<size_t>& fields_idx);
-    DataViewPtr View(const std::vector<std::string_view>& fields_name);
 
-    std::vector<size_t> GetFieldsIdx(const std::vector<std::string_view>& fields_name);
+    template<typename ...Types>
+    DataViewPtr View(Types... Indexes) {
+        return DataView::Create(shared_from_this(), Indexes...);
+    }
+
+    template<typename T>
+    size_t GetFieldIndex(T field) const;
+
+    template<>
+    size_t GetFieldIndex(int field_index) const;
+
+    size_t GetFieldIndex(const char* field_name) const;
 
     DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
