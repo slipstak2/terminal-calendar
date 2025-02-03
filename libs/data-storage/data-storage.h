@@ -152,8 +152,9 @@ protected:
 
 class DataStorage: public std::enable_shared_from_this<DataStorage> {
 public:
-    static std::shared_ptr<DataStorage> Create(std::initializer_list<FieldDesc> fds) {
-        return std::shared_ptr<DataStorage>(new DataStorage(fds));
+    template<typename ...FieldDescT>
+    static std::shared_ptr<DataStorage> Create(FieldDescT... fds) {
+        return std::shared_ptr<DataStorage>(new DataStorage({fds...}));
     }
 
 public:
