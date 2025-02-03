@@ -159,18 +159,18 @@ public:
 public:
     DataViewPtr View();
 
-    template<typename ...Types>
-    DataViewPtr View(Types... Indexes) {
-        return DataView::Create(shared_from_this(), Indexes...);
+    template<typename ...FieldTypes>
+    DataViewPtr View(FieldTypes... fields) {
+        return DataView::Create(shared_from_this(), fields...);
     }
 
-    template<typename T>
-    size_t GetFieldIndex(T field) const;
+    inline size_t GetFieldIndex(int field_index) const {
+        return field_index;
+    }
 
-    template<>
-    size_t GetFieldIndex(int field_index) const;
-
-    size_t GetFieldIndex(const char* field_name) const;
+    inline size_t GetFieldIndex(const char* field_name) const {
+        return ds_fields_mapping.at(field_name);
+    }
 
     DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
