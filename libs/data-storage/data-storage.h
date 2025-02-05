@@ -1,156 +1,20 @@
 #pragma once
 
 #include "common.h"
-#include "data-field.h"
+#include "data-row.h"
 
 #include <vector>
 #include <string>
 #include <string_view>
 #include <map>
 #include <deque>
+#include "data-field-accessor.h"
 
 
-class StringHeapStorage {
-public:
-    std::string_view Add(std::string_view sv) {
-        data.emplace_back(sv);
-        return data.back();
-    }
-protected:
-    std::deque<std::string> data;
-};
-
-
-class DataRowBuilder;
-
-class DataRow {
-    friend class DataRowBuilder;
-
-public:
-    DataRow() = default;
-    DataRow(std::initializer_list<FieldDesc> l) {
-        fields.reserve(l.size());
-        for (const FieldDesc& fd : l) {
-            fields.push_back({ {.type = fd.type} });
-        }
-    }
-
-    template<typename T>
-    const T& GetField(size_t num) const;
-
-    template<>
-    const int& GetField<int>(size_t field_idx) const{
-        return fields[field_idx].val.Int;
-    }
-
-    template<>
-    const std::string_view& GetField<std::string_view>(size_t field_idx) const{
-        return fields[field_idx].val.String;
-    }
-
-    template<>
-    const double& GetField<double>(size_t field_idx) const{
-        return fields[field_idx].val.Double;
-    }
-
-    template<>
-    const storage::date& GetField<storage::date>(size_t field_idx) const{
-        return fields[field_idx].val.Date;
-    }
-
-    const DataField& GetRawField(size_t field_idx) const {
-        return fields[field_idx];
-    }
-
-    template<typename T>
-    void SetField(size_t num, T value);
-
-    template<>
-    void SetField<int>(size_t num, int value) {
-        CheckType<int>(fields[num].header.type);
-        fields[num].val.Int = value;
-    }
-
-    template<>
-    void SetField<std::string>(size_t num, std::string value) {
-        CheckType<std::string_view>(fields[num].header.type);
-        fields[num].val.String = stringStorage.Add(std::move(value));
-    }
-
-    template<>
-    void SetField<std::string_view>(size_t num, std::string_view value) {
-        CheckType<std::string_view>(fields[num].header.type);
-        fields[num].val.String = stringStorage.Add(value);
-    }
-
-    template<>
-    void SetField<double>(size_t num, double value) {
-        CheckType<double>(fields[num].header.type);
-        fields[num].val.Double= value;
-    }
-
-    template<>
-    void SetField<storage::date>(size_t num, storage::date value) {
-        CheckType<storage::date>(fields[num].header.type);
-        fields[num].val.Date = value;
-    }
-
-    template<typename T>
-    void FillImpl(size_t num, T t) {
-        SetField<T>(num, t);
-    }
-
-    template<typename T, typename ...Types>
-    void FillImpl(size_t num, T t, Types... args) {
-        FillImpl(num, t);
-        FillImpl(num + 1, args...);
-    }
-
-    template<typename... Types>
-    void Fill(Types... args) {
-        FillImpl(0, args...);
-    }
-
-    size_t FieldsCount() {
-        return fields.size();
-    }
-
-    void ReserveFieldsCount(size_t fields_count) {
-        fields.reserve(fields_count);
-    }
-
-    bool operator == (const DataRow& other) const {
-        return fields == other.fields;
-    }
-
-private:
-    void AddField(const DataField& field) {
-        fields.emplace_back(field);
-    }
-
-protected:
-    std::vector<DataField> fields;
-    static StringHeapStorage stringStorage;
-};
-
-//
-class DataRowBuilder {
-public:
-    DataRowBuilder() = default;
-    DataRowBuilder(size_t fields_count) {
-        result.ReserveFieldsCount(fields_count);
-    }
-    void Add(const DataField& field) {
-        result.AddField(field);
-    }
-    const DataRow& Result() const {
-        return result;
-    }
-protected:
-    DataRow result;
-};
+class DataSet;
 
 class DataStorage: public std::enable_shared_from_this<DataStorage> {
+    friend class DataSet;
 public:
     template<typename ...FieldDescT>
     static std::shared_ptr<DataStorage> Create(FieldDescT... fds) {
@@ -186,7 +50,7 @@ public:
     }
 
     template<typename T>
-    const T& GetField(DataRow& row, std::string_view field_name) {
+    const T& GetField(DataRow& row, std::string_view field_name) { // TODO: where use???
         return row.GetField<T>(ds_fields_mapping[field_name]);
     }
 
@@ -203,11 +67,15 @@ public:
         return builder.Result();
     }
 
-    size_t RowsCount() {
+    size_t RowsCount() const {
         return rows.size();
     }
 
-    size_t FieldsCount() {
+    bool Empty() const {
+        return rows.empty();
+    }
+
+    size_t FieldsCount() const {
         return ds_fields_desc.size();
     }
 
@@ -216,19 +84,16 @@ public:
     }
 
 private:
-    explicit DataStorage(std::initializer_list<FieldDesc> fds) : row_dummy(fds) {
+    explicit DataStorage(std::initializer_list<FieldDesc> fds) {
+        row_dummy.fields.reserve(fds.size());
         ds_fields_desc.reserve(fds.size());
 
         for (const FieldDesc& fd : fds) {
-            if (ds_fields_mapping.contains(fd.name)) {
-                std::string message = "Field with name " + std::string(fd.name) + " already exists";
-                throw std::runtime_error(message);
-            }
-
-            ds_fields_desc.push_back(fd);
-            ds_fields_mapping[ds_fields_desc.back().name] = ds_fields_desc.size() - 1;
+            AddFieldDesc(fd);
         }
     }
+    void AddFieldDesc(const FieldDesc& field_desc);
+    void AddFieldData(size_t row_idx, const FieldData& field_data);
     
 protected:
     DataRow row_dummy;
@@ -236,4 +101,26 @@ protected:
 
     std::vector<FieldDesc> ds_fields_desc;
     std::map<std::string_view, size_t> ds_fields_mapping;
+};
+
+class DataStorageRow : public DataFieldAccessor {
+public:
+    DataStorageRow(const DataStoragePtr storage, size_t row_idx)
+        : storage(storage)
+        , row(storage->GetRow(row_idx))
+    {}
+
+public:
+    size_t FieldsCount() override;
+    std::string_view GetFieldName(size_t field_num) override;
+    DataRow GenRow() override;
+
+protected:
+    FieldData GetFieldData(int field_num) override;
+    FieldData GetFieldData(const char* field_name) override;
+
+
+protected:
+    DataStoragePtr storage;
+    const DataRow& row;
 };

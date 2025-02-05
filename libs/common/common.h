@@ -82,3 +82,6 @@ using DataStoragePtr = std::shared_ptr<DataStorage>;
 
 class DataView;
 using DataViewPtr = std::shared_ptr<DataView>;
+
+class DataSet;
+using DataSetPtr = std::shared_ptr<DataSet>;

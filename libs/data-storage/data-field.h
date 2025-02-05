@@ -45,14 +45,6 @@ template<typename T>
 bool CheckType(FieldType fieldType);
 
 
-struct Header {
-    FieldType type;
-
-    bool operator == (const Header& other) const {
-        return type == other.type;
-    }
-};
-
 union FieldValue {
     FieldValue() {
         Clear();
@@ -104,28 +96,28 @@ bool CheckType(FieldType fieldType) {
 }
 
 
-struct DataField {
-    Header header;
+struct FieldData {
+    FieldType type;
     FieldValue val;
 
-    static DataField Int(int value);
-    static DataField String(std::string_view value);
-    static DataField Double(double value);
-    static DataField Date(storage::date value);
+    static FieldData Int(int value);
+    static FieldData String(std::string_view value);
+    static FieldData Double(double value);
+    static FieldData Date(storage::date value);
 
     template<typename T>
     const T& Get() {
 #if defined(_DEBUG)
-        if (!CheckType<T>(header.type)) {
-            std::string message = "Bad cast: " + STRING(header.type) + " -> " + STR<T>();
+        if (!CheckType<T>(type)) {
+            std::string message = "Bad cast: " + STRING(type) + " -> " + STR<T>();
             throw std::runtime_error(message);
         }
 #endif
         return *reinterpret_cast<T*>(&val);
     }
 
-    bool operator == (const DataField& other) const {
-        return std::tie(header, val) == std::tie(other.header, other.val);
+    bool operator == (const FieldData& other) const {
+        return std::tie(type, val) == std::tie(other.type, other.val);
     }
 };
 
@@ -134,7 +126,7 @@ struct FieldDesc {
     FieldType type;
 };
 
-class CreateField {
+class CreateFieldDesc {
 public:
     static FieldDesc Int(std::string name);
     static FieldDesc String(std::string name);

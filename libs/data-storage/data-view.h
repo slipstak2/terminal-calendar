@@ -19,12 +19,15 @@ public:
     }
 
     size_t RowsCount() const {
-        return storage->RowsCount();
+        return rows_idx.size();
     }
 
     DataRow GetRow(size_t num) {
         DataRow row = storage->GetRow(rows_idx[num], fields_idx);
         return row;
+    }
+    size_t FieldsCount() const {
+        return fields_idx.size();
     }
 
 private:

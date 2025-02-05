@@ -108,6 +108,7 @@
   <ItemGroup>
     <ClCompile Include="data-field-tests.cpp" />
     <ClCompile Include="data-set-tests.cpp" />
+    <ClCompile Include="data-storage-row-tests.cpp" />
     <ClCompile Include="data-storage-tests.cpp" />
     <ClCompile Include="data-view-create-tests.cpp" />
     <ClCompile Include="data-view-sort-tests.cpp" />

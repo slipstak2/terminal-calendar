@@ -61,36 +61,36 @@ bool CheckTypeInternal<storage::date>(FieldType fieldType) {
     return fieldType == FieldType::DATE;
 }
 
-DataField DataField::Int(int value) {
+FieldData FieldData::Int(int value) {
     return { FieldType::INT, FieldValue(value)};
 }
 
-DataField DataField::String(std::string_view value) {
+FieldData FieldData::String(std::string_view value) {
     return { FieldType::STRING, FieldValue(value)};
 }
 
-DataField DataField::Double(double value) {
+FieldData FieldData::Double(double value) {
     return { FieldType::DOUBLE, FieldValue(value)};
 }
 
-DataField DataField::Date(storage::date value) {
+FieldData FieldData::Date(storage::date value) {
     return { FieldType::DATE, FieldValue(value)};
 }
 
 
-FieldDesc CreateField::Int(std::string name) {
+FieldDesc CreateFieldDesc::Int(std::string name) {
     return { std::move(name), FieldType::INT };
 }
 
-FieldDesc CreateField::String(std::string name) {
+FieldDesc CreateFieldDesc::String(std::string name) {
     return { std::move(name), FieldType::STRING };
 }
 
-FieldDesc CreateField::Double(std::string name) {
+FieldDesc CreateFieldDesc::Double(std::string name) {
     return { std::move(name), FieldType::DOUBLE};
 }
 
-FieldDesc CreateField::Date(std::string name) {
+FieldDesc CreateFieldDesc::Date(std::string name) {
     return { std::move(name), FieldType::DATE };
 }
 
