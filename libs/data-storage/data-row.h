@@ -1,6 +1,7 @@
 #pragma once
 #include "common.h"
 #include "data-field.h"
+#include "data-field-accessor.h"
 
 #include <vector>
 #include <string>
@@ -22,7 +23,7 @@ protected:
 class DataRowBuilder;
 class DataStorage;
 
-class DataRow {
+class DataRow : public DataFieldAccessorBase {
     friend class DataRowBuilder;
     friend class DataStorage;
 
@@ -35,18 +36,16 @@ public:
         }
     }
 
-    FieldType GetFieldType(int field_num) const {
-        return GetFieldData(field_num).type;
+    DataRow GenRow() override {
+        return *this;
     }
 
-    template<typename T>
-    T GetField(int field_num) const {
-        FieldData data = GetFieldData(field_num);
-        return data.Get<T>();
-    }
-
-    const FieldData& GetFieldData(size_t field_idx) const {
+    FieldData GetFieldData(int field_idx) const override {
         return fields[field_idx];
+    }
+
+    size_t FieldsCount() const override {
+        return fields.size();
     }
 
     template<typename T>
@@ -73,10 +72,6 @@ public:
     template<typename... Types>
     void Fill(Types... args) {
         FillImpl(0, args...);
-    }
-
-    size_t FieldsCount() const {
-        return fields.size();
     }
 
     void ReserveFieldsCount(size_t fields_count) {

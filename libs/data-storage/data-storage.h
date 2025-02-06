@@ -50,7 +50,7 @@ public:
     }
 
     template<typename T>
-    const T& GetField(DataRow& row, std::string_view field_name) { // TODO: where use???
+    T GetField(DataRow& row, std::string_view field_name) { // TODO: where use???
         return row.GetField<T>(ds_fields_mapping[field_name]);
     }
 
