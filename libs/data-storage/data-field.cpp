@@ -1,6 +1,6 @@
 #include "data-field.h"
 
-std::string STRING(FieldType& fieldType) {
+std::string STRING(const FieldType& fieldType) {
     if (fieldType == FieldType::INT) {
         return "INT";
     }

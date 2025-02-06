@@ -32,7 +32,7 @@ const FieldData& DataStorageRow::GetFieldData(size_t field_num) const {
     return row.GetFieldData(field_num);
 }
 
-const FieldData& DataStorageRow::GetFieldData(const char* field_name) const{
+const FieldData& DataStorageRow::GetFieldData(const std::string_view field_name) const{
     return row.GetFieldData(storage->GetFieldIndex(field_name));
 }
 

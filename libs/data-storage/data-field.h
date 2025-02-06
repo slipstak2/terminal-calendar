@@ -35,7 +35,7 @@ enum class FieldType {
     DATE
 };
 
-std::string STRING(FieldType& fieldType);
+std::string STRING(const FieldType& fieldType);
 
 template<typename T>
 std::string STR();
@@ -106,14 +106,14 @@ struct FieldData {
     static FieldData Date(storage::date value);
 
     template<typename T>
-    const T& Get() {
+    const T& Get() const {
 #if defined(_DEBUG)
         if (!CheckType<T>(type)) {
             std::string message = "Bad cast: " + STRING(type) + " -> " + STR<T>();
             throw std::runtime_error(message);
         }
 #endif
-        return *reinterpret_cast<T*>(&val);
+        return *reinterpret_cast<const T*>(&val);
     }
 
     bool operator == (const FieldData& other) const {

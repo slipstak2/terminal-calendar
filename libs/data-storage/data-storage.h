@@ -29,11 +29,11 @@ public:
         return DataView::Create(shared_from_this(), fields...);
     }
 
-    inline size_t GetFieldIndex(int field_index) const {
+    inline size_t GetFieldIndex(size_t field_index) const {
         return field_index;
     }
 
-    inline size_t GetFieldIndex(const char* field_name) const {
+    inline size_t GetFieldIndex(const std::string_view field_name) const {
         return ds_fields_mapping.at(field_name);
     }
 
@@ -117,8 +117,7 @@ public:
 
 protected:
     const FieldData& GetFieldData(size_t field_num)  const override;
-    const FieldData& GetFieldData(const char* field_name) const override;
-
+    const FieldData& GetFieldData(const std::string_view field_name) const override;
 
 protected:
     DataStoragePtr storage;
