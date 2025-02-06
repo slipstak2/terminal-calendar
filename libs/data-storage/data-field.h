@@ -3,10 +3,12 @@
 #include <chrono>
 #include <string>
 #include <string_view>
+#include <deque>
 
 namespace storage {
     class date {
     public:
+        date() = default; // TODO: default 01.01.1970 ?
         date(int year, int month, int day) 
             : data(std::chrono::year(year) / std::chrono::month(month) / std::chrono::day(day))
         {}
@@ -35,15 +37,18 @@ enum class FieldType {
     DATE
 };
 
-std::string STRING(const FieldType& fieldType);
+FieldType FieldTyper(int);
+FieldType FieldTyper(double);
+FieldType FieldTyper(std::string);
+FieldType FieldTyper(std::string_view);
+FieldType FieldTyper(storage::date);
+
+std::string ToString(const FieldType& fieldType);
 
 template<typename T>
-std::string STR();
-
-
-template<typename T>
-bool CheckType(FieldType fieldType);
-
+std::string ToString() {
+    return ToString(FieldTyper(T()));
+}
 
 union FieldValue {
     FieldValue() {
@@ -80,13 +85,10 @@ union FieldValue {
 bool operator == (const FieldValue& lhs, const FieldValue& rhs);
 
 template<typename T>
-bool CheckTypeInternal(FieldType fieldType);
-
-template<typename T>
 bool CheckType(FieldType fieldType) {
-    if (!CheckTypeInternal<T>(fieldType)) {
+    if (FieldTyper(T()) != fieldType) {
 #if defined(_DEBUG)
-        std::string message = "Bad cast: " + STRING(fieldType) + " -> " + STR<T>();
+        std::string message = "Bad cast: " + ToString(fieldType) + " -> " + ToString<T>();
         throw std::runtime_error(message);
 #else
         return false;
@@ -95,10 +97,37 @@ bool CheckType(FieldType fieldType) {
     return true;
 }
 
+class StringHeapStorage {
+public:
+    std::string_view Add(std::string_view sv) {
+        data.emplace_back(sv);
+        return data.back();
+    }
+protected:
+    std::deque<std::string> data;
+};
+
 
 struct FieldData {
     FieldType type;
     FieldValue val;
+
+    static StringHeapStorage stringStorage;
+
+    FieldData() = default;
+
+    FieldData(const FieldType type, const FieldValue val) 
+        : type(type), val(val)
+    {}
+
+    FieldData(const FieldType type) 
+        : type(type)
+    {}
+
+    template<typename T>
+    static FieldData Create(T value) {
+        return FieldData(FieldTyper(value), FieldValue(value));
+    }
 
     static FieldData Int(int value);
     static FieldData String(std::string_view value);
@@ -108,16 +137,35 @@ struct FieldData {
     template<typename T>
     const T& Get() const {
 #if defined(_DEBUG)
-        if (!CheckType<T>(type)) {
-            std::string message = "Bad cast: " + STRING(type) + " -> " + STR<T>();
-            throw std::runtime_error(message);
-        }
+        CheckType<T>(type);
 #endif
         return *reinterpret_cast<const T*>(&val);
     }
 
+    template<typename T>
+    void Set(T value) {
+        memcpy(&val, &value, sizeof(value));
+    }
+
+    template<>
+    void Set(std::string value) {
+        val.String = stringStorage.Add(std::move(value));
+    }
+
+    template<>
+    void Set(std::string_view value) {
+        val.String = stringStorage.Add(value);
+    }
+
     bool operator == (const FieldData& other) const {
-        return std::tie(type, val) == std::tie(other.type, other.val);
+        if (type != other.type) {
+            return false;
+        }
+        if (type == FieldType::STRING) {
+            return val.String == other.val.String;
+        }
+        
+        return val == other.val;
     }
 };
 

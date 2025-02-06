@@ -60,11 +60,11 @@ public:
 
     DataRow GetRow(size_t idx, const std::vector<size_t>& fields_idx) {
         const DataRow& row = rows[idx];
-        DataRowBuilder builder(fields_idx.size());
+        DataRow result(fields_idx.size());
         for (size_t field_idx : fields_idx) {
-            builder.Add(row.GetFieldData(field_idx));
+            result.AddFieldData(row.GetFieldData(field_idx));
         }
-        return builder.Result();
+        return result;
     }
 
     size_t RowsCount() const {
@@ -85,7 +85,7 @@ public:
 
 private:
     explicit DataStorage(std::initializer_list<FieldDesc> fds) {
-        row_dummy.fields.reserve(fds.size());
+        row_dummy.ReserveFieldsCount(fds.size());
         ds_fields_desc.reserve(fds.size());
 
         for (const FieldDesc& fd : fds) {
@@ -93,7 +93,6 @@ private:
         }
     }
     void AddFieldDesc(const FieldDesc& field_desc);
-    void AddFieldData(size_t row_idx, const FieldData& field_data);
     
 protected:
     DataRow row_dummy;

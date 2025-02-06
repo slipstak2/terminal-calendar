@@ -7,18 +7,6 @@
 #include <string>
 #include <string_view>
 #include <map>
-#include <deque>
-
-class StringHeapStorage {
-public:
-    std::string_view Add(std::string_view sv) {
-        data.emplace_back(sv);
-        return data.back();
-    }
-protected:
-    std::deque<std::string> data;
-};
-
 
 class DataRowBuilder;
 class DataStorage;
@@ -29,12 +17,18 @@ class DataRow : public DataFieldAccessorBase {
 
 public:
     DataRow() = default;
+    DataRow(size_t fields_count) {
+        ReserveFieldsCount(fields_count);
+    }
+
+    /*
     DataRow(const std::initializer_list<FieldDesc>& fds) {
         fields.reserve(fds.size());
         for (const FieldDesc& fd : fds) {
-            fields.push_back({ .type = fd.type });
+            fields.push_back(FieldData(fd.type));
         }
     }
+    */
 
     DataRow GenRow() override {
         return *this;
@@ -49,29 +43,37 @@ public:
     }
 
     template<typename T>
-    void SetField(size_t field_num, T value) {
-        CheckType<T>(fields[field_num].type);
-        SetFieldInternal(field_num, value);
-    }
-
-    template<typename T>
-    void SetFieldInternal(size_t field_num, T value) {
-        memcpy(&fields[field_num].val, &value, sizeof(value));
-    }
-
-    template<>
-    void SetFieldInternal<std::string>(size_t field_num, std::string value) {
-        fields[field_num].val.String = stringStorage.Add(std::move(value));
-    }
-
-    template<>
-    void SetFieldInternal<std::string_view>(size_t field_num, std::string_view value) {
-        fields[field_num].val.String = stringStorage.Add(value);
+    void SetField(size_t field_num, T value, bool initType = false) {
+        if (initType) {
+            if (fields.size() == field_num) {
+                AddFieldType(FieldTyper(value));
+            }
+            else {
+                fields[field_num].type = FieldTyper(value);
+            }
+        }
+        FieldData& fieldData = fields[field_num];
+        if (!initType) {
+            CheckType<T>(fieldData.type);
+        }
+        fieldData.Set<T>(value);
     }
 
     template<typename... Types>
     void Fill(Types... args) {
         FillImpl(0, args...);
+    }
+
+    template<typename... Types>
+    static DataRow Create(Types... args) {
+        DataRow result(sizeof...(args));
+        result.CreateInternal(args...);
+        return result;
+    }
+
+    template<typename... Types>
+    void CreateInternal(Types... args) {
+        CreateImpl(0, args...);
     }
 
     void ReserveFieldsCount(size_t fields_count) {
@@ -82,6 +84,13 @@ public:
         return fields == other.fields;
     }
 
+    void AddFieldType(const FieldType& field_type) {
+        fields.emplace_back(field_type);
+    }
+
+    void AddFieldData(const FieldData& field_data) {
+        fields.emplace_back(field_data);
+    }
 private:
     template<typename T>
     void FillImpl(size_t num, T t) {
@@ -94,28 +103,17 @@ private:
         FillImpl(num + 1, args...);
     }
 
-    void AddFieldData(const FieldData& field) {
-        fields.emplace_back(field);
+    template<typename T>
+    void CreateImpl(size_t num, T t) {
+        SetField<T>(num, t, true);
+    }
+
+    template<typename T, typename ...Types>
+    void CreateImpl(size_t num, T t, Types... args) {
+        CreateImpl(num, t);
+        CreateImpl(num + 1, args...);
     }
 
 protected:
     std::vector<FieldData> fields;
-    static StringHeapStorage stringStorage;
-};
-
-//
-class DataRowBuilder {
-public:
-    DataRowBuilder() = default;
-    DataRowBuilder(size_t fields_count) {
-        result.ReserveFieldsCount(fields_count);
-    }
-    void Add(const FieldData& field) {
-        result.AddFieldData(field);
-    }
-    const DataRow& Result() const {
-        return result;
-    }
-protected:
-    DataRow result;
 };

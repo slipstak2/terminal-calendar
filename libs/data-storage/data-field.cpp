@@ -1,6 +1,28 @@
 #include "data-field.h"
 
-std::string STRING(const FieldType& fieldType) {
+StringHeapStorage FieldData::stringStorage;
+
+FieldType FieldTyper(int) {
+    return FieldType::INT;
+}
+
+FieldType FieldTyper(double) {
+    return FieldType::DOUBLE;
+}
+
+FieldType FieldTyper(std::string) {
+    return FieldType::STRING;
+}
+
+FieldType FieldTyper(std::string_view) {
+    return FieldType::STRING;
+}
+
+FieldType FieldTyper(storage::date) {
+    return FieldType::DATE;
+}
+
+std::string ToString(const FieldType& fieldType) {
     if (fieldType == FieldType::INT) {
         return "INT";
     }
@@ -16,77 +38,21 @@ std::string STRING(const FieldType& fieldType) {
     return "UNKNOWN";
 }
 
-template<typename T>
-std::string STR() {
-    return "UNKNOWN";
-}
-
-template<>
-std::string STR<int>() {
-    return "INT";
-}
-
-template<>
-std::string STR<std::string_view>() {
-    return "STRING";
-}
-
-template<>
-std::string STR<std::string>() {
-    return "STRING";
-}
-
-template<>
-std::string STR<double>() {
-    return "DOUBLE";
-}
-
-template<>
-std::string STR<storage::date>() {
-    return "DATE";
-}
-
-template<>
-bool CheckTypeInternal<int>(FieldType fieldType) {
-    return fieldType == FieldType::INT;
-}
-
-template<>
-bool CheckTypeInternal<std::string_view>(FieldType fieldType) {
-    return fieldType == FieldType::STRING;
-}
-
-template<>
-bool CheckTypeInternal<std::string>(FieldType fieldType) {
-    return fieldType == FieldType::STRING;
-}
-
-template<>
-bool CheckTypeInternal<double>(FieldType fieldType) {
-    return fieldType == FieldType::DOUBLE;
-}
-
-template<>
-bool CheckTypeInternal<storage::date>(FieldType fieldType) {
-    return fieldType == FieldType::DATE;
-}
-
 FieldData FieldData::Int(int value) {
     return { FieldType::INT, FieldValue(value)};
 }
 
 FieldData FieldData::String(std::string_view value) {
-    return { FieldType::STRING, FieldValue(value)};
+    return { FieldType::STRING, FieldValue(value) };
 }
 
 FieldData FieldData::Double(double value) {
-    return { FieldType::DOUBLE, FieldValue(value)};
+    return { FieldType::DOUBLE, FieldValue(value) };
 }
 
 FieldData FieldData::Date(storage::date value) {
-    return { FieldType::DATE, FieldValue(value)};
+    return { FieldType::DATE, FieldValue(value) };
 }
-
 
 FieldDesc CreateFieldDesc::Int(std::string name) {
     return { std::move(name), FieldType::INT };

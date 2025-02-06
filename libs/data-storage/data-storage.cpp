@@ -1,9 +1,6 @@
 #include "data-storage.h"
 #include "data-view.h"
 
-StringHeapStorage DataRow::stringStorage;
-
-
 DataViewPtr DataStorage::View() {
     return DataView::Create(shared_from_this());
 }
@@ -17,11 +14,7 @@ void DataStorage::AddFieldDesc(const FieldDesc& fd) {
     ds_fields_desc.push_back(fd);
     ds_fields_mapping[ds_fields_desc.back().name] = ds_fields_desc.size() - 1;
 
-    row_dummy.fields.push_back({ .type = fd.type }); // TODO: row_dummy.AddFieldDesc()
-}
-
-void DataStorage::AddFieldData(size_t row_idx, const FieldData& field_data) {
-    rows[row_idx].AddFieldData(field_data);
+    row_dummy.AddFieldType(fd.type);
 }
 
 size_t DataStorageRow::FieldsCount() const{
@@ -32,7 +25,7 @@ const FieldData& DataStorageRow::GetFieldData(size_t field_num) const {
     return row.GetFieldData(field_num);
 }
 
-const FieldData& DataStorageRow::GetFieldData(const std::string_view field_name) const{
+const FieldData& DataStorageRow::GetFieldData(const std::string_view field_name) const {
     return row.GetFieldData(storage->GetFieldIndex(field_name));
 }
 

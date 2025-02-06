@@ -20,20 +20,20 @@ public:
 
 DataStoragePtr TestDataStorageRow::storage;
 
-TEST_F(TestDataStorageRow, F) {
+TEST_F(TestDataStorageRow, CheckFirstRow) {
     DataStorageRow row(storage, 0);
     EXPECT_EQ(3, row.FieldsCount());
 
-    EXPECT_EQ(FieldType::INT, row.GetFieldType(0ULL)); // TODO: try without ULL
+    EXPECT_EQ(FieldType::INT, row.GetFieldType(0));
     EXPECT_EQ(FieldType::INT, row.GetFieldType("id"));
     EXPECT_EQ(FieldType::STRING, row.GetFieldType(1));
     EXPECT_EQ(FieldType::STRING, row.GetFieldType("name"));
     EXPECT_EQ(FieldType::DATE, row.GetFieldType(2));
     EXPECT_EQ(FieldType::DATE, row.GetFieldType("birthday"));
 
-    EXPECT_EQ(1, row.GetField<int>(0ULL));
-    EXPECT_EQ("Dan4ick", row.GetField<std::string_view>(1));
+    EXPECT_EQ(1, row.GetField<int>(0));
     EXPECT_EQ(1, row.GetField<int>("id"));
+    EXPECT_EQ("Dan4ick", row.GetField<std::string_view>(1));
     EXPECT_EQ("Dan4ick", row.GetField<std::string_view>("name"));
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>(2));
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>("birthday"));
@@ -43,5 +43,9 @@ TEST_F(TestDataStorageRow, F) {
     EXPECT_EQ("birthday", row.GetFieldName(2));
 
     DataRow gen_row = row.GenRow();
-    EXPECT_EQ(gen_row, storage->GetRow(0));
+    DataRow expect_row = DataRow::Create<int, std::string_view, storage::date>(
+        1, "Dan4ick", storage::date(1996, 12, 25)
+    );
+
+    EXPECT_EQ(expect_row, gen_row);
 }

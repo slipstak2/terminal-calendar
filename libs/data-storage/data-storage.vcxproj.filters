@@ -36,9 +36,6 @@
     <ClInclude Include="data-set.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="!data-row-accessor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="data-row.h">
       <Filter>Header Files</Filter>
     </ClInclude>
