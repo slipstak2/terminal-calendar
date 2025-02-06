@@ -40,7 +40,7 @@ public:
         return *this;
     }
 
-    FieldData GetFieldData(int field_idx) const override {
+    const FieldData& GetFieldData(size_t field_idx) const override {
         return fields[field_idx];
     }
 

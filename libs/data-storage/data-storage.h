@@ -116,8 +116,8 @@ public:
     DataRow GenRow() override;
 
 protected:
-    FieldData GetFieldData(int field_num)  const override;
-    FieldData GetFieldData(const char* field_name) const override;
+    const FieldData& GetFieldData(size_t field_num)  const override;
+    const FieldData& GetFieldData(const char* field_name) const override;
 
 
 protected:

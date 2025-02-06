@@ -24,14 +24,14 @@ TEST_F(TestDataStorageRow, F) {
     DataStorageRow row(storage, 0);
     EXPECT_EQ(3, row.FieldsCount());
 
-    EXPECT_EQ(FieldType::INT, row.GetFieldType(0));
+    EXPECT_EQ(FieldType::INT, row.GetFieldType(0ULL)); // TODO: try without ULL
     EXPECT_EQ(FieldType::INT, row.GetFieldType("id"));
     EXPECT_EQ(FieldType::STRING, row.GetFieldType(1));
     EXPECT_EQ(FieldType::STRING, row.GetFieldType("name"));
     EXPECT_EQ(FieldType::DATE, row.GetFieldType(2));
     EXPECT_EQ(FieldType::DATE, row.GetFieldType("birthday"));
 
-    EXPECT_EQ(1, row.GetField<int>(0));
+    EXPECT_EQ(1, row.GetField<int>(0ULL));
     EXPECT_EQ("Dan4ick", row.GetField<std::string_view>(1));
     EXPECT_EQ(1, row.GetField<int>("id"));
     EXPECT_EQ("Dan4ick", row.GetField<std::string_view>("name"));
