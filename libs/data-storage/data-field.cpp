@@ -32,6 +32,11 @@ std::string STR<std::string_view>() {
 }
 
 template<>
+std::string STR<std::string>() {
+    return "STRING";
+}
+
+template<>
 std::string STR<double>() {
     return "DOUBLE";
 }
@@ -48,6 +53,11 @@ bool CheckTypeInternal<int>(FieldType fieldType) {
 
 template<>
 bool CheckTypeInternal<std::string_view>(FieldType fieldType) {
+    return fieldType == FieldType::STRING;
+}
+
+template<>
+bool CheckTypeInternal<std::string>(FieldType fieldType) {
     return fieldType == FieldType::STRING;
 }
 

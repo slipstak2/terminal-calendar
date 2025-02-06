@@ -62,7 +62,7 @@ public:
         const DataRow& row = rows[idx];
         DataRowBuilder builder(fields_idx.size());
         for (size_t field_idx : fields_idx) {
-            builder.Add(row.GetRawField(field_idx));
+            builder.Add(row.GetFieldData(field_idx));
         }
         return builder.Result();
     }
@@ -111,13 +111,13 @@ public:
     {}
 
 public:
-    size_t FieldsCount() override;
-    std::string_view GetFieldName(size_t field_num) override;
+    size_t FieldsCount() const override;
+    std::string_view GetFieldName(size_t field_num) const override;
     DataRow GenRow() override;
 
 protected:
-    FieldData GetFieldData(int field_num) override;
-    FieldData GetFieldData(const char* field_name) override;
+    FieldData GetFieldData(int field_num)  const override;
+    FieldData GetFieldData(const char* field_name) const override;
 
 
 protected:

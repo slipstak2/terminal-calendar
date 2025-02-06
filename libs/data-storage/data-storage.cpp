@@ -28,19 +28,19 @@ void DataStorage::AddFieldData(size_t row_idx, const FieldData& field_data) {
 
 
 
-size_t DataStorageRow::FieldsCount() {
+size_t DataStorageRow::FieldsCount() const{
     return row.FieldsCount();
 }
 
-FieldData DataStorageRow::GetFieldData(int field_num) {
-    return row.GetRawField(field_num);
+FieldData DataStorageRow::GetFieldData(int field_num) const {
+    return row.GetFieldData(field_num);
 }
 
-FieldData DataStorageRow::GetFieldData(const char* field_name) {
-    return row.GetRawField(storage->GetFieldIndex(field_name));
+FieldData DataStorageRow::GetFieldData(const char* field_name) const{
+    return row.GetFieldData(storage->GetFieldIndex(field_name));
 }
 
-std::string_view DataStorageRow::GetFieldName(size_t field_num) {
+std::string_view DataStorageRow::GetFieldName(size_t field_num) const {
     return storage->Field(field_num).name;
 }
 

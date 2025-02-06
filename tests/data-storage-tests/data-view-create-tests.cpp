@@ -42,9 +42,9 @@ TEST_F(TestDataViewCreate, AllField_OtherOrder) {
     DataRow view_row = view->GetRow(0);
     EXPECT_EQ(3, view_row.FieldsCount());
 
-    EXPECT_EQ(view_row.GetRawField(0).type, FieldType::DATE);    // 2
-    EXPECT_EQ(view_row.GetRawField(1).type, FieldType::INT);     // 0
-    EXPECT_EQ(view_row.GetRawField(2).type, FieldType::STRING);  // 1
+    EXPECT_EQ(view_row.GetFieldData(0).type, FieldType::DATE);    // 2
+    EXPECT_EQ(view_row.GetFieldData(1).type, FieldType::INT);     // 0
+    EXPECT_EQ(view_row.GetFieldData(2).type, FieldType::STRING);  // 1
 
     EXPECT_EQ(storage::date(1996, 12, 25), view_row.GetField<storage::date>(0));
     EXPECT_EQ(1, view_row.GetField<int>(1));
@@ -59,7 +59,7 @@ TEST_F(TestDataViewCreate, AllField_SingleField) {
     DataRow view_row = view->GetRow(0);
     EXPECT_EQ(1, view_row.FieldsCount());
 
-    EXPECT_EQ(view_row.GetRawField(0).type, FieldType::STRING);  // 1
+    EXPECT_EQ(view_row.GetFieldData(0).type, FieldType::STRING);  // 1
     EXPECT_EQ("Dan4ick", view_row.GetField<std::string_view>(0));
 }
 
@@ -69,8 +69,8 @@ void TestTwoFields(DataViewPtr view) {
     DataRow view_row = view->GetRow(0);
     EXPECT_EQ(2, view_row.FieldsCount());
 
-    EXPECT_EQ(view_row.GetRawField(0).type, FieldType::STRING);  // 1
-    EXPECT_EQ(view_row.GetRawField(1).type, FieldType::INT);     // 0
+    EXPECT_EQ(view_row.GetFieldData(0).type, FieldType::STRING);  // 1
+    EXPECT_EQ(view_row.GetFieldData(1).type, FieldType::INT);     // 0
 
     EXPECT_EQ("Dan4ick", view_row.GetField<std::string_view>(0));
     EXPECT_EQ(1, view_row.GetField<int>(1));

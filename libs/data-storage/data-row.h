@@ -35,65 +35,39 @@ public:
         }
     }
 
+    FieldType GetFieldType(int field_num) const {
+        return GetFieldData(field_num).type;
+    }
+
     template<typename T>
-    const T& GetField(size_t num) const;
-
-    template<>
-    const int& GetField<int>(size_t field_idx) const {
-        // return fields[field_idx].Get<size_t>(); // TODO: Try this
-        return fields[field_idx].val.Int;
+    T GetField(int field_num) const {
+        FieldData data = GetFieldData(field_num);
+        return data.Get<T>();
     }
 
-    template<>
-    const std::string_view& GetField<std::string_view>(size_t field_idx) const {
-        return fields[field_idx].val.String;
-    }
-
-    template<>
-    const double& GetField<double>(size_t field_idx) const {
-        return fields[field_idx].val.Double;
-    }
-
-    template<>
-    const storage::date& GetField<storage::date>(size_t field_idx) const {
-        return fields[field_idx].val.Date;
-    }
-
-    const FieldData& GetRawField(size_t field_idx) const {
+    const FieldData& GetFieldData(size_t field_idx) const {
         return fields[field_idx];
     }
 
     template<typename T>
-    void SetField(size_t num, T value);
+    void SetField(size_t field_num, T value) {
+        CheckType<T>(fields[field_num].type);
+        SetFieldInternal(field_num, value);
+    }
 
-    template<>
-    void SetField<int>(size_t num, int value) {
-        CheckType<int>(fields[num].type);
-        fields[num].val.Int = value;
+    template<typename T>
+    void SetFieldInternal(size_t field_num, T value) {
+        memcpy(&fields[field_num].val, &value, sizeof(value));
     }
 
     template<>
-    void SetField<std::string>(size_t num, std::string value) {
-        CheckType<std::string_view>(fields[num].type);
-        fields[num].val.String = stringStorage.Add(std::move(value));
+    void SetFieldInternal<std::string>(size_t field_num, std::string value) {
+        fields[field_num].val.String = stringStorage.Add(std::move(value));
     }
 
     template<>
-    void SetField<std::string_view>(size_t num, std::string_view value) {
-        CheckType<std::string_view>(fields[num].type);
-        fields[num].val.String = stringStorage.Add(value);
-    }
-
-    template<>
-    void SetField<double>(size_t num, double value) {
-        CheckType<double>(fields[num].type);
-        fields[num].val.Double = value;
-    }
-
-    template<>
-    void SetField<storage::date>(size_t num, storage::date value) {
-        CheckType<storage::date>(fields[num].type);
-        fields[num].val.Date = value;
+    void SetFieldInternal<std::string_view>(size_t field_num, std::string_view value) {
+        fields[field_num].val.String = stringStorage.Add(value);
     }
 
     template<typename... Types>
