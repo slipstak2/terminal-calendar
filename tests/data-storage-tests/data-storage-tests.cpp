@@ -81,17 +81,18 @@ TEST(TestDataStorage, CreateRow) {
     {
         DataRow& row = storage->AddRow<std::string, int>("Dan4ick", 28);
         EXPECT_EQ(row.FieldsCount(), 2);
-        const DataRow& row_actual = storage->GetRow(0);
+        const DataRow& row_actual = storage->GetDataRow(0);
+        DataFieldAccessorPtr row_access = storage->GetRow(0);
         EXPECT_EQ(row, row_actual);
         
         std::string_view name_by_index = row.GetField<std::string_view>(0);
-        std::string_view name_by_field_name = storage->GetField<std::string_view>(row, "name");
+        std::string_view name_by_field_name = row_access->GetField<std::string_view>("name");
 
         EXPECT_EQ(name_by_index, "Dan4ick");
         EXPECT_EQ(name_by_index, name_by_field_name);
         
         int age_by_index = row.GetField<int>(1);
-        int age_by_field_name = storage->GetField<int>(row, "age");
+        int age_by_field_name = row_access->GetField<int>("age");
         EXPECT_EQ(age_by_index, 28);
         EXPECT_EQ(age_by_index, age_by_field_name);
     }

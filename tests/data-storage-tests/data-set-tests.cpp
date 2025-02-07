@@ -28,10 +28,10 @@ TEST_F(TestDataSetCreate, SameAsStorage) {
     auto dataSet = DataSet::Create(storage->View());
     EXPECT_EQ(dataSet->RowsCount(), 3);
 
-    for (size_t row_idx = 0; row_idx < dataSet->RowsCount(); ++row_idx) {
-        DataRow view_row = dataSet->GetViewRow(row_idx);
+    for (size_t row_num = 0; row_num < dataSet->RowsCount(); ++row_num) {
+        DataRow view_row = dataSet->GetViewRow(row_num);
         EXPECT_EQ(3, view_row.FieldsCount());
-        EXPECT_EQ(view_row, storage->GetRow(row_idx));
+        EXPECT_EQ(view_row, storage->GetDataRow(row_num));
     }
 }
 

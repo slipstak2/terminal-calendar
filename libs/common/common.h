@@ -77,6 +77,9 @@ using TerminalVerticalScrollBarPtr = std::shared_ptr<TerminalVerticalScrollBar>;
 class TerminalMonthSwitcher;
 using TerminalMonthSwitcherPtr = std::shared_ptr<TerminalMonthSwitcher>;
 
+class DataFieldAccessor;
+using DataFieldAccessorPtr = std::shared_ptr<DataFieldAccessor>;
+
 class DataStorage;
 using DataStoragePtr = std::shared_ptr<DataStorage>;
 

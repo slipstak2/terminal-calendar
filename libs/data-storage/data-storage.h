@@ -11,6 +11,25 @@
 #include "data-field-accessor.h"
 
 
+class DataStorageRow : public DataFieldAccessor {
+public:
+    DataStorageRow(const DataStoragePtr storage, size_t row_num);
+
+public:
+    size_t FieldsCount() const override;
+    std::string_view GetFieldName(size_t field_num) const override;
+    DataRow FullRow() override;
+
+protected:
+    const FieldData& GetFieldData(size_t field_num)  const override;
+    const FieldData& GetFieldData(const std::string_view field_name) const override;
+
+protected:
+    DataStoragePtr storage;
+    const DataRow& row;
+};
+
+
 class DataSet;
 
 class DataStorage: public std::enable_shared_from_this<DataStorage> {
@@ -49,14 +68,11 @@ public:
         return row;
     }
 
-    template<typename T>
-    T GetField(DataRow& row, std::string_view field_name) { // TODO: where use???
-        return row.GetField<T>(ds_fields_mapping[field_name]);
-    }
-
-    const DataRow& GetRow(size_t idx) const {
+    const DataRow& GetDataRow(size_t idx) const {
         return rows[idx];
     }
+    
+    DataFieldAccessorPtr GetRow(size_t row_num);
 
     DataRow GetRow(size_t idx, const std::vector<size_t>& fields_idx) {
         const DataRow& row = rows[idx];
@@ -100,25 +116,4 @@ protected:
 
     std::vector<FieldDesc> ds_fields_desc;
     std::map<std::string_view, size_t> ds_fields_mapping;
-};
-
-class DataStorageRow : public DataFieldAccessor {
-public:
-    DataStorageRow(const DataStoragePtr storage, size_t row_idx)
-        : storage(storage)
-        , row(storage->GetRow(row_idx))
-    {}
-
-public:
-    size_t FieldsCount() const override;
-    std::string_view GetFieldName(size_t field_num) const override;
-    DataRow GenRow() override;
-
-protected:
-    const FieldData& GetFieldData(size_t field_num)  const override;
-    const FieldData& GetFieldData(const std::string_view field_name) const override;
-
-protected:
-    DataStoragePtr storage;
-    const DataRow& row;
 };

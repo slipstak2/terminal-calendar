@@ -42,10 +42,10 @@ TEST_F(TestDataStorageRow, CheckFirstRow) {
     EXPECT_EQ("name", row.GetFieldName(1));
     EXPECT_EQ("birthday", row.GetFieldName(2));
 
-    DataRow gen_row = row.GenRow();
+    DataRow full_row = row.FullRow();
     DataRow expect_row = DataRow::Create<int, std::string_view, storage::date>(
         1, "Dan4ick", storage::date(1996, 12, 25)
     );
 
-    EXPECT_EQ(expect_row, gen_row);
+    EXPECT_EQ(expect_row, full_row);
 }

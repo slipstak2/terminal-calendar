@@ -21,16 +21,7 @@ public:
         ReserveFieldsCount(fields_count);
     }
 
-    /*
-    DataRow(const std::initializer_list<FieldDesc>& fds) {
-        fields.reserve(fds.size());
-        for (const FieldDesc& fd : fds) {
-            fields.push_back(FieldData(fd.type));
-        }
-    }
-    */
-
-    DataRow GenRow() override {
+    DataRow FullRow() override {
         return *this;
     }
 
@@ -47,8 +38,7 @@ public:
         if (initType) {
             if (fields.size() == field_num) {
                 AddFieldType(FieldTyper(value));
-            }
-            else {
+            } else {
                 fields[field_num].type = FieldTyper(value);
             }
         }

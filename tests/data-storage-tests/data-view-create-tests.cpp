@@ -27,10 +27,10 @@ TEST_F(TestDataViewCreate, AllFields_SameOrder) {
     auto view = DataView::Create(storage);
     EXPECT_EQ(view->RowsCount(), 3);
 
-    for (size_t row_idx = 0; row_idx < view->RowsCount(); ++row_idx) {
-        DataRow view_row = view->GetRow(row_idx);
+    for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
+        DataRow view_row = view->GetRow(row_num);
         EXPECT_EQ(3, view_row.FieldsCount());
-        EXPECT_EQ(view_row, storage->GetRow(row_idx));
+        EXPECT_EQ(view_row, storage->GetDataRow(row_num));
     }
 }
 

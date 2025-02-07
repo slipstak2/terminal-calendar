@@ -1,5 +1,11 @@
 #include "data-storage.h"
 #include "data-view.h"
+#include "data-storage.h"
+
+DataStorageRow::DataStorageRow(const DataStoragePtr storage, size_t row_num)
+    : storage(storage)
+    , row(storage->GetDataRow(row_num))
+{}
 
 DataViewPtr DataStorage::View() {
     return DataView::Create(shared_from_this());
@@ -33,6 +39,10 @@ std::string_view DataStorageRow::GetFieldName(size_t field_num) const {
     return storage->Field(field_num).name;
 }
 
-DataRow DataStorageRow::GenRow() {
+DataRow DataStorageRow::FullRow() {
     return row;
+}
+
+DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
+    return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
 }

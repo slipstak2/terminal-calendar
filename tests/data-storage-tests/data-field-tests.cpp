@@ -10,6 +10,9 @@ TEST(TestDataField, Int) {
 
     EXPECT_EQ(field.type, FieldType::INT);
     EXPECT_EQ(field.Get<int>(), 42);
+
+    field.Set<int>(43);
+    EXPECT_EQ(field.Get<int>(), 43);
 }
 
 TEST(TestDataField, Double) {
@@ -19,6 +22,9 @@ TEST(TestDataField, Double) {
 
     EXPECT_EQ(field.type, FieldType::DOUBLE);
     EXPECT_EQ(field.Get<double>(), 42.5);
+
+    field.Set<double>(50.1);
+    EXPECT_EQ(field.Get<double>(), 50.1);
 }
 
 TEST(TestDataField, String) {
@@ -28,6 +34,9 @@ TEST(TestDataField, String) {
 
     EXPECT_EQ(field.type, FieldType::STRING);
     EXPECT_EQ(field.Get<std::string_view>(), "name");
+
+    field.Set<std::string>("Name");
+    EXPECT_EQ(field.Get<std::string_view>(), "Name");
 }
 
 TEST(TestDataField, Date) {
@@ -38,6 +47,10 @@ TEST(TestDataField, Date) {
 
     EXPECT_EQ(field.type, FieldType::DATE);
     EXPECT_EQ(field.Get<storage::date>(), ymd);
+    
+    storage::date new_ymd(2025, 2, 7);
+    field.Set<storage::date>(new_ymd);
+    EXPECT_EQ(field.Get<storage::date>(), new_ymd);
 }
 
 TEST(TestDataField, WrongCastDate) {
