@@ -22,7 +22,7 @@ public:
     size_t RowsCount() const {
         return view->RowsCount();
     }
-    DataRow GetViewRow(size_t num) {
+    DataFieldAccessorPtr GetViewRow(size_t num) {
         return view->GetRow(num);
     }
 

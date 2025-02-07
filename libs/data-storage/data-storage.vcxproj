@@ -34,6 +34,7 @@
   <ItemGroup>
     <ClCompile Include="data-field.cpp" />
     <ClCompile Include="data-storage.cpp" />
+    <ClCompile Include="data-view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\common.vcxproj">

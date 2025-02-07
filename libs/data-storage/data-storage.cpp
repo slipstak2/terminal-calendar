@@ -31,12 +31,12 @@ const FieldData& DataStorageRow::GetFieldData(size_t field_num) const {
     return row.GetFieldData(field_num);
 }
 
-const FieldData& DataStorageRow::GetFieldData(const std::string_view field_name) const {
-    return row.GetFieldData(storage->GetFieldIndex(field_name));
+size_t DataStorageRow::GetFieldIndex(const std::string_view field_name) const {
+    return storage->GetFieldIndex(field_name);
 }
 
 std::string_view DataStorageRow::GetFieldName(size_t field_num) const {
-    return storage->Field(field_num).name;
+    return storage->GetFieldName(field_num);
 }
 
 DataRow DataStorageRow::FullRow() {

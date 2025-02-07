@@ -5,37 +5,39 @@ class DataRow;
 
 class DataFieldAccessorBase {
 public:
-    virtual size_t FieldsCount() const = 0;
-    virtual DataRow FullRow() = 0;
+    template<typename T>
+    const T& GetField(size_t field_num) const {
+        return GetFieldData(field_num).Get<T>();
+    }
 
     FieldType GetFieldType(size_t field_num) const {
         return GetFieldData(field_num).type;
     }
 
-    template<typename T>
-    const T& GetField(size_t field_num) const {
-        return GetFieldData(field_num).Get<T>();
-    }
+    virtual size_t FieldsCount() const = 0;
+    virtual DataRow FullRow() = 0;
+
 protected:
     virtual const FieldData& GetFieldData(size_t field_num) const = 0;
 };
 
-class DataFieldAccessor : public DataFieldAccessorBase { // aka DataRowWrapper
-public:
-    using DataFieldAccessorBase::GetFieldType;
-    using DataFieldAccessorBase::GetField;
 
-    virtual std::string_view GetFieldName(size_t field_num) const = 0;
-    
+class DataFieldAccessor : public DataFieldAccessorBase {
+public:
+    using DataFieldAccessorBase::GetField;
+    using DataFieldAccessorBase::GetFieldType;
+
     template<typename T>
     const T& GetField(const std::string_view field_name) const {
-        return GetFieldData(field_name).Get<T>();
+        return GetFieldData(GetFieldIndex(field_name)).Get<T>();
     }
 
     FieldType GetFieldType(const std::string_view field_name) const {
-        return GetFieldData(field_name).type;
+        return GetFieldData(GetFieldIndex(field_name)).type;
     }
 
+    virtual std::string_view GetFieldName(size_t field_num) const = 0;
+    
 protected:
-    virtual const FieldData& GetFieldData(const std::string_view field_name) const = 0;
+    virtual size_t GetFieldIndex(const std::string_view field_name) const = 0;
 };

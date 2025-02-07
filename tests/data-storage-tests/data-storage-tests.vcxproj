@@ -111,6 +111,7 @@
     <ClCompile Include="data-storage-row-tests.cpp" />
     <ClCompile Include="data-storage-tests.cpp" />
     <ClCompile Include="data-view-create-tests.cpp" />
+    <ClCompile Include="data-view-row-tests.cpp" />
     <ClCompile Include="data-view-sort-tests.cpp" />
     <ClCompile Include="printer_tests.cpp" />
     <ClCompile Include="pch.cpp">

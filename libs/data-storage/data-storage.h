@@ -22,7 +22,7 @@ public:
 
 protected:
     const FieldData& GetFieldData(size_t field_num)  const override;
-    const FieldData& GetFieldData(const std::string_view field_name) const override;
+    size_t GetFieldIndex(const std::string_view field_name) const override;
 
 protected:
     DataStoragePtr storage;
@@ -56,6 +56,10 @@ public:
         return ds_fields_mapping.at(field_name);
     }
 
+    std::string_view GetFieldName(size_t field_num) const {
+        return ds_fields_desc[field_num].name;
+    }
+
     DataRow& AddEmptyRow() {
         rows.emplace_back(row_dummy);
         return rows.back();
@@ -68,20 +72,11 @@ public:
         return row;
     }
 
-    const DataRow& GetDataRow(size_t idx) const {
-        return rows[idx];
+    const DataRow& GetDataRow(size_t row_num) const {
+        return rows[row_num];
     }
     
     DataFieldAccessorPtr GetRow(size_t row_num);
-
-    DataRow GetRow(size_t idx, const std::vector<size_t>& fields_idx) {
-        const DataRow& row = rows[idx];
-        DataRow result(fields_idx.size());
-        for (size_t field_idx : fields_idx) {
-            result.AddFieldData(row.GetFieldData(field_idx));
-        }
-        return result;
-    }
 
     size_t RowsCount() const {
         return rows.size();

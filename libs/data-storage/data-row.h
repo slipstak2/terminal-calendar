@@ -24,6 +24,13 @@ public:
     DataRow FullRow() override {
         return *this;
     }
+    DataRow GetRow(const std::vector<size_t>& fields_num) const {
+        DataRow result(fields_num.size());
+        for (size_t field_num : fields_num) {
+            result.AddFieldData(GetFieldData(field_num));
+        }
+        return result;
+    }
 
     const FieldData& GetFieldData(size_t field_idx) const override {
         return fields[field_idx];

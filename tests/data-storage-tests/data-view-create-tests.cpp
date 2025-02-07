@@ -28,7 +28,7 @@ TEST_F(TestDataViewCreate, AllFields_SameOrder) {
     EXPECT_EQ(view->RowsCount(), 3);
 
     for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
-        DataRow view_row = view->GetRow(row_num);
+        DataRow view_row = view->GetRow(row_num)->FullRow();
         EXPECT_EQ(3, view_row.FieldsCount());
         EXPECT_EQ(view_row, storage->GetDataRow(row_num));
     }
@@ -39,7 +39,7 @@ TEST_F(TestDataViewCreate, AllField_OtherOrder) {
     auto view = DataView::Create(storage, 2, 0, 1);
     EXPECT_EQ(view->RowsCount(), 3);
 
-    DataRow view_row = view->GetRow(0);
+    DataRow view_row = view->GetRow(0)->FullRow();
     EXPECT_EQ(3, view_row.FieldsCount());
 
     EXPECT_EQ(view_row.GetFieldType(0), FieldType::DATE);    // 2
@@ -56,7 +56,7 @@ TEST_F(TestDataViewCreate, AllField_SingleField) {
     auto view = DataView::Create(storage, 1);
     EXPECT_EQ(view->RowsCount(), 3);
 
-    DataRow view_row = view->GetRow(0);
+    DataRow view_row = view->GetRow(0)->FullRow();
     EXPECT_EQ(1, view_row.FieldsCount());
 
     EXPECT_EQ(view_row.GetFieldType(0), FieldType::STRING);  // 1
@@ -66,7 +66,7 @@ TEST_F(TestDataViewCreate, AllField_SingleField) {
 void TestTwoFields(DataViewPtr view) {
     EXPECT_EQ(view->RowsCount(), 3);
 
-    DataRow view_row = view->GetRow(0);
+    DataRow view_row = view->GetRow(0)->FullRow();
     EXPECT_EQ(2, view_row.FieldsCount());
 
     EXPECT_EQ(view_row.GetFieldType(0), FieldType::STRING);  // 1

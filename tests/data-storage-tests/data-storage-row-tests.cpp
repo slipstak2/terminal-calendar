@@ -24,6 +24,10 @@ TEST_F(TestDataStorageRow, CheckFirstRow) {
     DataStorageRow row(storage, 0);
     EXPECT_EQ(3, row.FieldsCount());
 
+    EXPECT_EQ("id", row.GetFieldName(0));
+    EXPECT_EQ("name", row.GetFieldName(1));
+    EXPECT_EQ("birthday", row.GetFieldName(2));
+
     EXPECT_EQ(FieldType::INT, row.GetFieldType(0));
     EXPECT_EQ(FieldType::INT, row.GetFieldType("id"));
     EXPECT_EQ(FieldType::STRING, row.GetFieldType(1));
@@ -37,10 +41,6 @@ TEST_F(TestDataStorageRow, CheckFirstRow) {
     EXPECT_EQ("Dan4ick", row.GetField<std::string_view>("name"));
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>(2));
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>("birthday"));
-
-    EXPECT_EQ("id", row.GetFieldName(0));
-    EXPECT_EQ("name", row.GetFieldName(1));
-    EXPECT_EQ("birthday", row.GetFieldName(2));
 
     DataRow full_row = row.FullRow();
     DataRow expect_row = DataRow::Create<int, std::string_view, storage::date>(
