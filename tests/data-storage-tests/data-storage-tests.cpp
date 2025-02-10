@@ -5,8 +5,8 @@
 TEST(TestDataStorage, CreateStringDate) {
 
     auto storage = DataStorage::Create(
-        CreateFieldDesc::String("name"), 
-        CreateFieldDesc::Date("birthday")
+        FieldDesc::String("name"),
+        FieldDesc::Date("birthday")
     );
 
     EXPECT_EQ(storage->FieldsCount(), 2);
@@ -48,7 +48,7 @@ TEST(TestDataStorage, CreateStringDate) {
 
 TEST(TestDataStorage, CreateIntDouble) {
 
-    auto storage = DataStorage::Create(CreateFieldDesc::Int("id"), CreateFieldDesc::Double("height"));
+    auto storage = DataStorage::Create(FieldDesc::Int("id"), FieldDesc::Double("height"));
 
     EXPECT_EQ(storage->FieldsCount(), 2);
 
@@ -77,7 +77,7 @@ TEST(TestDataStorage, CreateIntDouble) {
 
 TEST(TestDataStorage, CreateRow) {
 
-    auto storage = DataStorage::Create(CreateFieldDesc::String("name"), CreateFieldDesc::Int("age"));
+    auto storage = DataStorage::Create(FieldDesc::String("name"), FieldDesc::Int("age"));
     {
         DataRow& row = storage->AddRow<std::string, int>("Dan4ick", 28);
         EXPECT_EQ(row.FieldsCount(), 2);

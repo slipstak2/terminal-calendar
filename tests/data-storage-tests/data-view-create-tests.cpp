@@ -8,9 +8,9 @@ class TestDataViewCreate : public ::testing::Test {
 public:
     static void SetUpTestCase() {
         storage = DataStorage::Create(
-            CreateFieldDesc::Int("id"), 
-            CreateFieldDesc::String("name"), 
-            CreateFieldDesc::Date("birthday")
+            FieldDesc::Int("id"), 
+            FieldDesc::String("name"),
+            FieldDesc::Date("birthday")
         );
         storage->AddRow<int, std::string_view, storage::date>(1, "Dan4ick", storage::date(1996, 12, 25));
         storage->AddRow<int, std::string_view, storage::date>(2, "Igor", storage::date(1986, 9, 9));

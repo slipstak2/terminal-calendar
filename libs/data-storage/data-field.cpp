@@ -54,19 +54,19 @@ FieldData FieldData::Date(storage::date value) {
     return { FieldType::DATE, FieldValue(value) };
 }
 
-FieldDesc CreateFieldDesc::Int(std::string name) {
+FieldDesc FieldDesc::Int(std::string name) {
     return { std::move(name), FieldType::INT };
 }
 
-FieldDesc CreateFieldDesc::String(std::string name) {
+FieldDesc FieldDesc::String(std::string name) {
     return { std::move(name), FieldType::STRING };
 }
 
-FieldDesc CreateFieldDesc::Double(std::string name) {
+FieldDesc FieldDesc::Double(std::string name) {
     return { std::move(name), FieldType::DOUBLE};
 }
 
-FieldDesc CreateFieldDesc::Date(std::string name) {
+FieldDesc FieldDesc::Date(std::string name) {
     return { std::move(name), FieldType::DATE };
 }
 

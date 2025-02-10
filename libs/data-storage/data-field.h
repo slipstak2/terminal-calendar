@@ -172,10 +172,7 @@ struct FieldData {
 struct FieldDesc {
     std::string name;
     FieldType type;
-};
 
-class CreateFieldDesc {
-public:
     static FieldDesc Int(std::string name);
     static FieldDesc String(std::string name);
     static FieldDesc Double(std::string name);
