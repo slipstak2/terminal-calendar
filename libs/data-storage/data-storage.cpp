@@ -46,3 +46,40 @@ DataRow DataStorageRow::GetRow() {
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
 }
+
+size_t DataStorage::GetFieldIndex(size_t field_index) const {
+    return field_index;
+}
+
+size_t DataStorage::GetFieldIndex(const std::string_view field_name) const {
+    return ds_fields_mapping.at(field_name);
+}
+
+std::string_view DataStorage::GetFieldName(size_t field_num) const {
+    return ds_fields_desc[field_num].name;
+}
+
+DataRow& DataStorage::AddEmptyRow() {
+    rows.emplace_back(row_dummy);
+    return rows.back();
+}
+
+const DataRow& DataStorage::GetDataRow(size_t row_num) const {
+    return rows[row_num];
+}
+
+size_t DataStorage::RowsCount() const {
+    return rows.size();
+}
+
+bool DataStorage::Empty() const {
+    return rows.empty();
+}
+
+size_t DataStorage::FieldsCount() const {
+    return ds_fields_desc.size();
+}
+
+const FieldDesc& DataStorage::Field(size_t idx) {
+    return ds_fields_desc[idx];
+}

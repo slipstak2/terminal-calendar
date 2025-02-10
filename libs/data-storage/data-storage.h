@@ -15,7 +15,6 @@ class DataStorageRow : public DataFieldAccessor {
 public:
     DataStorageRow(const DataStoragePtr storage, size_t row_num);
 
-public:
     size_t FieldsCount() const override;
     std::string_view GetFieldName(size_t field_num) const override;
     DataRow GetRow() override;
@@ -48,50 +47,31 @@ public:
         return DataView::Create(shared_from_this(), fields...);
     }
 
-    inline size_t GetFieldIndex(size_t field_index) const {
-        return field_index;
-    }
+    size_t GetFieldIndex(size_t field_index) const;
 
-    inline size_t GetFieldIndex(const std::string_view field_name) const {
-        return ds_fields_mapping.at(field_name);
-    }
+    size_t GetFieldIndex(const std::string_view field_name) const;
 
-    std::string_view GetFieldName(size_t field_num) const {
-        return ds_fields_desc[field_num].name;
-    }
+    std::string_view GetFieldName(size_t field_num) const;
 
-    DataRow& AddEmptyRow() {
-        rows.emplace_back(row_dummy);
-        return rows.back();
-    }
+    const DataRow& GetDataRow(size_t row_num) const;
+
+    DataFieldAccessorPtr GetRow(size_t row_num);
+
+    size_t RowsCount() const;
+
+    bool Empty() const;
+
+    size_t FieldsCount() const;
+
+    const FieldDesc& Field(size_t idx);
+
+    DataRow& AddEmptyRow();
 
     template<typename... Types>
     DataRow& AddRow(Types... args) {
         DataRow& row = AddEmptyRow();
         row.Fill(args...);
         return row;
-    }
-
-    const DataRow& GetDataRow(size_t row_num) const {
-        return rows[row_num];
-    }
-    
-    DataFieldAccessorPtr GetRow(size_t row_num);
-
-    size_t RowsCount() const {
-        return rows.size();
-    }
-
-    bool Empty() const {
-        return rows.empty();
-    }
-
-    size_t FieldsCount() const {
-        return ds_fields_desc.size();
-    }
-
-    const FieldDesc& Field(size_t idx) {
-        return ds_fields_desc[idx];
     }
 
 private:
