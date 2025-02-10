@@ -42,7 +42,7 @@ TEST_F(TestDataStorageRow, CheckFirstRow) {
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>(2));
     EXPECT_EQ(storage::date(1996, 12, 25), row.GetField<storage::date>("birthday"));
 
-    DataRow full_row = row.FullRow();
+    DataRow full_row = row.GetRow();
     DataRow expect_row = DataRow::Create<int, std::string_view, storage::date>(
         1, "Dan4ick", storage::date(1996, 12, 25)
     );

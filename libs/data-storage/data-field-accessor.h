@@ -15,7 +15,7 @@ public:
     }
 
     virtual size_t FieldsCount() const = 0;
-    virtual DataRow FullRow() = 0;
+    virtual DataRow GetRow() = 0;
 
 protected:
     virtual const FieldData& GetFieldData(size_t field_num) const = 0;

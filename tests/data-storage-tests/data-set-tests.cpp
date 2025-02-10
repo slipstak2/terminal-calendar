@@ -29,7 +29,7 @@ TEST_F(TestDataSetCreate, SameAsStorage) {
     EXPECT_EQ(dataSet->RowsCount(), 3);
 
     for (size_t row_num = 0; row_num < dataSet->RowsCount(); ++row_num) {
-        DataRow view_row = dataSet->GetViewRow(row_num)->FullRow();
+        DataRow view_row = dataSet->GetViewRow(row_num)->GetRow();
         EXPECT_EQ(3, view_row.FieldsCount());
         EXPECT_EQ(view_row, storage->GetDataRow(row_num));
     }

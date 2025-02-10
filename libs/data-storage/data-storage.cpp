@@ -39,7 +39,7 @@ std::string_view DataStorageRow::GetFieldName(size_t field_num) const {
     return storage->GetFieldName(field_num);
 }
 
-DataRow DataStorageRow::FullRow() {
+DataRow DataStorageRow::GetRow() {
     return row;
 }
 

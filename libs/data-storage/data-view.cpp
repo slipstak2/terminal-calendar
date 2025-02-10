@@ -14,7 +14,7 @@ std::string_view DataViewRow::GetFieldName(size_t field_num) const {
     return view->GetFieldName(field_num);
 }
 
-DataRow DataViewRow::FullRow() {
+DataRow DataViewRow::GetRow() {
     return row.GetRow(view->fields_num);
 }
 

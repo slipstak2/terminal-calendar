@@ -8,11 +8,9 @@
 #include <string_view>
 #include <map>
 
-class DataRowBuilder;
 class DataStorage;
 
 class DataRow : public DataFieldAccessorBase {
-    friend class DataRowBuilder;
     friend class DataStorage;
 
 public:
@@ -21,9 +19,14 @@ public:
         ReserveFieldsCount(fields_count);
     }
 
-    DataRow FullRow() override {
+    size_t FieldsCount() const override {
+        return fields.size();
+    }
+
+    DataRow GetRow() override {
         return *this;
     }
+
     DataRow GetRow(const std::vector<size_t>& fields_num) const {
         DataRow result(fields_num.size());
         for (size_t field_num : fields_num) {
@@ -36,17 +39,13 @@ public:
         return fields[field_idx];
     }
 
-    size_t FieldsCount() const override {
-        return fields.size();
-    }
-
     template<typename T>
     void SetField(size_t field_num, T value, bool initType = false) {
         if (initType) {
             if (fields.size() == field_num) {
                 AddFieldType(FieldTyper(value));
             } else {
-                fields[field_num].type = FieldTyper(value);
+                fields[field_num].type = FieldTyper(value); // or assert?
             }
         }
         FieldData& fieldData = fields[field_num];
@@ -54,6 +53,22 @@ public:
             CheckType<T>(fieldData.type);
         }
         fieldData.Set<T>(value);
+    }
+
+    void ReserveFieldsCount(size_t fields_count) {
+        fields.reserve(fields_count);
+    }
+
+    void AddFieldType(const FieldType& field_type) {
+        fields.emplace_back(field_type);
+    }
+
+    void AddFieldData(const FieldData& field_data) {
+        fields.emplace_back(field_data);
+    }
+
+    bool operator == (const DataRow& other) const {
+        return fields == other.fields;
     }
 
     template<typename... Types>
@@ -67,27 +82,6 @@ public:
         result.CreateInternal(args...);
         return result;
     }
-
-    template<typename... Types>
-    void CreateInternal(Types... args) {
-        CreateImpl(0, args...);
-    }
-
-    void ReserveFieldsCount(size_t fields_count) {
-        fields.reserve(fields_count);
-    }
-
-    bool operator == (const DataRow& other) const {
-        return fields == other.fields;
-    }
-
-    void AddFieldType(const FieldType& field_type) {
-        fields.emplace_back(field_type);
-    }
-
-    void AddFieldData(const FieldData& field_data) {
-        fields.emplace_back(field_data);
-    }
 private:
     template<typename T>
     void FillImpl(size_t num, T t) {
@@ -98,6 +92,11 @@ private:
     void FillImpl(size_t num, T t, Types... args) {
         FillImpl(num, t);
         FillImpl(num + 1, args...);
+    }
+
+    template<typename... Types>
+    void CreateInternal(Types... args) {
+        CreateImpl(0, args...);
     }
 
     template<typename T>

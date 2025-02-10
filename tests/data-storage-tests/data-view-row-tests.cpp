@@ -42,7 +42,7 @@ TEST_F(TestDataViewRow, CheckSecondRow) {
     EXPECT_EQ(2, row.GetField<int>(1));
     EXPECT_EQ(2, row.GetField<int>("id"));
 
-    DataRow full_row = row.FullRow();
+    DataRow full_row = row.GetRow();
     DataRow expect_row = DataRow::Create<std::string_view, int>("Igor", 2);
 
     EXPECT_EQ(expect_row, full_row);
@@ -51,7 +51,7 @@ TEST_F(TestDataViewRow, CheckSecondRow) {
 /*
 TEST_F(TestDataStorageRow, CheckFirstRow) {
 
-    DataRow full_row = row.FullRow();
+    DataRow full_row = row.GetRow();
     DataRow expect_row = DataRow::Create<int, std::string_view, storage::date>(
         1, "Dan4ick", storage::date(1996, 12, 25)
     );
