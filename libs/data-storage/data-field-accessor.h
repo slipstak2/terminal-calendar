@@ -22,7 +22,10 @@ protected:
 };
 
 
+class DataSetRow;
+
 class DataFieldAccessor : public DataFieldAccessorBase {
+    friend class DataSetRow;
 public:
     using DataFieldAccessorBase::GetField;
     using DataFieldAccessorBase::GetFieldType;
@@ -37,7 +40,7 @@ public:
     }
 
     virtual std::string_view GetFieldName(size_t field_num) const = 0;
-    
+
 protected:
     virtual size_t GetFieldIndex(const std::string_view field_name) const = 0;
 };

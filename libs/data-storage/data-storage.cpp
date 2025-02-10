@@ -52,7 +52,11 @@ size_t DataStorage::GetFieldIndex(size_t field_index) const {
 }
 
 size_t DataStorage::GetFieldIndex(const std::string_view field_name) const {
-    return ds_fields_mapping.at(field_name);
+    auto it = ds_fields_mapping.find(field_name);
+    if (it == ds_fields_mapping.end()) {
+        return -1;
+    }
+    return it->second;
 }
 
 std::string_view DataStorage::GetFieldName(size_t field_num) const {

@@ -44,7 +44,11 @@ size_t DataView::GetFieldIndex(size_t field_num) const {
 }
 
 size_t DataView::GetFieldIndex(const std::string_view field_name) const {
-    return dv_fields_mapping.at(field_name);
+    auto it = dv_fields_mapping.find(field_name);
+    if (it == dv_fields_mapping.end()) {
+        return -1;
+    }
+    return it->second;
 }
 
 DataFieldAccessorPtr DataView::GetRow(size_t row_num) {

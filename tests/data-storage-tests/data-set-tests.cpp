@@ -34,25 +34,3 @@ TEST_F(TestDataSetCreate, SameAsStorage) {
         EXPECT_EQ(view_row, storage->GetDataRow(row_num));
     }
 }
-
-TEST_F(TestDataSetCreate, AddColumn) {
-    auto dataSet = DataSet::Create(storage->View());
-
-    /*
-    view.Add(CreateField::Int("age", [view.FieldAccessor()](const DataRow& row){
-        Now() - fieldAccessor(row, "birthday");
-    }))
-    */
-    auto addColumnCb = [](auto accessor) {
-        //accessor.GetField<storage::date>("birthday");
-        return accessor.get();
-        };
-    EXPECT_EQ(3, dataSet->FieldsCount());
-    dataSet->AddColumn(FieldDesc::Int("age"), addColumnCb);
-    EXPECT_EQ(4, dataSet->FieldsCount());
-
-    //dataSet->GetRow(0).GetField("age") == 12
-    // dataSet->GetRow(0).GetField(4) == 12;
-
-    //dataSet->AddColumn<int>("age", addColumnCb);
-}

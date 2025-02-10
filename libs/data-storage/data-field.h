@@ -12,13 +12,13 @@ namespace storage {
         date(int year, int month, int day) 
             : data(std::chrono::year(year) / std::chrono::month(month) / std::chrono::day(day))
         {}
-        int year() {
+        int year() const {
             return static_cast<int>(data.year());
         }
-        int month() {
+        int month() const {
             return static_cast<unsigned int>(data.month());
         }
-        int day() {
+        int day() const {
             return static_cast<unsigned int>(data.day());
         }
         bool operator == (const date& other) const {

@@ -3,7 +3,10 @@
 #include "common.h"
 #include "data-storage.h"
 
+class DataSetRow;
+
 class DataViewRow : public DataFieldAccessor {
+    friend class DataSetRow;
 public:
     DataViewRow(const DataViewPtr view, size_t row_num);
 
