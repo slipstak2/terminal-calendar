@@ -37,13 +37,7 @@ public:
         return view->GetRow(num);
     }
 
-    size_t FieldsCount() const {
-        return view->FieldsCount() + storage->FieldsCount();
-    }
-
-    size_t FieldsCount() { // TODO: const vs non const
-        return view->FieldsCount() + storage->FieldsCount();
-    }
+    size_t FieldsCount() const override;
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
     

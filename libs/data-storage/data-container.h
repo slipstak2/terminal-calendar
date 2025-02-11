@@ -10,4 +10,6 @@ public:
         return field_index;
     }
     virtual size_t GetFieldIndex(const std::string_view field_name) const = 0;
+
+    virtual size_t FieldsCount() const = 0;
 };

@@ -23,9 +23,11 @@ protected:
 
 
 class DataSetRow;
+class DataViewRow;
 
 class DataFieldAccessor : public DataFieldAccessorBase {
     friend class DataSetRow;
+    friend class DataViewRow;
 public:
     using DataFieldAccessorBase::GetField;
     using DataFieldAccessorBase::GetFieldType;

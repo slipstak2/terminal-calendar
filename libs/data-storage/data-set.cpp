@@ -60,3 +60,7 @@ size_t DataSet::GetFieldIndex(const std::string_view field_name) const {
     }
     return -1;
 }
+
+size_t DataSet::FieldsCount() const {
+    return view->FieldsCount() + storage->FieldsCount();
+}

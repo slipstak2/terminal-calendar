@@ -51,7 +51,7 @@ public:
 
     DataFieldAccessorPtr GetRow(size_t row_num);
 
-    size_t FieldsCount() const;
+    size_t FieldsCount() const override;
 
 private:
     DataView(DataStoragePtr s);

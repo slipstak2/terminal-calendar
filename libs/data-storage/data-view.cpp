@@ -30,7 +30,6 @@ const DataRow& DataView::GetRowFromStorage(size_t row_num) {
     return storage->GetDataRow(row_num);
 }
 
-
 size_t DataView::RowsCount() const {
     return rows_idx.size();
 }

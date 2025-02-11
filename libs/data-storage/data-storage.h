@@ -62,7 +62,7 @@ public:
 
     bool Empty() const;
 
-    size_t FieldsCount() const;
+    size_t FieldsCount() const override;
 
     const FieldDesc& Field(size_t idx);
 
