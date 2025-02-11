@@ -24,6 +24,10 @@ namespace storage {
         bool operator == (const date& other) const {
             return data == other.data;
         }
+        date operator + (const std::chrono::year y) const {
+            date result(year() + static_cast<int>(y), month(), day());
+            return result;
+        }
     private:
         std::chrono::year_month_day data;
     };
@@ -164,9 +168,14 @@ struct FieldData {
         if (type == FieldType::STRING) {
             return val.String == other.val.String;
         }
+        if (type == FieldType::DOUBLE) {
+            return fabs(val.Double - other.val.Double) <= EPS;
+        }
         
         return val == other.val;
     }
+public:
+    static constexpr double EPS = 1e-8;
 };
 
 struct FieldDesc {
