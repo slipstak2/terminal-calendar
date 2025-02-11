@@ -40,15 +40,23 @@ const FieldData& DataSetRow::GetFieldData(size_t field_num) const {
 }
 
 size_t DataSetRow::GetFieldIndex(const std::string_view field_name) const {
-    if (size_t field_index = dataSet->view->GetFieldIndex(field_name); field_index != -1) {
-        return field_index;
-    }
-    if (size_t field_index = dataSet->storage->GetFieldIndex(field_name); field_index != -1) {
-        return dataSet->view->FieldsCount() + field_index;
-    }
-    return -1;
+    return dataSet->GetFieldIndex(field_name);
+}
+
+size_t DataSet::RowsCount() const {
+    return view->RowsCount();
 }
 
 DataFieldAccessorPtr DataSet::GetRow(size_t row_num) {
     return std::make_shared<DataSetRow>(shared_from_this(), row_num);
+}
+
+size_t DataSet::GetFieldIndex(const std::string_view field_name) const {
+    if (size_t field_index = view->GetFieldIndex(field_name); field_index != -1) {
+        return field_index;
+    }
+    if (size_t field_index = storage->GetFieldIndex(field_name); field_index != -1) {
+        return view->FieldsCount() + field_index;
+    }
+    return -1;
 }

@@ -47,10 +47,6 @@ DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
 }
 
-size_t DataStorage::GetFieldIndex(size_t field_index) const {
-    return field_index;
-}
-
 size_t DataStorage::GetFieldIndex(const std::string_view field_name) const {
     auto it = ds_fields_mapping.find(field_name);
     if (it == ds_fields_mapping.end()) {

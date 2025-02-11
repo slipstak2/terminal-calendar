@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="data-container.h" />
     <ClInclude Include="data-field-accessor.h" />
     <ClInclude Include="data-row.h" />
     <ClInclude Include="data-set.h" />

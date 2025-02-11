@@ -39,10 +39,6 @@ std::string_view DataView::GetFieldName(size_t field_num) const {
     return storage->GetFieldName(fields_num[field_num]);
 }
 
-size_t DataView::GetFieldIndex(size_t field_num) const {
-    return field_num;
-}
-
 size_t DataView::GetFieldIndex(const std::string_view field_name) const {
     auto it = dv_fields_mapping.find(field_name);
     if (it == dv_fields_mapping.end()) {

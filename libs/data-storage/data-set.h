@@ -22,16 +22,16 @@ protected:
     DataFieldAccessorPtr storageRow;
 };
 
-class DataSet : public std::enable_shared_from_this<DataSet> {
+class DataSet : public DataContainer<DataSet> {
     friend class DataSetRow;
 public:
+    using DataContainer<DataSet>::GetFieldIndex;
+
     static DataSetPtr Create(DataViewPtr view) {
         return DataSetPtr(new DataSet(view));
     }
 
-    size_t RowsCount() const {
-        return view->RowsCount();
-    }
+    size_t RowsCount() const override;
 
     DataFieldAccessorPtr GetViewRow(size_t num) {
         return view->GetRow(num);
@@ -44,6 +44,9 @@ public:
     size_t FieldsCount() { // TODO: const vs non const
         return view->FieldsCount() + storage->FieldsCount();
     }
+
+    size_t GetFieldIndex(const std::string_view field_name) const override;
+    
     DataFieldAccessorPtr GetRow(size_t row_num);
 
     template<typename AddColumnCb>

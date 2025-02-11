@@ -2,13 +2,13 @@
 
 #include "common.h"
 #include "data-row.h"
+#include "data-container.h"
 
 #include <vector>
 #include <string>
 #include <string_view>
 #include <map>
 #include <deque>
-#include "data-field-accessor.h"
 
 
 class DataStorageRow : public DataFieldAccessor {
@@ -31,9 +31,12 @@ protected:
 
 class DataSet;
 
-class DataStorage: public std::enable_shared_from_this<DataStorage> {
+class DataStorage: public DataContainer<DataStorage> {
     friend class DataSet;
+
 public:
+    using DataContainer<DataStorage>::GetFieldIndex;
+
     template<typename ...FieldDescT>
     static std::shared_ptr<DataStorage> Create(FieldDescT... fds) {
         return std::shared_ptr<DataStorage>(new DataStorage({fds...}));
@@ -47,9 +50,7 @@ public:
         return DataView::Create(shared_from_this(), fields...);
     }
 
-    size_t GetFieldIndex(size_t field_index) const;
-
-    size_t GetFieldIndex(const std::string_view field_name) const;
+    size_t GetFieldIndex(const std::string_view field_name) const override;
 
     std::string_view GetFieldName(size_t field_num) const;
 
@@ -57,7 +58,7 @@ public:
 
     DataFieldAccessorPtr GetRow(size_t row_num);
 
-    size_t RowsCount() const;
+    size_t RowsCount() const override;
 
     bool Empty() const;
 

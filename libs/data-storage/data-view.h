@@ -24,10 +24,12 @@ protected:
     const DataRow& row;
 };
 
-class DataView : public std::enable_shared_from_this<DataView> {
+class DataView : public DataContainer<DataView> {
     friend class DataViewRow;
 
 public:
+    using DataContainer<DataView>::GetFieldIndex;
+
     static DataViewPtr Create(DataStoragePtr s) {
         return DataViewPtr(new DataView(s));
     }
@@ -41,13 +43,11 @@ public:
         return DataViewPtr(new DataView(s, fields_idx));
     }
 
-    size_t RowsCount() const;
+    size_t RowsCount() const override;
 
     std::string_view GetFieldName(size_t field_num) const;
 
-    size_t GetFieldIndex(size_t field_num) const;
-
-    size_t GetFieldIndex(const std::string_view field_name) const;
+    size_t GetFieldIndex(const std::string_view field_name) const override;
 
     DataFieldAccessorPtr GetRow(size_t row_num);
 
