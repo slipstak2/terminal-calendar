@@ -3,7 +3,7 @@
 
 DataViewRow::DataViewRow(const DataViewPtr view, size_t row_num) 
     : view(view)
-    , row(view->GetRowFromStorage(row_num))
+    , row(view->GetRowFromParent(row_num))
 {}
 
 size_t DataViewRow::FieldsCount() const {
@@ -15,19 +15,15 @@ std::string_view DataViewRow::GetFieldName(size_t field_num) const {
 }
 
 DataRow DataViewRow::GetRow() const {
-    return row.GetRow(view->fields_num);
+    return row->GetRow(view->fields_num);
 }
 
 const FieldData& DataViewRow::GetFieldData(size_t field_num)  const {
-    return row.GetFieldData(view->fields_num[field_num]);
+    return row->GetFieldData(view->fields_num[field_num]);
 }
 
 size_t DataViewRow::GetFieldIndex(const std::string_view field_name) const {
     return view->GetFieldIndex(field_name);
-}
-
-const DataRow& DataView::GetRowFromStorage(size_t row_num) {
-    return storage->GetDataRow(row_num);
 }
 
 size_t DataView::RowsCount() const {
@@ -48,6 +44,10 @@ size_t DataView::GetFieldIndex(const std::string_view field_name) const {
 
 DataFieldAccessorPtr DataView::GetRow(size_t row_num) {
     return std::make_shared<DataViewRow>(shared_from_this(), row_num);
+}
+
+DataFieldAccessorPtr DataView::GetRowFromParent(size_t row_num) {
+    return storage->GetRow(row_num);
 }
 
 size_t DataView::FieldsCount() const {

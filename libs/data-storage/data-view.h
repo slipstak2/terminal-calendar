@@ -21,7 +21,7 @@ protected:
 
 protected:
     DataViewPtr view;
-    const DataRow& row;
+    DataFieldAccessorPtr row;
 };
 
 class DataView : public DataContainer<DataView> {
@@ -50,6 +50,7 @@ public:
     size_t GetFieldIndex(const std::string_view field_name) const override;
 
     DataFieldAccessorPtr GetRow(size_t row_num);
+    DataFieldAccessorPtr GetRowFromParent(size_t row_num);
 
     size_t FieldsCount() const override;
 
@@ -61,7 +62,6 @@ private:
     void InitAllRows();
     void InitAllFields();
     void InitFieldsMapping();
-    const DataRow& GetRowFromStorage(size_t row_num);
 
 protected:
     DataStoragePtr storage;
