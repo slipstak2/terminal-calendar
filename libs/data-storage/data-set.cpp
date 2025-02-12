@@ -13,11 +13,7 @@ size_t DataSetRow::FieldsCount() const {
 }
 
 std::string_view DataSetRow::GetFieldName(size_t field_num) const {
-    if (field_num < dataSet->view->FieldsCount()) {
-        return dataSet->view->GetFieldName(field_num);
-    } else {
-        return dataSet->storage->GetFieldName(field_num - dataSet->view->FieldsCount());
-    }
+    return dataSet->GetFieldName(field_num);
 }
 
 DataRow DataSetRow::GetRow() {
@@ -59,6 +55,15 @@ size_t DataSet::GetFieldIndex(const std::string_view field_name) const {
         return view->FieldsCount() + field_index;
     }
     return -1;
+}
+
+std::string_view DataSet::GetFieldName(size_t field_num) const {
+    if (field_num < view->FieldsCount()) {
+        return view->GetFieldName(field_num);
+    }
+    else {
+        return storage->GetFieldName(field_num - view->FieldsCount());
+    }
 }
 
 size_t DataSet::FieldsCount() const {

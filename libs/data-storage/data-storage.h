@@ -52,7 +52,7 @@ public:
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
 
-    std::string_view GetFieldName(size_t field_num) const;
+    std::string_view GetFieldName(size_t field_num) const override;
 
     const DataRow& GetDataRow(size_t row_num) const;
 
