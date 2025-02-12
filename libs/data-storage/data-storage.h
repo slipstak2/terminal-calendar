@@ -56,7 +56,7 @@ public:
 
     const DataRow& GetDataRow(size_t row_num) const;
 
-    DataFieldAccessorPtr GetRow(size_t row_num);
+    DataFieldAccessorPtr GetRow(size_t row_num) override;
 
     size_t RowsCount() const override;
 

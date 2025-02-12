@@ -14,4 +14,6 @@ public:
     virtual size_t FieldsCount() const = 0;
 
     virtual std::string_view GetFieldName(size_t field_num) const = 0;
+
+    virtual DataFieldAccessorPtr GetRow(size_t row_num) = 0;
 };

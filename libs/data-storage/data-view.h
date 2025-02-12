@@ -49,7 +49,7 @@ public:
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
 
-    DataFieldAccessorPtr GetRow(size_t row_num);
+    DataFieldAccessorPtr GetRow(size_t row_num) override;
     DataFieldAccessorPtr GetRowFromParent(size_t row_num);
 
     size_t FieldsCount() const override;

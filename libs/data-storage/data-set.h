@@ -43,7 +43,7 @@ public:
 
     std::string_view GetFieldName(size_t field_num) const override;
     
-    DataFieldAccessorPtr GetRow(size_t row_num);
+    DataFieldAccessorPtr GetRow(size_t row_num) override;
 
     template<typename AddColumnCb>
     void AddColumn(const FieldDesc& fd, const AddColumnCb& cb) {
