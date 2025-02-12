@@ -1,5 +1,9 @@
 #pragma once
+
+#include "data-field.h"
+
 #include <string_view>
+#include <vector>
 
 class DataRow;
 
@@ -15,7 +19,9 @@ public:
     }
 
     virtual size_t FieldsCount() const = 0;
-    virtual DataRow GetRow() = 0;
+
+    virtual DataRow GetRow() const = 0;
+    DataRow GetRow(const std::vector<size_t>& fields_num) const;
 
 protected:
     virtual const FieldData& GetFieldData(size_t field_num) const = 0;

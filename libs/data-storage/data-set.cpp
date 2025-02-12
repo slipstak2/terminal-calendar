@@ -16,7 +16,7 @@ std::string_view DataSetRow::GetFieldName(size_t field_num) const {
     return dataSet->GetFieldName(field_num);
 }
 
-DataRow DataSetRow::GetRow() {
+DataRow DataSetRow::GetRow() const {
     DataRow result(FieldsCount());
     for (size_t field_num = 0; field_num < viewRow->FieldsCount(); ++field_num) {
         result.AddFieldData(viewRow->GetFieldData(field_num));

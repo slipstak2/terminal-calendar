@@ -11,13 +11,13 @@
 #include <deque>
 
 
-class DataStorageRow : public DataFieldAccessor {
+class DataStorageRow : public DataFieldAccessor { // DataStorageRow == DataRow ???
 public:
     DataStorageRow(const DataStoragePtr storage, size_t row_num);
 
     size_t FieldsCount() const override;
     std::string_view GetFieldName(size_t field_num) const override;
-    DataRow GetRow() override;
+    DataRow GetRow() const override;
 
 protected:
     const FieldData& GetFieldData(size_t field_num)  const override;

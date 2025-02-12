@@ -10,7 +10,7 @@ public:
 
     size_t FieldsCount() const override;
     std::string_view GetFieldName(size_t field_num) const override;
-    DataRow GetRow() override;
+    DataRow GetRow() const override;
 
 protected:
     const FieldData& GetFieldData(size_t field_num)  const override;

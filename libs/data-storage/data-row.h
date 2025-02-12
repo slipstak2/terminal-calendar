@@ -1,4 +1,5 @@
 #pragma once
+
 #include "common.h"
 #include "data-field.h"
 #include "data-field-accessor.h"
@@ -12,6 +13,8 @@ class DataStorage;
 
 class DataRow : public DataFieldAccessorBase {
     friend class DataStorage;
+public:
+    using DataFieldAccessorBase::GetRow;
 
 public:
     DataRow() = default;
@@ -23,16 +26,8 @@ public:
         return fields.size();
     }
 
-    DataRow GetRow() override {
+    DataRow GetRow() const override {
         return *this;
-    }
-
-    DataRow GetRow(const std::vector<size_t>& fields_num) const {
-        DataRow result(fields_num.size());
-        for (size_t field_num : fields_num) {
-            result.AddFieldData(GetFieldData(field_num));
-        }
-        return result;
     }
 
     const FieldData& GetFieldData(size_t field_idx) const override {

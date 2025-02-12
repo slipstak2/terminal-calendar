@@ -62,5 +62,8 @@
     <ClCompile Include="data-set.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="data-field-accessor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
