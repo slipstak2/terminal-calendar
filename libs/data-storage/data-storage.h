@@ -31,11 +31,11 @@ protected:
 
 class DataSet;
 
-class DataStorage: public DataContainer<DataStorage> {
+class DataStorage: public DataContainer, public std::enable_shared_from_this<DataStorage> {
     friend class DataSet;
 
 public:
-    using DataContainer<DataStorage>::GetFieldIndex;
+    using DataContainer::GetFieldIndex;
 
     template<typename ...FieldDescT>
     static std::shared_ptr<DataStorage> Create(FieldDescT... fds) {

@@ -31,7 +31,7 @@ size_t DataView::RowsCount() const {
 }
 
 std::string_view DataView::GetFieldName(size_t field_num) const {
-    return storage->GetFieldName(fields_num[field_num]);
+    return container->GetFieldName(fields_num[field_num]);
 }
 
 size_t DataView::GetFieldIndex(const std::string_view field_name) const {
@@ -47,33 +47,35 @@ DataFieldAccessorPtr DataView::GetRow(size_t row_num) {
 }
 
 DataFieldAccessorPtr DataView::GetRowFromParent(size_t row_num) {
-    return storage->GetRow(row_num);
+    return container->GetRow(row_num);
 }
 
 size_t DataView::FieldsCount() const {
     return fields_num.size();
 }
 
-DataView::DataView(DataStoragePtr s) : storage(s) {
+DataView::DataView(const DataContainerPtr container) : container(container) {
     InitAllRows();
     InitAllFields();
     InitFieldsMapping();
 }
 
-DataView::DataView(DataStoragePtr s, std::vector<size_t> fields_num) : storage(s), fields_num(std::move(fields_num)) {
+DataView::DataView(const DataContainerPtr container, std::vector<size_t> fields_num) 
+    : container(container)
+    , fields_num(std::move(fields_num)) {
     InitAllRows();
     InitFieldsMapping();
 }
 
 void DataView::InitAllRows() {
-    size_t rows_cnt = storage->RowsCount();
+    size_t rows_cnt = container->RowsCount();
     rows_idx.resize(rows_cnt);
     for (size_t idx = 0; idx < rows_cnt; ++idx) {
         rows_idx[idx] = idx;
     }
 }
 void DataView::InitAllFields() {
-    size_t fields_cnt = storage->FieldsCount();
+    size_t fields_cnt = container->FieldsCount();
     fields_num.resize(fields_cnt);
     for (size_t field_num = 0; field_num < fields_cnt; ++field_num) {
         fields_num[field_num] = field_num;
@@ -81,6 +83,6 @@ void DataView::InitAllFields() {
 }
 void DataView::InitFieldsMapping() {
     for (size_t field_num = 0; field_num < fields_num.size(); ++field_num) {
-        dv_fields_mapping[storage->GetFieldName(fields_num[field_num])] = field_num;
+        dv_fields_mapping[container->GetFieldName(fields_num[field_num])] = field_num;
     }
 }

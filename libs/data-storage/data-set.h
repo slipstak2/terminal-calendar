@@ -22,10 +22,10 @@ protected:
     DataFieldAccessorPtr storageRow;
 };
 
-class DataSet : public DataContainer<DataSet> {
+class DataSet : public DataContainer, public std::enable_shared_from_this<DataSet> {
     friend class DataSetRow;
 public:
-    using DataContainer<DataSet>::GetFieldIndex;
+    using DataContainer::GetFieldIndex;
 
     static DataSetPtr Create(DataViewPtr view) {
         return DataSetPtr(new DataSet(view));

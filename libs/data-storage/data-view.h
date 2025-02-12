@@ -24,17 +24,17 @@ protected:
     DataFieldAccessorPtr row;
 };
 
-class DataView : public DataContainer<DataView> {
+class DataView : public DataContainer, public std::enable_shared_from_this<DataView> {
     friend class DataViewRow;
 
 public:
-    using DataContainer<DataView>::GetFieldIndex;
+    using DataContainer::GetFieldIndex;
 
-    static DataViewPtr Create(DataStoragePtr s) {
+    static DataViewPtr Create(DataContainerPtr s) {
         return DataViewPtr(new DataView(s));
     }
     template<typename ...FieldTypes>
-    static DataViewPtr Create(DataStoragePtr s, FieldTypes... fields) {
+    static DataViewPtr Create(DataContainerPtr s, FieldTypes... fields) {
         std::vector<size_t> fields_idx;
         fields_idx.reserve(sizeof...(fields));
 
@@ -55,16 +55,16 @@ public:
     size_t FieldsCount() const override;
 
 private:
-    DataView(DataStoragePtr s);
+    DataView(DataContainerPtr s);
 
-    DataView(DataStoragePtr s, std::vector<size_t> fields_num);
+    DataView(DataContainerPtr s, std::vector<size_t> fields_num);
 
     void InitAllRows();
     void InitAllFields();
     void InitFieldsMapping();
 
 protected:
-    DataStoragePtr storage;
+    DataContainerPtr container;
     std::vector<size_t> rows_idx;
     std::vector<size_t> fields_num;
     std::map<std::string_view, size_t> dv_fields_mapping;

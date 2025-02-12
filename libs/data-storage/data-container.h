@@ -1,8 +1,7 @@
 #pragma once
 #include <string_view>
 
-template<typename T>
-class DataContainer : public std::enable_shared_from_this<T> {
+class DataContainer {
 public:
     virtual size_t RowsCount() const = 0;
 
