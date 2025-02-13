@@ -1,6 +1,8 @@
 #pragma once
 #include "defines.h"
+
 #include <string_view>
+#include <functional>
 
 class DataContainer {
 public:
@@ -17,5 +19,7 @@ public:
 
     virtual DataFieldAccessorPtr GetRow(size_t row_num) = 0;
 
-    VIRTUAL_DECLARATIONS_VIEW
+    VIRTUAL_DECLARATIONS_VIEW;
+    
+    virtual DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) = 0;
 };

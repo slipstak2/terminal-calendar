@@ -71,3 +71,14 @@ std::string_view DataSet::GetFieldName(size_t field_num) const {
 size_t DataSet::FieldsCount() const {
     return view->FieldsCount() + storage->FieldsCount();
 }
+
+
+DataContainerPtr DataSet::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
+    storage->AddFieldDesc(fd);
+    for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
+        DataRow& storage_row = storage->rows[row_num];
+        DataSetRow dataset_row(shared_from_this(), row_num);
+        storage_row.AddFieldData(FieldData(fd.type, cb(dataset_row)));
+    }
+    return shared_from_this();
+}

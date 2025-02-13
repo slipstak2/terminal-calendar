@@ -30,7 +30,9 @@ class DataView : public DataContainer, public std::enable_shared_from_this<DataV
 public:
     using DataContainer::GetFieldIndex;
 
-    OVERRIDE_DECLARATIONS_VIEW
+    OVERRIDE_DECLARATIONS_VIEW;
+    
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) override;
 
     static DataViewPtr Create(DataContainerPtr s) {
         return DataViewPtr(new DataView(s));

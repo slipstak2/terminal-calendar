@@ -1,6 +1,6 @@
 #include "data-storage.h"
 #include "data-view.h"
-#include "data-storage.h"
+#include "data-set.h"
 #include "defines.h"
 
 DataStorageRow::DataStorageRow(const DataStoragePtr storage, size_t row_num)
@@ -41,6 +41,10 @@ DataRow DataStorageRow::GetRow() const {
 }
 
 DEFINITIONS_VIEW(DataStorage)
+
+DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
+    return View()->AddColumn(fd, cb);
+}
 
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);

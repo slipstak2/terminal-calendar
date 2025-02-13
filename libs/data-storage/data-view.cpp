@@ -1,4 +1,5 @@
 #include "data-view.h"
+#include "data-set.h"
 
 
 DataViewRow::DataViewRow(const DataViewPtr view, size_t row_num) 
@@ -27,6 +28,10 @@ size_t DataViewRow::GetFieldIndex(const std::string_view field_name) const {
 }
 
 DEFINITIONS_VIEW(DataView)
+
+DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
+    return DataSet::Create(shared_from_this())->AddColumn(fd, cb);
+}
 
 size_t DataView::RowsCount() const {
     return rows_idx.size();

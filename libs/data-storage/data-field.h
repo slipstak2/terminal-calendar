@@ -54,7 +54,21 @@ std::string ToString() {
     return ToString(FieldTyper(T()));
 }
 
+
+class StringHeapStorage {
+public:
+    std::string_view Add(std::string_view sv) {
+        data.emplace_back(sv);
+        return data.back();
+    }
+protected:
+    std::deque<std::string> data;
+};
+
+
 union FieldValue {
+    static StringHeapStorage StringStorage;
+
     FieldValue() {
         Clear();
     }
@@ -65,7 +79,11 @@ union FieldValue {
     }
     FieldValue(std::string_view value) {
         Clear();
-        String = value;
+        String = StringStorage.Add(value);
+    }
+    FieldValue(std::string value) {
+        Clear();
+        String = StringStorage.Add(std::move(value));
     }
     FieldValue(double value) {
         Clear();
@@ -101,22 +119,10 @@ bool CheckType(FieldType fieldType) {
     return true;
 }
 
-class StringHeapStorage {
-public:
-    std::string_view Add(std::string_view sv) {
-        data.emplace_back(sv);
-        return data.back();
-    }
-protected:
-    std::deque<std::string> data;
-};
-
 
 struct FieldData {
     FieldType type;
     FieldValue val;
-
-    static StringHeapStorage stringStorage;
 
     FieldData() = default;
 
@@ -153,12 +159,12 @@ struct FieldData {
 
     template<>
     void Set(std::string value) {
-        val.String = stringStorage.Add(std::move(value));
+        val.String = FieldValue::StringStorage.Add(std::move(value));
     }
 
     template<>
     void Set(std::string_view value) {
-        val.String = stringStorage.Add(value);
+        val.String = FieldValue::StringStorage.Add(value);
     }
 
     bool operator == (const FieldData& other) const {

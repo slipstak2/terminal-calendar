@@ -1,6 +1,6 @@
 #include "data-field.h"
 
-StringHeapStorage FieldData::stringStorage;
+StringHeapStorage FieldValue::StringStorage;
 
 FieldType FieldTyper(int) {
     return FieldType::INT;

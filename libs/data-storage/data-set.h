@@ -4,6 +4,8 @@
 #include "data-storage.h"
 #include "data-field-accessor.h"
 
+#include <functional>
+
 class DataSetRow : public DataFieldAccessor {
 public:
     DataSetRow(const DataSetPtr dataSet, const size_t row_num);
@@ -47,17 +49,7 @@ public:
     
     DataFieldAccessorPtr GetRow(size_t row_num) override;
 
-    template<typename AddColumnCb>
-    void AddColumn(const FieldDesc& fd, const AddColumnCb& cb) {
-        storage->AddFieldDesc(fd);
-        for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
-            DataRow& storage_row = storage->rows[row_num];
-            DataSetRow dataset_row(shared_from_this(), row_num);
-            storage_row.AddFieldData(FieldData(fd.type, FieldValue(
-                cb(dataset_row)
-            )));
-        }
-    }
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) override;
 
 private:
     DataSet(DataViewPtr v): view(v), storage(DataStorage::Create()) {

@@ -134,11 +134,11 @@ TEST_F(TestDataSetRow, AddColumnString) {
 
     dataSet->AddColumn(FieldDesc::String("university"), [](const DataFieldAccessor& row) {
         if (row.GetField<int>("id") == 1) {
-            return "Saratov SU";
+            return std::string_view("Saratov SU");
         } else {
-            return "Astrakhan S(T)U";
+            return std::string_view("Astrakhan S(T)U");
         }
-        });
+    });
 
     EXPECT_EQ(3, dataSet->RowsCount());
     EXPECT_EQ(4, dataSet->FieldsCount());
