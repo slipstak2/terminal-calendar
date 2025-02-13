@@ -43,7 +43,7 @@ public:
     }
 
 public:
-    DataViewPtr View();
+    DataViewPtr View() override;
 
     template<typename ...FieldTypes>
     DataViewPtr View(FieldTypes... fields) {

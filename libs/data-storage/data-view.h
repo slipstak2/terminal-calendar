@@ -34,14 +34,16 @@ public:
         return DataViewPtr(new DataView(s));
     }
     template<typename ...FieldTypes>
-    static DataViewPtr Create(DataContainerPtr s, FieldTypes... fields) {
+    static DataViewPtr Create(DataContainerPtr container, FieldTypes... fields) {
         std::vector<size_t> fields_idx;
         fields_idx.reserve(sizeof...(fields));
 
-        (..., (fields_idx.push_back(s->GetFieldIndex(fields))));
+        (..., (fields_idx.push_back(container->GetFieldIndex(fields))));
 
-        return DataViewPtr(new DataView(s, fields_idx));
+        return DataViewPtr(new DataView(container, fields_idx));
     }
+
+    DataViewPtr View() override;
 
     size_t RowsCount() const override;
 

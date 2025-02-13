@@ -2,6 +2,7 @@
 
 #include "data-storage.h"
 #include "data-view.h"
+#include "data-set.h"
 
 class TestDataViewCreate : public ::testing::Test {
 
@@ -96,4 +97,15 @@ TEST_F(TestDataViewCreate, FromDataStorage) {
 
     auto view_by_mix2 = storage->View("name", 0);
     TestTwoFields(view_by_mix2);
+}
+
+TEST_F(TestDataViewCreate, FromDataView) {
+    auto view = storage->View(1, 0)->View();
+    EXPECT_EQ(2, view->FieldsCount());
+}
+
+TEST_F(TestDataViewCreate, FromDataSet) {
+    auto dataSet = DataSet::Create(storage->View(1, 0));
+    auto view = dataSet->View();
+    EXPECT_EQ(2, view->FieldsCount());
 }

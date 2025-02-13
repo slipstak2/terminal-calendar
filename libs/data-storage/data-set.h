@@ -31,6 +31,8 @@ public:
         return DataSetPtr(new DataSet(view));
     }
 
+    DataViewPtr View() override;
+
     size_t RowsCount() const override;
 
     DataFieldAccessorPtr GetViewRow(size_t num) {

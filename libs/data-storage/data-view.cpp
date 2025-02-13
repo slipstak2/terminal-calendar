@@ -26,6 +26,10 @@ size_t DataViewRow::GetFieldIndex(const std::string_view field_name) const {
     return view->GetFieldIndex(field_name);
 }
 
+DataViewPtr DataView::View() {
+    return DataView::Create(shared_from_this());
+}
+
 size_t DataView::RowsCount() const {
     return rows_idx.size();
 }
