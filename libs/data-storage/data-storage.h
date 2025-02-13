@@ -43,12 +43,7 @@ public:
     }
 
 public:
-    DataViewPtr View() override;
-
-    template<typename ...FieldTypes>
-    DataViewPtr View(FieldTypes... fields) {
-        return DataView::Create(shared_from_this(), fields...);
-    }
+    OVERRIDE_DECLARATIONS_VIEW
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
 

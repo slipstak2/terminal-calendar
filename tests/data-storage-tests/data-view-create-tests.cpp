@@ -92,10 +92,10 @@ TEST_F(TestDataViewCreate, FromDataStorage) {
     auto view_by_name = storage->View("name", "id");
     TestTwoFields(view_by_name);
 
-    auto view_by_mix1 = storage->View(1, "id");
+    auto view_by_mix1 = DataView::Create(storage, 1, "id");
     TestTwoFields(view_by_mix1);
 
-    auto view_by_mix2 = storage->View("name", 0);
+    auto view_by_mix2 = DataView::Create(storage, "name", 0);
     TestTwoFields(view_by_mix2);
 }
 
@@ -104,8 +104,26 @@ TEST_F(TestDataViewCreate, FromDataView) {
     EXPECT_EQ(2, view->FieldsCount());
 }
 
+TEST_F(TestDataViewCreate, FromDataViewSingleField) {
+    auto view = storage->View(1, 0)->View(0);
+    EXPECT_EQ(1, view->FieldsCount());
+    DataRow row = view->GetRow(0)->GetRow();
+    DataRow expect_row = DataRow::Create<std::string_view>("Dan4ick");
+    EXPECT_EQ(row, expect_row);
+}
+
 TEST_F(TestDataViewCreate, FromDataSet) {
     auto dataSet = DataSet::Create(storage->View(1, 0));
     auto view = dataSet->View();
     EXPECT_EQ(2, view->FieldsCount());
+}
+
+TEST_F(TestDataViewCreate, FromDataSetSingleField) {
+    auto dataSet = DataSet::Create(storage->View(1, 0));
+    auto view = dataSet->View(1);
+    EXPECT_EQ(1, view->FieldsCount());
+
+    DataRow row = view->GetRow(2)->GetRow(); // Masha
+    DataRow expect_row = DataRow::Create<int>(3);
+    EXPECT_EQ(row, expect_row);
 }

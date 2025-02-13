@@ -31,7 +31,7 @@ public:
         return DataSetPtr(new DataSet(view));
     }
 
-    DataViewPtr View() override;
+    OVERRIDE_DECLARATIONS_VIEW
 
     size_t RowsCount() const override;
 

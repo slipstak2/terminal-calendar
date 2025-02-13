@@ -26,6 +26,7 @@
     <ClInclude Include="data-storage.h" />
     <ClInclude Include="data-view.h" />
     <ClInclude Include="data-field.h" />
+    <ClInclude Include="defines.h" />
     <ClInclude Include="utils\printer.h" />
     <ClInclude Include="utils\subtuple.h" />
   </ItemGroup>

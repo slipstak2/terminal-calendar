@@ -1,4 +1,5 @@
 #pragma once
+#include "defines.h"
 #include <string_view>
 
 class DataContainer {
@@ -16,14 +17,5 @@ public:
 
     virtual DataFieldAccessorPtr GetRow(size_t row_num) = 0;
 
-    virtual DataViewPtr View() = 0;
-    /*
-    virtual DataViewPtr View(size_t fn0) { return nullptr; }
-    virtual DataViewPtr View(size_t fn0, size_t fn1) { return nullptr; }
-    virtual DataViewPtr View(size_t fn0, size_t fn1, size_t fn2) { return nullptr; }
-
-    virtual DataViewPtr View(const std::string_view fn0) { return nullptr; }
-    virtual DataViewPtr View(const std::string_view fn0, const std::string_view fn1) { return nullptr; }
-    virtual DataViewPtr View(const std::string_view fn0, const std::string_view fn1, const std::string_view fn2) { return nullptr; }
-    */
+    VIRTUAL_DECLARATIONS_VIEW
 };

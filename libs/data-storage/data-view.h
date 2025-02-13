@@ -30,6 +30,8 @@ class DataView : public DataContainer, public std::enable_shared_from_this<DataV
 public:
     using DataContainer::GetFieldIndex;
 
+    OVERRIDE_DECLARATIONS_VIEW
+
     static DataViewPtr Create(DataContainerPtr s) {
         return DataViewPtr(new DataView(s));
     }
@@ -42,8 +44,6 @@ public:
 
         return DataViewPtr(new DataView(container, fields_idx));
     }
-
-    DataViewPtr View() override;
 
     size_t RowsCount() const override;
 

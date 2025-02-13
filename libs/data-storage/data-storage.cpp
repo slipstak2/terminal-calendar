@@ -1,15 +1,12 @@
 #include "data-storage.h"
 #include "data-view.h"
 #include "data-storage.h"
+#include "defines.h"
 
 DataStorageRow::DataStorageRow(const DataStoragePtr storage, size_t row_num)
     : storage(storage)
     , row(storage->GetDataRow(row_num))
 {}
-
-DataViewPtr DataStorage::View() {
-    return DataView::Create(shared_from_this());
-}
 
 void DataStorage::AddFieldDesc(const FieldDesc& fd) {
     if (ds_fields_mapping.contains(fd.name)) {
@@ -42,6 +39,8 @@ std::string_view DataStorageRow::GetFieldName(size_t field_num) const {
 DataRow DataStorageRow::GetRow() const {
     return row;
 }
+
+DEFINITIONS_VIEW(DataStorage)
 
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
