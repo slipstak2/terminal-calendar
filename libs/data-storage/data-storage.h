@@ -75,7 +75,7 @@ public:
 private:
     explicit DataStorage(std::initializer_list<FieldDesc> fds) {
         row_dummy.ReserveFieldsCount(fds.size());
-        ds_fields_desc.reserve(fds.size());
+        //ds_fields_desc.reserve(fds.size()); // std::deque don't have reserver method
 
         for (const FieldDesc& fd : fds) {
             AddFieldDesc(fd);
@@ -87,6 +87,6 @@ protected:
     DataRow row_dummy;
     std::vector<DataRow> rows;
 
-    std::vector<FieldDesc> ds_fields_desc;
+    std::deque<FieldDesc> ds_fields_desc;
     std::map<std::string_view, size_t> ds_fields_mapping;
 };
