@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="data-field-tests.cpp" />
+    <ClCompile Include="data-set-row-tests.cpp" />
+    <ClCompile Include="data-set-tests.cpp" />
+    <ClCompile Include="data-storage-row-tests.cpp" />
+    <ClCompile Include="data-storage-tests.cpp" />
+    <ClCompile Include="data-view-create-tests.cpp" />
+    <ClCompile Include="data-view-row-tests.cpp" />
+    <ClCompile Include="data-view-sort-tests.cpp" />
+    <ClCompile Include="printer_tests.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="add-column.cpp">
+      <Filter>operations</Filter>
+    </ClCompile>
+    <ClCompile Include="select.cpp">
+      <Filter>operations</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="operations">
+      <UniqueIdentifier>{f073317b-0d82-4d7f-a4c8-7b82ad9ba398}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

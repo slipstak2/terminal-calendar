@@ -42,8 +42,12 @@ DataRow DataStorageRow::GetRow() const {
 
 DEFINITIONS_VIEW(DataStorage)
 
-DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
-    return View()->AddColumn(fd, cb);
+DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
+    return View()->AddColumn(fd, add_column_cb);
+}
+
+DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+    return nullptr; // TODO: implement
 }
 
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {

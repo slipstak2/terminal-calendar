@@ -32,11 +32,18 @@ public:
 
     OVERRIDE_DECLARATIONS_VIEW;
     
-    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) override;
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
 
-    static DataViewPtr Create(DataContainerPtr s) {
-        return DataViewPtr(new DataView(s));
+    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
+
+    static DataViewPtr Create(DataContainerPtr container) {
+        return DataViewPtr(new DataView(container));
     }
+    
+    static DataViewPtr Create(DataContainerPtr container, std::vector<size_t> fields_num, std::vector<size_t> rows_num) {
+        return DataViewPtr(new DataView(container, std::move(fields_num), std::move(rows_num)));
+    }
+
     template<typename ...FieldTypes>
     static DataViewPtr Create(DataContainerPtr container, FieldTypes... fields) {
         std::vector<size_t> fields_idx;
@@ -59,9 +66,11 @@ public:
     size_t FieldsCount() const override;
 
 private:
-    DataView(DataContainerPtr s);
+    DataView(DataContainerPtr container);
 
-    DataView(DataContainerPtr s, std::vector<size_t> fields_num);
+    DataView(DataContainerPtr container, std::vector<size_t> fields_num);
+
+    DataView(DataContainerPtr container, std::vector<size_t> fields_num, std::vector<size_t> rows_num);
 
     void InitAllRows();
     void InitAllFields();
@@ -69,7 +78,7 @@ private:
 
 protected:
     DataContainerPtr container;
-    std::vector<size_t> rows_idx;
+    std::vector<size_t> rows_num;
     std::vector<size_t> fields_num;
     std::map<std::string_view, size_t> dv_fields_mapping;
 };

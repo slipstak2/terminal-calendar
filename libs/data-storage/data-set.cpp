@@ -73,12 +73,16 @@ size_t DataSet::FieldsCount() const {
 }
 
 
-DataContainerPtr DataSet::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
+DataContainerPtr DataSet::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
     storage->AddFieldDesc(fd);
     for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
         DataRow& storage_row = storage->rows[row_num];
         DataSetRow dataset_row(shared_from_this(), row_num);
-        storage_row.AddFieldData(FieldData(fd.type, cb(dataset_row)));
+        storage_row.AddFieldData(FieldData(fd.type, add_column_cb(dataset_row)));
     }
     return shared_from_this();
+}
+
+DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+    return nullptr; // TODO:
 }

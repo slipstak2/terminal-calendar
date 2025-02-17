@@ -29,12 +29,23 @@ size_t DataViewRow::GetFieldIndex(const std::string_view field_name) const {
 
 DEFINITIONS_VIEW(DataView)
 
-DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) {
-    return DataSet::Create(shared_from_this())->AddColumn(fd, cb);
+DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
+    return DataSet::Create(shared_from_this())->AddColumn(fd, add_column_cb);
+}
+
+DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+    std::vector<size_t> rows_select_id;
+    for (size_t row_num = 0; row_num < rows_num.size(); ++row_num) {
+        DataViewRow view_row(shared_from_this(), row_num);
+        if (select_cb(view_row)) {
+            rows_select_id.push_back(rows_num[row_num]);
+        }
+    }
+    return DataView::Create(container, fields_num, rows_select_id);
 }
 
 size_t DataView::RowsCount() const {
-    return rows_idx.size();
+    return rows_num.size();
 }
 
 std::string_view DataView::GetFieldName(size_t field_num) const {
@@ -50,7 +61,7 @@ size_t DataView::GetFieldIndex(const std::string_view field_name) const {
 }
 
 DataFieldAccessorPtr DataView::GetRow(size_t row_num) {
-    return std::make_shared<DataViewRow>(shared_from_this(), row_num);
+    return std::make_shared<DataViewRow>(shared_from_this(), rows_num[row_num]);
 }
 
 DataFieldAccessorPtr DataView::GetRowFromParent(size_t row_num) {
@@ -74,11 +85,18 @@ DataView::DataView(const DataContainerPtr container, std::vector<size_t> fields_
     InitFieldsMapping();
 }
 
+DataView::DataView(DataContainerPtr container, std::vector<size_t> fields_num, std::vector<size_t> rows_num)
+    : container(container) 
+    , fields_num(std::move(fields_num))
+    , rows_num(std::move(rows_num)) {
+    InitFieldsMapping();
+}
+
 void DataView::InitAllRows() {
     size_t rows_cnt = container->RowsCount();
-    rows_idx.resize(rows_cnt);
-    for (size_t idx = 0; idx < rows_cnt; ++idx) {
-        rows_idx[idx] = idx;
+    rows_num.resize(rows_cnt);
+    for (size_t row_num = 0; row_num < rows_cnt; ++row_num) {
+        rows_num[row_num] = row_num;
     }
 }
 void DataView::InitAllFields() {

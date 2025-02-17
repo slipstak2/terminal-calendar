@@ -1,13 +1,3 @@
-class DataSet {
-    const DataView& dv;
-    DataStorage localStorage;
-}
-
-view.Add(CreateField::Int("age", [view.FieldAccessor()](const DataRow& row){
-    Now() - fieldAccessor(row, "birthday");
-}))
-
-
 
 ========  Select  =======
 .Select(fieldsName/fieldsNum);

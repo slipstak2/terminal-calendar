@@ -45,7 +45,9 @@ public:
 public:
     OVERRIDE_DECLARATIONS_VIEW;
     
-    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) override;
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
+
+    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
 

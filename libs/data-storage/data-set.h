@@ -49,8 +49,9 @@ public:
     
     DataFieldAccessorPtr GetRow(size_t row_num) override;
 
-    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& cb) override;
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
 
+    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
 private:
     DataSet(DataViewPtr v): view(v), storage(DataStorage::Create()) {
         storage->rows.resize(view->RowsCount());
