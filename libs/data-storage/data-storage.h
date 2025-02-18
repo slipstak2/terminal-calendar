@@ -11,7 +11,7 @@
 #include <deque>
 
 
-class DataStorageRow : public DataFieldAccessor { // DataStorageRow == DataRow ???
+class DataStorageRow : public DataFieldAccessor {
 public:
     DataStorageRow(const DataStoragePtr storage, size_t row_num);
 

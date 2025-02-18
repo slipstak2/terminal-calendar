@@ -3,6 +3,8 @@
 #include "data-set.h"
 #include "defines.h"
 
+#include <numeric>
+
 DataStorageRow::DataStorageRow(const DataStoragePtr storage, size_t row_num)
     : storage(storage)
     , row(storage->GetDataRow(row_num))
@@ -47,7 +49,16 @@ DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function
 }
 
 DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
-    return nullptr; // TODO: implement
+    std::vector<size_t> rows_num_selected;
+    for (size_t row_num = 0; row_num < rows.size(); ++row_num) {
+        DataStorageRow storage_row(shared_from_this(), row_num);
+        if (select_cb(storage_row)) {
+            rows_num_selected.push_back(row_num);
+        }
+    }
+    std::vector<size_t> fields_num(FieldsCount());
+    std::iota(fields_num.begin(), fields_num.end(), 0);
+    return DataView::Create(shared_from_this(), fields_num, rows_num_selected);
 }
 
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
