@@ -50,7 +50,7 @@ DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function
 
 DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
     std::vector<size_t> rows_num_selected;
-    for (size_t row_num = 0; row_num < rows.size(); ++row_num) {
+    for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
         DataStorageRow storage_row(shared_from_this(), row_num);
         if (select_cb(storage_row)) {
             rows_num_selected.push_back(row_num);

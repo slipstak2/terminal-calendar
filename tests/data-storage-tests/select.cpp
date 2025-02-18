@@ -56,3 +56,21 @@ TEST_F(TestSelect, StorageSelectOddId) {
         EXPECT_EQ(storage_with_odd_id->GetRow(row_num)->GetRow(), expected[row_num]);
     }
 }
+
+TEST_F(TestSelect, SetSelectLastA) {
+    DataContainerPtr dataset_with_last_a = DataSet::Create(storage->View())->Select([](const DataFieldAccessor& row) {
+        return row.GetField<std::string_view>("name").back() == 'a';
+        });
+
+    EXPECT_EQ(2, dataset_with_last_a->FieldsCount());
+    EXPECT_EQ(3, dataset_with_last_a->RowsCount());
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(3, "Masha"),
+        DataRow::Create<int, std::string_view>(4, "Vera"),
+        DataRow::Create<int, std::string_view>(5, "Yura")
+    };
+    for (size_t row_num = 0; row_num < dataset_with_last_a->RowsCount(); ++row_num) {
+        EXPECT_EQ(dataset_with_last_a->GetRow(row_num)->GetRow(), expected[row_num]);
+    }
+}

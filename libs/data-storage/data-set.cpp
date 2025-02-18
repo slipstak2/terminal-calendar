@@ -2,6 +2,8 @@
 #include "data-set.h"
 #include "data-view.h"
 
+#include <numeric> // iota
+
 DataSetRow::DataSetRow(const DataSetPtr dataSet, const size_t row_num)
     : dataSet(dataSet)
     , viewRow(dataSet->view->GetRow(row_num))
@@ -84,5 +86,14 @@ DataContainerPtr DataSet::AddColumn(const FieldDesc& fd, const std::function<Fie
 }
 
 DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
-    return nullptr; // TODO:
+    std::vector<size_t> rows_select_id;
+    for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
+        DataSetRow dataset_row(shared_from_this(), row_num);
+        if (select_cb(dataset_row)) {
+            rows_select_id.push_back(row_num);
+        }
+    }
+    std::vector<size_t> fields_num(FieldsCount());
+    std::iota(fields_num.begin(), fields_num.end(), 0);
+    return DataView::Create(shared_from_this(), fields_num, rows_select_id);
 }
