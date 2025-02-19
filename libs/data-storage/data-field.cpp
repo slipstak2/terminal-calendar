@@ -74,3 +74,21 @@ FieldDesc FieldDesc::Date(std::string name) {
 bool operator == (const FieldValue& lhs, const FieldValue& rhs) {
     return memcmp(&lhs, &rhs, sizeof(lhs)) == 0;
 }
+
+std::ostream& operator << (std::ostream& out, const FieldData& data) {
+    switch (data.type) {
+    case FieldType::INT:
+        out << data.val.Int;
+        break;
+    case FieldType::DOUBLE:
+        out << data.val.Double;
+        break;
+    case FieldType::STRING:
+        out << data.val.String;
+        break;
+    case FieldType::DATE:
+        out << data.val.Date.day() << '.' << data.val.Date.month() << '.' << data.val.Date.year(); // TODO: add width for leading zero
+        break;
+    }
+    return out;
+}

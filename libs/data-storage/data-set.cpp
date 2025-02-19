@@ -97,3 +97,7 @@ DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccesso
     std::iota(fields_num.begin(), fields_num.end(), 0);
     return DataView::Create(shared_from_this(), fields_num, rows_select_id);
 }
+
+DataContainerPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
+    return nullptr;
+}

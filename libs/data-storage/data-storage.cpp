@@ -4,6 +4,8 @@
 #include "defines.h"
 
 #include <numeric>
+#include <algorithm>
+
 
 DataStorageRow::DataStorageRow(const DataStoragePtr storage, size_t row_num)
     : storage(storage)
@@ -44,23 +46,6 @@ DataRow DataStorageRow::GetRow() const {
 
 DEFINITIONS_VIEW(DataStorage)
 
-DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
-    return View()->AddColumn(fd, add_column_cb);
-}
-
-DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
-    std::vector<size_t> rows_num_selected;
-    for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
-        DataStorageRow storage_row(shared_from_this(), row_num);
-        if (select_cb(storage_row)) {
-            rows_num_selected.push_back(row_num);
-        }
-    }
-    std::vector<size_t> fields_num(FieldsCount());
-    std::iota(fields_num.begin(), fields_num.end(), 0);
-    return DataView::Create(shared_from_this(), fields_num, rows_num_selected);
-}
-
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
 }
@@ -100,4 +85,35 @@ size_t DataStorage::FieldsCount() const {
 
 const FieldDesc& DataStorage::Field(size_t idx) {
     return ds_fields_desc[idx];
+}
+
+DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
+    return View()->AddColumn(fd, add_column_cb);
+}
+
+DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+    std::vector<size_t> rows_num_selected;
+    for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
+        DataStorageRow storage_row(shared_from_this(), row_num);
+        if (select_cb(storage_row)) {
+            rows_num_selected.push_back(row_num);
+        }
+    }
+    std::vector<size_t> fields_num(FieldsCount());
+    std::iota(fields_num.begin(), fields_num.end(), 0);
+    return DataView::Create(shared_from_this(), fields_num, rows_num_selected);
+}
+
+DataContainerPtr DataStorage::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
+    std::vector<size_t> rows_num_sorted(RowsCount());
+    std::iota(rows_num_sorted.begin(), rows_num_sorted.end(), 0);
+    std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
+        DataStorageRow lhs_row(shared_from_this(), lhs);
+        DataStorageRow rhs_row(shared_from_this(), rhs);
+        return cmp_cb(lhs_row, rhs_row);
+        });
+    std::vector<size_t> fields_num(FieldsCount());
+    std::iota(fields_num.begin(), fields_num.end(), 0);
+    return DataView::Create(shared_from_this(), fields_num, rows_num_sorted);
+    return nullptr;
 }

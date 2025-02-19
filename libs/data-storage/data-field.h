@@ -193,3 +193,5 @@ struct FieldDesc {
     static FieldDesc Double(std::string name);
     static FieldDesc Date(std::string name);
 };
+
+std::ostream& operator << (std::ostream& out, const FieldData& data);

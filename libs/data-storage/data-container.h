@@ -24,4 +24,6 @@ public:
     virtual DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) = 0;
     
     virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
+    
+    virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
 };

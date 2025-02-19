@@ -44,6 +44,10 @@ DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccess
     return DataView::Create(container, fields_num, rows_num_selected);
 }
 
+DataContainerPtr DataView::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
+    return nullptr;
+}
+
 size_t DataView::RowsCount() const {
     return rows_num.size();
 }

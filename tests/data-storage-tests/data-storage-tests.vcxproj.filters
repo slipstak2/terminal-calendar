@@ -17,6 +17,9 @@
     <ClCompile Include="select.cpp">
       <Filter>operations</Filter>
     </ClCompile>
+    <ClCompile Include="sort.cpp">
+      <Filter>operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

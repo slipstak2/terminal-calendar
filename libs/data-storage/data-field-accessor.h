@@ -18,6 +18,8 @@ public:
         return GetFieldData(field_num).type;
     }
 
+    std::string ToString();
+
     virtual size_t FieldsCount() const = 0;
 
     virtual DataRow GetRow() const = 0;

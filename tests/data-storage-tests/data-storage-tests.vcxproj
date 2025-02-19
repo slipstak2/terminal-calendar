@@ -123,6 +123,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="select.cpp" />
+    <ClCompile Include="sort.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
