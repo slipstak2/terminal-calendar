@@ -3,6 +3,7 @@
 #include "data-view.h"
 
 #include <numeric> // iota
+#include <algorithm>
 
 DataSetRow::DataSetRow(const DataSetPtr dataSet, const size_t row_num)
     : dataSet(dataSet)
@@ -99,5 +100,14 @@ DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccesso
 }
 
 DataContainerPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
-    return nullptr;
+    std::vector<size_t> rows_num_sorted(RowsCount());
+    std::iota(rows_num_sorted.begin(), rows_num_sorted.end(), 0);
+    std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
+        DataSetRow lhs_row(shared_from_this(), lhs);
+        DataSetRow rhs_row(shared_from_this(), rhs);
+        return cmp_cb(lhs_row, rhs_row);
+    });
+    std::vector<size_t> fields_num(FieldsCount());
+    std::iota(fields_num.begin(), fields_num.end(), 0);
+    return DataView::Create(shared_from_this(), std::move(fields_num), std::move(rows_num_sorted));
 }

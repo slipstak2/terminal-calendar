@@ -41,7 +41,7 @@ TEST_F(TestSort, StorageSortBySecondLetter) {
 }
 
 TEST_F(TestSort, ViewSortByOddId) {
-    auto sort_view = storage->Sort([](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
+    auto sort_view = storage->View()->Sort([](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
         return lhs.GetField<int>("id") % 2 > rhs.GetField<int>("id") % 2;
     });
 
@@ -55,4 +55,21 @@ TEST_F(TestSort, ViewSortByOddId) {
     };
 
     CHECK_EQ(expected, sort_view);
+}
+
+TEST_F(TestSort, SetSortByLastLetter) {
+    auto sort_dataset = DataSet::Create(storage->View())->Sort([](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
+        return lhs.GetField<std::string_view>("name").back() < rhs.GetField<std::string_view>("name").back();
+        });
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(3, "Masha"),
+        DataRow::Create<int, std::string_view>(4, "Vera"),
+        DataRow::Create<int, std::string_view>(5, "Yura"),
+        DataRow::Create<int, std::string_view>(6, "Mitrof"),
+        DataRow::Create<int, std::string_view>(1, "Dan4ick"),
+        DataRow::Create<int, std::string_view>(2, "Igor")
+    };
+
+    CHECK_EQ(expected, sort_dataset);
 }

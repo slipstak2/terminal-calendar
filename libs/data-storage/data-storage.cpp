@@ -114,6 +114,5 @@ DataContainerPtr DataStorage::Sort(const std::function<bool(const DataFieldAcces
         });
     std::vector<size_t> fields_num(FieldsCount());
     std::iota(fields_num.begin(), fields_num.end(), 0);
-    return DataView::Create(shared_from_this(), fields_num, rows_num_sorted);
-    return nullptr;
+    return DataView::Create(shared_from_this(), std::move(fields_num), std::move(rows_num_sorted));
 }
