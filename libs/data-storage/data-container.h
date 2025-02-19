@@ -1,5 +1,7 @@
 #pragma once
 #include "defines.h"
+#include "common.h"
+#include "data-field.h"
 
 #include <string_view>
 #include <functional>

@@ -20,9 +20,11 @@
     <ClCompile Include="sort.cpp">
       <Filter>operations</Filter>
     </ClCompile>
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

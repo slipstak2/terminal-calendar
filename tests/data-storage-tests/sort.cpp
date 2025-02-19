@@ -1,6 +1,7 @@
 #include "pch.h"
 
 #include "data-set.h"
+#include "utils.h"
 
 class TestSort : public ::testing::Test {
 public:
@@ -22,8 +23,7 @@ public:
 
 DataStoragePtr TestSort::storage;
 
-
-TEST_F(TestSort, ViewSortBySecondLetter) {
+TEST_F(TestSort, StorageSortBySecondLetter) {
     auto sort_storage = storage->Sort([](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
         return lhs.GetField<std::string_view>("name")[1] < rhs.GetField<std::string_view>("name")[1];
     });
@@ -37,7 +37,22 @@ TEST_F(TestSort, ViewSortBySecondLetter) {
         DataRow::Create<int, std::string_view>(5, "Yura")
     };
 
-    for (size_t row_num = 0; row_num < sort_storage->RowsCount(); ++row_num) {
-        EXPECT_EQ(sort_storage->GetRow(row_num)->GetRow().ToString(), expected[row_num].ToString());
-    }
+    CHECK_EQ(expected, sort_storage);
+}
+
+TEST_F(TestSort, ViewSortByOddId) {
+    auto sort_view = storage->Sort([](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
+        return lhs.GetField<int>("id") % 2 > rhs.GetField<int>("id") % 2;
+    });
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(1, "Dan4ick"),
+        DataRow::Create<int, std::string_view>(3, "Masha"),
+        DataRow::Create<int, std::string_view>(5, "Yura"),
+        DataRow::Create<int, std::string_view>(2, "Igor"),
+        DataRow::Create<int, std::string_view>(4, "Vera"),
+        DataRow::Create<int, std::string_view>(6, "Mitrof")
+    };
+
+    CHECK_EQ(expected, sort_view);
 }

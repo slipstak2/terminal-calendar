@@ -80,7 +80,6 @@ using TerminalMonthSwitcherPtr = std::shared_ptr<TerminalMonthSwitcher>;
 class DataFieldAccessor;
 using DataFieldAccessorPtr = std::shared_ptr<DataFieldAccessor>;
 
-
 class DataContainer;
 using DataContainerPtr = std::shared_ptr<DataContainer>;
 

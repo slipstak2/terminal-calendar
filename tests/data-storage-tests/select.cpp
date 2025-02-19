@@ -1,5 +1,6 @@
 #include "pch.h"
 
+#include "utils.h"
 #include "data-set.h"
 
 class TestSelect : public ::testing::Test {
@@ -36,9 +37,8 @@ TEST_F(TestSelect, ViewSelectEvenId) {
         DataRow::Create<int, std::string_view>(4, "Vera"),
         DataRow::Create<int, std::string_view>(6, "Mitrof")
     };
-    for (size_t row_num = 0; row_num < view_with_even_id->RowsCount(); ++row_num) {
-        EXPECT_EQ(view_with_even_id->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+
+    CHECK_EQ(expected, view_with_even_id);
 }
 
 TEST_F(TestSelect, ViewSelect2) {
@@ -56,9 +56,7 @@ TEST_F(TestSelect, ViewSelect2) {
     std::vector<DataRow> expected{
         DataRow::Create<int, std::string_view>(6, "Mitrof")
     };
-    for (size_t row_num = 0; row_num < view_with_select2->RowsCount(); ++row_num) {
-        EXPECT_EQ(view_with_select2->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+    CHECK_EQ(expected, view_with_select2);
 }
 
 TEST_F(TestSelect, StorageSelectOddId) {
@@ -74,9 +72,7 @@ TEST_F(TestSelect, StorageSelectOddId) {
         DataRow::Create<int, std::string_view>(3, "Masha"),
         DataRow::Create<int, std::string_view>(5, "Yura")
     };
-    for (size_t row_num = 0; row_num < storage_with_odd_id->RowsCount(); ++row_num) {
-        EXPECT_EQ(storage_with_odd_id->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+    CHECK_EQ(expected, storage_with_odd_id);
 }
 
 TEST_F(TestSelect, StorageSelect2) {
@@ -94,9 +90,7 @@ TEST_F(TestSelect, StorageSelect2) {
     std::vector<DataRow> expected{
         DataRow::Create<int, std::string_view>(3, "Masha"),
     };
-    for (size_t row_num = 0; row_num < storage_with_select2->RowsCount(); ++row_num) {
-        EXPECT_EQ(storage_with_select2->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+    CHECK_EQ(expected, storage_with_select2);
 }
 
 TEST_F(TestSelect, SetSelectLastA) {
@@ -112,9 +106,7 @@ TEST_F(TestSelect, SetSelectLastA) {
         DataRow::Create<int, std::string_view>(4, "Vera"),
         DataRow::Create<int, std::string_view>(5, "Yura")
     };
-    for (size_t row_num = 0; row_num < dataset_with_last_a->RowsCount(); ++row_num) {
-        EXPECT_EQ(dataset_with_last_a->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+    CHECK_EQ(expected, dataset_with_last_a);
 }
 
 TEST_F(TestSelect, SetSelec2) {
@@ -132,7 +124,5 @@ TEST_F(TestSelect, SetSelec2) {
     std::vector<DataRow> expected{
         DataRow::Create<int, std::string_view>(4, "Vera"),
     };
-    for (size_t row_num = 0; row_num < dataset_with_select2->RowsCount(); ++row_num) {
-        EXPECT_EQ(dataset_with_select2->GetRow(row_num)->GetRow(), expected[row_num]);
-    }
+    CHECK_EQ(expected, dataset_with_select2);
 }
