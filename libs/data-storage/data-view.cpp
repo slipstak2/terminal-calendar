@@ -2,6 +2,7 @@
 #include "data-set.h"
 
 #include <algorithm>
+#include <numeric>
 
 
 DataViewRow::DataViewRow(const DataViewPtr view, size_t row_num) 
@@ -47,10 +48,11 @@ DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccess
 }
 
 DataContainerPtr DataView::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
-    std::vector<size_t> rows_num_sorted = rows_num;
+    std::vector<size_t> rows_num_sorted(RowsCount());
+    std::iota(rows_num_sorted.begin(), rows_num_sorted.end(), 0);
     std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
-        DataViewRow lhs_row(shared_from_this(), lhs);
-        DataViewRow rhs_row(shared_from_this(), rhs);
+        DataViewRow lhs_row(shared_from_this(), rows_num[lhs]);
+        DataViewRow rhs_row(shared_from_this(), rows_num[rhs]);
         return cmp_cb(lhs_row, rhs_row);
         });
     return DataView::Create(shared_from_this(), fields_num, std::move(rows_num_sorted));
