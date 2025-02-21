@@ -38,6 +38,8 @@ public:
 
     DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
 
+    OVERRIDE_DECLARATIONS_UNIQUE;
+
     static DataViewPtr Create(DataContainerPtr container) {
         return DataViewPtr(new DataView(container));
     }

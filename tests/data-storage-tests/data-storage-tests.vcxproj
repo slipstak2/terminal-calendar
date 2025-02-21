@@ -125,6 +125,7 @@
     </ClCompile>
     <ClCompile Include="select.cpp" />
     <ClCompile Include="sort.cpp" />
+    <ClCompile Include="unique.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>

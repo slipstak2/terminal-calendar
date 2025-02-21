@@ -8,8 +8,7 @@ storage.Unique()    ->  view
 view.Unique()       ->  view'
 data_set.Unique()
 
-========  Sort  ======
-.Sort(fieldName/fieldNum + Order)       .Sort({"name", ASC}, {age, DESC});
-.Sort(compareFn)                        .Sort([](const DataRow& row1, const DataRow& row2));
+==== LIMIT ====
+storage.Limit(3)
 
 

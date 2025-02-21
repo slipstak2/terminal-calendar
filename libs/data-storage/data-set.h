@@ -33,7 +33,15 @@ public:
         return DataSetPtr(new DataSet(view));
     }
 
-    OVERRIDE_DECLARATIONS_VIEW
+    OVERRIDE_DECLARATIONS_VIEW;
+
+    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
+
+    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
+
+    DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
+
+    OVERRIDE_DECLARATIONS_UNIQUE;
 
     size_t RowsCount() const override;
 
@@ -48,12 +56,6 @@ public:
     std::string_view GetFieldName(size_t field_num) const override;
     
     DataFieldAccessorPtr GetRow(size_t row_num) override;
-
-    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
-
-    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
-
-    DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
 
 private:
     DataSet(DataViewPtr v): view(v), storage(DataStorage::Create()) {

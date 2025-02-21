@@ -28,4 +28,6 @@ public:
     virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
     
     virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
+    
+    VIRTUAL_DECLARATIONS_UNIQUE;
 };
