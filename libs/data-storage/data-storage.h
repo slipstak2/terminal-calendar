@@ -53,8 +53,6 @@ public:
 
     DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
 
-    OVERRIDE_DECLARATIONS_UNIQUE;
-
     size_t GetFieldIndex(const std::string_view field_name) const override;
 
     std::string_view GetFieldName(size_t field_num) const override;

@@ -18,7 +18,7 @@ public:
         return GetFieldData(field_num).type;
     }
 
-    std::string ToString();
+    std::string ToString() const;
 
     virtual size_t FieldsCount() const = 0;
 

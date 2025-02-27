@@ -29,7 +29,7 @@ DataStoragePtr TestUnique::storage;
 
 TEST_F(TestUnique, StorageUniqueGender) {
     auto unique_gender_storage = Unique<int>(storage, "gender");
-
+    
     EXPECT_EQ(3, unique_gender_storage->FieldsCount());
     EXPECT_EQ(2, unique_gender_storage->RowsCount());
 
@@ -39,6 +39,9 @@ TEST_F(TestUnique, StorageUniqueGender) {
     };
 
     CHECK_EQ(expected, unique_gender_storage);
+
+    auto unique_field2_storage = Unique<int>(storage, 2);
+    CHECK_EQ(unique_gender_storage, unique_field2_storage);
 }
 
 TEST_F(TestUnique, ViewUniqueId) {
@@ -58,6 +61,11 @@ TEST_F(TestUnique, ViewUniqueId) {
     };
 
     CHECK_EQ(expected, unique_id_view);
+
+    auto unique_field0_view = Unique<int>(storage->View(), 0);
+    CHECK_EQ(unique_id_view, unique_field0_view);
+    auto unique_view = Unique<int>(storage->View());
+    CHECK_EQ(unique_id_view, unique_view);
 }
 
 TEST_F(TestUnique, SetUniqueId) {
@@ -78,4 +86,7 @@ TEST_F(TestUnique, SetUniqueId) {
     };
 
     CHECK_EQ(expected, unique_name_dataset);
+
+    auto unique_field1_dataset = Unique<std::string_view>(DataSet::Create(storage->View()), 1);
+    CHECK_EQ(unique_name_dataset, unique_field1_dataset);
 }

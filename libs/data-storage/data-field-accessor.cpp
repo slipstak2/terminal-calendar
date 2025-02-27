@@ -11,7 +11,7 @@ DataRow DataFieldAccessorBase::GetRow(const std::vector<size_t>& fields_num) con
     return result;
 }
 
-std::string DataFieldAccessorBase::ToString() {
+std::string DataFieldAccessorBase::ToString() const {
     std::stringstream ss;
     size_t fields_count = FieldsCount();
     if (fields_count) {

@@ -13,7 +13,6 @@ public:
         storage->AddRow<int, std::string_view, storage::date>(1, "Dan4ick", storage::date(1996, 12, 25));
         storage->AddRow<int, std::string_view, storage::date>(2, "Igor", storage::date(1986, 9, 9));
         storage->AddRow<int, std::string_view, storage::date>(3, "Masha", storage::date(1986, 12, 2));
-
     }
 public:
     static DataStoragePtr storage;

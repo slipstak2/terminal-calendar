@@ -20,6 +20,9 @@ public:
     size_t GetFieldIndex(size_t field_index) const {
         return field_index;
     }
+
+    std::string ToString();
+
     virtual size_t GetFieldIndex(const std::string_view field_name) const = 0;
 
     virtual size_t FieldsCount() const = 0;
@@ -35,13 +38,11 @@ public:
     virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
     
     virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
-    
-    VIRTUAL_DECLARATIONS_UNIQUE;
 };
 
 
 template<typename T>
-DataViewPtr Unique(const DataContainerPtr& container, const std::string_view fn0) {
+DataViewPtr Unique(const DataContainerPtr& container, size_t fn0) {
     std::unordered_set<T> mem;
     std::vector<size_t> rows_num_unique;
     rows_num_unique.reserve(container->RowsCount());
@@ -55,4 +56,14 @@ DataViewPtr Unique(const DataContainerPtr& container, const std::string_view fn0
     }
     rows_num_unique.shrink_to_fit();
     return DataView::Create(container, GenFieldsNum(container->FieldsCount()), rows_num_unique);
+}
+
+template<typename T>
+DataViewPtr Unique(const DataContainerPtr& container, const std::string_view fn0) {
+    return Unique<T>(container, container->GetFieldIndex(fn0));
+}
+
+template<typename T>
+DataViewPtr Unique(const DataContainerPtr& container) {
+    return Unique<T>(container, 0);
 }

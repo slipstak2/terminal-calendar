@@ -44,14 +44,6 @@ size_t DataSetRow::GetFieldIndex(const std::string_view field_name) const {
 
 DEFINITIONS_VIEW(DataSet)
 
-DataViewPtr DataSet::Unique() {
-    return nullptr;
-}
-
-DataViewPtr DataSet::Unique(size_t fn0) {
-    return nullptr;
-}
-
 size_t DataSet::RowsCount() const {
     return view->RowsCount();
 }

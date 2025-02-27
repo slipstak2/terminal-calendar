@@ -47,14 +47,6 @@ DataRow DataStorageRow::GetRow() const {
 
 DEFINITIONS_VIEW(DataStorage)
 
-DataViewPtr DataStorage::Unique() {
-    return nullptr;
-}
-
-DataViewPtr DataStorage::Unique(size_t fn0) {
-    return nullptr;
-}
-
 DataFieldAccessorPtr DataStorage::GetRow(size_t row_num) {
     return std::make_shared<DataStorageRow>(shared_from_this(), row_num);
 }

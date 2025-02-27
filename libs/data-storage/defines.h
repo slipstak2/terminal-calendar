@@ -46,30 +46,3 @@
     DataViewPtr CONTAINER::View(const std::string_view fn0, const std::string_view fn1, const std::string_view fn2) {   \
         return DataView::Create(shared_from_this(), fn0, fn1, fn2);                                                     \
     }
-
-
-
-#define VIRTUAL_DECLARATIONS_UNIQUE                                                                                     \
-    virtual DataViewPtr Unique() = 0;                                                                                   \
-                                                                                                                        \
-    virtual DataViewPtr Unique(size_t fn0) = 0;                                                                         \
-    //virtual DataViewPtr Unique(const std::string_view fn0) = 0;
-
-
-#define OVERRIDE_DECLARATIONS_UNIQUE                                                                                    \
-    DataViewPtr Unique() override;                                                                                      \
-                                                                                                                        \
-    DataViewPtr Unique(size_t fn0) override;                                                                            \
-    //DataViewPtr Unique(const std::string_view fn0) override;
-
-
-#define DEFINITIONS_UNIQUE(CONTAINER)                                                                                   \
-    DataViewPtr CONTAINER::Unique() {                                                                                   \
-        return DataView::Create(shared_from_this());                                                                    \
-    }                                                                                                                   \
-    DataViewPtr CONTAINER::Unique(size_t fn0) {                                                                         \
-        return DataView::Create(shared_from_this(), fn0);                                                               \
-    }                                                                                                                   \
-    DataViewPtr CONTAINER::Unique(const std::string_view fn0) {                                                         \
-        return DataView::Create(shared_from_this(), fn0);                                                               \
-    }

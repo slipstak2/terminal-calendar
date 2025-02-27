@@ -41,8 +41,6 @@ public:
 
     DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
 
-    OVERRIDE_DECLARATIONS_UNIQUE;
-
     size_t RowsCount() const override;
 
     DataFieldAccessorPtr GetViewRow(size_t num) {
