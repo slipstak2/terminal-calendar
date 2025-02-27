@@ -96,15 +96,15 @@ DataContainerPtr DataSet::AddColumn(const FieldDesc& fd, const std::function<Fie
 
 DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
     std::vector<size_t> rows_select_id;
+    rows_select_id.reserve(RowsCount());
     for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
         DataSetRow dataset_row(shared_from_this(), row_num);
         if (select_cb(dataset_row)) {
             rows_select_id.push_back(row_num);
         }
     }
-    std::vector<size_t> fields_num(FieldsCount());
-    std::iota(fields_num.begin(), fields_num.end(), 0);
-    return DataView::Create(shared_from_this(), fields_num, rows_select_id);
+    rows_select_id.shrink_to_fit();
+    return DataView::Create(shared_from_this(), GenFieldsNum(FieldsCount()), rows_select_id);
 }
 
 DataContainerPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
@@ -115,7 +115,5 @@ DataContainerPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor&
         DataSetRow rhs_row(shared_from_this(), rhs);
         return cmp_cb(lhs_row, rhs_row);
     });
-    std::vector<size_t> fields_num(FieldsCount());
-    std::iota(fields_num.begin(), fields_num.end(), 0);
-    return DataView::Create(shared_from_this(), std::move(fields_num), std::move(rows_num_sorted));
+    return DataView::Create(shared_from_this(), GenFieldsNum(FieldsCount()), std::move(rows_num_sorted));
 }

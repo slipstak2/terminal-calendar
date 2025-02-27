@@ -34,6 +34,7 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="data-container.cpp" />
     <ClCompile Include="data-field-accessor.cpp" />
     <ClCompile Include="data-field.cpp" />
     <ClCompile Include="data-set.cpp" />

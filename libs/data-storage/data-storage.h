@@ -55,27 +55,6 @@ public:
 
     OVERRIDE_DECLARATIONS_UNIQUE;
 
-    template<typename T>
-    DataViewPtr Unique(const std::string_view fn0) {
-        std::unordered_set<T> mem;
-        std::vector<size_t> rows_num_unique;
-        for (size_t row_num = 0; row_num < rows.size(); ++row_num) {
-            DataStorageRow storage_row(shared_from_this(), row_num);
-            T val = storage_row.GetField<T>(fn0);
-            if (!mem.contains(val)) {
-                mem.insert(val);
-                rows_num_unique.push_back(row_num);
-            }
-        }
-        std::vector<size_t> fields_num(FieldsCount());          // TODO: GenFieldsNum
-        std::iota(fields_num.begin(), fields_num.end(), 0);
-        return DataView::Create(shared_from_this(), fields_num, rows_num_unique);
-
-        // TODO: rows_num_unique shrink_to_fit for all similar cases
-
-        return nullptr;
-    }
-
     size_t GetFieldIndex(const std::string_view field_name) const override;
 
     std::string_view GetFieldName(size_t field_num) const override;

@@ -46,12 +46,14 @@ DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<Fi
 
 DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
     std::vector<size_t> rows_num_selected;
+    rows_num_selected.reserve(RowsCount());
     for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
         DataViewRow view_row(shared_from_this(), rows_num[row_num]);
         if (select_cb(view_row)) {
             rows_num_selected.push_back(rows_num[row_num]);
         }
     }
+    rows_num_selected.shrink_to_fit();
     return DataView::Create(container, fields_num, std::move(rows_num_selected));
 }
 
