@@ -33,21 +33,32 @@ public:
 
     VIRTUAL_DECLARATIONS_VIEW;
     
+    virtual DataContainerPtr SelfPtr() = 0;
+
     virtual DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) = 0;
     
     virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
     
     virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
+    
+    template<typename T>
+    DataViewPtr Unique();
+
+    template<typename T>
+    DataViewPtr Unique(size_t fn0);
+
+    template<typename T>
+    DataViewPtr Unique(const std::string_view fn0);
 };
 
 
 template<typename T>
-DataViewPtr Unique(const DataContainerPtr& container, size_t fn0) {
+DataViewPtr DataContainer::Unique(size_t fn0) {
     std::unordered_set<T> mem;
     std::vector<size_t> rows_num_unique;
-    rows_num_unique.reserve(container->RowsCount());
-    for (size_t row_num = 0; row_num < container->RowsCount(); ++row_num) {
-        auto row = container->GetRow(row_num);
+    rows_num_unique.reserve(RowsCount());
+    for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
+        auto row = GetRow(row_num);
         T val = row->GetField<T>(fn0);
         if (!mem.contains(val)) {
             mem.insert(val);
@@ -55,15 +66,16 @@ DataViewPtr Unique(const DataContainerPtr& container, size_t fn0) {
         }
     }
     rows_num_unique.shrink_to_fit();
-    return DataView::Create(container, GenFieldsNum(container->FieldsCount()), rows_num_unique);
+    return DataView::Create(SelfPtr(), GenFieldsNum(FieldsCount()), rows_num_unique);
+}
+
+
+template<typename T>
+DataViewPtr DataContainer::Unique(const std::string_view fn0) {
+    return Unique<T>(GetFieldIndex(fn0));
 }
 
 template<typename T>
-DataViewPtr Unique(const DataContainerPtr& container, const std::string_view fn0) {
-    return Unique<T>(container, container->GetFieldIndex(fn0));
-}
-
-template<typename T>
-DataViewPtr Unique(const DataContainerPtr& container) {
-    return Unique<T>(container, 0);
+DataViewPtr DataContainer::Unique() {
+    return Unique<T>(0);
 }

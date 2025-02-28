@@ -88,6 +88,10 @@ const FieldDesc& DataStorage::Field(size_t idx) {
     return ds_fields_desc[idx];
 }
 
+DataContainerPtr DataStorage::SelfPtr() {
+    return shared_from_this();
+}
+
 DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
     return View()->AddColumn(fd, add_column_cb);
 }

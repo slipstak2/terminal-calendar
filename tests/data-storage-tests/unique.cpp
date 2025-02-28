@@ -28,7 +28,7 @@ public:
 DataStoragePtr TestUnique::storage;
 
 TEST_F(TestUnique, StorageUniqueGender) {
-    auto unique_gender_storage = Unique<int>(storage, "gender");
+    auto unique_gender_storage = storage->Unique<int>("gender");
     
     EXPECT_EQ(3, unique_gender_storage->FieldsCount());
     EXPECT_EQ(2, unique_gender_storage->RowsCount());
@@ -40,12 +40,23 @@ TEST_F(TestUnique, StorageUniqueGender) {
 
     CHECK_EQ(expected, unique_gender_storage);
 
-    auto unique_field2_storage = Unique<int>(storage, 2);
+    auto unique_field2_storage = storage->Unique<int>(2);
     CHECK_EQ(unique_gender_storage, unique_field2_storage);
 }
 
+TEST_F(TestUnique, StorageUnique2) {
+    auto unique_gender_and_name_storage = storage->Unique<int>("gender")->Unique<std::string_view>("name");
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view, int>(1, "Dan4ick", 1),
+        DataRow::Create<int, std::string_view, int>(3, "Masha", 0)
+    };
+
+    CHECK_EQ(expected, unique_gender_and_name_storage);
+}
+
 TEST_F(TestUnique, ViewUniqueId) {
-    auto unique_id_view = Unique<int>(storage->View(), "id");
+    auto unique_id_view = storage->View()->Unique<int>("id");
 
     EXPECT_EQ(3, unique_id_view->FieldsCount());
     EXPECT_EQ(7, unique_id_view->RowsCount());
@@ -62,14 +73,29 @@ TEST_F(TestUnique, ViewUniqueId) {
 
     CHECK_EQ(expected, unique_id_view);
 
-    auto unique_field0_view = Unique<int>(storage->View(), 0);
+    auto unique_field0_view = storage->View()->Unique<int>(0);
     CHECK_EQ(unique_id_view, unique_field0_view);
-    auto unique_view = Unique<int>(storage->View());
+    auto unique_view = storage->View()->Unique<int>();
     CHECK_EQ(unique_id_view, unique_view);
 }
 
-TEST_F(TestUnique, SetUniqueId) {
-    auto unique_name_dataset = Unique<std::string_view>(DataSet::Create(storage->View()), "name");
+TEST_F(TestUnique, ViewUnique2) {
+    auto unique_id_and_name_view = storage->View()->Unique<int>("id")->Unique<std::string_view>("name");
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view, int>(1, "Dan4ick", 1),
+        DataRow::Create<int, std::string_view, int>(2, "Igor", 1),
+        DataRow::Create<int, std::string_view, int>(3, "Masha", 0),
+        DataRow::Create<int, std::string_view, int>(4, "Vera", 0),
+        DataRow::Create<int, std::string_view, int>(5, "Yura", 1),
+        DataRow::Create<int, std::string_view, int>(6, "Mitrof", 1),
+    };
+
+    CHECK_EQ(expected, unique_id_and_name_view);
+}
+
+TEST_F(TestUnique, SetUniqueName) {
+    auto unique_name_dataset = DataSet::Create(storage->View())->Unique<std::string_view>("name");
 
     EXPECT_EQ(3, unique_name_dataset->FieldsCount());
     EXPECT_EQ(8, unique_name_dataset->RowsCount());
@@ -87,6 +113,21 @@ TEST_F(TestUnique, SetUniqueId) {
 
     CHECK_EQ(expected, unique_name_dataset);
 
-    auto unique_field1_dataset = Unique<std::string_view>(DataSet::Create(storage->View()), 1);
+    auto unique_field1_dataset = DataSet::Create(storage->View())->Unique<std::string_view>(1);
     CHECK_EQ(unique_name_dataset, unique_field1_dataset);
+}
+
+TEST_F(TestUnique, SetUnique2) {
+    auto unique_name_and_id_dataset = DataSet::Create(storage->View())->Unique<std::string_view>("name")->Unique<int>("id");
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view, int>(1, "Dan4ick", 1),
+        DataRow::Create<int, std::string_view, int>(2, "Igor", 1),
+        DataRow::Create<int, std::string_view, int>(3, "Masha", 0),
+        DataRow::Create<int, std::string_view, int>(4, "Vera", 0),
+        DataRow::Create<int, std::string_view, int>(5, "Yura", 1),
+        DataRow::Create<int, std::string_view, int>(6, "Mitrof", 1),
+    };
+
+    CHECK_EQ(expected, unique_name_and_id_dataset);
 }

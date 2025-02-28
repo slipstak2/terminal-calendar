@@ -31,6 +31,8 @@ public:
     using DataContainer::GetFieldIndex;
 
     OVERRIDE_DECLARATIONS_VIEW;
+
+    DataContainerPtr SelfPtr() override;
     
     DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
 

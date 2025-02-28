@@ -32,6 +32,10 @@ size_t DataViewRow::GetFieldIndex(const std::string_view field_name) const {
 
 DEFINITIONS_VIEW(DataView)
 
+DataContainerPtr DataView::SelfPtr() {
+    return shared_from_this();
+}
+
 DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
     return DataSet::Create(shared_from_this())->AddColumn(fd, add_column_cb);
 }

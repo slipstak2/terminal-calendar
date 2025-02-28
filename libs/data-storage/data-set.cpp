@@ -44,6 +44,10 @@ size_t DataSetRow::GetFieldIndex(const std::string_view field_name) const {
 
 DEFINITIONS_VIEW(DataSet)
 
+DataContainerPtr DataSet::SelfPtr() {
+    return shared_from_this();
+}
+
 size_t DataSet::RowsCount() const {
     return view->RowsCount();
 }
