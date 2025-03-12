@@ -92,11 +92,11 @@ DataContainerPtr DataStorage::SelfPtr() {
     return shared_from_this();
 }
 
-DataContainerPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
+DataSetPtr DataStorage::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
     return View()->AddColumn(fd, add_column_cb);
 }
 
-DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+DataViewPtr DataStorage::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
     std::vector<size_t> rows_num_selected;
     rows_num_selected.reserve(RowsCount());
     for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
@@ -109,7 +109,7 @@ DataContainerPtr DataStorage::Select(const std::function<bool(const DataFieldAcc
     return DataView::Create(shared_from_this(), GenFieldsNum(FieldsCount()), rows_num_selected);
 }
 
-DataContainerPtr DataStorage::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
+DataViewPtr DataStorage::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
     std::vector<size_t> rows_num_sorted = GenRowsNum(RowsCount());
     std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
         DataStorageRow lhs_row(shared_from_this(), lhs);

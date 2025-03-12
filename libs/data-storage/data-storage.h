@@ -49,11 +49,11 @@ public:
 
     DataContainerPtr SelfPtr() override;
     
-    DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
+    DataSetPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) override;
 
-    DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
+    DataViewPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) override;
 
-    DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
+    DataViewPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) override;
 
     size_t GetFieldIndex(const std::string_view field_name) const override;
 

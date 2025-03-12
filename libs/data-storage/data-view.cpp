@@ -36,11 +36,11 @@ DataContainerPtr DataView::SelfPtr() {
     return shared_from_this();
 }
 
-DataContainerPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
+DataSetPtr DataView::AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) {
     return DataSet::Create(shared_from_this())->AddColumn(fd, add_column_cb);
 }
 
-DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
+DataViewPtr DataView::Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) {
     std::vector<size_t> rows_num_selected;
     rows_num_selected.reserve(RowsCount());
     for (size_t row_num = 0; row_num < RowsCount(); ++row_num) {
@@ -53,7 +53,7 @@ DataContainerPtr DataView::Select(const std::function<bool(const DataFieldAccess
     return DataView::Create(container, fields_num, std::move(rows_num_selected));
 }
 
-DataContainerPtr DataView::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
+DataViewPtr DataView::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
     std::vector<size_t> rows_num_sorted = GenRowsNum(RowsCount());
     std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
         DataViewRow lhs_row(shared_from_this(), rows_num[lhs]);

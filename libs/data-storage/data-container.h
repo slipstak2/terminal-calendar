@@ -36,14 +36,11 @@ public:
     
     virtual DataContainerPtr SelfPtr() = 0;
 
-    // TODO: AddColumn always return DataSet
-    virtual DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) = 0;
+    virtual DataSetPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) = 0;
     
-    // TODO Select always return DataView
-    virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
+    virtual DataViewPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
     
-    // TODO: Sort always return DataView
-    virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
+    virtual DataViewPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
     
     template<typename T>
     DataViewPtr Unique();
