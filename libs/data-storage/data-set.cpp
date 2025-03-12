@@ -104,8 +104,7 @@ DataContainerPtr DataSet::Select(const std::function<bool(const DataFieldAccesso
 }
 
 DataContainerPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
-    std::vector<size_t> rows_num_sorted(RowsCount());
-    std::iota(rows_num_sorted.begin(), rows_num_sorted.end(), 0);
+    std::vector<size_t> rows_num_sorted = GenRowsNum(RowsCount());
     std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
         DataSetRow lhs_row(shared_from_this(), lhs);
         DataSetRow rhs_row(shared_from_this(), rhs);

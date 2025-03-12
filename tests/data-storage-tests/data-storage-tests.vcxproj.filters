@@ -24,6 +24,9 @@
     <ClCompile Include="unique.cpp">
       <Filter>operations</Filter>
     </ClCompile>
+    <ClCompile Include="limit.cpp">
+      <Filter>operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

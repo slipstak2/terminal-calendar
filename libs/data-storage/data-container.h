@@ -11,6 +11,7 @@
 #include <unordered_set>
 
 
+std::vector<size_t> GenRowsNum(size_t rows_count);
 std::vector<size_t> GenFieldsNum(size_t fields_count);
 
 class DataContainer {
@@ -35,10 +36,13 @@ public:
     
     virtual DataContainerPtr SelfPtr() = 0;
 
+    // TODO: AddColumn always return DataSet
     virtual DataContainerPtr AddColumn(const FieldDesc& fd, const std::function<FieldValue(const DataFieldAccessor& row)>& add_column_cb) = 0;
     
+    // TODO Select always return DataView
     virtual DataContainerPtr Select(const std::function<bool(const DataFieldAccessor& row)>& select_cb) = 0;
     
+    // TODO: Sort always return DataView
     virtual DataContainerPtr Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) = 0;
     
     template<typename T>
@@ -49,6 +53,8 @@ public:
 
     template<typename T>
     DataViewPtr Unique(const std::string_view fn0);
+
+    DataViewPtr Limit(const size_t limit);
 };
 
 
