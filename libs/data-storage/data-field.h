@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <string>
+#include <tuple>
 #include <string_view>
 #include <deque>
 
@@ -23,6 +24,12 @@ namespace storage {
         }
         bool operator == (const date& other) const {
             return data == other.data;
+        }
+        bool operator < (const date& other) const {
+            return std::make_tuple(year(), month(), day()) < std::make_tuple(other.year(), other.month(), other.day());
+        }
+        bool operator > (const date& other) const {
+            return other < *this;
         }
         date operator + (const std::chrono::year y) const {
             date result(year() + static_cast<int>(y), month(), day());

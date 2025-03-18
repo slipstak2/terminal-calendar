@@ -27,6 +27,9 @@
     <ClCompile Include="limit.cpp">
       <Filter>operations</Filter>
     </ClCompile>
+    <ClCompile Include="combo.cpp">
+      <Filter>operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

@@ -60,7 +60,7 @@ DataViewPtr DataView::Sort(const std::function<bool(const DataFieldAccessor& lsh
         DataViewRow rhs_row(shared_from_this(), rows_num[rhs]);
         return cmp_cb(lhs_row, rhs_row);
         });
-    return DataView::Create(shared_from_this(), fields_num, std::move(rows_num_sorted));
+    return DataView::Create(shared_from_this(), GenFieldsNum(fields_num.size()), std::move(rows_num_sorted));
 }
 
 size_t DataView::RowsCount() const {
@@ -127,6 +127,6 @@ void DataView::InitAllFields() {
 }
 void DataView::InitFieldsMapping() {
     for (size_t field_num = 0; field_num < fields_num.size(); ++field_num) {
-        dv_fields_mapping[container->GetFieldName(fields_num[field_num])] = field_num;
+        dv_fields_mapping[container->GetFieldName(fields_num[field_num])] = field_num; // TODO
     }
 }

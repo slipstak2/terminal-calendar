@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="add-column.cpp" />
+    <ClCompile Include="combo.cpp" />
     <ClCompile Include="data-field-tests.cpp" />
     <ClCompile Include="data-set-row-tests.cpp" />
     <ClCompile Include="data-set-tests.cpp" />
