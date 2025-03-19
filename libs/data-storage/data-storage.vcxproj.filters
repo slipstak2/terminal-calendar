@@ -50,9 +50,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="data-field.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
