@@ -156,3 +156,45 @@ TEST_F(TestCombo, ViewAndAddColumnAndUnique) {
 
     CHECK_EQ(expected, view_and_add_column_and_unique);
 }
+
+
+TEST_F(TestCombo, SelectAddColumnSort) {
+    int cur_year = 2025;
+    auto calc_age = [&cur_year](const DataFieldAccessor& row) {
+        storage::date b = row.GetField<storage::date>("birthday");
+        return cur_year - b.year();
+    };
+    auto gen_nick = [&cur_year](const DataFieldAccessor& row) {
+        std::stringstream ss;
+        ss << row.GetField<std::string_view>("name")[0] << "-";
+        ss << row.GetField<int>("age");
+        return ss.str();
+    };
+    auto select_odd_id = [](const DataFieldAccessor& row) {
+        return row.GetField<int>("id") & 1;
+    };
+    auto by_name = [](const DataFieldAccessor& lhs, const DataFieldAccessor& rhs) {
+        return lhs.GetField<std::string_view>("name") < rhs.GetField<std::string_view>("name");
+    };
+    auto view = storage
+        ->AddColumn(FieldDesc::Int("age"), calc_age)
+        ->Select(select_odd_id)
+        ->View("name", "age")
+        ->Sort(by_name)
+        ->Limit(4)
+        ->AddColumn(FieldDesc::String("nick"), gen_nick)
+        ->View("nick", "name")
+    ;
+
+    EXPECT_EQ(2, view->FieldsCount());
+    EXPECT_EQ(4, view->RowsCount());
+
+    std::vector<DataRow> expected{
+       DataRow::Create<std::string_view, std::string_view>("B-155", "Bunin"),
+       DataRow::Create<std::string_view, std::string_view>("C-165", "Chehov"),
+       DataRow::Create<std::string_view, std::string_view>("G-216", "Gogol"),
+       DataRow::Create<std::string_view, std::string_view>("G-157", "Gorkiy"),
+    };
+
+    CHECK_EQ(expected, view);
+}
