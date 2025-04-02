@@ -17,6 +17,11 @@
 
 #include "TerminalCalendarApplication.h"
 
+TerminalCalendarApplication& app() {
+    static TerminalCalendarApplication app;
+    return app;
+}
+
 TerminalCalendarApplication::TerminalCalendarApplication()
     : TerminalApplication() {
 

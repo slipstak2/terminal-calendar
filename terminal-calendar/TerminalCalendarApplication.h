@@ -6,3 +6,5 @@ class TerminalCalendarApplication : public TerminalApplication {
 public:
     TerminalCalendarApplication();
 };
+
+TerminalCalendarApplication& app();

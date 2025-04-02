@@ -165,6 +165,9 @@
     <ClInclude Include="DataProviders\ListDataSetBase.h">
       <Filter>Header Files\DataProviders</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalGrid.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -259,6 +262,9 @@
     </ClCompile>
     <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp">
       <Filter>Source Files\DataProviders</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalGrid.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

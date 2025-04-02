@@ -8,8 +8,7 @@ int main()
 {
     SetConsoleOutputCP(CP_UTF8);
 
-    TerminalCalendarApplication app;
-    app.Run();
+    app().Run();
 
     //freopen("field.txt", "r", stdin);
     //std::string row;

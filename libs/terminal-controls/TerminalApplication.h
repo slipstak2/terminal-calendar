@@ -10,6 +10,7 @@
 
 class TerminalApplication {
 public:
+    virtual ~TerminalApplication() = default;
     TerminalApplication();
     TerminalSize GetTerminalConsoleSize() const;
     void SetTerminalConsoleSize(short rows, short cols);
@@ -54,7 +55,10 @@ protected:
 protected:
     HANDLE inputHandle;
     HANDLE outputHandle;
+    HWND windowHandle = nullptr;
     TerminalCanvasPtr canvas;
     TerminalRootControlPtr rootControl;
     TerminalControl* focusControl = nullptr;
 };
+
+HWND GetHwnd(const std::string& suffixWindowName);

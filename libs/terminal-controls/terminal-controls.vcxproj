@@ -37,6 +37,7 @@
     <ClInclude Include="TerminalControls\TerminalCheckBox.h" />
     <ClInclude Include="TerminalControls\TerminalCompositeControl.h" />
     <ClInclude Include="TerminalControls\TerminalControl.h" />
+    <ClInclude Include="TerminalControls\TerminalGrid.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
@@ -73,6 +74,7 @@
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalCompositeControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalGrid.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
@@ -92,6 +94,9 @@
   <ItemGroup>
     <ProjectReference Include="..\common\common.vcxproj">
       <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\data-storage\data-storage.vcxproj">
+      <Project>{9e3cab80-2fa7-40a9-8d1c-9ce3a0317569}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -131,6 +136,7 @@
   <Import Project="terminal-controls.props" />
   <Import Project="..\utils\utils.props" />
   <Import Project="..\common\common.props" />
+  <Import Project="..\data-storage\data-storage.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>

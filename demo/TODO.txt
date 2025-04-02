@@ -40,7 +40,7 @@ Links/Future:
 
 
 Infra:
-    1. Получить покрытие кода
+    +1. Получить покрытие кода 21Mar25
 
 Bugs:
     2. TerminalControlsConfigs оказался в проекта utils =)
