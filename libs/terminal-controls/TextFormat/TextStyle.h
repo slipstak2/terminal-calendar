@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 enum class TextStyle {
     Default         = 10,
@@ -9,8 +9,8 @@ enum class TextStyle {
     SlowBlink       = 5, // медленно мигающий
     RapidBlink      = 6, // быстро мигающий
     Inverse         = 7, // swap(fontColor, backgoundColor)
-    Сonceal         = 8, // Невидимый
-    СrossedOut      = 9, // Перечеркнутый
+    Conceal         = 8, // Невидимый
+    CrossedOut      = 9, // Перечеркнутый
 
     DoubleUnderline = 21,// Двойное подчеркивание
 

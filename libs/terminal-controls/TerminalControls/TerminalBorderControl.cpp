@@ -7,7 +7,7 @@ TerminalBorderControl::TerminalBorderControl(const Utf8String& title, TerminalCo
     titleLabel = TerminalLabel::Create(title, TerminalCoord{.row = 0, .col = 3});
     AddControlOnBorder(titleLabel);
 
-    containerControls = TerminalCompositeControl::Create(TerminalCoord{ .row = 1, .col = 1 }, TerminalSize{.height = Height() - 2, .width = Width() - 2});
+    containerControls = TerminalCompositeControl::Create(TerminalCoord{ .row = ONE, .col = 1 }, TerminalSize{.height = Height() - 2, .width = Width() - 2});
     AddControlOnBorder(containerControls);
 }
 
@@ -40,7 +40,7 @@ void TerminalBorderControl::SetBorderFormat(BorderFormat borderFormat) {
 }
 
 void TerminalBorderControl::SetBorderVisible(bool isVisible) {
-    borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Сonceal;
+    borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Conceal;
 }
 
 void TerminalBorderControl::FlushUpBorder() {

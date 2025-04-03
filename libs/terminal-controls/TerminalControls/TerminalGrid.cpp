@@ -1,56 +1,81 @@
-#include "TerminalGrid.h"
+﻿#include "TerminalGrid.h"
 #include "TerminalLabel.h"
 
 TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
     : TerminalCompositeControl(position)
+    , header(header)
     , storage(storage) {
 
-    short col = 0;
-    bool isFirst = true;
-    for (const Utf8String& h : header) {
-        if (isFirst) {
-            auto vertBorder = TerminalLabel::Create("|", TerminalCoord{.row = 0, .col = col++});
-            AddControl(vertBorder);
-            isFirst = false;
-        }
-        auto headerLabel = TerminalLabel::Create(h, TerminalCoord{ .row = 0, .col = col });
+    columns.resize(header.size());
+
+    InitHeader();
+    InitData();
+
+    SetBorderVisible(false);
+    SetSize(TerminalSize{ .height = ONE + (short)storage->RowsCount(), .width = 2 * 7 + 8});
+}
+
+void TerminalGrid::SetBorderVisible(bool isVisible) {
+    borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Conceal;
+}
+
+void TerminalGrid::InitHeader() {
+    short col = 1;
+    for (short column = 0; column < columns.size(); ++column) {
+        auto headerLabel = TerminalLabel::Create(header[column], TerminalCoord{.row = 0, .col = col});
         headerLabel->AddClickCallback([headerLabel]() {
             auto formatSettings = headerLabel->GetFormatSettings();
             formatSettings.fontColor = formatSettings.fontColor != FontColor::Default ? FontColor::Default : FontColor::Yellow;
             headerLabel->SetFormatSettings(formatSettings);
-            return true; 
-            });
-        col += (short)h.size();
+            return true;
+        });
         AddControl(headerLabel);
-
-        auto vertBorder = TerminalLabel::Create("|", TerminalCoord{ .row = 0, .col = col++ });
-        AddControl(vertBorder);
+        col += columns[column].width + 1;
     }
+}
 
+void TerminalGrid::InitData() {
     for (size_t row_num = 0; row_num < storage->RowsCount(); ++row_num) {
-        col = 0;
+        short col = 1;
         auto row = storage->GetRow(row_num);
-
-        auto vertBorder = TerminalLabel::Create("|", TerminalCoord{ .row = 1 + (short)row_num, .col = col++ });
-        AddControl(vertBorder);
 
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
             std::string day(row->GetField<std::string_view>(field_num));
-            auto dayLabel = TerminalLabel::Create(day, TerminalCoord{ .row = 1 + (short)row_num, .col = col });
-            dayLabel->AddClickCallback([dayLabel]() {
-                auto formatSettings = dayLabel->GetFormatSettings();
-                formatSettings.fontColor = formatSettings.fontColor != FontColor::Default ? FontColor::Default : FontColor::Blue;
-                formatSettings.backgroundColor = formatSettings.backgroundColor != BackgroundColor::Default ? BackgroundColor::Default : BackgroundColor::Brightcyan;
-                dayLabel->SetFormatSettings(formatSettings);
-                return true;
-                });
-            col += 2;
-            AddControl(dayLabel);
+            if (!day.empty()) {
+                auto dayLabel = TerminalLabel::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
+                dayLabel->AddClickCallback([dayLabel]() {
+                    auto formatSettings = dayLabel->GetFormatSettings();
+                    formatSettings.fontColor = formatSettings.fontColor != FontColor::Default ? FontColor::Default : FontColor::Blue;
+                    formatSettings.backgroundColor = formatSettings.backgroundColor != BackgroundColor::Default ? BackgroundColor::Default : BackgroundColor::Brightcyan;
+                    dayLabel->SetFormatSettings(formatSettings);
+                    return true;
+                    });
+                AddControl(dayLabel);
+            }
+            else {
+                std::string empty_cell(columns[field_num].width, ' ');
+                auto emptyLabel = TerminalLabel::Create(empty_cell, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
+                AddControl(emptyLabel);
+            }
+            col += columns[field_num].width + 1;
 
-            auto vertBorder = TerminalLabel::Create("|", TerminalCoord{ .row = 1 + (short)row_num, .col = col++ });
-            AddControl(vertBorder);
         }
-
     }
-    SetSize(TerminalSize{ .height = 1 + 6, .width = 2 * 7 + 8 });
+}
+
+void TerminalGrid::FlushRowBorder(short row) {
+    short col = 0;
+
+    data[row][col] = CreateCell(borderFormat.Vertical(), &borderFormatSettings);
+    for (short column = 0; column < columns.size(); ++column) {
+        col += columns[column].width + 1;
+        data[row][col] = CreateCell(borderFormat.Vertical(), &borderFormatSettings);
+    }
+}
+
+void TerminalGrid::FlushSelf() {
+    FlushRowBorder(0);
+    for (short row_num = 0; row_num < storage->RowsCount(); ++row_num) {
+        FlushRowBorder(ONE + row_num);
+    }
 }

@@ -22,22 +22,6 @@ void GetWindowSize(HANDLE outputHandle, short& rows, short& cols) {
     rows = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 }
 
-bool endsWith(const std::wstring& title, const std::string& match) {
-    if (title.size() < match.size()) {
-        return false;
-    }
-    auto itm = match.rbegin();
-    auto itt = title.rbegin();
-    while (itm != match.rend()) {
-        if (*itm != *itt) {
-            return false;
-        }
-        ++itm;
-        ++itt;
-    }
-    return true;
-}
-
 void ShowConsoleCursor(bool showFlag) {
     HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -45,7 +29,6 @@ void ShowConsoleCursor(bool showFlag) {
     cursorInfo.bVisible = showFlag; // set the cursor visibility
     SetConsoleCursorInfo(out, &cursorInfo);
 }
-
 
 TerminalSize TerminalApplication::GetTerminalConsoleSize() const {
     TerminalSize size;
@@ -60,9 +43,8 @@ void TerminalApplication::SetTerminalConsoleSize(short rows, short cols) {
         windowHandle = GetWindow(windowHandle, GW_OWNER);
     }
 
+    // TODO: calculate window size with screen resolution
     SetWindowPos(windowHandle, NULL, 100, 100, 745, 765, 0x4000);
-
-    //SetWindowSize(outputHandle, rows, cols);
 }
 
 TerminalApplication::TerminalApplication()  {
