@@ -37,17 +37,20 @@ TerminalSize TerminalApplication::GetTerminalConsoleSize() const {
 }
 
 void TerminalApplication::SetTerminalConsoleSize(short rows, short cols) {
-
-    if (windowHandle == nullptr) {
-        windowHandle = GetConsoleWindow();
-        windowHandle = GetWindow(windowHandle, GW_OWNER);
-    }
-
     // TODO: calculate window size with screen resolution
-    SetWindowPos(windowHandle, NULL, 100, 100, 745, 765, 0x4000);
+    int width = 696; // 738;
+    int height = 787; // 763;
+
+    SetWindowPos(windowHandle, NULL, 100, 100, width, height, SWP_SHOWWINDOW);
+
+    // https://stackoverflow.com/questions/25912721/set-console-window-size-on-windows
+    // https://stackoverflow.com/questions/68942746/how-do-i-resize-the-console-window-to-a-set-number-of-rows-and-columns
 }
 
 TerminalApplication::TerminalApplication()  {
+    windowHandle = GetConsoleWindow();
+    windowHandle = GetWindow(windowHandle, GW_OWNER);
+
     inputHandle = GetStdHandle(STD_INPUT_HANDLE);
     if (inputHandle == NULL) {
         MyErrorExit("GetStdHandle");
@@ -291,7 +294,7 @@ void TerminalApplication::Run() {
     DWORD cc;
     INPUT_RECORD irec;
 
-    FrameRender();
+    //FrameRender();
     for (;;) {
         ReadConsoleInput(inputHandle, &irec, 1, &cc);
         if (irec.EventType == KEY_EVENT) {

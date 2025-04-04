@@ -1,3 +1,5 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "common.h"
 #include "TerminalApplication.h"
 #include "TerminalCanvas.h"
@@ -22,6 +24,25 @@ TerminalCalendarApplication& app() {
     return app;
 }
 
+void UpdateData(TerminalCalendarApplication* self, int dh, int dw, TerminalLabelPtr sizeLabel, TerminalLabelPtr tSizeLabel) {
+    RECT rect;
+    GetWindowRect(self->windowHandle, &rect);
+    int W = rect.right - rect.left;
+    int H = rect.bottom - rect.top;
+    SetWindowPos(self->windowHandle, NULL, 100, 100, W + dw, H + dh, SWP_SHOWWINDOW);
+
+    GetWindowRect(self->windowHandle, &rect);
+    W = rect.right - rect.left;
+    H = rect.bottom - rect.top;
+
+    char buf[100];
+    sprintf(buf, "%dx%d", H, W);
+    sizeLabel->SetText(buf);
+
+    TerminalSize tsize = self->GetTerminalConsoleSize();
+    sprintf(buf, "%dx%d", tsize.height, tsize.width);
+    tSizeLabel->SetText(buf);
+}
 TerminalCalendarApplication::TerminalCalendarApplication()
     : TerminalApplication() {
 
@@ -37,6 +58,41 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
 
     backgroundWindow->AddControlOnBorder(yearsLabel);
+
+    auto sizeLabel = TerminalLabel::Create("XXXxYYY", TerminalCoord{ .row = 0, .col = 13 });
+    backgroundWindow->AddControlOnBorder(sizeLabel);
+
+    auto tSizeLabel = TerminalLabel::Create("RRxCC", TerminalCoord{ .row = 0, .col = 50 });
+    backgroundWindow->AddControlOnBorder(tSizeLabel);
+
+    auto bntDecH = TerminalButton::Create("[-h]", TerminalCoord{ .row = 0, .col = 3 });
+    bntDecH->AddClickCallback([this, sizeLabel, tSizeLabel]()  {
+        UpdateData(this, -1, 0, sizeLabel, tSizeLabel);
+        return true;
+        });
+    backgroundWindow->AddControlOnBorder(bntDecH);
+
+    auto bntIncH = TerminalButton::Create("[+h]", TerminalCoord{ .row = 0, .col = 7 });
+    bntIncH->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+        UpdateData(this, +1, 0, sizeLabel, tSizeLabel);
+        return true;
+        });
+    backgroundWindow->AddControlOnBorder(bntIncH);
+
+    auto bntDecW = TerminalButton::Create("[-w]", TerminalCoord{ .row = 0, .col = 22 });
+    bntDecW->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+        UpdateData(this, 0, -1, sizeLabel, tSizeLabel);
+        return true;
+        });
+    backgroundWindow->AddControlOnBorder(bntDecW);
+
+    auto bntIncW = TerminalButton::Create("[+w]", TerminalCoord{ .row = 0, .col = 26 });
+    bntIncW->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+        UpdateData(this, 0, +1, sizeLabel, tSizeLabel);
+        return true;
+        });
+    backgroundWindow->AddControlOnBorder(bntIncW);
+
 
     auto fillMonthsData = [backgroundWindow](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
