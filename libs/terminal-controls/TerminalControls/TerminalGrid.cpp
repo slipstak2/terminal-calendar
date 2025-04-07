@@ -1,5 +1,5 @@
 ﻿#include "TerminalGrid.h"
-#include "TerminalLabel.h"
+#include "TerminalCheckBox.h"
 
 TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
     : TerminalCompositeControl(position)
@@ -26,30 +26,9 @@ const DataStoragePtr TerminalGrid::GetStorage() const {
 void TerminalGrid::InitHeader() {
     short col = 1;
     for (short column = 0; column < columns.size(); ++column) {
-        auto headerLabel = TerminalLabel::Create(header[column], TerminalCoord{.row = 0, .col = col});
-        headerLabel->AddClickCallback([headerLabel]() {
-            auto formatSettings = headerLabel->GetFormatSettings();
-            formatSettings.fontColor = formatSettings.fontColor != FontColor::Default ? FontColor::Default : FontColor::Yellow;
-            headerLabel->SetFormatSettings(formatSettings);
-            return true;
-        });
-        headerLabel->AddMouseOverCallback([headerLabel, this]() {
-            //if (!rowMark->GetChecked()) {
-                auto formatSettings = headerLabel->GetFormatSettings();
-                formatSettings.fontColor = selectedHeaderColor;
-                headerLabel->SetFormatSettings(formatSettings);
-            //}
-            return true;
-            });
-        headerLabel->AddMouseOutCallback([headerLabel, this]() {
-            //if (!rowMark->GetChecked()) {
-                auto formatSettings = headerLabel->GetFormatSettings();
-                formatSettings.fontColor = noSelectedHeaderColor;
-                headerLabel->SetFormatSettings(formatSettings);
-            //}
-            return true;
-            });
-        AddControl(headerLabel);
+        auto headerCheckBox = TerminalCheckBox::Create(header[column], TerminalCoord{.row = 0, .col = col}, false);
+        AddControl(headerCheckBox);
+
         col += columns[column].width + 1;
     }
 }

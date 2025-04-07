@@ -180,6 +180,14 @@ public:
         formatSettings = newFormatSettings;
     }
 
+    void SetBackgroundColor(BackgroundColor backgroundColor) {
+        formatSettings.backgroundColor = backgroundColor;
+    }
+
+    void SetFontColor(FontColor fontColor) {
+        formatSettings.fontColor = fontColor;
+    }
+
     void SetVisible(bool isVisible) {
         this->isVisible = isVisible;
     }

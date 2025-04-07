@@ -12,7 +12,7 @@ public:
 
     DECLARE_CREATE(TerminalCheckBox)
 
-    TerminalCheckBox(const Utf8String& label, TerminalCoord position);
+    TerminalCheckBox(const Utf8String& label, TerminalCoord position, bool withCheckedBox = true);
 
 public:
     bool SetChecked(bool isCheck);
@@ -28,11 +28,20 @@ public:
 
 protected:
     std::vector<CheckBoxChangedCallback> changedCallbacks;
-protected: // TODO: return protected
+    bool ProccessDefaultMouseOver();
+    bool ProccessDefaultMouseOut();
+    void ProccessDefaultChanged();
+
+protected:
     bool isChecked = false;
     TerminalButtonPtr checkedButton;
     TerminalButtonPtr labelButton;
 protected:
     static const Utf8String CheckedTitle;
     static const Utf8String UncheckedTitle;
+
+public: // TODO: protected
+    FontColor selectedColor = FontColor::Yellow;
+    FontColor noSelectedColor = FontColor::Brightblack;
+    FontColor mouseOverColor = FontColor::Brightyellow;
 };

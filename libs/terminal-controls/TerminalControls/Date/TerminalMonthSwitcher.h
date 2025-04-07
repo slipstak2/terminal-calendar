@@ -17,6 +17,4 @@ public:
 
 protected:
     ListDataProvider provider;
-    FontColor selectedWeekColor = FontColor::Yellow;
-    FontColor noSelectedWeekColor = FontColor::Brightblack;
 };
