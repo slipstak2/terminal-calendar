@@ -1,6 +1,8 @@
 #include "TerminalMonthSwitcher.h"
 #include "TerminalLabel.h"
 #include "TerminalGrid.h"
+#include "TerminalCheckBox.h"
+
 #include <chrono>
 
 void fillRow(DataRow& row, std::chrono::year_month_day& d) {
@@ -55,4 +57,39 @@ TerminalMonthSwitcher::TerminalMonthSwitcher(int year, int month, TerminalCoord 
         
     auto grid = TerminalGrid::Create(header, storage, TerminalCoord{.row = 0, .col = 0});
     AddControl(grid);
+
+    for (int row_num = 0; row_num < grid->GetStorage()->RowsCount(); ++row_num) {
+        auto rowMark = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
+        rowMark->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+            auto formatSettings = sender->GetCheckedButton()->GetFormatSettings();
+            if (isChecked) {
+                formatSettings.fontColor = selectedWeekColor;
+            } else {
+                formatSettings.fontColor = noSelectedWeekColor;
+            }
+            sender->GetCheckedButton()->SetFormatSettings(formatSettings);
+        });
+        rowMark->GetCheckedButton()->AddMouseOverCallback([rowMark, this]() {
+            if (!rowMark->GetChecked()) {
+                auto formatSettings = rowMark->GetCheckedButton()->GetFormatSettings();
+                formatSettings.fontColor = selectedWeekColor;
+                rowMark->GetCheckedButton()->SetFormatSettings(formatSettings);
+            }
+            return true;
+            });
+        rowMark->GetCheckedButton()->AddMouseOutCallback([rowMark, this]() {
+            if (!rowMark->GetChecked()) {
+                auto formatSettings = rowMark->GetCheckedButton()->GetFormatSettings();
+                formatSettings.fontColor = noSelectedWeekColor;
+                rowMark->GetCheckedButton()->SetFormatSettings(formatSettings);
+            }
+            return true;
+            });
+
+        auto formatSettings = rowMark->GetCheckedButton()->GetFormatSettings();
+        formatSettings.fontColor = noSelectedWeekColor;
+        rowMark->GetCheckedButton()->SetFormatSettings(formatSettings);
+        AddControlOnBorder(rowMark);
+
+    }
 }

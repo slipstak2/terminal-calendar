@@ -42,3 +42,11 @@ bool TerminalCheckBox::GetChecked() {
 void TerminalCheckBox::SetLabelFormatSettings(FormatSettings labelFormatSettings) {
     labelButton->SetFormatSettings(labelFormatSettings);
 }
+
+TerminalButtonPtr TerminalCheckBox::GetCheckedButton() {
+    return checkedButton;
+}
+
+TerminalButtonPtr TerminalCheckBox::GetLabelButton() {
+    return labelButton;
+}

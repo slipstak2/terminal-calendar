@@ -18,6 +18,8 @@ public:
     TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position);
     void SetBorderVisible(bool isVisible);
 
+    const DataStoragePtr GetStorage() const;
+
 protected:
     void InitHeader();
     void InitData();
@@ -33,4 +35,7 @@ protected:
 protected:
     FormatSettings borderFormatSettings = FormatSettings::Default;
     BorderFormat borderFormat = BorderFormat::Default;
+
+    FontColor selectedHeaderColor = FontColor::Yellow;
+    FontColor noSelectedHeaderColor = FontColor::Brightblack;
 };

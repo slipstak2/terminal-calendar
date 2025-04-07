@@ -19,6 +19,10 @@ void TerminalGrid::SetBorderVisible(bool isVisible) {
     borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Conceal;
 }
 
+const DataStoragePtr TerminalGrid::GetStorage() const {
+    return storage;
+}
+
 void TerminalGrid::InitHeader() {
     short col = 1;
     for (short column = 0; column < columns.size(); ++column) {
@@ -29,6 +33,22 @@ void TerminalGrid::InitHeader() {
             headerLabel->SetFormatSettings(formatSettings);
             return true;
         });
+        headerLabel->AddMouseOverCallback([headerLabel, this]() {
+            //if (!rowMark->GetChecked()) {
+                auto formatSettings = headerLabel->GetFormatSettings();
+                formatSettings.fontColor = selectedHeaderColor;
+                headerLabel->SetFormatSettings(formatSettings);
+            //}
+            return true;
+            });
+        headerLabel->AddMouseOutCallback([headerLabel, this]() {
+            //if (!rowMark->GetChecked()) {
+                auto formatSettings = headerLabel->GetFormatSettings();
+                formatSettings.fontColor = noSelectedHeaderColor;
+                headerLabel->SetFormatSettings(formatSettings);
+            //}
+            return true;
+            });
         AddControl(headerLabel);
         col += columns[column].width + 1;
     }

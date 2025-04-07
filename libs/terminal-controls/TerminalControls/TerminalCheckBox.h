@@ -21,12 +21,14 @@ public:
     void AddOnChangedCallback(CheckBoxChangedCallback changedCallback) {
         changedCallbacks.push_back(changedCallback);
     }
-
     void SetLabelFormatSettings(FormatSettings labelFormatSettings);
+
+    TerminalButtonPtr GetCheckedButton();
+    TerminalButtonPtr GetLabelButton();
 
 protected:
     std::vector<CheckBoxChangedCallback> changedCallbacks;
-protected:
+protected: // TODO: return protected
     bool isChecked = false;
     TerminalButtonPtr checkedButton;
     TerminalButtonPtr labelButton;
