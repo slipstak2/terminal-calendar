@@ -171,6 +171,9 @@
     <ClInclude Include="TerminalControls\Date\TerminalMonthGrid.h">
       <Filter>Header Files\TerminalControls\Date</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalGridCell.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\Date\TerminalMonthGrid.cpp">
       <Filter>Source Files\TerminalControls\Date</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalGridCell.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

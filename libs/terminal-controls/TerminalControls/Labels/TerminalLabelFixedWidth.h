@@ -6,6 +6,7 @@ public:
     DECLARE_KIND(TerminalLabelBase, TerminalControl::Kind::LABEL_FIXED_WIDTH)
 
 public:
+    TerminalLabelFixedWidth(Utf8String text, TerminalCoord position);
     TerminalLabelFixedWidth(TerminalCoord position, TerminalSize size);
 
     const Utf8String& Get() const override;

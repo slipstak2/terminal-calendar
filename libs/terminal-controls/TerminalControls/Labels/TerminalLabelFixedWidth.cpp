@@ -7,6 +7,13 @@ TerminalLabelFixedWidth::TerminalLabelFixedWidth(TerminalCoord position, Termina
     InitRenderText();
 }
 
+TerminalLabelFixedWidth::TerminalLabelFixedWidth(Utf8String label, TerminalCoord position)
+    : TerminalLabelBase(position, TerminalSize{.height = 1, .width = (short)label.size()})
+    , text(label)
+{
+    InitRenderText();
+}
+
 void TerminalLabelFixedWidth::InitRenderText() {
     renderText = text;
     renderText.resize(Width(), ' ');

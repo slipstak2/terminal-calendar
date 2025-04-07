@@ -42,6 +42,7 @@ public:
         VERTICAL_SCROLL_BAR,
         MONTH_BOX,
         GRID,
+        GRID_CELL,
         MONTH_GRID,
         WINDOW
     };

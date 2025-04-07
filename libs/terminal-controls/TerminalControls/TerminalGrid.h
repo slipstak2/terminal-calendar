@@ -33,6 +33,9 @@ protected:
     std::vector<ColumnInfo> columns;
 
 protected:
+    std::vector<std::vector<TerminalLabelPtr>> cells;
+
+protected:
     FormatSettings borderFormatSettings = FormatSettings::Default;
     BorderFormat borderFormat = BorderFormat::Default;
 

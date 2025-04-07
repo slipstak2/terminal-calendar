@@ -1,5 +1,6 @@
 ﻿#include "TerminalGrid.h"
 #include "TerminalCheckBox.h"
+#include "TerminalGridCell.h"
 
 TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
     : TerminalCompositeControl(position)
@@ -41,14 +42,7 @@ void TerminalGrid::InitData() {
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
             std::string day(row->GetField<std::string_view>(field_num));
             if (!day.empty()) {
-                auto dayLabel = TerminalLabel::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
-                dayLabel->AddClickCallback([dayLabel]() {
-                    auto formatSettings = dayLabel->GetFormatSettings();
-                    formatSettings.fontColor = formatSettings.fontColor != FontColor::Default ? FontColor::Default : FontColor::Blue;
-                    formatSettings.backgroundColor = formatSettings.backgroundColor != BackgroundColor::Default ? BackgroundColor::Default : BackgroundColor::Brightcyan;
-                    dayLabel->SetFormatSettings(formatSettings);
-                    return true;
-                    });
+                auto dayLabel = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
                 AddControl(dayLabel);
             }
             else {
