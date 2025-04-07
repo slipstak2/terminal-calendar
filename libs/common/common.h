@@ -80,6 +80,9 @@ using TerminalMonthBoxPtr = std::shared_ptr<TerminalMonthBox>;
 class TerminalGrid;
 using TerminalGridPtr = std::shared_ptr<TerminalGrid>;
 
+class TerminalGridCell;
+using TerminalGridCellPtr = std::shared_ptr<TerminalGridCell>;
+
 class DataFieldAccessor;
 using DataFieldAccessorPtr = std::shared_ptr<DataFieldAccessor>;
 

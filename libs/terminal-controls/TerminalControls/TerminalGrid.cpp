@@ -8,6 +8,7 @@ TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr
     , storage(storage) {
 
     columns.resize(header.size());
+    cells.resize(storage->RowsCount(), std::vector<TerminalGridCellPtr>(storage->FieldsCount(), nullptr));
 
     InitHeader();
     InitData();
@@ -24,10 +25,30 @@ const DataStoragePtr TerminalGrid::GetStorage() const {
     return storage;
 }
 
+void TerminalGrid::SetSelectedFullColumn(size_t col, bool isSelected) {
+    for (size_t row = 0; row < cells.size(); ++row) {
+        if (cells[row][col]) {
+            cells[row][col]->SetSelected(isSelected, SelectedFlag::WEEK_DAY);
+        }
+    }
+}
+
+void TerminalGrid::SetSelectedFullRow(size_t row, bool isSelected) {
+    size_t cols = cells.empty() ? 0 : cells[0].size();
+    for (size_t col = 0; col < cols; ++col) {
+        if (cells[row][col]) {
+            cells[row][col]->SetSelected(isSelected, SelectedFlag::WEEK);
+        }
+    }
+}
+
 void TerminalGrid::InitHeader() {
     short col = 1;
     for (short column = 0; column < columns.size(); ++column) {
         auto headerCheckBox = TerminalCheckBox::Create(header[column], TerminalCoord{.row = 0, .col = col}, false);
+        headerCheckBox->AddOnChangedCallback([this, column](TerminalCheckBox* sender, bool isChecked) {
+            SetSelectedFullColumn(column, isChecked);
+        });
         AddControl(headerCheckBox);
 
         col += columns[column].width + 1;
@@ -42,8 +63,9 @@ void TerminalGrid::InitData() {
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
             std::string day(row->GetField<std::string_view>(field_num));
             if (!day.empty()) {
-                auto dayLabel = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
-                AddControl(dayLabel);
+                auto dayCell = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
+                AddControl(dayCell);
+                cells[row_num][field_num] = dayCell;
             }
             else {
                 std::string empty_cell(columns[field_num].width, ' ');

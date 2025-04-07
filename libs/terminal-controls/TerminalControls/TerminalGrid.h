@@ -20,6 +20,9 @@ public:
 
     const DataStoragePtr GetStorage() const;
 
+    void SetSelectedFullColumn(size_t col, bool isSelected);
+    void SetSelectedFullRow(size_t row, bool isSelected);
+
 protected:
     void InitHeader();
     void InitData();
@@ -33,7 +36,7 @@ protected:
     std::vector<ColumnInfo> columns;
 
 protected:
-    std::vector<std::vector<TerminalLabelPtr>> cells;
+    std::vector<std::vector<TerminalGridCellPtr>> cells;
 
 protected:
     FormatSettings borderFormatSettings = FormatSettings::Default;
