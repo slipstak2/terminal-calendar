@@ -47,7 +47,7 @@ Bugs:
 
 
 Доработки/Refactoring:
-    3. TerminalMonthSwitcher под капотом должен иметь data-storage 03Apr25
+    3. TerminalMonthBox под капотом должен иметь data-storage 03Apr25
     4. Resize окна на старте в зависимости от разрешения экрана
     5. Click на день + move похоже вызывает double-click
 

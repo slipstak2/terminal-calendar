@@ -14,7 +14,7 @@
 #include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
 #include "TerminalControlsConfig.h"
-#include "Date/TerminalMonthSwitcher.h"
+#include "Date/TerminalMonthBox.h"
 #include "DataProviders/ListDataSetNumSequence.h"
 
 #include "TerminalCalendarApplication.h"
@@ -96,7 +96,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
 
     auto fillMonthsData = [backgroundWindow](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
-            return control->As<TerminalMonthSwitcher>() != nullptr;
+            return control->As<TerminalMonthBox>() != nullptr;
         });
         assert(removeControls == 0 || removeControls == 12);
 
@@ -104,9 +104,9 @@ TerminalCalendarApplication::TerminalCalendarApplication()
         int month = 0;
         for (short row = 0; row < 4; ++row) {
             for (short col = 0; col < 3; ++col) {
-                auto monthLabel = TerminalMonthSwitcher::Create(year, month++, TerminalCoord{
-                    .row = offset_row + row * TerminalMonthSwitcher::DefaultHeight(),
-                    .col = col * TerminalMonthSwitcher::DefaultWidth()
+                auto monthLabel = TerminalMonthBox::Create(year, month++, TerminalCoord{
+                    .row = offset_row + row * TerminalMonthBox::DefaultHeight(),
+                    .col = col * TerminalMonthBox::DefaultWidth()
                     });
                 backgroundWindow->AddControlOnBorder(monthLabel);
             }

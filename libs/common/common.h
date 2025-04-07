@@ -74,8 +74,8 @@ using TerminalVerticalScrollPtr = std::shared_ptr<TerminalVerticalScroll>;
 class TerminalVerticalScrollBar;
 using TerminalVerticalScrollBarPtr = std::shared_ptr<TerminalVerticalScrollBar>;
 
-class TerminalMonthSwitcher;
-using TerminalMonthSwitcherPtr = std::shared_ptr<TerminalMonthSwitcher>;
+class TerminalMonthBox;
+using TerminalMonthBoxPtr = std::shared_ptr<TerminalMonthBox>;
 
 class TerminalGrid;
 using TerminalGridPtr = std::shared_ptr<TerminalGrid>;

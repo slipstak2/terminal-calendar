@@ -24,7 +24,8 @@
     <ClInclude Include="DataProviders\ListDataSetBase.h" />
     <ClInclude Include="DataProviders\ListDataSetNumSequence.h" />
     <ClInclude Include="DataProviders\ListDynamicDataSet.h" />
-    <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h" />
+    <ClInclude Include="TerminalControls\Date\TerminalMonthGrid.h" />
+    <ClInclude Include="TerminalControls\Date\TerminalMonthBox.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabelBase.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabelDataProvider.h" />
@@ -62,7 +63,8 @@
     <ClCompile Include="DataProviders\ListDataSet.cpp" />
     <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp" />
     <ClCompile Include="DataProviders\ListDynamicDataSet.cpp" />
-    <ClCompile Include="TerminalControls\Date\TerminalMonthSwitcher.cpp" />
+    <ClCompile Include="TerminalControls\Date\TerminalMonthGrid.cpp" />
+    <ClCompile Include="TerminalControls\Date\TerminalMonthBox.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabelBase.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabelDataProvider.cpp" />

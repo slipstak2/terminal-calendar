@@ -150,7 +150,7 @@
     <ClInclude Include="TerminalControls\TerminalBorderListView.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
-    <ClInclude Include="TerminalControls\Date\TerminalMonthSwitcher.h">
+    <ClInclude Include="TerminalControls\Date\TerminalMonthBox.h">
       <Filter>Header Files\TerminalControls\Date</Filter>
     </ClInclude>
     <ClInclude Include="DataProviders\ListDataSet.h">
@@ -167,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalGrid.h">
       <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Date\TerminalMonthGrid.h">
+      <Filter>Header Files\TerminalControls\Date</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +254,7 @@
     <ClCompile Include="TerminalControls\TerminalBorderListView.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\Date\TerminalMonthSwitcher.cpp">
+    <ClCompile Include="TerminalControls\Date\TerminalMonthBox.cpp">
       <Filter>Source Files\TerminalControls\Date</Filter>
     </ClCompile>
     <ClCompile Include="DataProviders\ListDataSet.cpp">
@@ -265,6 +268,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalGrid.cpp">
       <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Date\TerminalMonthGrid.cpp">
+      <Filter>Source Files\TerminalControls\Date</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

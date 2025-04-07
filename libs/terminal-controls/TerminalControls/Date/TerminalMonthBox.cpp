@@ -1,6 +1,6 @@
-#include "TerminalMonthSwitcher.h"
+#include "TerminalMonthBox.h"
 #include "TerminalLabel.h"
-#include "TerminalGrid.h"
+#include "TerminalMonthGrid.h"
 #include "TerminalCheckBox.h"
 
 #include <chrono>
@@ -29,13 +29,13 @@ void fillRow(DataRow& row, std::chrono::year_month_day& d) {
     }
 }
 
-TerminalMonthSwitcher::TerminalMonthSwitcher(int year, int month, TerminalCoord position)
+TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
     : TerminalBorderControl("", position, TerminalSize{.height = DefaultHeight(), .width = DefaultWidth()})
-    , provider(monthsDataSet, month)
+    , monthStr(monthsDataSet->operator[](month))
 
 {
-    short offset = (Width() - (short)provider.Get().size()) / 2;
-    auto monthLabel = TerminalLabel::Create(provider.Get(), TerminalCoord{ .row = 0, .col = offset });
+    short offset = (Width() - (short)monthStr.size()) / 2;
+    auto monthLabel = TerminalLabel::Create(monthStr, TerminalCoord{ .row = 0, .col = offset });
     AddControlOnBorder(monthLabel);
 
     std::vector<Utf8String> header = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
@@ -55,14 +55,12 @@ TerminalMonthSwitcher::TerminalMonthSwitcher(int year, int month, TerminalCoord 
         fillRow(row, date);
     }
         
-    auto grid = TerminalGrid::Create(header, storage, TerminalCoord{.row = 0, .col = 0});
+    auto grid = TerminalMonthGrid::Create(header, storage, TerminalCoord{.row = 0, .col = 0});
     AddControl(grid);
 
     for (int row_num = 0; row_num < grid->GetStorage()->RowsCount(); ++row_num) {
         auto rowMark = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
         rowMark->mouseOverColor = rowMark->selectedColor;
-
         AddControlOnBorder(rowMark);
-
     }
 }
