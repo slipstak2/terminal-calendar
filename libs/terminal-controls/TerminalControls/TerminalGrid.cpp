@@ -25,6 +25,16 @@ const DataStoragePtr TerminalGrid::GetStorage() const {
     return storage;
 }
 
+void TerminalGrid::SetSelectedFull(bool isSelected, bool isForce) {
+    for (size_t row = 0; row < cells.size(); ++row) {
+        for (size_t col = 0; col < cells[row].size(); ++col) {
+            if (cells[row][col]) {
+                cells[row][col]->SetSelected(isSelected, isForce);
+            }
+        }
+    }
+}
+
 void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected, bool isForce) {
     for (size_t row = 0; row < cells.size(); ++row) {
         if (cells[row][col]) {

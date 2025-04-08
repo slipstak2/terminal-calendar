@@ -20,6 +20,7 @@ public:
 
     const DataStoragePtr GetStorage() const;
 
+    void SetSelectedFull(bool isSelected, bool isForce);
     void SetSelectedFullRow(size_t row, bool isSelected, bool isForce);
     void SetSelectedFullCol(size_t col, bool isSelected, bool isForce);
 

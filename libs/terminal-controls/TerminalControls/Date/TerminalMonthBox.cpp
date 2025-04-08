@@ -35,8 +35,12 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
 
 {
     short offset = (Width() - (short)monthStr.size()) / 2;
-    auto monthLabel = TerminalLabel::Create(monthStr, TerminalCoord{ .row = 0, .col = offset });
-    AddControlOnBorder(monthLabel);
+    auto monthCheckBox = TerminalCheckBox::Create(monthStr, TerminalCoord{ .row = 0, .col = offset }, false);
+    monthCheckBox->selectedColor = FontColor::Cyan;
+    monthCheckBox->noSelectedColor = FontColor::Default;
+    monthCheckBox->mouseOverColor = FontColor::Brightcyan;
+    monthCheckBox->GetLabelButton()->SetFontColor(monthCheckBox->noSelectedColor);
+    AddControlOnBorder(monthCheckBox);
 
     std::vector<Utf8String> header = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
     auto storage = DataStorage::Create(
@@ -66,4 +70,7 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
         });
         AddControlOnBorder(rowMark);
     }
+    monthCheckBox->AddOnChangedCallback([grid](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
+        grid->SetSelectedFull(isChecked, ctx.isCtrl);
+    });
 }
