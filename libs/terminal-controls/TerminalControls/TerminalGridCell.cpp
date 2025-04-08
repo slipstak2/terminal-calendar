@@ -1,27 +1,11 @@
 #include "TerminalGridCell.h"
 
 
-bool SelectedFlags::Is(SelectedFlag flag) {
-    return value & flag;
-}
-
-void SelectedFlags::Set(SelectedFlag flag, bool val) {
-    if (val) {
-        value |= flag;
-    } else {
-        value &= ~flag;
-    }
-}
-
-const int SelectedFlags::Value() {
-    return value;
-}
-
 TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
     : TerminalLabelFixedWidth(label, position)
 {
-    AddOnSelectedCallback([this](TerminalGridCell* sender, SelectedFlags selectedFlags) {
-        if (selectedFlags.Value()) {
+    AddOnSelectedCallback([this](TerminalGridCell* sender) {
+        if (sender->IsSelected()) {
             SetFontColor(FontColor::Blue);
             SetBackgroundColor(BackgroundColor::Brightcyan);
         } else {
@@ -31,48 +15,46 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
     });
 
     AddClickCallback([this]() {
-        if (!selectedFlags.Value()) {
-            return SetSelected(true, SelectedFlag::SINGLE);
+        if (!IsSelected()) {
+            return SetSelected(true);
         } else {
-            ApplyTryUnselected();
-            SetSelected(false, SelectedFlag::SINGLE);
-            return true;
+            return Unselected();
         }
     });
 }
 
-const SelectedFlags& TerminalGridCell::GetSelectedFlags() const {
-    return selectedFlags;
-}
-
-bool TerminalGridCell::SetSelected(bool isSelect, SelectedFlag flag) {
-    bool isChanged = GetSelected(flag) != isSelect;
+bool TerminalGridCell::SetSelected(bool isSelect) {
+    bool isChanged = IsSelected() != isSelect;
+    if (isSelect) {
+        selectedCount++;
+    } else {
+        selectedCount = std::max(0, selectedCount - 1);
+    }
     if (isChanged) {
-        this->selectedFlags.Set(flag, isSelect);
         for (auto& selectedCallback : selectedCallbacks) {
-            selectedCallback(this, selectedFlags);
+            selectedCallback(this);
         }
     }
     return isChanged;
 }
 
-bool TerminalGridCell::GetSelected(SelectedFlag flag) {
-    return selectedFlags.Is(flag);
+bool TerminalGridCell::Unselected() {
+    bool isChanged = IsSelected();
+    selectedCount = 0;
+    if (isChanged) {
+        for (auto& selectedCallback : selectedCallbacks) {
+            selectedCallback(this);
+        }
+    }
+    return isChanged;
 }
 
 void TerminalGridCell::AddOnSelectedCallback(GridCellSelectedCallback selectedCallback) {
     selectedCallbacks.push_back(selectedCallback);
 }
 
-void TerminalGridCell::AddOnTryUnselectedCallback(GridCellTryUnselectedCallback tryUnselectedCallback) {
-    tryUnselectedCallbacks.push_back(tryUnselectedCallback);
-    //void (GridCellTryUnselectedCallback tryUnselectedCallback);
-}
-
-void TerminalGridCell::ApplyTryUnselected() {
-    for (auto& tryUnselectedCallback : tryUnselectedCallbacks) {
-        tryUnselectedCallback(this);
-    }
+bool TerminalGridCell::IsSelected() const {
+    return selectedCount;
 }
 
 void TerminalGridCell::SetGridPosition(size_t gridRow, size_t gridCol) {

@@ -28,8 +28,7 @@ const DataStoragePtr TerminalGrid::GetStorage() const {
 void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected) {
     for (size_t row = 0; row < cells.size(); ++row) {
         if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected, SelectedFlag::WEEK_DAY);
-            cells[row][col]->SetSelected(isSelected, SelectedFlag::SINGLE);
+            cells[row][col]->SetSelected(isSelected);
         }
     }
 }
@@ -38,25 +37,7 @@ void TerminalGrid::SetSelectedFullRow(size_t row, bool isSelected) {
     size_t cols = cells.empty() ? 0 : cells[0].size();
     for (size_t col = 0; col < cols; ++col) {
         if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected, SelectedFlag::WEEK);
-            cells[row][col]->SetSelected(isSelected, SelectedFlag::SINGLE);
-        }
-    }
-}
-
-void TerminalGrid::DisableFullRowSingleSelection(size_t row) {
-    size_t cols = cells.empty() ? 0 : cells[0].size();
-    for (size_t col = 0; col < cols; ++col) {
-        if (cells[row][col]) {
-            cells[row][col]->SetSelected(false, SelectedFlag::SINGLE);
-        }
-    }
-}
-
-void TerminalGrid::DisableFullColSingleSelection(size_t col) {
-    for (size_t row = 0; row < cells.size(); ++row) {
-        if (cells[row][col]) {
-            cells[row][col]->SetSelected(false, SelectedFlag::SINGLE);
+            cells[row][col]->SetSelected(isSelected);
         }
     }
 }
@@ -80,25 +61,11 @@ void TerminalGrid::InitData() {
         short col = 1;
         auto row = storage->GetRow(row_num);
 
-        auto tryUnselectedCell = [this](TerminalGridCell* cell) {
-            SelectedFlags flags = cell->GetSelectedFlags();
-            if (flags.Is(SelectedFlag::WEEK)) {
-                cell->SetSelected(false, SelectedFlag::WEEK);
-                DisableFullRowSingleSelection(cell->GridRow());
-            }
-            if (flags.Is(SelectedFlag::WEEK_DAY)) {
-                cell->SetSelected(false, SelectedFlag::WEEK_DAY);
-                DisableFullColSingleSelection(cell->GridCol());
-            }
-        };
-
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
             std::string day(row->GetField<std::string_view>(field_num));
             if (!day.empty()) {
                 auto dayCell = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
                 dayCell->SetGridPosition(row_num, field_num);
-
-                dayCell->AddOnTryUnselectedCallback(tryUnselectedCell);
                 AddControl(dayCell);
                 cells[row_num][field_num] = dayCell;
             }
