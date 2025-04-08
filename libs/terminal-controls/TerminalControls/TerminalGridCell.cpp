@@ -21,6 +21,7 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
             return Unselected();
         }
     });
+    allowUseDoubleClickAsSingleClick = true;
 }
 
 bool TerminalGridCell::SetSelected(bool isSelect) {

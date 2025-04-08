@@ -222,6 +222,10 @@ public:
         return false;
     }
 
+    bool AllowUseDoubleClickAsSingleClick() {
+        return allowUseDoubleClickAsSingleClick;
+    }
+
     std::vector<TerminalControlPtr>& GetControls();
 
 public:
@@ -248,6 +252,8 @@ protected:
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;
     bool isFocusable = true;
+
+    bool allowUseDoubleClickAsSingleClick = true;
 
 public:
     int tag; // for debug don't erase

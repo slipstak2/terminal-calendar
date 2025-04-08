@@ -102,7 +102,12 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
     bool isMoveToTop = rootControl->MoveToTop(clickWindow);
     tp.Pop("MoveToTop", isMoveToTop);
     
-    bool isApplyClickOK = clickControl ? clickControl->ApplyMouseLeftClick(absPosition) : false;
+    bool isApplyClickOK = false;
+    if (clickControl) {
+        if (!isFromDoubleClick || clickControl->AllowUseDoubleClickAsSingleClick()) {
+            isApplyClickOK = clickControl->ApplyMouseLeftClick(absPosition);
+        }
+    }
 
     if (isMoveToTop || isApplyClickOK || isDraggingStart) {
         TimeProfiler& tp = TControlsConfig().tp;
