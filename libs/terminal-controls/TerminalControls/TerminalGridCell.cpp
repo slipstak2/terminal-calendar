@@ -14,34 +14,29 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
         }
     });
 
-    AddClickCallback([this]() {
+    AddClickCallback([this](const MouseContext& ctx) {
         if (!IsSelected()) {
             return SetSelected(true);
         } else {
-            return Unselected();
+            return SetSelected(false, true);
         }
     });
     allowUseDoubleClickAsSingleClick = true;
 }
 
-bool TerminalGridCell::SetSelected(bool isSelect) {
+bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
     bool isChanged = IsSelected() != isSelect;
-    if (isSelect) {
-        selectedCount++;
-    } else {
-        selectedCount = std::max(0, selectedCount - 1);
+    if (isForce) {
+        selectedCount = (isSelect ? 1 : 0);
     }
-    if (isChanged) {
-        for (auto& selectedCallback : selectedCallbacks) {
-            selectedCallback(this);
+    else {
+        if (isSelect) {
+            selectedCount++;
+        }
+        else {
+            selectedCount = std::max(0, selectedCount - 1);
         }
     }
-    return isChanged;
-}
-
-bool TerminalGridCell::Unselected() {
-    bool isChanged = IsSelected();
-    selectedCount = 0;
     if (isChanged) {
         for (auto& selectedCallback : selectedCallbacks) {
             selectedCallback(this);

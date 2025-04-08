@@ -6,6 +6,7 @@
 #include <optional>
 
 #include "TimeProfiler.h"
+#include "Contexts/MouseContext.h"
 
 
 class TerminalApplication {
@@ -19,8 +20,8 @@ public:
     void OnKeyPressUpOrDown(bool isUp);
     
     void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);
-    void OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick = false);
-    void OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl);
+    void OnMouseLeftClick(const MouseContext& ctx, TerminalCoord absPosition);
+    void OnMouseDoubleClick(const MouseContext& ctx, TerminalCoord absPosition);
     void OnMouseUp(TerminalCoord absPosition);
     void OnMouseMoved(TerminalCoord absPosition);
     void OnMouseWheeled(short value);

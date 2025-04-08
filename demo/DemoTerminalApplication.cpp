@@ -26,14 +26,14 @@ DemoTerminalApplication::DemoTerminalApplication()
 
     auto isProfileEnable = TerminalCheckBox::Create("Time profiler ",
         TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = 3 });
-    isProfileEnable->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isProfileEnable->AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().profileEnable = isChecked;
         });
     isProfileEnable->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Yellow });
     backgroundWindow->AddControlOnBorder(isProfileEnable);
 
     auto isFullRender = TerminalCheckBox::Create("Full render ", TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isProfileEnable->ColEnd() + 2 });
-    isFullRender->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isFullRender->AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().isFullRender = isChecked;
         });
     isFullRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Brightblue });
@@ -41,7 +41,7 @@ DemoTerminalApplication::DemoTerminalApplication()
 
     auto isSimpleRender = TerminalCheckBox::Create("Simple render ", TerminalCoord{ .row = backgroundWindow->Height() - 1, .col = isFullRender->ColEnd() + 2 });
     isSimpleRender->SetLabelFormatSettings(FormatSettings{ .fontColor = FontColor::Green });
-    isSimpleRender->AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    isSimpleRender->AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         TControlsConfig().isSimpleRender = isChecked;
         FrameRender(true);
         });
@@ -105,7 +105,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     DanilWindow->AddControl(cbBorder);
 
     auto btnAddNewItem = TerminalButton::Create("+ Add new item", TerminalCoord{ .row = 7, .col = 5 });
-    btnAddNewItem->AddClickCallback([borderListView]() {
+    btnAddNewItem->AddClickCallback([borderListView](const MouseContext& ctx) {
         static int num = 0;
         borderListView->AddItem("#" + std::to_string(++num) + " message");
         return true;
@@ -113,7 +113,7 @@ DemoTerminalApplication::DemoTerminalApplication()
 
     auto btnRemoveLastItem = TerminalButton::Create("- Remove last item", TerminalCoord{ .row = 8, .col = 5 });
 
-    btnRemoveLastItem->AddClickCallback([borderListView]() {
+    btnRemoveLastItem->AddClickCallback([borderListView](const MouseContext& ctx) {
         return borderListView->RemoveLastItem();
         });
     DanilWindow->AddControl(btnAddNewItem);
@@ -133,7 +133,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     }
 
     auto btnShowSize = TerminalButton::Create("Show Size   ", TerminalCoord{.row = 11, .col = 5});
-    btnShowSize->AddClickCallback([btnShowSize, this]() {
+    btnShowSize->AddClickCallback([btnShowSize, this](const MouseContext& ctx) {
         btnShowSize->SetText(GetTerminalConsoleSize().ToString());
         return true; });
 
@@ -142,7 +142,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     AddWindow(DanilWindow);
 
     for (int i = 0; i < 175; ++i) {
-        btnAddNewItem->ApplyMouseLeftClick(TerminalCoord());
+        btnAddNewItem->ApplyMouseLeftClick(MouseContext(), TerminalCoord());
     }
 
     auto radioButtonChanged = [rbBorderBrightcyan, rbBorderCyan, borderListView](TerminalRadioButton* sender, bool isSelected) {
@@ -159,7 +159,7 @@ DemoTerminalApplication::DemoTerminalApplication()
     rbBorderCyan->AddOnChangedCallback(radioButtonChanged);
     rbBorderBrightcyan->AddOnChangedCallback(radioButtonChanged);
 
-    auto cbBorderChanged = [borderListView](TerminalCheckBox* sender, bool isChecked) {
+    auto cbBorderChanged = [borderListView](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         borderListView->SetBorderVisible(isChecked);
         };
     cbBorder->AddOnChangedCallback(cbBorderChanged);

@@ -66,28 +66,28 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     backgroundWindow->AddControlOnBorder(tSizeLabel);
 
     auto bntDecH = TerminalButton::Create("[-h]", TerminalCoord{ .row = 0, .col = 3 });
-    bntDecH->AddClickCallback([this, sizeLabel, tSizeLabel]()  {
+    bntDecH->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx)  {
         UpdateData(this, -1, 0, sizeLabel, tSizeLabel);
         return true;
         });
     backgroundWindow->AddControlOnBorder(bntDecH);
 
     auto bntIncH = TerminalButton::Create("[+h]", TerminalCoord{ .row = 0, .col = 7 });
-    bntIncH->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+    bntIncH->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
         UpdateData(this, +1, 0, sizeLabel, tSizeLabel);
         return true;
         });
     backgroundWindow->AddControlOnBorder(bntIncH);
 
     auto bntDecW = TerminalButton::Create("[-w]", TerminalCoord{ .row = 0, .col = 22 });
-    bntDecW->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+    bntDecW->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
         UpdateData(this, 0, -1, sizeLabel, tSizeLabel);
         return true;
         });
     backgroundWindow->AddControlOnBorder(bntDecW);
 
     auto bntIncW = TerminalButton::Create("[+w]", TerminalCoord{ .row = 0, .col = 26 });
-    bntIncW->AddClickCallback([this, sizeLabel, tSizeLabel]() {
+    bntIncW->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
         UpdateData(this, 0, +1, sizeLabel, tSizeLabel);
         return true;
         });

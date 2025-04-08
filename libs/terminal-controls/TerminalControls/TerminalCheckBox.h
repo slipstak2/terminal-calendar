@@ -4,7 +4,7 @@
 #include "TerminalCompositeControl.h"
 
 class TerminalCheckBox;
-using CheckBoxChangedCallback = std::function<void(TerminalCheckBox* sender, bool isChecked)>;
+using CheckBoxChangedCallback = std::function<void(const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked)>;
 
 class TerminalCheckBox : public TerminalCompositeControl {
 public:
@@ -16,6 +16,7 @@ public:
 
 public:
     bool SetChecked(bool isCheck);
+    bool SetChecked(const MouseContext& ctx, bool isCheck);
     bool GetChecked();
 
     void AddOnChangedCallback(CheckBoxChangedCallback changedCallback) {

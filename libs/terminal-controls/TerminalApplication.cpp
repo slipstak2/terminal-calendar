@@ -8,6 +8,7 @@
 #include "TerminalLabelSwitcher.h"
 #include "DataProviders/ListDataProvider.h"
 #include "TerminalControlsConfig.h"
+#include "Contexts/MouseContext.h"
 
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
@@ -88,7 +89,7 @@ void TerminalApplication::FrameRender(bool isFullRender) {
     }
 }
 
-void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtrl, bool isFromDoubleClick) {
+void TerminalApplication::OnMouseLeftClick(const MouseContext& ctx, TerminalCoord absPosition) {
     auto clickCell = canvas->Get(absPosition);
     auto clickControl = clickCell.GetParent();
     auto clickWindow = clickControl ? clickControl->GetParentWindow() : nullptr;
@@ -104,8 +105,8 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
     
     bool isApplyClickOK = false;
     if (clickControl) {
-        if (!isFromDoubleClick || clickControl->AllowUseDoubleClickAsSingleClick()) {
-            isApplyClickOK = clickControl->ApplyMouseLeftClick(absPosition);
+        if (!ctx.isDoubleClick || clickControl->AllowUseDoubleClickAsSingleClick()) {
+            isApplyClickOK = clickControl->ApplyMouseLeftClick(ctx, absPosition);
         }
     }
 
@@ -113,15 +114,15 @@ void TerminalApplication::OnMouseLeftClick(TerminalCoord absPosition, bool isCtr
         TimeProfiler& tp = TControlsConfig().tp;
         tp.Push("FrameRender");
         FrameRender();
-        tp.Pop("FrameRender" + std::string(isFromDoubleClick ? "DC " : ""));
+        tp.Pop("FrameRender" + std::string(ctx.isDoubleClick ? "DC " : ""));
         tp.forceShouldNotCommit = true;
         FrameRender();
         tp.forceShouldNotCommit = false;
     }
 }
 
-void TerminalApplication::OnMouseDoubleClick(TerminalCoord absPosition, bool isCtrl) {
-    OnMouseLeftClick(absPosition, isCtrl, true);
+void TerminalApplication::OnMouseDoubleClick(const MouseContext& ctx, TerminalCoord absPosition) {
+    OnMouseLeftClick(ctx, absPosition);
 }
 
 void TerminalApplication::OnMouseUp(TerminalCoord absPosition) {
@@ -239,10 +240,12 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
         .row = mouseEvent.dwMousePosition.Y,
         .col = mouseEvent.dwMousePosition.X 
     };
+    MouseContext ctx(&mouseEvent);
+
     if (mouseEvent.dwEventFlags != 0) { // just click
         if (mouseEvent.dwEventFlags & DOUBLE_CLICK) {
             if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-                OnMouseDoubleClick(absPosition, mouseEvent.dwControlKeyState& LEFT_CTRL_PRESSED);
+                OnMouseDoubleClick(ctx, absPosition);
             }
             info += "Double click";
         }
@@ -265,7 +268,7 @@ void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {
             info = "Up";
         }
         if (mouseEvent.dwButtonState == FROM_LEFT_1ST_BUTTON_PRESSED) {
-            OnMouseLeftClick(absPosition, mouseEvent.dwControlKeyState & LEFT_CTRL_PRESSED);
+            OnMouseLeftClick(ctx, absPosition);
             info = "LeftButton";
         }
         if (mouseEvent.dwButtonState == RIGHTMOST_BUTTON_PRESSED) {

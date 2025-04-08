@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
+    <ClInclude Include="Contexts\MouseContext.h" />
     <ClInclude Include="DataProviders\ListDataSet.h" />
     <ClInclude Include="DataProviders\ListDataSetBase.h" />
     <ClInclude Include="DataProviders\ListDataSetNumSequence.h" />
@@ -61,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
+    <ClCompile Include="Contexts\MouseContext.cpp" />
     <ClCompile Include="DataProviders\ListDataSet.cpp" />
     <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp" />
     <ClCompile Include="DataProviders\ListDynamicDataSet.cpp" />

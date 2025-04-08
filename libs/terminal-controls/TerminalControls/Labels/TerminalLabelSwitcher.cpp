@@ -18,7 +18,7 @@ TerminalLabelSwitcher::TerminalLabelSwitcher(ListDataProviderPtr dataProvider, T
     label = TerminalLabelDataProvider::Create(dataProvider, TerminalCoord{ .row = 0, .col = btnLeft->ColEnd() + ONE });
     btnRight = TerminalButton::Create(RightActive, TerminalCoord{ .row = 0, .col = label->ColEnd() + ONE });
 
-    btnLeft->AddClickCallback([dataProvider, this]() {
+    btnLeft->AddClickCallback([dataProvider, this](const MouseContext& ctx) {
         bool result = dataProvider->Prev();
         if (result) {
             CheckState();
@@ -27,7 +27,7 @@ TerminalLabelSwitcher::TerminalLabelSwitcher(ListDataProviderPtr dataProvider, T
         }
     );
 
-    btnRight->AddClickCallback([dataProvider, this]() {
+    btnRight->AddClickCallback([dataProvider, this](const MouseContext& ctx) {
         bool result = dataProvider->Next();
         if (result) {
             CheckState();

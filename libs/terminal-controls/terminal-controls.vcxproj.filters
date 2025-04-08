@@ -55,6 +55,12 @@
     <Filter Include="Source Files\TerminalControls\Date">
       <UniqueIdentifier>{573faaa3-526d-4cf9-a7d5-5661f7b40973}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Contexts">
+      <UniqueIdentifier>{1cb42c57-28f2-476c-ac6f-878988a7dc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Contexts">
+      <UniqueIdentifier>{6486a51f-de71-454e-b26c-a14bf9650037}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -174,6 +180,9 @@
     <ClInclude Include="TerminalControls\TerminalGridCell.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
+    <ClInclude Include="Contexts\MouseContext.h">
+      <Filter>Header Files\Contexts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -236,9 +245,6 @@
     <ClCompile Include="TerminalApplication.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerminalControls\TerminalCheckBox.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
@@ -277,6 +283,12 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalGridCell.cpp">
       <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalGroupBox.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="Contexts\MouseContext.cpp">
+      <Filter>Source Files\Contexts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

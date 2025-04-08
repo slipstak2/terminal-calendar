@@ -7,9 +7,9 @@ const Utf8String TerminalCheckBox::UncheckedTitle = "□ ";
 TerminalCheckBox::TerminalCheckBox(const Utf8String& label, TerminalCoord position, bool withCheckedBox)
     : TerminalCompositeControl(position, TerminalSize{ .height = 1, .width = (short)label.size() + (withCheckedBox ? 2 : 0) })
 {
-    auto clickCallBack = [this]() {
-        return SetChecked(!GetChecked());
-        };
+    auto clickCallBack = [this](const MouseContext& ctx) {
+        return SetChecked(ctx, !GetChecked());
+    };
 
     if (withCheckedBox) {
         checkedButton = TerminalButton::Create(UncheckedTitle, TerminalCoord{ .row = 0, .col = 0 });
@@ -23,7 +23,7 @@ TerminalCheckBox::TerminalCheckBox(const Utf8String& label, TerminalCoord positi
 
     // TODO: changed prototype for AddOnChangedCallback and AddMouseOverCallback|AddMouseOutCallback
 
-    AddOnChangedCallback([this](TerminalCheckBox* sender, bool isChecked) {
+    AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         ProccessDefaultChanged();
     });
 
@@ -50,7 +50,11 @@ TerminalCheckBox::TerminalCheckBox(const Utf8String& label, TerminalCoord positi
     labelButton->SetFontColor(noSelectedColor);
 }
 
-bool TerminalCheckBox::SetChecked(bool isChecked) {
+bool TerminalCheckBox::SetChecked(bool isCheck) {
+    return SetChecked(MouseContext(), isCheck);
+}
+
+bool TerminalCheckBox::SetChecked(const MouseContext& ctx, bool isChecked) {
     bool isChanged = this->isChecked != isChecked;
     this->isChecked = isChecked;
     if (checkedButton) {
@@ -59,7 +63,7 @@ bool TerminalCheckBox::SetChecked(bool isChecked) {
 
     if (isChanged) {
         for (auto& changedCallback : changedCallbacks) {
-            changedCallback(this, isChecked);
+            changedCallback(ctx, this, isChecked);
         }
     }
     return isChanged;

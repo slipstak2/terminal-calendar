@@ -61,8 +61,8 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
     for (int row_num = 0; row_num < grid->GetStorage()->RowsCount(); ++row_num) {
         auto rowMark = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
         rowMark->mouseOverColor = rowMark->selectedColor;
-        rowMark->AddOnChangedCallback([row_num, grid](TerminalCheckBox* sender, bool isChecked) {
-            grid->SetSelectedFullRow(row_num, isChecked);
+        rowMark->AddOnChangedCallback([row_num, grid](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
+            grid->SetSelectedFullRow(row_num, isChecked, ctx.isCtrl);
         });
         AddControlOnBorder(rowMark);
     }

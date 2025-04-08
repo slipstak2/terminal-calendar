@@ -9,7 +9,7 @@ const Utf8String TerminalRadioButton::UnselectedTitle = "◯ "; // Rune("□");
 TerminalRadioButton::TerminalRadioButton(const Utf8String& label, TerminalCoord position)
     : TerminalCompositeControl(position, TerminalSize{.height = 1, .width = (short)label.size() + 2})
 {
-    auto clickCallBack = [this]() {
+    auto clickCallBack = [this](const MouseContext& ctx) {
         return SetSelected(true);
         };
     

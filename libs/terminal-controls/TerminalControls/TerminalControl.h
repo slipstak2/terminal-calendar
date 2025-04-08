@@ -5,6 +5,7 @@
 #include "TerminalCell.h"
 #include "TextFormat/FormatSettings.h"
 #include <functional>
+#include "Contexts/MouseContext.h"
 
 #define DECLARE_KIND(base, kind)                                    \
     static const TerminalControl::Kind KIND = kind;                 \
@@ -13,7 +14,7 @@
 
 using FilterControlCallback = std::function<bool(TerminalControlPtr)>;
 
-using ClickCallback = std::function<bool()>;
+using ClickCallback = std::function<bool(const MouseContext& ctx)>;
 using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoord)>;
 using MouseWheelCallback = std::function<bool(short)>;
 using MouseOverCallback = std::function<bool()>;
@@ -112,10 +113,10 @@ public:
 
     TerminalCoord GetRelativePosition(TerminalCoord absPosition);
 
-    bool ApplyMouseLeftClick(TerminalCoord absPosition) {
+    bool ApplyMouseLeftClick(const MouseContext& ctx, TerminalCoord absPosition) {
         bool isApply = false;
         for (auto& clickCallback : clickCallbacks) {
-            isApply |= clickCallback();
+            isApply |= clickCallback(ctx);
         }
         if (!clickCallbacksWithPosition.empty()) {
             TerminalCoord relPosition = GetRelativePosition(absPosition);

@@ -13,8 +13,7 @@ public:
     TerminalGridCell(Utf8String label, TerminalCoord position);
 
 public:
-    bool SetSelected(bool isSelect);
-    bool Unselected();
+    bool SetSelected(bool isSelect, bool isForce = false);
     bool IsSelected() const;
     void AddOnSelectedCallback(GridCellSelectedCallback selectedCallback);
 

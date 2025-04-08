@@ -36,7 +36,7 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         });
 
     groupBox->GetTitle()->SetFocusable(false);
-    groupBox->GetTitle()->AddClickCallback([this]() {
+    groupBox->GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
         if (listView->GetSelectedItem() == -1) {
             return false;
         }

@@ -21,7 +21,7 @@ TEST_F(TerminalCheckBoxTests, Empty) {
 TEST_F(TerminalCheckBoxTests, CheckSet) {
     auto checkBox = TerminalCheckBox::Create("label", TerminalCoord());
     std::vector<bool> changedLog;
-    checkBox->AddOnChangedCallback([checkBox, &changedLog](TerminalCheckBox* sender, bool isChecked) {
+    checkBox->AddOnChangedCallback([checkBox, &changedLog](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         EXPECT_EQ(sender, checkBox.get());
         changedLog.push_back(isChecked);
         });

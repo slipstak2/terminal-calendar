@@ -14,7 +14,7 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
     , listView(listView)
 {
     btnUp = TerminalButton::Create(UpActive, TerminalCoord{.row = 0, .col = 0});
-    btnUp->AddClickCallback([listView]() {
+    btnUp->AddClickCallback([listView](const MouseContext& ctx) {
         return listView->ChangeOffset(-1);
     });
     AddControl(btnUp);
@@ -40,7 +40,7 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
     AddControl(verticalScroll);
 
     btnDown = TerminalButton::Create(DownActive, TerminalCoord{ .row = Height() - 1, .col = 0});
-    btnDown->AddClickCallback([listView]() {
+    btnDown->AddClickCallback([listView](const MouseContext& ctx) {
         return listView->ChangeOffset(1);
     });
     AddControl(btnDown);

@@ -25,19 +25,19 @@ const DataStoragePtr TerminalGrid::GetStorage() const {
     return storage;
 }
 
-void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected) {
+void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected, bool isForce) {
     for (size_t row = 0; row < cells.size(); ++row) {
         if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected);
+            cells[row][col]->SetSelected(isSelected, isForce);
         }
     }
 }
 
-void TerminalGrid::SetSelectedFullRow(size_t row, bool isSelected) {
+void TerminalGrid::SetSelectedFullRow(size_t row, bool isSelected, bool isForce) {
     size_t cols = cells.empty() ? 0 : cells[0].size();
     for (size_t col = 0; col < cols; ++col) {
         if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected);
+            cells[row][col]->SetSelected(isSelected, isForce);
         }
     }
 }
@@ -46,8 +46,8 @@ void TerminalGrid::InitHeader() {
     short col = 1;
     for (short column = 0; column < columns.size(); ++column) {
         auto headerCheckBox = TerminalCheckBox::Create(header[column], TerminalCoord{.row = 0, .col = col}, false);
-        headerCheckBox->AddOnChangedCallback([this, column](TerminalCheckBox* sender, bool isChecked) {
-            SetSelectedFullCol(column, isChecked);
+        headerCheckBox->AddOnChangedCallback([this, column](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
+            SetSelectedFullCol(column, isChecked, ctx.isCtrl);
         });
         AddControl(headerCheckBox);
 
