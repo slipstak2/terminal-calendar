@@ -20,8 +20,11 @@ public:
 
     const DataStoragePtr GetStorage() const;
 
-    void SetSelectedFullColumn(size_t col, bool isSelected);
     void SetSelectedFullRow(size_t row, bool isSelected);
+    void SetSelectedFullCol(size_t col, bool isSelected);
+
+    void DisableFullRowSingleSelection(size_t row);
+    void DisableFullColSingleSelection(size_t col);
 
 protected:
     void InitHeader();

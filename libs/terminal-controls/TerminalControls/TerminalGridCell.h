@@ -18,6 +18,7 @@ private:
 
 class TerminalGridCell;
 using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender, SelectedFlags selectedFlags)>;
+using GridCellTryUnselectedCallback = std::function<void(TerminalGridCell* sender)>;
 
 class TerminalGridCell : public TerminalLabelFixedWidth {
 public:
@@ -28,14 +29,23 @@ public:
     TerminalGridCell(Utf8String label, TerminalCoord position);
 
 public:
+    const SelectedFlags& GetSelectedFlags() const;
     bool SetSelected(bool isSelect, SelectedFlag flag);
     bool GetSelected(SelectedFlag flag);
-    void AddOnSelectedCallback(GridCellSelectedCallback selectedCallback) {
-        selectedCallbacks.push_back(selectedCallback);
-    }
+    void AddOnSelectedCallback(GridCellSelectedCallback selectedCallback);
+    void AddOnTryUnselectedCallback(GridCellTryUnselectedCallback tryUnselectedCallback);
+    void ApplyTryUnselected();
+
+    void SetGridPosition(size_t gridRow, size_t gridCol);
+    size_t GridRow() const;
+    size_t GridCol() const;
 
 protected:
     SelectedFlags selectedFlags;
-protected:
+
     std::vector<GridCellSelectedCallback> selectedCallbacks;
+    std::vector<GridCellTryUnselectedCallback> tryUnselectedCallbacks;
+
+    size_t gridRow = -1;
+    size_t gridCol = -1;
 };
