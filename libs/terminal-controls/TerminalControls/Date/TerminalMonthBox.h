@@ -10,6 +10,7 @@ public:
     DECLARE_CREATE(TerminalMonthBox)
 
     TerminalMonthBox(int year, int month, TerminalCoord position);
+    void SetSelectionLayer(SelectionLayer* selectionLayer) override;
 
 public:
     static short DefaultHeight() { return 1 + 5 + 2 + 1; };
@@ -17,4 +18,5 @@ public:
 
 protected:
     const Utf8String& monthStr;
+    TerminalMonthGridPtr grid;
 };

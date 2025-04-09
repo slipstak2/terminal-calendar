@@ -10,6 +10,8 @@
 #include "TerminalControlsConfig.h"
 #include "Contexts/MouseContext.h"
 
+#include "Layers/SelectionLayer.h"
+
 void MyErrorExit(const char* s) {
     printf("Fatal: %s\n", s);
     exit(1);
@@ -97,6 +99,7 @@ void TerminalApplication::OnMouseLeftClick(const MouseContext& ctx, TerminalCoor
     SetFocusControl(clickControl, clickWindow);
 
     bool isDraggingStart = TryDraggingStart(clickControl, absPosition);
+    TrySelectionStart(clickControl);
 
     TimeProfiler& tp = TControlsConfig().tp;
     tp.Push("MoveToTop");
@@ -126,7 +129,7 @@ void TerminalApplication::OnMouseDoubleClick(const MouseContext& ctx, TerminalCo
 }
 
 void TerminalApplication::OnMouseUp(TerminalCoord absPosition) {
-    if (TryDraggingStop()) {
+    if (TryDraggingStop() | TrySelectionStop()) {
         FrameRender();
     }
 }
@@ -135,7 +138,7 @@ void TerminalApplication::OnMouseMoved(TerminalCoord absPosition) {
     auto cellUnderMouse = canvas->Get(absPosition);
     auto curUnderMouseControl = cellUnderMouse.GetParent();
 
-    if (TryDragging(absPosition) | TryMouseOver(curUnderMouseControl) | TryMouseOut(curUnderMouseControl)) {
+    if (TryDragging(absPosition) | TrySelection(curUnderMouseControl) | TryMouseOver(curUnderMouseControl) | TryMouseOut(curUnderMouseControl)) {
         FrameRender();
     }
 
@@ -204,6 +207,35 @@ bool TerminalApplication::TryDraggingStop() {
     if (draggingControl) {
         draggingControl->TryDraggingStop();
         draggingControl = nullptr;
+        return true;
+    }
+    return false;
+}
+
+bool TerminalApplication::TrySelectionStart(TerminalControl* control) {
+    if (control != nullptr) {
+        SelectionLayer* selectionLayer = control->GetSelectionLayer();
+        if (selectionLayer != nullptr) {
+            currentSelectionLayer = selectionLayer;
+            selectionControlStart = control;
+            return true;
+        }
+    }
+    return false;
+}
+
+bool TerminalApplication::TrySelection(TerminalControl* control) {
+    if (selectionControlStart) {
+        if (control->GetSelectionLayer() == currentSelectionLayer) {
+            return currentSelectionLayer->Select(selectionControlStart, control);
+        }
+    }
+    return false;
+}
+bool TerminalApplication::TrySelectionStop() {
+    if (selectionControlStart) {
+        currentSelectionLayer = nullptr;
+        selectionControlStart = nullptr;
         return true;
     }
     return false;

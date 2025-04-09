@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Contexts">
       <UniqueIdentifier>{6486a51f-de71-454e-b26c-a14bf9650037}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Layers">
+      <UniqueIdentifier>{974754c2-ecf9-43dd-8d4e-14e13592c386}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Layers">
+      <UniqueIdentifier>{1c1f38a6-4db2-4ba9-b34e-05c67ffdb067}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -183,6 +189,12 @@
     <ClInclude Include="Contexts\MouseContext.h">
       <Filter>Header Files\Contexts</Filter>
     </ClInclude>
+    <ClInclude Include="Layers\SelectionLayer.h">
+      <Filter>Header Files\Layers</Filter>
+    </ClInclude>
+    <ClInclude Include="Layers\DaysSelectionLayer.h">
+      <Filter>Header Files\Layers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -289,6 +301,12 @@
     </ClCompile>
     <ClCompile Include="Contexts\MouseContext.cpp">
       <Filter>Source Files\Contexts</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\SelectionLayer.cpp">
+      <Filter>Source Files\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="Layers\DaysSelectionLayer.cpp">
+      <Filter>Source Files\Layers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

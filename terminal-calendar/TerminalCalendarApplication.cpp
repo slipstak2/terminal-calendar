@@ -94,7 +94,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     backgroundWindow->AddControlOnBorder(bntIncW);
 
 
-    auto fillMonthsData = [backgroundWindow](int year) {
+    auto fillMonthsData = [backgroundWindow, this](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthBox>() != nullptr;
         });
@@ -104,11 +104,12 @@ TerminalCalendarApplication::TerminalCalendarApplication()
         int month = 0;
         for (short row = 0; row < 4; ++row) {
             for (short col = 0; col < 3; ++col) {
-                auto monthLabel = TerminalMonthBox::Create(year, month++, TerminalCoord{
+                auto monthBox = TerminalMonthBox::Create(year, month++, TerminalCoord{
                     .row = offset_row + row * TerminalMonthBox::DefaultHeight(),
                     .col = col * TerminalMonthBox::DefaultWidth()
                     });
-                backgroundWindow->AddControlOnBorder(monthLabel);
+                monthBox->SetSelectionLayer(&daysSelectionLayer);
+                backgroundWindow->AddControlOnBorder(monthBox);
             }
         }
      };

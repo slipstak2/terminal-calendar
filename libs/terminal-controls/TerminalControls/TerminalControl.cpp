@@ -1,4 +1,5 @@
 #include "TerminalControl.h"
+#include "Layers/SelectionLayer.h"
 
 TerminalControl::TerminalControl(TerminalCoord position)
     : TerminalRectangle(position) {
@@ -86,4 +87,13 @@ TerminalCoord TerminalControl::GetRelativePosition(TerminalCoord absPosition) {
         return parent->GetRelativePosition(absPosition) - position;
     }
     return absPosition - position;
+}
+
+void TerminalControl::SetSelectionLayer(SelectionLayer* selectionLayer) {
+    selectionLayer->AddControl(shared_from_this());
+    this->selectionLayer = selectionLayer;
+}
+
+SelectionLayer* TerminalControl::GetSelectionLayer() {
+    return selectionLayer;
 }

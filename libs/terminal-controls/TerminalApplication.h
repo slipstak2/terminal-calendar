@@ -8,6 +8,7 @@
 #include "TimeProfiler.h"
 #include "Contexts/MouseContext.h"
 
+class SelectionLayer;
 
 class TerminalApplication {
 public:
@@ -49,6 +50,12 @@ protected:
     bool TryDraggingStop();
     TerminalCoord draggingBasePoint;
     TerminalControl* draggingControl;
+protected:
+    bool TrySelectionStart(TerminalControl* control);
+    bool TrySelection(TerminalControl* control);
+    bool TrySelectionStop();
+    SelectionLayer* currentSelectionLayer = nullptr;
+    TerminalControl* selectionControlStart = nullptr;
 
 protected:
     void SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow);

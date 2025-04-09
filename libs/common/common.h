@@ -80,6 +80,9 @@ using TerminalVerticalScrollBarPtr = std::shared_ptr<TerminalVerticalScrollBar>;
 class TerminalMonthBox;
 using TerminalMonthBoxPtr = std::shared_ptr<TerminalMonthBox>;
 
+class TerminalMonthGrid;
+using TerminalMonthGridPtr = std::shared_ptr<TerminalMonthGrid>;
+
 class TerminalGrid;
 using TerminalGridPtr = std::shared_ptr<TerminalGrid>;
 

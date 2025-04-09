@@ -21,7 +21,9 @@ using MouseOverCallback = std::function<bool()>;
 using MouseOutCallback = std::function<bool()>;
 using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
-class TerminalControl : public TerminalRectangle {
+class SelectionLayer;
+
+class TerminalControl : public TerminalRectangle, public std::enable_shared_from_this<TerminalControl> {
     friend class TerminalCanvas;
 public:
     enum class Kind {
@@ -51,6 +53,7 @@ public:
     virtual Kind GetKind() const { return KIND; };
     virtual bool IsKindOf(Kind kind) const { return kind == KIND; }
 public:
+    virtual ~TerminalControl() = default;
     TerminalControl(TerminalCoord position);
     TerminalControl(TerminalCoord position, TerminalSize size);
     TerminalControl(TerminalCoord position, TerminalSize size, FormatSettings formatSettings);
@@ -227,6 +230,10 @@ public:
         return allowUseDoubleClickAsSingleClick;
     }
 
+    virtual void SetSelectionLayer(SelectionLayer* selectionLayer);
+
+    SelectionLayer* GetSelectionLayer();
+
     std::vector<TerminalControlPtr>& GetControls();
 
 public:
@@ -238,6 +245,8 @@ protected:
 protected:
     TerminalControl* parent = nullptr;
     TerminalWindow* parentWindow = nullptr;
+    SelectionLayer* selectionLayer = nullptr;
+
     std::vector<TerminalControlPtr> controls;
     std::vector<std::vector<TerminalCell>> data;
     TerminalCell backgroundCell = CreateBackgroundCell('~');
