@@ -41,6 +41,9 @@ using TerminalLabelSwitcherPtr = std::shared_ptr<TerminalLabelSwitcher>;
 class TerminalButton;
 using TerminalButtonPtr = std::shared_ptr<TerminalButton>;
 
+class TerminalCheckBox;
+using TerminalCheckBoxPtr = std::shared_ptr<TerminalCheckBox>;
+
 class ListDataSetBase;
 using ListDataSetBasePtr = std::shared_ptr<ListDataSetBase>;
 

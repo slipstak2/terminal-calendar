@@ -52,7 +52,7 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
         FieldDesc::String("saturday"),
         FieldDesc::String("sunday")
     );
-        
+
     auto date = std::chrono::year(year) / std::chrono::month(month + 1) / std::chrono::day(1);
     while (date.ok()) {
         DataRow& row = storage->AddEmptyRow();
@@ -62,14 +62,17 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
     auto grid = TerminalMonthGrid::Create(header, storage, TerminalCoord{.row = 0, .col = 0});
     AddControl(grid);
 
+    std::vector<TerminalCheckBoxPtr> rowsCheckBoxes;
     for (int row_num = 0; row_num < grid->GetStorage()->RowsCount(); ++row_num) {
-        auto rowMark = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
-        rowMark->mouseOverColor = rowMark->selectedColor;
-        rowMark->AddOnChangedCallback([row_num, grid](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
+        auto rowHeader = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
+        rowHeader->mouseOverColor = rowHeader->selectedColor;
+        rowHeader->AddOnChangedCallback([row_num, grid](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
             grid->SetSelectedFullRow(row_num, isChecked, ctx.isCtrl);
         });
-        AddControlOnBorder(rowMark);
+        AddControlOnBorder(rowHeader);
+        rowsCheckBoxes.push_back(rowHeader);
     }
+    grid->SetRowsCheckBoxes(std::move(rowsCheckBoxes));
     monthCheckBox->AddOnChangedCallback([grid](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
         grid->SetSelectedFull(isChecked, ctx.isCtrl);
     });

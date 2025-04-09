@@ -15,6 +15,7 @@ public:
 public:
     bool SetSelected(bool isSelect, bool isForce = false);
     bool IsSelected() const;
+    int SelectedWeight() const;
     void AddOnSelectedCallback(GridCellSelectedCallback selectedCallback);
 
     void SetGridPosition(size_t gridRow, size_t gridCol);
@@ -22,7 +23,7 @@ public:
     size_t GridCol() const;
 
 protected:
-    int selectedCount = 0;
+    int selectedWeight = 0;
 
     std::vector<GridCellSelectedCallback> selectedCallbacks;
     size_t gridRow = -1;

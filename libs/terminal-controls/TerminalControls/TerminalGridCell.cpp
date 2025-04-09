@@ -27,14 +27,14 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
 bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
     bool isChanged = IsSelected() != isSelect;
     if (isForce) {
-        selectedCount = (isSelect ? 1 : 0);
+        selectedWeight = (isSelect ? 1 : 0);
     }
     else {
         if (isSelect) {
-            selectedCount++;
+            selectedWeight++;
         }
         else {
-            selectedCount = std::max(0, selectedCount - 1);
+            selectedWeight = std::max(0, selectedWeight - 1);
         }
     }
     if (isChanged) {
@@ -50,7 +50,11 @@ void TerminalGridCell::AddOnSelectedCallback(GridCellSelectedCallback selectedCa
 }
 
 bool TerminalGridCell::IsSelected() const {
-    return selectedCount;
+    return selectedWeight;
+}
+
+int TerminalGridCell::SelectedWeight() const {
+    return selectedWeight;
 }
 
 void TerminalGridCell::SetGridPosition(size_t gridRow, size_t gridCol) {

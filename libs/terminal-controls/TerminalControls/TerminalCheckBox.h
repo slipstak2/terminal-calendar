@@ -15,8 +15,8 @@ public:
     TerminalCheckBox(const Utf8String& label, TerminalCoord position, bool withCheckedBox = true);
 
 public:
-    bool SetChecked(bool isCheck);
-    bool SetChecked(const MouseContext& ctx, bool isCheck);
+    bool SetChecked(bool isCheck, bool useSubcribeCallbacks = true);
+    bool SetChecked(const MouseContext& ctx, bool isCheck, bool useSubcribeCallbacks = true);
     bool GetChecked();
 
     void AddOnChangedCallback(CheckBoxChangedCallback changedCallback) {
@@ -31,7 +31,7 @@ protected:
     std::vector<CheckBoxChangedCallback> changedCallbacks;
     bool ProccessDefaultMouseOver();
     bool ProccessDefaultMouseOut();
-    void ProccessDefaultChanged();
+    void ProccessDefaultChanged(bool useSubcribeCallbacks);
 
 protected:
     bool isChecked = false;

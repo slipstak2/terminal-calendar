@@ -23,11 +23,6 @@ TerminalCheckBox::TerminalCheckBox(const Utf8String& label, TerminalCoord positi
 
     // TODO: changed prototype for AddOnChangedCallback and AddMouseOverCallback|AddMouseOutCallback
 
-    AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
-        ProccessDefaultChanged();
-    });
-
-
     // how to join callbacks?
     if (checkedButton) {
         checkedButton->AddMouseOverCallback([this]() {
@@ -50,11 +45,11 @@ TerminalCheckBox::TerminalCheckBox(const Utf8String& label, TerminalCoord positi
     labelButton->SetFontColor(noSelectedColor);
 }
 
-bool TerminalCheckBox::SetChecked(bool isCheck) {
-    return SetChecked(MouseContext(), isCheck);
+bool TerminalCheckBox::SetChecked(bool isCheck, bool useSubcribeCallbacks) {
+    return SetChecked(MouseContext(), isCheck, useSubcribeCallbacks);
 }
 
-bool TerminalCheckBox::SetChecked(const MouseContext& ctx, bool isChecked) {
+bool TerminalCheckBox::SetChecked(const MouseContext& ctx, bool isChecked, bool useSubcribeCallbacks) {
     bool isChanged = this->isChecked != isChecked;
     this->isChecked = isChecked;
     if (checkedButton) {
@@ -62,8 +57,11 @@ bool TerminalCheckBox::SetChecked(const MouseContext& ctx, bool isChecked) {
     }
 
     if (isChanged) {
-        for (auto& changedCallback : changedCallbacks) {
-            changedCallback(ctx, this, isChecked);
+        ProccessDefaultChanged(useSubcribeCallbacks);
+        if (useSubcribeCallbacks) {
+            for (auto& changedCallback : changedCallbacks) {
+                changedCallback(ctx, this, isChecked);
+            }
         }
     }
     return isChanged;
@@ -85,7 +83,6 @@ TerminalButtonPtr TerminalCheckBox::GetLabelButton() {
     return labelButton;
 }
 
-
 bool TerminalCheckBox::ProccessDefaultMouseOver() {
     if (!GetChecked()) {
         labelButton->SetFontColor(mouseOverColor);
@@ -106,8 +103,8 @@ bool TerminalCheckBox::ProccessDefaultMouseOut() {
     return true;
 }
 
-void TerminalCheckBox::ProccessDefaultChanged() {
-    FontColor fontColor = mouseOverColor;
+void TerminalCheckBox::ProccessDefaultChanged(bool useSubcribeCallbacks) {
+    FontColor fontColor = useSubcribeCallbacks ? mouseOverColor : noSelectedColor;
     if (isChecked) {
         fontColor = selectedColor;
     }

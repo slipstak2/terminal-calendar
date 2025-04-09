@@ -20,9 +20,17 @@ public:
 
     const DataStoragePtr GetStorage() const;
 
+    void SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes);
+
     void SetSelectedFull(bool isSelected, bool isForce);
     void SetSelectedFullRow(size_t row, bool isSelected, bool isForce);
     void SetSelectedFullCol(size_t col, bool isSelected, bool isForce);
+
+    void FinilizeSelected();
+    void FinilizeSelectedRows();
+    void FinilizeSelectedCols();
+    void FinilizeSelectedRow(size_t row);
+    void FinilizeSelectedCol(size_t col);
 
 protected:
     void InitHeader();
@@ -38,6 +46,8 @@ protected:
 
 protected:
     std::vector<std::vector<TerminalGridCellPtr>> cells;
+    std::vector<TerminalCheckBoxPtr> colsCheckBoxes;
+    std::vector<TerminalCheckBoxPtr> rowsCheckBoxes;
 
 protected:
     FormatSettings borderFormatSettings = FormatSettings::Default;
