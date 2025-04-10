@@ -90,7 +90,7 @@ TerminalCoord TerminalControl::GetRelativePosition(TerminalCoord absPosition) {
 }
 
 void TerminalControl::SetSelectionLayer(SelectionLayer* selectionLayer) {
-    selectionLayer->AddControl(shared_from_this());
+    selectionLayer->AddControl(this);
     this->selectionLayer = selectionLayer;
 }
 

@@ -226,7 +226,7 @@ bool TerminalApplication::TrySelectionStart(TerminalControl* control) {
 
 bool TerminalApplication::TrySelection(TerminalControl* control) {
     if (selectionControlStart) {
-        if (control->GetSelectionLayer() == currentSelectionLayer) {
+        if (control->GetSelectionLayer() == currentSelectionLayer && selectionControlStart != control) {
             return currentSelectionLayer->Select(selectionControlStart, control);
         }
     }
@@ -234,6 +234,7 @@ bool TerminalApplication::TrySelection(TerminalControl* control) {
 }
 bool TerminalApplication::TrySelectionStop() {
     if (selectionControlStart) {
+        currentSelectionLayer->StopSelect();
         currentSelectionLayer = nullptr;
         selectionControlStart = nullptr;
         return true;

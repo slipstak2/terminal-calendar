@@ -23,7 +23,7 @@ using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
 class SelectionLayer;
 
-class TerminalControl : public TerminalRectangle, public std::enable_shared_from_this<TerminalControl> {
+class TerminalControl : public TerminalRectangle {
     friend class TerminalCanvas;
 public:
     enum class Kind {

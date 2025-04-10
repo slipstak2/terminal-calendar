@@ -8,18 +8,14 @@
 void fillRow(DataRow& row, std::chrono::year_month_day& d) {
     int wbeg = std::chrono::weekday(d).iso_encoding() - 1;
 
-    const std::string empty = "";
+    storage::date empty;
     for (int wday = 0; wday < wbeg; ++wday) {
-        row.SetField<std::string>(0, empty);
+        row.SetField(0, empty);
     }
     for (int wday = wbeg; wday < 7; ++wday) {
         if (d.ok()) {
-            auto day = static_cast<unsigned>(d.day());
-            std::string cur = std::to_string(day);
-            if (cur.size() < 2) {
-                cur = " " + cur;
-            }
-            row.SetField(wday, cur);
+            storage::date value(d);
+            row.SetField(wday, value);
 
             d = d.year() / d.month() / (d.day() + std::chrono::days{ 1 });
         }
@@ -44,13 +40,13 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
 
     std::vector<Utf8String> header = { "Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс" };
     auto storage = DataStorage::Create(
-        FieldDesc::String("monday"),
-        FieldDesc::String("tuesday"),
-        FieldDesc::String("wednesday"),
-        FieldDesc::String("thursday"),
-        FieldDesc::String("friday"),
-        FieldDesc::String("saturday"),
-        FieldDesc::String("sunday")
+        FieldDesc::Date("monday"),
+        FieldDesc::Date("tuesday"),
+        FieldDesc::Date("wednesday"),
+        FieldDesc::Date("thursday"),
+        FieldDesc::Date("friday"),
+        FieldDesc::Date("saturday"),
+        FieldDesc::Date("sunday")
     );
 
     auto date = std::chrono::year(year) / std::chrono::month(month + 1) / std::chrono::day(1);

@@ -1,5 +1,6 @@
 #pragma once
 #include "TerminalLabelFixedWidth.h"
+#include "data-field.h"
 
 class TerminalGridCell;
 using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender)>;
@@ -21,6 +22,9 @@ public:
     void SetGridPosition(size_t gridRow, size_t gridCol);
     size_t GridRow() const;
     size_t GridCol() const;
+    
+    void SetData(storage::date value);
+    const storage::date& GetData() const;
 
 protected:
     int selectedWeight = 0;
@@ -28,4 +32,6 @@ protected:
     std::vector<GridCellSelectedCallback> selectedCallbacks;
     size_t gridRow = -1;
     size_t gridCol = -1;
+
+    storage::date data; // TODO: how to save any template data?
 };

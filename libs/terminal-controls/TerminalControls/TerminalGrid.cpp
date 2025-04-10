@@ -137,9 +137,15 @@ void TerminalGrid::InitData() {
         auto row = storage->GetRow(row_num);
 
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
-            std::string day(row->GetField<std::string_view>(field_num));
-            if (!day.empty()) {
+            storage::date d = row->GetField<storage::date>(field_num);
+            if (d.ok()) {
+                auto dayValue = static_cast<unsigned>(d.day());
+                std::string day = std::to_string(dayValue);
+                if (day.size() < 2) {
+                    day = " " + day;
+                }
                 auto dayCell = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
+                dayCell->SetData(d);
                 dayCell->SetGridPosition(row_num, field_num);
                 dayCell->AddClickCallback([dayCell, this](const MouseContext& ctx) {
                     FinilizeSelectedRow(dayCell->GridRow());

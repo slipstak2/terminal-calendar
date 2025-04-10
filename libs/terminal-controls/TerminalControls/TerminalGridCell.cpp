@@ -70,3 +70,11 @@ size_t TerminalGridCell::GridRow() const {
 size_t TerminalGridCell::GridCol() const {
     return gridCol;
 }
+
+void TerminalGridCell::SetData(storage::date data) {
+    this->data = data;
+}
+
+const storage::date& TerminalGridCell::GetData() const {
+    return data;
+}

@@ -55,6 +55,7 @@
   <Import Project="..\libs\terminal-controls\terminal-controls.props" />
   <Import Project="..\libs\utils\utils.props" />
   <Import Project="..\libs\common\common.props" />
+  <Import Project="..\libs\data-storage\data-storage.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -143,6 +144,9 @@
   <ItemGroup>
     <ProjectReference Include="..\libs\common\common.vcxproj">
       <Project>{743e10c0-cab5-4342-8bed-b503708e6ead}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\libs\data-storage\data-storage.vcxproj">
+      <Project>{9e3cab80-2fa7-40a9-8d1c-9ce3a0317569}</Project>
     </ProjectReference>
     <ProjectReference Include="..\libs\terminal-controls\terminal-controls.vcxproj">
       <Project>{81f27dcf-e165-4c1c-847e-02ae75564417}</Project>

@@ -9,10 +9,18 @@
 namespace storage {
     class date {
     public:
-        date() = default; // TODO: default 01.01.1970 ?
+        date() {
+            memset(&data, 0, sizeof(data));
+        } // TODO: default 01.01.1970 ?
         date(int year, int month, int day) 
             : data(std::chrono::year(year) / std::chrono::month(month) / std::chrono::day(day))
         {}
+        date(std::chrono::year_month_day value)
+            : data(value)
+        {}
+        bool ok() const {
+            return data.ok();
+        }
         int year() const {
             return static_cast<int>(data.year());
         }
@@ -28,8 +36,14 @@ namespace storage {
         bool operator < (const date& other) const {
             return std::make_tuple(year(), month(), day()) < std::make_tuple(other.year(), other.month(), other.day());
         }
+        bool operator <= (const date& other) const {
+            return *this < other || *this == other;
+        }
         bool operator > (const date& other) const {
             return other < *this;
+        }
+        bool operator >= (const date& other) const {
+            return other <= *this;
         }
         date operator + (const std::chrono::year y) const {
             date result(year() + static_cast<int>(y), month(), day());
