@@ -9,8 +9,9 @@ public:
     virtual ~SelectionLayer() = default;
 
     void AddControl(TerminalControl* control);
-    virtual bool Select(TerminalControl* first, TerminalControl* last) = 0;
-    virtual bool StopSelect() = 0;
+    virtual bool SelectStart(TerminalControl* begControl) = 0;
+    virtual bool Select(TerminalControl* endControl) = 0;
+    virtual bool SelectStop() = 0;
 
 protected:
     std::vector<TerminalControl*> controls;

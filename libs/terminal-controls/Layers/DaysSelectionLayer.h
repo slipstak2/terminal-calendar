@@ -5,12 +5,20 @@
 
 class DaysSelectionLayer : public SelectionLayer {
 public:
-    bool Select(TerminalControl* first, TerminalControl* last) override;
-    bool StopSelect() override;
+    bool SelectStart(TerminalControl* begControl) override;
+    bool Select(TerminalControl* endControl) override;
+    bool SelectStop() override;
 
     void RemovePrevSelect();
     void ApplyCurSelect(storage::date begDate, storage::date endDate);
 protected:
+
+    bool HackNeedSelectFirstCell(TerminalGridCell* cell);
+
+    bool isSelection = true;
+
+    TerminalControl* begControl = nullptr;
+
     storage::date prevBegDate;
     storage::date prevEndDate;
     std::vector<TerminalGridCell*> selectedControls;

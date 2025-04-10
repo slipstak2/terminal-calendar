@@ -2,7 +2,19 @@
 #include "TerminalGridCell.h"
 #include "TerminalGrid.h"
 
-bool DaysSelectionLayer::Select(TerminalControl* begControl, TerminalControl* endControl) {
+
+bool DaysSelectionLayer::SelectStart(TerminalControl* begControl) {
+    if (this->begControl == nullptr) { // Wrong dedicated double click with small mouse move
+        this->begControl = begControl;
+        TerminalGridCell* begCell = begControl->As<TerminalGridCell>();
+        if (begCell != nullptr) {
+            isSelection = !begCell->IsSelected();
+        }
+    }
+    return true;
+}
+
+bool DaysSelectionLayer::Select(TerminalControl* endControl) {
     TerminalGridCell* begCell = begControl->As<TerminalGridCell>();
     TerminalGridCell* endCell = endControl->As<TerminalGridCell>();
     if (begCell == nullptr || endCell == nullptr) {
@@ -14,16 +26,17 @@ bool DaysSelectionLayer::Select(TerminalControl* begControl, TerminalControl* en
     return true;
 }
 
-bool DaysSelectionLayer::StopSelect() {
+bool DaysSelectionLayer::SelectStop() {
     prevBegDate = storage::date();
     prevEndDate = storage::date();
+    begControl = nullptr;
     selectedControls.clear();
     return true;
 }
 
 void DaysSelectionLayer::RemovePrevSelect() {
     for (TerminalGridCell* cell : selectedControls) {
-        cell->SetSelected(false);
+        cell->SetSelected(!isSelection);
         TerminalGrid* grid = cell->GetParent()->As<TerminalGrid>();
         if (grid != nullptr) {
             grid->FinilizeSelectedCell(cell->GridRow(), cell->GridCol());
@@ -44,8 +57,21 @@ void DaysSelectionLayer::ApplyCurSelect(storage::date begDate, storage::date end
         }
         storage::date d = cell->GetData();
         if (begDate <= d && d <= endDate) {
-            if (cell->SelectedWeight() == 0) {
-                cell->SetSelected(true);
+            bool isOK = false;
+            if (isSelection) {
+                if (cell->SelectedWeight() == 0) {
+                    cell->SetSelected(true);
+                    isOK = true;
+                }
+            }
+            if (!isSelection) {
+                if (cell->SelectedWeight() == 1) {
+                    cell->SetSelected(false);
+                    isOK = true;
+                }
+            }
+
+            if (isOK) {
                 selectedControls.push_back(cell);
                 TerminalGrid* grid = cell->GetParent()->As<TerminalGrid>();
                 if (grid != nullptr) {
