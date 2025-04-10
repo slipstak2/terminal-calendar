@@ -13,4 +13,5 @@ public:
 protected:
     storage::date prevBegDate;
     storage::date prevEndDate;
+    std::vector<TerminalGridCell*> selectedControls;
 };
