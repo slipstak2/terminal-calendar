@@ -21,16 +21,22 @@ public:
     const DataStoragePtr GetStorage() const;
 
     void SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes);
+    void SetTitleCheckBox(TerminalCheckBoxPtr titleCheckBox);
 
     void SetSelectedFull(bool isSelected, bool isForce);
     void SetSelectedFullRow(size_t row, bool isSelected, bool isForce);
     void SetSelectedFullCol(size_t col, bool isSelected, bool isForce);
 
-    void FinilizeSelected();
+public:
+    void FinilizeSelectedCell(size_t row, size_t col);
+protected:
+    void FinilizeSelectedFull();
     void FinilizeSelectedRows();
     void FinilizeSelectedCols();
+
     void FinilizeSelectedRow(size_t row);
     void FinilizeSelectedCol(size_t col);
+    void FinilizeSelectedTitle();
 
 protected:
     void InitHeader();
@@ -48,6 +54,7 @@ protected:
     std::vector<std::vector<TerminalGridCellPtr>> cells;
     std::vector<TerminalCheckBoxPtr> colsCheckBoxes;
     std::vector<TerminalCheckBoxPtr> rowsCheckBoxes;
+    TerminalCheckBoxPtr titleCheckBox;
 
 protected:
     FormatSettings borderFormatSettings = FormatSettings::Default;

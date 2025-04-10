@@ -32,8 +32,7 @@ void DaysSelectionLayer::RemovePrevSelect() {
             cell->SetSelected(false);
             TerminalGrid* grid = cell->GetParent()->As<TerminalGrid>();
             if (grid != nullptr) {
-                grid->FinilizeSelectedRow(cell->GridRow());
-                grid->FinilizeSelectedCol(cell->GridCol());
+                grid->FinilizeSelectedCell(cell->GridRow(), cell->GridCol());
             }
         }
     }
@@ -53,8 +52,7 @@ void DaysSelectionLayer::ApplyCurSelect(storage::date begDate, storage::date end
             cell->SetSelected(true);
             TerminalGrid* grid = cell->GetParent()->As<TerminalGrid>();
             if (grid != nullptr) {
-                grid->FinilizeSelectedRow(cell->GridRow());
-                grid->FinilizeSelectedCol(cell->GridCol());
+                grid->FinilizeSelectedCell(cell->GridRow(), cell->GridCol());
             }
         }
     }
