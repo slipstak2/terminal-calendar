@@ -1,35 +1,47 @@
 #include "GridCellFormatter.h"
 
+GridCellFormat defaultCellFormat{
+    .textStyle = TextStyle::Default,
+    .backgroundColor = RGB::DefaultBackground,
+    .backgroundSelectedColor = RGB::Brightcyan,
+    .backgroundDoubleSelectedColor = RGB::DarkBrightcyan,
+    .fontColor = RGB::DefaultFont,
+    .fontSelectedColor = RGB::Blue
+};
+
+GridCellFormat weekEndCellFormat{
+    .textStyle = TextStyle::Bold,
+    .backgroundColor = RGB::DefaultBackground,
+    .backgroundSelectedColor = RGB::DarkRed,
+    .backgroundDoubleSelectedColor = RGB::DarkDarkRed,
+    .fontColor = RGB::Coral,
+    .fontSelectedColor = RGB::BrightRed
+};
+
 void GridCellFormatter::Apply(TerminalGridCell* sender) {
     storage::date d = sender->GetData();
     int dayNum = d.weekday().c_encoding();
     bool isWeekend = dayNum == 6 || dayNum == 0;
+
+    sender->SetTextStyle(isWeekend ? TextStyle::Bold : TextStyle::Default);
+
+    GridCellFormat cellFormat = defaultCellFormat;
+    if (isWeekend) {
+        cellFormat = weekEndCellFormat;
+    }
+
+    sender->SetTextStyle(cellFormat.textStyle);
+
     if (sender->IsSelected()) {
-        sender->SetTextStyle(TextStyle::Default);
-
-        sender->SetFontColor(RGB::Blue);
+        sender->SetFontColor(cellFormat.fontSelectedColor);
         if (sender->SelectedWeight() == 1) {
-            sender->SetBackgroundColor(RGB::Brightcyan);
-        }
-        else {
-            sender->SetBackgroundColor(RGB::DarkBrightcyan);
-        }
-
-        if (isWeekend) { 
-            sender->SetTextStyle(TextStyle::Bold);
-            sender->SetFontColor(RGB::BrightRed);
-            sender->SetBackgroundColor(RGB::DarkRed);
+            sender->SetBackgroundColor(cellFormat.backgroundSelectedColor);
+        } else {
+            sender->SetBackgroundColor(cellFormat.backgroundDoubleSelectedColor);
         }
     }
     else {
-        if (isWeekend) { 
-            sender->SetTextStyle(TextStyle::Bold);
-            sender->SetFontColor(FontColor::Red);
-            sender->SetBackgroundColor(BackgroundColor::Default);
-        }
-        else {
-            sender->SetFontColor(FontColor::Default);
-            sender->SetBackgroundColor(BackgroundColor::Default);
-        }
+        sender->SetFontColor(cellFormat.fontColor);
+        sender->SetBackgroundColor(cellFormat.backgroundColor);
     }
 }
