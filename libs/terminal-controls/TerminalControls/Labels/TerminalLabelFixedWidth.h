@@ -1,3 +1,5 @@
+#pragma once
+
 #include "TerminalLabelBase.h"
 
 class TerminalLabelFixedWidth : public TerminalLabelBase {

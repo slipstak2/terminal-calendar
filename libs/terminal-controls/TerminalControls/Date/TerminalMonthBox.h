@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TerminalBorderControl.h"
+#include "TerminalGridCell.h"
 #include "DataProviders/ListDataProvider.h"
 
 class TerminalMonthBox : public TerminalBorderControl {
@@ -11,6 +12,8 @@ public:
 
     TerminalMonthBox(int year, int month, TerminalCoord position);
     void SetSelectionLayer(SelectionLayer* selectionLayer) override;
+
+    void AddOnCellSelectedCallback(GridCellSelectedCallback selectedCallback);
 
 public:
     static short DefaultHeight() { return 1 + 5 + 2 + 1; };

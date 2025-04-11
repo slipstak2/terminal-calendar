@@ -78,3 +78,8 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
 void TerminalMonthBox::SetSelectionLayer(SelectionLayer* selectionLayer) {
     grid->SetSelectionLayer(selectionLayer);
 }
+
+
+void TerminalMonthBox::AddOnCellSelectedCallback(GridCellSelectedCallback selectedCallback) {
+    grid->AddOnCellSelectedCallback(selectedCallback);
+}

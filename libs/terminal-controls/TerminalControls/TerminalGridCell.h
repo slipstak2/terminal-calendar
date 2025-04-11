@@ -3,7 +3,7 @@
 #include "data-field.h"
 
 class TerminalGridCell;
-using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender)>;
+using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender, int prevSelectedWeight)>;
 
 class TerminalGridCell : public TerminalLabelFixedWidth {
 public:

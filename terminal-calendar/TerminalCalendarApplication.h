@@ -8,6 +8,7 @@ public:
     TerminalCalendarApplication();
 protected:
     DaysSelectionLayer daysSelectionLayer;
+    size_t selectedDays = 0;
 };
 
 TerminalCalendarApplication& app();

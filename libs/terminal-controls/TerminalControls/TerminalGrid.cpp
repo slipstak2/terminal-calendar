@@ -184,6 +184,11 @@ void TerminalGrid::InitData() {
                     FinilizeSelectedCell(dayCell->GridRow(), dayCell->GridCol());
                     return true;
                 });
+                dayCell->AddOnSelectedCallback([this](TerminalGridCell* sender, int prevSelectedWeight) {
+                    for (auto& cellSelectedCallback : cellSelectedCallbacks) {
+                        cellSelectedCallback(sender, prevSelectedWeight);
+                    }
+                });
                 AddControl(dayCell);
                 cells[row_num][field_num] = dayCell;
             }
@@ -213,4 +218,8 @@ void TerminalGrid::FlushSelf() {
     for (short row_num = 0; row_num < storage->RowsCount(); ++row_num) {
         FlushRowBorder(ONE + row_num);
     }
+}
+
+void TerminalGrid::AddOnCellSelectedCallback(GridCellSelectedCallback selectedCallback) {
+    cellSelectedCallbacks.push_back(selectedCallback);
 }

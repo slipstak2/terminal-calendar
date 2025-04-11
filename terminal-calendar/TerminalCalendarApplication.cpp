@@ -4,6 +4,7 @@
 #include "TerminalApplication.h"
 #include "TerminalCanvas.h"
 #include "TerminalLabel.h"
+#include "TerminalLabelFixedWidth.h"
 #include "TerminalButton.h"
 #include "TerminalWindow.h"
 #include "TerminalRootControl.h"
@@ -59,42 +60,12 @@ TerminalCalendarApplication::TerminalCalendarApplication()
 
     backgroundWindow->AddControlOnBorder(yearsLabel);
 
-    auto sizeLabel = TerminalLabel::Create("XXXxYYY", TerminalCoord{ .row = 0, .col = 13 });
-    backgroundWindow->AddControlOnBorder(sizeLabel);
+    auto selectedDaysCounterLabel= TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
+    selectedDaysCounterLabel->SetBackgroundColor(RGB::Brightcyan);
+    selectedDaysCounterLabel->SetFontColor(FontColor::Black);
+    backgroundWindow->AddControlOnBorder(selectedDaysCounterLabel);
 
-    auto tSizeLabel = TerminalLabel::Create("RRxCC", TerminalCoord{ .row = 0, .col = 50 });
-    backgroundWindow->AddControlOnBorder(tSizeLabel);
-
-    auto bntDecH = TerminalButton::Create("[-h]", TerminalCoord{ .row = 0, .col = 3 });
-    bntDecH->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx)  {
-        UpdateData(this, -1, 0, sizeLabel, tSizeLabel);
-        return true;
-        });
-    backgroundWindow->AddControlOnBorder(bntDecH);
-
-    auto bntIncH = TerminalButton::Create("[+h]", TerminalCoord{ .row = 0, .col = 7 });
-    bntIncH->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
-        UpdateData(this, +1, 0, sizeLabel, tSizeLabel);
-        return true;
-        });
-    backgroundWindow->AddControlOnBorder(bntIncH);
-
-    auto bntDecW = TerminalButton::Create("[-w]", TerminalCoord{ .row = 0, .col = 22 });
-    bntDecW->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
-        UpdateData(this, 0, -1, sizeLabel, tSizeLabel);
-        return true;
-        });
-    backgroundWindow->AddControlOnBorder(bntDecW);
-
-    auto bntIncW = TerminalButton::Create("[+w]", TerminalCoord{ .row = 0, .col = 26 });
-    bntIncW->AddClickCallback([this, sizeLabel, tSizeLabel](const MouseContext& ctx) {
-        UpdateData(this, 0, +1, sizeLabel, tSizeLabel);
-        return true;
-        });
-    backgroundWindow->AddControlOnBorder(bntIncW);
-
-
-    auto fillMonthsData = [backgroundWindow, this](int year) {
+    auto fillMonthsData = [this, backgroundWindow, selectedDaysCounterLabel](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthBox>() != nullptr;
         });
@@ -110,6 +81,19 @@ TerminalCalendarApplication::TerminalCalendarApplication()
                     .col = col * TerminalMonthBox::DefaultWidth()
                     });
                 monthBox->SetSelectionLayer(&daysSelectionLayer);
+                monthBox->AddOnCellSelectedCallback([this, selectedDaysCounterLabel](TerminalGridCell* sender, int prevSelectedWeight) {
+                    if (prevSelectedWeight == 0 && sender->SelectedWeight() > 0) {
+                        selectedDays++;
+                    }
+                    if (prevSelectedWeight > 0 && sender->SelectedWeight() == 0) {
+                        selectedDays--;
+                    }
+                    std::string text = std::to_string(selectedDays);
+                    while (text.size() < 3) {
+                        text = " " + text;
+                    }
+                    selectedDaysCounterLabel->SetText(text);
+                    });
                 backgroundWindow->AddControlOnBorder(monthBox);
             }
         }

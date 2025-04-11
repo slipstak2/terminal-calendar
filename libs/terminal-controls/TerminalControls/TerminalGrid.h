@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TerminalCompositeControl.h"
+#include "TerminalGridCell.h"
 #include "data-storage.h"
 
 #include "BorderFormat/BorderFormat.h"
@@ -26,6 +27,8 @@ public:
     void SetSelectedFull(bool isSelected, bool isForce);
     void SetSelectedFullRow(size_t row, bool isSelected, bool isForce);
     void SetSelectedFullCol(size_t col, bool isSelected, bool isForce);
+
+    void AddOnCellSelectedCallback(GridCellSelectedCallback selectedCallback);
 
 public:
     void FinilizeSelectedCell(size_t row, size_t col);
@@ -62,4 +65,7 @@ protected:
 
     FontColor selectedHeaderColor = FontColor::Yellow;
     FontColor noSelectedHeaderColor = FontColor::Brightblack;
+
+protected:
+    std::vector<GridCellSelectedCallback> cellSelectedCallbacks;
 };

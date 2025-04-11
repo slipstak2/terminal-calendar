@@ -4,7 +4,7 @@
 TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
     : TerminalLabelFixedWidth(label, position)
 {
-    AddOnSelectedCallback([this](TerminalGridCell* sender) {
+    AddOnSelectedCallback([this](TerminalGridCell* sender, int prevSelectedWeight) {
         if (sender->IsSelected()) {
             SetFontColor(RGB::Blue);
             if (sender->SelectedWeight() == 1) {
@@ -46,7 +46,7 @@ bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
 
     if (isChanged) {
         for (auto& selectedCallback : selectedCallbacks) {
-            selectedCallback(this);
+            selectedCallback(this, prevSelectedWeight);
         }
     }
     return isChanged;
