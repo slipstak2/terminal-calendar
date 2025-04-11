@@ -1,6 +1,9 @@
 #include "GridCellFormatter.h"
 
 void GridCellFormatter::Apply(TerminalGridCell* sender) {
+    storage::date d = sender->GetData();
+    int dayNum = d.weekday().c_encoding();
+    bool isWeekend = dayNum == 6 || dayNum == 0;
     if (sender->IsSelected()) {
         sender->SetTextStyle(TextStyle::Default);
 
@@ -11,11 +14,15 @@ void GridCellFormatter::Apply(TerminalGridCell* sender) {
         else {
             sender->SetBackgroundColor(RGB::DarkBrightcyan);
         }
+
+        if (isWeekend) { 
+            sender->SetTextStyle(TextStyle::Bold);
+            sender->SetFontColor(RGB::BrightRed);
+            sender->SetBackgroundColor(RGB::DarkRed);
+        }
     }
     else {
-        storage::date d = sender->GetData();
-        int dayNum = d.weekday().c_encoding();
-        if (dayNum == 6 || dayNum == 0) { // Суббота + Воскресенье
+        if (isWeekend) { 
             sender->SetTextStyle(TextStyle::Bold);
             sender->SetFontColor(FontColor::Red);
             sender->SetBackgroundColor(BackgroundColor::Default);

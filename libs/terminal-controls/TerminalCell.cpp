@@ -75,7 +75,7 @@ void TerminalCell::Render() const {
                 printf("\033[38;2;%d;%d;%dm",
                     fmtSettings.fontRBG->r,
                     fmtSettings.fontRBG->g,
-                    fmtSettings.backgoundRBG->b
+                    fmtSettings.fontRBG->b
                 );
             }
             printf("%s\033[0m",

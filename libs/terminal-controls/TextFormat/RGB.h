@@ -11,6 +11,7 @@ struct RGB {
     static RGB DarkBrightcyan;
 
     static RGB DarkRed;
+    static RGB BrightRed;
     static RGB Gold;
     static RGB Blue;
 };
