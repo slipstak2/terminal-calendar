@@ -182,16 +182,27 @@ public:
     const FormatSettings& GetFormatSettings() {
         return formatSettings;
     }
+
     void SetFormatSettings(FormatSettings newFormatSettings) {
         formatSettings = newFormatSettings;
     }
 
     void SetBackgroundColor(BackgroundColor backgroundColor) {
+        formatSettings.backgoundRBG = nullptr;
         formatSettings.backgroundColor = backgroundColor;
     }
 
+    void SetBackgroundColor(RGB backgroundColor) {
+        formatSettings.backgoundRBG = std::make_shared<RGB>(backgroundColor);
+    }
+
     void SetFontColor(FontColor fontColor) {
+        formatSettings.fontRBG = nullptr;
         formatSettings.fontColor = fontColor;
+    }
+    
+    void SetFontColor(RGB fontColor) {
+        formatSettings.fontRBG = std::make_shared<RGB>(fontColor);
     }
 
     void SetVisible(bool isVisible) {

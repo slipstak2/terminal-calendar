@@ -46,12 +46,42 @@ void TerminalCell::Render() const {
         );
     }
     else {
-        printf("\033[%d;%d;%dm%s\033[0m",
-            (int)(fmtSettings.textStyle),
-            int(fmtSettings.backgroundColor),
-            (int)fmtSettings.fontColor,
-            rune.get()
-        );
+        bool withoutRGB = fmtSettings.fontRBG == nullptr && fmtSettings.backgoundRBG == nullptr;
+
+        if (withoutRGB) {
+            printf("\033[%d;%d;%dm%s\033[0m",
+                (int)(fmtSettings.textStyle),
+                int(fmtSettings.backgroundColor),
+                (int)fmtSettings.fontColor,
+                rune.get()
+            );
+        }
+        else {
+            printf("\033[%d;%d;%dm",
+                (int)(fmtSettings.textStyle),
+                int(fmtSettings.backgroundColor),
+                (int)fmtSettings.fontColor
+            );
+
+            if (fmtSettings.backgoundRBG) {
+                printf("\033[48;2;%d;%d;%dm",
+                    fmtSettings.backgoundRBG->r,
+                    fmtSettings.backgoundRBG->g,
+                    fmtSettings.backgoundRBG->b
+                );
+            }
+
+            if (fmtSettings.fontRBG) {
+                printf("\033[38;2;%d;%d;%dm",
+                    fmtSettings.fontRBG->r,
+                    fmtSettings.fontRBG->g,
+                    fmtSettings.backgoundRBG->b
+                );
+            }
+            printf("%s\033[0m",
+                rune.get()
+            );
+        }
     }
 
     // \033[53

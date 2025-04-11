@@ -6,8 +6,12 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
 {
     AddOnSelectedCallback([this](TerminalGridCell* sender) {
         if (sender->IsSelected()) {
-            SetFontColor(FontColor::Blue);
-            SetBackgroundColor(BackgroundColor::Brightcyan);
+            SetFontColor(RGB::Blue);
+            if (sender->SelectedWeight() == 1) {
+                SetBackgroundColor(RGB::Brightcyan);
+            } else {
+                SetBackgroundColor(RGB::DarkBrightcyan);
+            }
         } else {
             SetFontColor(FontColor::Default);
             SetBackgroundColor(BackgroundColor::Default);
@@ -25,7 +29,8 @@ TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
 }
 
 bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
-    bool isChanged = IsSelected() != isSelect;
+    int prevSelectedWeight = selectedWeight;
+    
     if (isForce) {
         selectedWeight = (isSelect ? 1 : 0);
     }
@@ -37,6 +42,8 @@ bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
             selectedWeight = std::max(0, selectedWeight - 1);
         }
     }
+    bool isChanged = prevSelectedWeight != selectedWeight;
+
     if (isChanged) {
         for (auto& selectedCallback : selectedCallbacks) {
             selectedCallback(this);

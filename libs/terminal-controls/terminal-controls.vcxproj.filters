@@ -195,6 +195,9 @@
     <ClInclude Include="Layers\DaysSelectionLayer.h">
       <Filter>Header Files\Layers</Filter>
     </ClInclude>
+    <ClInclude Include="TextFormat\RGB.h">
+      <Filter>Header Files\TextFormat</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -307,6 +310,9 @@
     </ClCompile>
     <ClCompile Include="Layers\DaysSelectionLayer.cpp">
       <Filter>Source Files\Layers</Filter>
+    </ClCompile>
+    <ClCompile Include="TextFormat\RGB.cpp">
+      <Filter>Source Files\TextFormat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

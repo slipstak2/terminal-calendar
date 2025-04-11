@@ -60,6 +60,7 @@
     <ClInclude Include="TextFormat\BackgroundColor.h" />
     <ClInclude Include="TextFormat\FontColor.h" />
     <ClInclude Include="TextFormat\FormatSettings.h" />
+    <ClInclude Include="TextFormat\RGB.h" />
     <ClInclude Include="TextFormat\TextStyle.h" />
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +101,7 @@
     <ClCompile Include="TerminalGeometry\TerminalRectangle.cpp" />
     <ClCompile Include="TerminalGeometry\TerminalSize.cpp" />
     <ClCompile Include="TextFormat\FormatSettings.cpp" />
+    <ClCompile Include="TextFormat\RGB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\common\common.vcxproj">
