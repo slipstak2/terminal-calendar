@@ -5,6 +5,7 @@
 #include "data-storage.h"
 
 #include "BorderFormat/BorderFormat.h"
+#include "GridCellFormatter.h"
 
 struct ColumnInfo {
     short width = 2;
@@ -52,6 +53,9 @@ protected:
     std::vector<Utf8String> header;
     DataStoragePtr storage;
     std::vector<ColumnInfo> columns;
+
+protected:
+    GridCellFormatter formatter;
 
 protected:
     std::vector<std::vector<TerminalGridCellPtr>> cells;

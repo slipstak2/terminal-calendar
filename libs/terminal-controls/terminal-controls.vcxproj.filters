@@ -198,6 +198,9 @@
     <ClInclude Include="TextFormat\RGB.h">
       <Filter>Header Files\TextFormat</Filter>
     </ClInclude>
+    <ClInclude Include="GridCellFormatter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -313,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="TextFormat\RGB.cpp">
       <Filter>Source Files\TextFormat</Filter>
+    </ClCompile>
+    <ClCompile Include="GridCellFormatter.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

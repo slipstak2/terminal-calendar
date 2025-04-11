@@ -180,6 +180,7 @@ void TerminalGrid::InitData() {
                 auto dayCell = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
                 dayCell->SetData(d);
                 dayCell->SetGridPosition(row_num, field_num);
+                dayCell->SetGridCellFormatter(&formatter);
                 dayCell->AddClickCallback([dayCell, this](const MouseContext& ctx) {
                     FinilizeSelectedCell(dayCell->GridRow(), dayCell->GridCol());
                     return true;

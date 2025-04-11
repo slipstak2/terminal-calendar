@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
+    <ClInclude Include="GridCellFormatter.h" />
     <ClInclude Include="Contexts\MouseContext.h" />
     <ClInclude Include="DataProviders\ListDataSet.h" />
     <ClInclude Include="DataProviders\ListDataSetBase.h" />
@@ -69,6 +70,7 @@
     <ClCompile Include="DataProviders\ListDataSet.cpp" />
     <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp" />
     <ClCompile Include="DataProviders\ListDynamicDataSet.cpp" />
+    <ClCompile Include="GridCellFormatter.cpp" />
     <ClCompile Include="Layers\DaysSelectionLayer.cpp" />
     <ClCompile Include="Layers\SelectionLayer.cpp" />
     <ClCompile Include="TerminalControls\Date\TerminalMonthGrid.cpp" />

@@ -5,6 +5,8 @@
 class TerminalGridCell;
 using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender, int prevSelectedWeight)>;
 
+class GridCellFormatter;
+
 class TerminalGridCell : public TerminalLabelFixedWidth {
 public:
     DECLARE_KIND(TerminalLabelFixedWidth, TerminalControl::Kind::GRID_CELL)
@@ -26,6 +28,8 @@ public:
     void SetData(storage::date value);
     const storage::date& GetData() const;
 
+    void SetGridCellFormatter(GridCellFormatter* formatter);
+
 protected:
     int selectedWeight = 0;
 
@@ -34,4 +38,6 @@ protected:
     size_t gridCol = -1;
 
     storage::date data; // TODO: how to save any template data?
+
+    GridCellFormatter* formatter = nullptr;
 };

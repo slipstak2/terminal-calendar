@@ -1,20 +1,13 @@
 #include "TerminalGridCell.h"
+#include "GridCellFormatter.h"
 
 
 TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
     : TerminalLabelFixedWidth(label, position)
 {
     AddOnSelectedCallback([this](TerminalGridCell* sender, int prevSelectedWeight) {
-        if (sender->IsSelected()) {
-            SetFontColor(RGB::Blue);
-            if (sender->SelectedWeight() == 1) {
-                SetBackgroundColor(RGB::Brightcyan);
-            } else {
-                SetBackgroundColor(RGB::DarkBrightcyan);
-            }
-        } else {
-            SetFontColor(FontColor::Default);
-            SetBackgroundColor(BackgroundColor::Default);
+        if (formatter) {
+            formatter->Apply(sender);
         }
     });
 
@@ -84,4 +77,9 @@ void TerminalGridCell::SetData(storage::date data) {
 
 const storage::date& TerminalGridCell::GetData() const {
     return data;
+}
+
+void TerminalGridCell::SetGridCellFormatter(GridCellFormatter* formatter) {
+    this->formatter = formatter;
+    formatter->Apply(this);
 }

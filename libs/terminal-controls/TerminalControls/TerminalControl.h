@@ -187,6 +187,10 @@ public:
         formatSettings = newFormatSettings;
     }
 
+    void SetTextStyle(TextStyle textStyle) {
+        formatSettings.textStyle = textStyle;
+    }
+
     void SetBackgroundColor(BackgroundColor backgroundColor) {
         formatSettings.backgoundRBG = nullptr;
         formatSettings.backgroundColor = backgroundColor;

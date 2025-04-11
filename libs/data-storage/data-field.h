@@ -49,6 +49,9 @@ namespace storage {
             date result(year() + static_cast<int>(y), month(), day());
             return result;
         }
+        std::chrono::weekday weekday() {
+            return std::chrono::weekday(data);
+        }
     private:
         std::chrono::year_month_day data;
     };
