@@ -9,6 +9,7 @@ public:
     virtual ~SelectionLayer() = default;
 
     void AddControl(TerminalControl* control);
+    void Clear();
     virtual bool SelectStart(TerminalControl* begControl) = 0;
     virtual bool Select(TerminalControl* endControl) = 0;
     virtual bool SelectStop() = 0;

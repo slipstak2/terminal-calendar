@@ -98,6 +98,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthBox>() != nullptr;
         });
+        daysSelectionLayer.Clear();
         assert(removeControls == 0 || removeControls == 12);
 
         short offset_row = 2;
