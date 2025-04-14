@@ -44,6 +44,13 @@ void UpdateData(TerminalCalendarApplication* self, int dh, int dw, TerminalLabel
     sprintf(buf, "%dx%d", tsize.height, tsize.width);
     tSizeLabel->SetText(buf);
 }
+void TerminalCalendarApplication::UpdateSelectedDayCount() {
+    std::string text = std::to_string(selectedDays);
+    while (text.size() < 3) {
+        text = " " + text;
+    }
+    selectedDaysCounterLabel->SetText(text);
+}
 TerminalCalendarApplication::TerminalCalendarApplication()
     : TerminalApplication() {
 
@@ -60,16 +67,18 @@ TerminalCalendarApplication::TerminalCalendarApplication()
 
     backgroundWindow->AddControlOnBorder(yearsLabel);
 
-    auto selectedDaysCounterLabel= TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
+    selectedDaysCounterLabel= TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
     selectedDaysCounterLabel->SetBackgroundColor(RGB::Brightcyan);
     selectedDaysCounterLabel->SetFontColor(FontColor::Black);
     backgroundWindow->AddControlOnBorder(selectedDaysCounterLabel);
 
-    auto fillMonthsData = [this, backgroundWindow, selectedDaysCounterLabel](int year) {
+    auto fillMonthsData = [this, backgroundWindow](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthBox>() != nullptr;
         });
         daysSelectionLayer.Clear();
+        selectedDays = 0;
+        UpdateSelectedDayCount();
         assert(removeControls == 0 || removeControls == 12);
 
         short offset_row = 2;
@@ -81,18 +90,9 @@ TerminalCalendarApplication::TerminalCalendarApplication()
                     .col = col * TerminalMonthBox::DefaultWidth()
                     });
                 monthBox->SetSelectionLayer(&daysSelectionLayer);
-                monthBox->AddOnCellSelectedCallback([this, selectedDaysCounterLabel](TerminalGridCell* sender, int prevSelectedWeight) {
-                    if (prevSelectedWeight == 0 && sender->SelectedWeight() > 0) {
-                        selectedDays++;
-                    }
-                    if (prevSelectedWeight > 0 && sender->SelectedWeight() == 0) {
-                        selectedDays--;
-                    }
-                    std::string text = std::to_string(selectedDays);
-                    while (text.size() < 3) {
-                        text = " " + text;
-                    }
-                    selectedDaysCounterLabel->SetText(text);
+                monthBox->AddOnCellSelectedCallback([this](TerminalGridCell* sender) {
+                    selectedDays += (sender->IsSelected() ? 1 : -1);
+                    UpdateSelectedDayCount();
                     });
                 backgroundWindow->AddControlOnBorder(monthBox);
             }

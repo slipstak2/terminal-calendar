@@ -2,6 +2,8 @@
 #include "TerminalCheckBox.h"
 #include "TerminalGridCell.h"
 
+using defer = std::shared_ptr<void>;
+
 TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
     : TerminalCompositeControl(position)
     , header(header)
@@ -34,11 +36,11 @@ void TerminalGrid::SetTitleCheckBox(TerminalCheckBoxPtr titleCheckBox) {
     this->titleCheckBox = titleCheckBox;
 }
 
-void TerminalGrid::SetSelectedFull(bool isSelected, bool isForce) {
+void TerminalGrid::SetSelectedFull(bool isSelected) {
     for (size_t row = 0; row < cells.size(); ++row) {
         for (size_t col = 0; col < cells[row].size(); ++col) {
             if (cells[row][col]) {
-                cells[row][col]->SetSelected(isSelected, isForce);
+                cells[row][col]->SetSelected(isSelected);
             }
         }
     }
@@ -68,29 +70,17 @@ void TerminalGrid::FinilizeSelectedCols() {
     }
 }
 
-void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected, bool isForce) {
-    for (size_t row = 0; row < cells.size(); ++row) {
-        if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected, isForce);
-        }
-    }
-    FinilizeSelectedRows();
-    FinilizeSelectedTitle();
-}
-
 void TerminalGrid::FinilizeSelectedRow(size_t row) {
     int total = 0;
-    int selectedSingle = 0;
     int selectedCount = 0;
     for (size_t col = 0; col < cells[0].size(); ++col) {
         if (cells[row][col]) {
             total++;
             selectedCount += cells[row][col]->IsSelected();
-            selectedSingle += (cells[row][col]->SelectedWeight() == 1 ? 1 : 0);
         }
     }
     
-    if (total == selectedSingle && !rowsCheckBoxes[row]->GetChecked()) {
+    if (total == selectedCount && !rowsCheckBoxes[row]->GetChecked()) {
         rowsCheckBoxes[row]->SetChecked(true, false);
     }
     if (total != selectedCount && rowsCheckBoxes[row]->GetChecked()) {
@@ -100,16 +90,14 @@ void TerminalGrid::FinilizeSelectedRow(size_t row) {
 
 void TerminalGrid::FinilizeSelectedCol(size_t col) {
     int total = 0;
-    int selectedSingle = 0;
     int selectedCount = 0;
     for (size_t row = 0; row < cells.size(); ++row) {
         if (cells[row][col]) {
             total++;
             selectedCount += cells[row][col]->IsSelected();
-            selectedSingle += (cells[row][col]->SelectedWeight() == 1 ? 1 : 0);
         }
     }
-    if (total == selectedSingle && !colsCheckBoxes[col]->GetChecked()) {
+    if (total == selectedCount && !colsCheckBoxes[col]->GetChecked()) {
         colsCheckBoxes[col]->SetChecked(true, false);
     }
     if (total != selectedCount && colsCheckBoxes[col]->GetChecked()) {
@@ -118,30 +106,66 @@ void TerminalGrid::FinilizeSelectedCol(size_t col) {
 }
 
 void TerminalGrid::SetSelectedFullRow(size_t row, bool isSelected, bool isForce) {
-    size_t cols = cells.empty() ? 0 : cells[0].size();
-    for (size_t col = 0; col < cols; ++col) {
-        if (cells[row][col]) {
-            cells[row][col]->SetSelected(isSelected, isForce);
+    defer _(nullptr, [this](...) { FinilizeSelectedTitle(); });
+
+    if (!isSelected) {
+        bool isOK = false;
+        ApplyForRow(row, [&](size_t col, TerminalGridCellPtr cell) {
+            if (cell->IsSelected()) {
+                if (!colsCheckBoxes[col]->GetChecked() || isForce) {
+                    isOK = true;
+                    cell->SetSelected(isSelected);
+                    FinilizeSelectedCol(col);
+                }
+            }
+        });
+        if (isOK) {
+            return;
         }
     }
-    FinilizeSelectedCols();
-    FinilizeSelectedTitle();
+    ApplyForRow(row, [&](size_t col, TerminalGridCellPtr cell) {
+        cell->SetSelected(isSelected);
+        FinilizeSelectedCol(col);
+    });
+}
+
+void TerminalGrid::SetSelectedFullCol(size_t col, bool isSelected, bool isForce) {
+    defer _(nullptr, [this](...) { FinilizeSelectedTitle(); });
+
+    if (!isSelected) {
+        bool isOK = false;
+        ApplyForCol(col, [&](size_t row, TerminalGridCellPtr cell) {
+            if (cell->IsSelected()) {
+                if (!rowsCheckBoxes[row]->GetChecked() || isForce) {
+                    isOK = true;
+                    cell->SetSelected(isSelected);
+                    FinilizeSelectedRow(row);
+                }
+            }
+        });
+        if (isOK) {
+            return;
+        }
+    }
+    ApplyForCol(col, [&](size_t row, TerminalGridCellPtr cell) {
+        cell->SetSelected(isSelected);
+        FinilizeSelectedRow(row);
+    });
+    
 }
 
 void TerminalGrid::FinilizeSelectedTitle() {
     int total = 0;
-    int selectedSingle = 0;
     int selectedCount = 0;
     for (size_t row = 0; row < cells.size(); ++row) {
         for (size_t col = 0; col < cells[0].size(); ++col) {
             if (cells[row][col]) {
                 total++;
                 selectedCount += cells[row][col]->IsSelected();
-                selectedSingle += (cells[row][col]->SelectedWeight() == 1 ? 1 : 0);
             }
         }
     }
-    if (total == selectedSingle && !titleCheckBox->GetChecked()) {
+    if (total == selectedCount && !titleCheckBox->GetChecked()) {
         titleCheckBox->SetChecked(true, false);
     }
     if (total != selectedCount && titleCheckBox->GetChecked()) {
@@ -185,9 +209,9 @@ void TerminalGrid::InitData() {
                     FinilizeSelectedCell(dayCell->GridRow(), dayCell->GridCol());
                     return true;
                 });
-                dayCell->AddOnSelectedCallback([this](TerminalGridCell* sender, int prevSelectedWeight) {
+                dayCell->AddOnSelectedCallback([this](TerminalGridCell* sender) {
                     for (auto& cellSelectedCallback : cellSelectedCallbacks) {
-                        cellSelectedCallback(sender, prevSelectedWeight);
+                        cellSelectedCallback(sender);
                     }
                 });
                 AddControl(dayCell);

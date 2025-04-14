@@ -71,7 +71,7 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
     grid->SetRowsCheckBoxes(std::move(rowsCheckBoxes));
     grid->SetTitleCheckBox(monthCheckBox);
     monthCheckBox->AddOnChangedCallback([this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {
-        grid->SetSelectedFull(isChecked, ctx.isCtrl);
+        grid->SetSelectedFull(isChecked);
     });
 }
 

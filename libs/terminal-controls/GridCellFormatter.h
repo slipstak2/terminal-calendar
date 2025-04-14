@@ -8,9 +8,8 @@ struct GridCellFormat {
 
     RGB backgroundColor = RGB::DefaultBackground;
     RGB backgroundSelectedColor = RGB::DefaultBackground;
-    RGB backgroundDoubleSelectedColor = RGB::DefaultBackground;
 
-    RGB fontColor = RGB::DefaultFont;
+    FontColor fontColor = FontColor::Default;
     RGB fontSelectedColor = RGB::DefaultFont;
 
     static GridCellFormat defaultCellFormat;

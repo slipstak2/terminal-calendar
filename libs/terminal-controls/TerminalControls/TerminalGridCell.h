@@ -3,7 +3,7 @@
 #include "data-field.h"
 
 class TerminalGridCell;
-using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender, int prevSelectedWeight)>;
+using GridCellSelectedCallback = std::function<void(TerminalGridCell* sender)>;
 
 class GridCellFormatter;
 
@@ -16,9 +16,8 @@ public:
     TerminalGridCell(Utf8String label, TerminalCoord position);
 
 public:
-    bool SetSelected(bool isSelect, bool isForce = false);
+    bool SetSelected(bool isSelect);
     bool IsSelected() const;
-    int SelectedWeight() const;
     void AddOnSelectedCallback(GridCellSelectedCallback selectedCallback);
 
     void SetGridPosition(size_t gridRow, size_t gridCol);
@@ -31,7 +30,7 @@ public:
     void SetGridCellFormatter(GridCellFormatter* formatter);
 
 protected:
-    int selectedWeight = 0;
+    bool isSelected = false;
 
     std::vector<GridCellSelectedCallback> selectedCallbacks;
     size_t gridRow = -1;

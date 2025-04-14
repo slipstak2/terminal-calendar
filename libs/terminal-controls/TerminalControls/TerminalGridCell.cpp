@@ -5,41 +5,25 @@
 TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
     : TerminalLabelFixedWidth(label, position)
 {
-    AddOnSelectedCallback([this](TerminalGridCell* sender, int prevSelectedWeight) {
+    AddOnSelectedCallback([this](TerminalGridCell* sender) {
         if (formatter) {
             formatter->Apply(sender);
         }
     });
 
     AddClickCallback([this](const MouseContext& ctx) {
-        if (!IsSelected()) {
-            return SetSelected(true);
-        } else {
-            return SetSelected(false, true);
-        }
+        return SetSelected(!IsSelected());
     });
     allowUseDoubleClickAsSingleClick = true;
 }
 
-bool TerminalGridCell::SetSelected(bool isSelect, bool isForce) {
-    int prevSelectedWeight = selectedWeight;
-    
-    if (isForce) {
-        selectedWeight = (isSelect ? 1 : 0);
-    }
-    else {
-        if (isSelect) {
-            selectedWeight++;
-        }
-        else {
-            selectedWeight = std::max(0, selectedWeight - 1);
-        }
-    }
-    bool isChanged = prevSelectedWeight != selectedWeight;
+bool TerminalGridCell::SetSelected(bool isSelect) {
+    bool isChanged = IsSelected() != isSelect;
 
     if (isChanged) {
+        this->isSelected = isSelect;
         for (auto& selectedCallback : selectedCallbacks) {
-            selectedCallback(this, prevSelectedWeight);
+            selectedCallback(this);
         }
     }
     return isChanged;
@@ -50,11 +34,7 @@ void TerminalGridCell::AddOnSelectedCallback(GridCellSelectedCallback selectedCa
 }
 
 bool TerminalGridCell::IsSelected() const {
-    return selectedWeight;
-}
-
-int TerminalGridCell::SelectedWeight() const {
-    return selectedWeight;
+    return isSelected;
 }
 
 void TerminalGridCell::SetGridPosition(size_t gridRow, size_t gridCol) {

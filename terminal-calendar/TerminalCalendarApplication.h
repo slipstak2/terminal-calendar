@@ -6,9 +6,12 @@
 class TerminalCalendarApplication : public TerminalApplication {
 public:
     TerminalCalendarApplication();
+    void UpdateSelectedDayCount();
 protected:
     DaysSelectionLayer daysSelectionLayer;
+
     size_t selectedDays = 0;
+    TerminalLabelFixedWidthPtr selectedDaysCounterLabel = nullptr;
 };
 
 TerminalCalendarApplication& app();

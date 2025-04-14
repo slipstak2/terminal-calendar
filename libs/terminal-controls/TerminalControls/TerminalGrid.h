@@ -25,9 +25,28 @@ public:
     void SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes);
     void SetTitleCheckBox(TerminalCheckBoxPtr titleCheckBox);
 
-    void SetSelectedFull(bool isSelected, bool isForce);
+    void SetSelectedFull(bool isSelected);
     void SetSelectedFullRow(size_t row, bool isSelected, bool isForce);
     void SetSelectedFullCol(size_t col, bool isSelected, bool isForce);
+
+    template<typename ApplyFn>
+    void ApplyForRow(size_t row, const ApplyFn& fn) {
+        size_t cols = cells.empty() ? 0 : cells[0].size();
+        for (size_t col = 0; col < cols; ++col) {
+            if (cells[row][col]) {
+                fn(col, cells[row][col]);
+            }
+        }
+    }
+
+    template<typename ApplyFn>
+    void ApplyForCol(size_t col, const ApplyFn& fn) {
+        for (size_t row = 0; row < cells.size(); ++row) {
+            if (cells[row][col]) {
+                fn(row, cells[row][col]);
+            }
+        }
+    }
 
     void AddOnCellSelectedCallback(GridCellSelectedCallback selectedCallback);
 

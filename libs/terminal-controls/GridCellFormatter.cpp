@@ -4,8 +4,7 @@ GridCellFormat defaultCellFormat{
     .textStyle = TextStyle::Default,
     .backgroundColor = RGB::DefaultBackground,
     .backgroundSelectedColor = RGB::Brightcyan,
-    .backgroundDoubleSelectedColor = RGB::DarkBrightcyan,
-    .fontColor = RGB::DefaultFont,
+    .fontColor = FontColor::Default,
     .fontSelectedColor = RGB::Blue
 };
 
@@ -13,8 +12,7 @@ GridCellFormat weekEndCellFormat{
     .textStyle = TextStyle::Bold,
     .backgroundColor = RGB::DefaultBackground,
     .backgroundSelectedColor = RGB::DarkRed,
-    .backgroundDoubleSelectedColor = RGB::DarkDarkRed,
-    .fontColor = RGB::Coral,
+    .fontColor = FontColor::Red,
     .fontSelectedColor = RGB::BrightRed
 };
 
@@ -34,11 +32,7 @@ void GridCellFormatter::Apply(TerminalGridCell* sender) {
 
     if (sender->IsSelected()) {
         sender->SetFontColor(cellFormat.fontSelectedColor);
-        if (sender->SelectedWeight() == 1) {
-            sender->SetBackgroundColor(cellFormat.backgroundSelectedColor);
-        } else {
-            sender->SetBackgroundColor(cellFormat.backgroundDoubleSelectedColor);
-        }
+        sender->SetBackgroundColor(cellFormat.backgroundSelectedColor);
     }
     else {
         sender->SetFontColor(cellFormat.fontColor);

@@ -59,13 +59,13 @@ void DaysSelectionLayer::ApplyCurSelect(storage::date begDate, storage::date end
         if (begDate <= d && d <= endDate) {
             bool isOK = false;
             if (isSelection) {
-                if (cell->SelectedWeight() == 0) {
+                if (!cell->IsSelected()) {
                     cell->SetSelected(true);
                     isOK = true;
                 }
             }
             if (!isSelection) {
-                if (cell->SelectedWeight() == 1) {
+                if (cell->IsSelected()) {
                     cell->SetSelected(false);
                     isOK = true;
                 }
