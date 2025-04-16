@@ -9,6 +9,7 @@ struct RGB {
     static RGB DefaultFont;
     static RGB DefaultBackground;
 
+    static RGB Red;
     static RGB Coral;
     static RGB Cyan;
     static RGB Brightcyan;

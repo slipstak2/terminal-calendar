@@ -6,6 +6,7 @@
 #include "TextFormat/FormatSettings.h"
 #include <functional>
 #include "Contexts/MouseContext.h"
+#include "Contexts/KeyContext.h"
 
 #define DECLARE_KIND(base, kind)                                    \
     static const TerminalControl::Kind KIND = kind;                 \
@@ -19,6 +20,8 @@ using ClickCallbackWithPosition = std::function<bool(TerminalCoord, TerminalCoor
 using MouseWheelCallback = std::function<bool(short)>;
 using MouseOverCallback = std::function<bool()>;
 using MouseOutCallback = std::function<bool()>;
+
+using KeyPressCallback = std::function<bool(const KeyContext& kctx)>;
 using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
 class SelectionLayer;
@@ -158,19 +161,9 @@ public:
         return isApply;
     }
 
-    bool ApplyKeyPressUpOrDown(bool isUp) {
-        if (!keyPressUpOrDownCallbacks.empty()) {
-            bool isApply = false;
-            for (auto& keyPressUpOrDownCallback : keyPressUpOrDownCallbacks) {
-                isApply |= keyPressUpOrDownCallback(isUp);
-            }
-            return isApply;
-        }
-        else if (parent) {
-            return parent->ApplyKeyPressUpOrDown(isUp);
-        }
-        return false;
-    }
+    bool ApplyKeyPress(KeyContext& ctx);
+    bool ApplyKeyPressUpOrDown(bool isUp);
+
     TerminalWindow* GetParentWindow() {
         return parentWindow;
     }
@@ -272,6 +265,8 @@ protected:
     // https://learn.javascript.ru/mousemove-mouseover-mouseout-mouseenter-mouseleave
     std::vector<MouseOverCallback> mouseOverCallbacks;
     std::vector<MouseOutCallback> mouseOutCallbacks;
+
+    std::vector<KeyPressCallback> keyPressCallbacks;
     std::vector<KeyPressUpOrDownCallback> keyPressUpOrDownCallbacks;
 
     FormatSettings formatSettings = FormatSettings::Default;

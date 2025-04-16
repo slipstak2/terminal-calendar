@@ -33,6 +33,10 @@ Rune::Rune(const char* s, uint8_t bytes) {
     copy(s, bytes);
 }
 
+Rune::Rune(wchar_t wc) {
+    clear();
+}
+
 const uint8_t* Rune::get() const {
     return data;
 }

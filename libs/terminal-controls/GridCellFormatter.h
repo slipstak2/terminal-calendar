@@ -9,11 +9,14 @@ struct GridCellFormat {
     RGB backgroundColor = RGB::DefaultBackground;
     RGB backgroundSelectedColor = RGB::DefaultBackground;
 
-    FontColor fontColor = FontColor::Default;
+    RGB fontColor = RGB::DefaultFont;
     RGB fontSelectedColor = RGB::DefaultFont;
+
+    void ApplyCurrentDaySettings();
 
     static GridCellFormat defaultCellFormat;
     static GridCellFormat weekEndCellFormat;
+    static GridCellFormat currentDayCellFormat;
 };
 
 

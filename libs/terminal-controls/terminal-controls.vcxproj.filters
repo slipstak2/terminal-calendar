@@ -201,6 +201,9 @@
     <ClInclude Include="GridCellFormatter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Contexts\KeyContext.h">
+      <Filter>Header Files\Contexts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -319,6 +322,9 @@
     </ClCompile>
     <ClCompile Include="GridCellFormatter.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Contexts\KeyContext.cpp">
+      <Filter>Source Files\Contexts</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

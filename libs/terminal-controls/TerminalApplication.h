@@ -18,6 +18,7 @@ public:
     void SetTerminalConsoleSize(short rows, short cols);
 
     void OnKeyEvent(const KEY_EVENT_RECORD& keyEvent);
+    void OnKeyPress(const KEY_EVENT_RECORD& key);
     void OnKeyPressUpOrDown(bool isUp);
     
     void OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent);

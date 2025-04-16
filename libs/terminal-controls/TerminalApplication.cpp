@@ -9,6 +9,7 @@
 #include "DataProviders/ListDataProvider.h"
 #include "TerminalControlsConfig.h"
 #include "Contexts/MouseContext.h"
+#include "Contexts/KeyContext.h"
 
 #include "Layers/SelectionLayer.h"
 
@@ -153,6 +154,16 @@ void TerminalApplication::OnMouseWheeled(short value) {
     }
 }
 
+
+void TerminalApplication::OnKeyPress(const KEY_EVENT_RECORD& key) {
+    KeyContext ctx(&key);
+    if (focusControl) {
+        if (focusControl->ApplyKeyPress(ctx)) {
+            FrameRender();
+        }
+    }
+
+}
 void TerminalApplication::OnKeyPressUpOrDown(bool isUp) {
     if (focusControl) {
         if (focusControl->ApplyKeyPressUpOrDown(isUp)) {
@@ -262,6 +273,7 @@ void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
         if (key.wVirtualKeyCode == VK_UP || key.wVirtualKeyCode == VK_DOWN) {
             OnKeyPressUpOrDown(key.wVirtualKeyCode == VK_UP);
         }
+        OnKeyPress(key);
     }
     if (key.bKeyDown && key.uChar.AsciiChar == 'q') {
         exit(0);

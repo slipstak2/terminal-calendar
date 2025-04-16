@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BorderFormat\BorderFormat.h" />
+    <ClInclude Include="Contexts\KeyContext.h" />
     <ClInclude Include="GridCellFormatter.h" />
     <ClInclude Include="Contexts\MouseContext.h" />
     <ClInclude Include="DataProviders\ListDataSet.h" />
@@ -66,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BorderFormat\BorderFormat.cpp" />
+    <ClCompile Include="Contexts\KeyContext.cpp" />
     <ClCompile Include="Contexts\MouseContext.cpp" />
     <ClCompile Include="DataProviders\ListDataSet.cpp" />
     <ClCompile Include="DataProviders\ListDataSetNumSequence.cpp" />

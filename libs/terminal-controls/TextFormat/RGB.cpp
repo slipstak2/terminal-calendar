@@ -3,6 +3,7 @@
 RGB RGB::DefaultFont(202, 202, 202);
 RGB RGB::DefaultBackground(12, 12, 12);
 
+RGB RGB::Red(210, 66, 79);
 RGB RGB::Coral(179, 40, 33);
 RGB RGB::Cyan       (0, 255, 255);
 RGB RGB::Brightcyan(97, 214, 214);

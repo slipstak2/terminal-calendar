@@ -8,6 +8,8 @@ public:
     Rune(char c);
     Rune(const char* s);
     Rune(const char* s, uint8_t bytes);
+    Rune(wchar_t wc);
+
     const uint8_t* get() const;
     uint8_t size() const;
 

@@ -9,49 +9,23 @@
 namespace storage {
     class date {
     public:
-        date() {
-            memset(&data, 0, sizeof(data));
-        } // TODO: default 01.01.1970 ?
-        date(int year, int month, int day) 
-            : data(std::chrono::year(year) / std::chrono::month(month) / std::chrono::day(day))
-        {}
-        date(std::chrono::year_month_day value)
-            : data(value)
-        {}
-        bool ok() const {
-            return data.ok();
-        }
-        int year() const {
-            return static_cast<int>(data.year());
-        }
-        int month() const {
-            return static_cast<unsigned int>(data.month());
-        }
-        int day() const {
-            return static_cast<unsigned int>(data.day());
-        }
-        bool operator == (const date& other) const {
-            return data == other.data;
-        }
-        bool operator < (const date& other) const {
-            return std::make_tuple(year(), month(), day()) < std::make_tuple(other.year(), other.month(), other.day());
-        }
-        bool operator <= (const date& other) const {
-            return *this < other || *this == other;
-        }
-        bool operator > (const date& other) const {
-            return other < *this;
-        }
-        bool operator >= (const date& other) const {
-            return other <= *this;
-        }
-        date operator + (const std::chrono::year y) const {
-            date result(year() + static_cast<int>(y), month(), day());
-            return result;
-        }
-        std::chrono::weekday weekday() {
-            return std::chrono::weekday(data);
-        }
+        date();
+        date(int year, int month, int day);
+        date(std::chrono::year_month_day value);
+        bool ok() const;
+        int year() const;
+        int month() const;
+        int day() const;
+        bool operator == (const date& other) const;
+        bool operator < (const date& other) const;
+        bool operator <= (const date& other) const;
+        bool operator > (const date& other) const;
+        bool operator >= (const date& other) const;
+        date operator + (const std::chrono::year y) const;
+        std::chrono::weekday weekday();
+        bool is_today() const;
+        static std::chrono::year_month_day now();
+
     private:
         std::chrono::year_month_day data;
     };

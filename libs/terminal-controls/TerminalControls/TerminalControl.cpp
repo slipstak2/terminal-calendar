@@ -97,3 +97,29 @@ void TerminalControl::SetSelectionLayer(SelectionLayer* selectionLayer) {
 SelectionLayer* TerminalControl::GetSelectionLayer() {
     return selectionLayer;
 }
+
+bool TerminalControl::ApplyKeyPress(KeyContext& ctx) {
+    if (!keyPressCallbacks.empty()) {
+        bool isApply = false;
+        for (auto& keyPressCallback : keyPressCallbacks) {
+            isApply |= keyPressCallback(ctx);
+        }
+        return isApply;
+    } else if (parent) {
+        return parent->ApplyKeyPress(ctx);
+    }
+    return false;
+}
+bool TerminalControl::ApplyKeyPressUpOrDown(bool isUp) {
+    if (!keyPressUpOrDownCallbacks.empty()) {
+        bool isApply = false;
+        for (auto& keyPressUpOrDownCallback : keyPressUpOrDownCallbacks) {
+            isApply |= keyPressUpOrDownCallback(isUp);
+        }
+        return isApply;
+    }
+    else if (parent) {
+        return parent->ApplyKeyPressUpOrDown(isUp);
+    }
+    return false;
+}
