@@ -83,10 +83,9 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     }
 
     {
-        short offset = (backgroundWindow->Width() - 2 - 32) / 2;
-        auto textBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = offset }, TerminalSize{ .height = 1, .width = 32 });
-        textBox->SetBackgroundColor(BackgroundColor::Brightblack);
-        backgroundWindow->AddControl(textBox);
+        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 7 }, TerminalSize{ .height = 1, .width = 16 }));
+        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 27 }, TerminalSize{ .height = 1, .width = 16 }));
+        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 45 }, TerminalSize{ .height = 1, .width = 10 }));
     }
 
     auto fillMonthsData = [this, backgroundWindow](int year) {

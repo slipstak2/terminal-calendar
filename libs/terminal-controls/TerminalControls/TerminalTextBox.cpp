@@ -5,18 +5,32 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
 {
     AddKeyPressCallbacks([this](const KeyContext& kctx) {
         if (!kctx.rune.is_empty()) {
-            text.push_back(kctx.rune);
+            text.push_back(kctx.rune); // TODO: tabulation saw strange
+            InitRenderText();
+            return true;
+        }
+        if (kctx.isBackSpace) {
+            if (text.empty()) {
+                return false;
+            }
+            text.pop_back();
             InitRenderText();
             return true;
         }
         return false;
         });
+    auto onChangeFocus = [this](TerminalControl* sender) {
+        SetBackgroundColor(IsFocus() ? BackgroundColor::Magenta : BackgroundColor::Brightblack);
+    };
+    AddChangeFocusCallbacks(onChangeFocus);
+    onChangeFocus(this);
+
     InitRenderText();
 }
 
 void TerminalTextBox::InitRenderText() {
     renderText = text;
-    renderText.resize(Width(), ' ');
+    renderText.resize_last(Width(), ' ');
 }
 
 void TerminalTextBox::FlushSelf() {

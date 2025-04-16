@@ -59,7 +59,7 @@ protected:
     TerminalControl* selectionControlStart = nullptr;
 
 protected:
-    void SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow);
+    bool SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow);
 
 public:
     HWND windowHandle = nullptr; // TODO: move to protected;

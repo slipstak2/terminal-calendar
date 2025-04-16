@@ -24,6 +24,8 @@ using MouseOutCallback = std::function<bool()>;
 using KeyPressCallback = std::function<bool(const KeyContext& kctx)>;
 using KeyPressUpOrDownCallback = std::function<bool(int key)>;
 
+using ChangeFocusCallback = std::function<void(TerminalControl* sender)>;
+
 class SelectionLayer;
 
 class TerminalControl : public TerminalRectangle {
@@ -120,6 +122,10 @@ public:
 
     void AddKeyPressUpOrDownCallbacks(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {
         keyPressUpOrDownCallbacks.push_back(keyPressUpOrDownCallback);
+    }
+
+    void AddChangeFocusCallbacks(ChangeFocusCallback changeFocusCallback) {
+        changeFocusCallbacks.push_back(changeFocusCallback);
     }
 
     TerminalCoord GetRelativePosition(TerminalCoord absPosition);
@@ -222,6 +228,23 @@ public:
     void SetFocusable(bool isFocusable) {
         this->isFocusable = isFocusable;
     }
+
+    bool ChangeFocus(bool isFocus) {
+        bool isChange = this->isFocus != isFocus;
+
+        if (isChange) {
+            this->isFocus = isFocus;
+            for (auto& changeFocusCallback : changeFocusCallbacks) {
+                changeFocusCallback(this);
+            }
+        }
+
+        return isChange;
+    }
+
+    bool IsFocus() const {
+        return isFocus;
+    }
  
     virtual bool IsDraggable() {
         return false;
@@ -274,9 +297,12 @@ protected:
     std::vector<KeyPressCallback> keyPressCallbacks;
     std::vector<KeyPressUpOrDownCallback> keyPressUpOrDownCallbacks;
 
+    std::vector<ChangeFocusCallback> changeFocusCallbacks;
+
     FormatSettings formatSettings = FormatSettings::Default;
     bool isVisible = true;
     bool isFocusable = true;
+    bool isFocus = false;
 
     bool allowUseDoubleClickAsSingleClick = true;
 

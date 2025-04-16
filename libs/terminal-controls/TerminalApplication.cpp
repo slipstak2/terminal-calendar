@@ -97,7 +97,7 @@ void TerminalApplication::OnMouseLeftClick(const MouseContext& ctx, TerminalCoor
     auto clickControl = clickCell.GetParent();
     auto clickWindow = clickControl ? clickControl->GetParentWindow() : nullptr;
 
-    SetFocusControl(clickControl, clickWindow);
+    bool isChangeFocus = SetFocusControl(clickControl, clickWindow);
 
     bool isDraggingStart = TryDraggingStart(clickControl, absPosition);
     TrySelectionStart(clickControl);
@@ -114,13 +114,13 @@ void TerminalApplication::OnMouseLeftClick(const MouseContext& ctx, TerminalCoor
         }
     }
 
-    if (isMoveToTop || isApplyClickOK || isDraggingStart) {
+    if (isMoveToTop || isApplyClickOK || isDraggingStart || isChangeFocus) {
         TimeProfiler& tp = TControlsConfig().tp;
         tp.Push("FrameRender");
         FrameRender();
         tp.Pop("FrameRender" + std::string(ctx.isDoubleClick ? "DC " : ""));
         tp.forceShouldNotCommit = true;
-        FrameRender();
+        FrameRender(); // always double FrameRender???
         tp.forceShouldNotCommit = false;
     }
 }
@@ -254,17 +254,28 @@ bool TerminalApplication::TrySelectionStop() {
     return false;
 }
 
-void TerminalApplication::SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow) {
+bool TerminalApplication::SetFocusControl(TerminalControl* clickControl, TerminalWindow* clickWindow) {
+    TerminalControl* newFocusControl = nullptr;
     if (clickControl) {
         if (clickControl->IsFocusable()) {
-            focusControl = clickControl;
+            newFocusControl = clickControl;
         }
     }
     else if (clickWindow) {
         if (clickWindow->IsFocusable()) {
-            focusControl = clickWindow;
+            newFocusControl = clickWindow;
         }
     }
+
+    bool changeFocusResult = false;
+    if (focusControl) {
+        changeFocusResult |= focusControl->ChangeFocus(false);
+    }
+    focusControl = newFocusControl;
+    if (focusControl) {
+        changeFocusResult |= focusControl->ChangeFocus(true);
+    }
+    return changeFocusResult;
 }
 
 void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {

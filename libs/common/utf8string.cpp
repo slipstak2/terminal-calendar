@@ -67,6 +67,17 @@ void Utf8String::resize(int size, Rune defaultRune) {
     runes.resize(size, defaultRune);
 }
 
+void Utf8String::resize_last(int size, Rune defaultRune) {
+    if (runes.size() <= size) {
+        resize(size, defaultRune);
+    }
+    std::copy(runes.begin() + runes.size() - size, runes.end(), runes.begin());
+}
+
 void Utf8String::push_back(Rune rune) {
     runes.push_back(rune);
+}
+
+void Utf8String::pop_back() {
+    runes.pop_back();
 }

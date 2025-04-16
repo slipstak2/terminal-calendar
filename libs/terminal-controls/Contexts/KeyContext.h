@@ -10,6 +10,7 @@ struct KeyContext {
     KeyContext() = default;
     KeyContext(const KEY_EVENT_RECORD* key);
 
+    bool isBackSpace = false;
     bool isKeyDown = false;
     Rune rune;
 };
