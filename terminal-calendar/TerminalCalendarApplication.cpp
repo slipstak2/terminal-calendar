@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #include "common.h"
 #include "TerminalApplication.h"
@@ -14,6 +14,7 @@
 #include "TerminalRadioButton.h"
 #include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
+#include "TerminalTextBox.h"
 #include "TerminalControlsConfig.h"
 #include "Date/TerminalMonthBox.h"
 #include "DataProviders/ListDataSetNumSequence.h"
@@ -71,6 +72,22 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     selectedDaysCounterLabel->SetBackgroundColor(RGB::Brightcyan);
     selectedDaysCounterLabel->SetFontColor(FontColor::Black);
     backgroundWindow->AddControlOnBorder(selectedDaysCounterLabel);
+
+    // Без закругление вверху
+    {
+        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = 0 }));
+        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = 0 }));
+
+        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = backgroundWindow->Width() - 1 }));
+        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = backgroundWindow->Width() - 1 }));
+    }
+
+    {
+        short offset = (backgroundWindow->Width() - 2 - 32) / 2;
+        auto textBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = offset }, TerminalSize{ .height = 1, .width = 32 });
+        textBox->SetBackgroundColor(BackgroundColor::Brightblack);
+        backgroundWindow->AddControl(textBox);
+    }
 
     auto fillMonthsData = [this, backgroundWindow](int year) {
         size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {

@@ -9,12 +9,16 @@ public:
     Rune(const char* s);
     Rune(const char* s, uint8_t bytes);
     Rune(wchar_t wc);
+    Rune(const Rune& r);
 
     const uint8_t* get() const;
     uint8_t size() const;
+    bool is_empty() const;
 
-    Rune& operator = (const Rune& r);
+    Rune& operator = (Rune r);
     bool operator == (const Rune& r) const;
+
+    void swap(Rune& r);
 
 protected:
     uint8_t bytes = 0;

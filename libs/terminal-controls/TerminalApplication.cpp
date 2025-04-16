@@ -275,9 +275,6 @@ void TerminalApplication::OnKeyEvent(const KEY_EVENT_RECORD& key) {
         }
         OnKeyPress(key);
     }
-    if (key.bKeyDown && key.uChar.AsciiChar == 'q') {
-        exit(0);
-    }
 }
 
 void TerminalApplication::OnMouseEvent(const MOUSE_EVENT_RECORD& mouseEvent) {

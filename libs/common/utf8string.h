@@ -17,7 +17,7 @@ public:
     bool empty() const;
     size_t size() const;
     void resize(int size, Rune defaultRune);
-
+    void push_back(Rune rune);
 
     const Rune& operator[] (size_t idx) const;
     Rune& operator[] (size_t idx);

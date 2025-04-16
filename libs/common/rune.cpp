@@ -1,5 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "rune.h"
 #include <cstring>
+#include <algorithm>
+#include <stdexcept>
 
 
 uint8_t utf8SymbolLen(uint8_t firstSymbol) {
@@ -8,6 +12,15 @@ uint8_t utf8SymbolLen(uint8_t firstSymbol) {
     if ((firstSymbol & 0b1111'0000) == 0b1110'0000) return 3;
     if ((firstSymbol & 0b1111'1000) == 0b1111'0000) return 4;
     return 0;
+}
+
+uint8_t bits_count(wchar_t code) {
+    uint8_t bits = 0;
+    while (code) {
+        code >>= 1;
+        ++bits;
+    }
+    return bits;
 }
 
 Rune::Rune() {
@@ -35,10 +48,40 @@ Rune::Rune(const char* s, uint8_t bytes) {
 
 Rune::Rune(wchar_t wc) {
     clear();
+    uint8_t bits = bits_count(wc);
+    if (bits <= 7) {
+        bytes = 1;
+        data[0] = (uint8_t)wc;
+    }
+    else if (bits <= 11) {
+        bytes = 2;
+        // 110xxxxx 10xxxxxx
+        data[1] = 0b1000'0000 | (0b0011'1111 & wc);
+        wc >>= 6;
+        data[0] = 0b1100'0000 | (0b0001'1111 & wc);
+    }
+    else {
+        throw std::runtime_error("unimplement decode wchar_t to Rune");
+    }
+}
+
+Rune::Rune(const Rune& r)
+    : bytes(r.bytes)
+{
+    memcpy(data, r.data, sizeof(data));
+}
+
+void Rune::swap(Rune& r) {
+    std::swap(bytes, r.bytes);
+    std::swap(data, r.data);
 }
 
 const uint8_t* Rune::get() const {
     return data;
+}
+
+bool Rune::is_empty() const {
+    return bytes == 0;
 }
 
 uint8_t Rune::size() const {
@@ -53,8 +96,8 @@ void Rune::copy(const char* s, uint8_t bytes) {
     memcpy(data, s, bytes);
 }
 
-Rune& Rune::operator = (const Rune& r) {
-    memcpy(data, r.data, sizeof(data));
+Rune& Rune::operator = (Rune r) {
+    this->swap(r);
     return *this;
 }
 

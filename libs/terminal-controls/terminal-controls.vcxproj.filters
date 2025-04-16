@@ -204,6 +204,9 @@
     <ClInclude Include="Contexts\KeyContext.h">
       <Filter>Header Files\Contexts</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalTextBox.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -325,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="Contexts\KeyContext.cpp">
       <Filter>Source Files\Contexts</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalTextBox.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

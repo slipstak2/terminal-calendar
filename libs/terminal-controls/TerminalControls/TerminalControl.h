@@ -50,6 +50,7 @@ public:
         GRID,
         GRID_CELL,
         MONTH_GRID,
+        TEXT_BOX,
         WINDOW
     };
     static const TerminalControl::Kind KIND = Kind::CONTROL;
@@ -111,6 +112,10 @@ public:
 
     void AddMouseOutCallback(MouseOutCallback mouseOutCallback) {
         mouseOutCallbacks.push_back(mouseOutCallback);
+    }
+
+    void AddKeyPressCallbacks(KeyPressCallback keyPressCallback) {
+        keyPressCallbacks.push_back(keyPressCallback);
     }
 
     void AddKeyPressUpOrDownCallbacks(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {

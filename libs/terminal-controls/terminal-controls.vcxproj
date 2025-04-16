@@ -49,6 +49,7 @@
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
     <ClInclude Include="TerminalControls\TerminalRootControl.h" />
+    <ClInclude Include="TerminalControls\TerminalTextBox.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScroll.h" />
     <ClInclude Include="TerminalControls\TerminalVerticalScrollBar.h" />
     <ClInclude Include="TerminalControls\TerminalWindow.h" />
@@ -94,6 +95,7 @@
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />
     <ClCompile Include="TerminalControls\TerminalRootControl.cpp" />
+    <ClCompile Include="TerminalControls\TerminalTextBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScroll.cpp" />
     <ClCompile Include="TerminalControls\TerminalVerticalScrollBar.cpp" />
     <ClCompile Include="TerminalControls\TerminalWindow.cpp" />
