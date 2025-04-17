@@ -3,11 +3,13 @@
 
 TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
     : TerminalControl(position, size)
+    , renderTextView(text, 0, size.width - 1)
 {
     AddKeyPressCallbacks([this](const KeyContext& kctx) {
         if (!kctx.rune.is_empty()) {
             text.push_back(kctx.rune); // TODO: tabulation saw strange
-            InitRenderText();
+            renderTextView.tryIncOffset();
+            SetCursorPosition();
             return true;
         }
         if (kctx.isBackSpace) {
@@ -15,7 +17,8 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
                 return false;
             }
             text.pop_back();
-            InitRenderText();
+            renderTextView.tryDecOffset();
+            SetCursorPosition();
             return true;
         }
         return false;
@@ -40,24 +43,22 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
     cursor->SetBackgroundColor(focusBackgroundColor);
     cursor->SetTextStyle(TextStyle::RapidBlink);
 
-    InitRenderText();
+    SetCursorPosition();
 }
 
-void TerminalTextBox::InitRenderText() {
-    renderText = text;
-    renderText.resize_last(Width() - 1);
-    cursor->SetPosition(TerminalCoord{.row = 0, .col = (short)renderText.size() });
+void TerminalTextBox::SetCursorPosition() {
+    cursor->SetPosition(TerminalCoord{.row = 0, .col = (short)renderTextView.size() });
 }
 
 void TerminalTextBox::FlushSelf() {
-    const Utf8String& s = renderText;
+
+    size_t viewSize = renderTextView.size();
 
     short len = Width();
     for (int i = 0; i < len; ++i) {
-        if (i < s.size()) {
-            data[0][i] = CreateCell(s[i]);
-        }
-        else {
+        if (i < viewSize) {
+            data[0][i] = CreateCell(renderTextView[i]);
+        } else {
             data[0][i] = CreateCell(" ");
         }
     }

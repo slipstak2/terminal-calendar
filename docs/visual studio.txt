@@ -1,0 +1,1 @@
+Tools -> Options -> Text Editor -> C/C++ -> Code Style -> Formatting -> New Lines -> Place 'else' on a new line
