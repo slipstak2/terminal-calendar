@@ -12,11 +12,15 @@ public:
 
 protected:
     void FlushSelf() override;
-    void FlushSelfAllignLeft(const Utf8String& s);
 
 protected:
     void InitRenderText();
 protected:
     Utf8String text;
     Utf8String renderText;
+
+    BackgroundColor focusBackgroundColor = BackgroundColor::Magenta;
+    BackgroundColor notFocusBackgroundColor = BackgroundColor::Brightblack;
+
+    TerminalLabelPtr cursor = nullptr;
 };
