@@ -11,6 +11,7 @@ struct KeyContext {
     KeyContext(const KEY_EVENT_RECORD* key);
 
     bool isBackSpace = false;
+    bool isDelete = false;
     bool isKeyDown = false;
 
     bool isLeft = false;

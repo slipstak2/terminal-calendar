@@ -52,6 +52,7 @@ protected:
 
 protected:
     void AddSymbol(Rune r);
+    bool RemoveCurSymbol();
     bool RemovePrevSymbol();
     bool TryMoveCursor(int delta);
 

@@ -18,6 +18,9 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
         if (kctx.isBackSpace) {
             return RemovePrevSymbol();
         }
+        if (kctx.isDelete) {
+            return RemoveCurSymbol();
+        }
         if (kctx.isLeft) {
             return TryMoveCursor(-1);
         }
@@ -79,6 +82,15 @@ void TerminalTextBox::AddSymbol(Rune r) {
     UpdateCursorLabelPosition();
 }
 
+bool TerminalTextBox::RemoveCurSymbol() {
+    if (cursorPosition >= text.size()) {
+        return false;
+    }
+    text.erase(cursorPosition);
+    NormalizeView();
+    UpdateCursorLabelPosition();
+    return true;
+}
 bool TerminalTextBox::RemovePrevSymbol() {
     if (text.empty() || cursorPosition == 0) {
         return false;

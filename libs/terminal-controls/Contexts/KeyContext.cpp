@@ -13,5 +13,6 @@ KeyContext::KeyContext(const KEY_EVENT_RECORD* key)
     } else {
         isLeft = key->wVirtualKeyCode == VK_LEFT;
         isRight = key->wVirtualKeyCode == VK_RIGHT;
+        isDelete = key->wVirtualKeyCode == VK_DELETE;
     }
 }
