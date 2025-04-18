@@ -67,12 +67,12 @@ void Utf8String::resize(int size, Rune defaultRune) {
     runes.resize(size, defaultRune);
 }
 
-void Utf8String::resize_last(int size) {
-    auto itBeg = runes.size() < size ? runes.begin() : runes.begin() + runes.size() - size;
-    std::copy(itBeg, runes.end(), runes.begin());
-    if (runes.size() > size) {
-        runes.resize(size);
-    }
+void Utf8String::insert(size_t pos, Rune rune) {
+    runes.insert(runes.begin() + pos, rune);
+}
+
+void Utf8String::erase(size_t pos) {
+    runes.erase(runes.begin() + pos);
 }
 
 void Utf8String::push_back(Rune rune) {

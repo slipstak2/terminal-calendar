@@ -12,5 +12,8 @@ struct KeyContext {
 
     bool isBackSpace = false;
     bool isKeyDown = false;
+
+    bool isLeft = false;
+    bool isRight = false;
     Rune rune;
 };

@@ -28,21 +28,11 @@ class TerminalTextBox : public TerminalControl { // TODO; TerminalControl + keyi
             static Rune empty("?");
             return empty;
         }
-        bool tryIncOffset() {
-            if (offset + len + 1 == text.size()) {
-                offset++;
-                return true;
-            }
-            return false;
+        size_t Offset() const {
+            return offset;
         }
-        bool tryDecOffset() {
-            if (offset + len - 1 == text.size()) {
-                if (offset != 0) {
-                    offset--;
-                }
-                return true;
-            }
-            return false;
+        void SetOffset(size_t offset) {
+            this->offset = offset;
         }
     private:
 
@@ -50,28 +40,30 @@ class TerminalTextBox : public TerminalControl { // TODO; TerminalControl + keyi
         size_t offset;
         size_t len;
     };
-    class Cursor {
-
-        int pos = -1;
-    };
 public:
     DECLARE_CREATE(TerminalTextBox)
     DECLARE_KIND(TerminalControl, TerminalControl::Kind::TEXT_BOX)
 
 public:
     TerminalTextBox(TerminalCoord position, TerminalSize size);
-
+    void SetText(const Utf8String& text);
 protected:
     void FlushSelf() override;
 
 protected:
-    void SetCursorPosition();
+    void AddSymbol(Rune r);
+    bool RemovePrevSymbol();
+    bool TryMoveCursor(int delta);
+
+    void NormalizeView();
+    void UpdateCursorLabelPosition(bool isVisible = true);
 protected:
     Utf8String text;
-    TextView renderTextView;
+    int cursorPosition = 0;
+    TextView textView;
 
     BackgroundColor focusBackgroundColor = BackgroundColor::Magenta;
     BackgroundColor notFocusBackgroundColor = BackgroundColor::Brightblack;
 
-    TerminalLabelPtr cursor = nullptr;
+    TerminalLabelPtr cursorLabel = nullptr;
 };

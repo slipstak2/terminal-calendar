@@ -3,61 +3,122 @@
 
 TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
     : TerminalControl(position, size)
-    , renderTextView(text, 0, size.width - 1)
+    , textView(text, 0, size.width - 1)
 {
+    cursorLabel = TerminalLabel::Create("_", TerminalCoord{ .row = 0, .col = 0 }); // (short)renderText.size()
+    cursorLabel->SetBackgroundColor(focusBackgroundColor);
+    cursorLabel->SetTextStyle(TextStyle::RapidBlink);
+    AddControl(cursorLabel);
+
     AddKeyPressCallbacks([this](const KeyContext& kctx) {
         if (!kctx.rune.is_empty()) {
-            text.push_back(kctx.rune); // TODO: tabulation saw strange
-            renderTextView.tryIncOffset();
-            SetCursorPosition();
+            AddSymbol(kctx.rune);
             return true;
         }
         if (kctx.isBackSpace) {
-            if (text.empty()) {
-                return false;
-            }
-            text.pop_back();
-            renderTextView.tryDecOffset();
-            SetCursorPosition();
-            return true;
+            return RemovePrevSymbol();
+        }
+        if (kctx.isLeft) {
+            return TryMoveCursor(-1);
+        }
+        if (kctx.isRight) {
+            return TryMoveCursor(1);
         }
         return false;
         });
     auto onChangeFocus = [this](TerminalControl* sender) {
         SetBackgroundColor(IsFocus() ? focusBackgroundColor : notFocusBackgroundColor);
         if (IsFocus()) {
-            AddControl(cursor);
+            cursorPosition = (int)text.size();
+            NormalizeView();
+            UpdateCursorLabelPosition();
         }
         else {
-            size_t removeControls = RemoveControls(GetControls(), [](TerminalControlPtr control) {
-                return control->As<TerminalLabel>() != nullptr;
-            });
-            assert(removeControls <= 1);
+            cursorPosition = -1;
+            UpdateCursorLabelPosition(false);
         }
     };
     AddChangeFocusCallbacks(onChangeFocus);
     onChangeFocus(this);
-
-
-    cursor = TerminalLabel::Create("_", TerminalCoord{ .row = 0, .col = 0 }); // (short)renderText.size()
-    cursor->SetBackgroundColor(focusBackgroundColor);
-    cursor->SetTextStyle(TextStyle::RapidBlink);
-
-    SetCursorPosition();
 }
 
-void TerminalTextBox::SetCursorPosition() {
-    cursor->SetPosition(TerminalCoord{.row = 0, .col = (short)renderTextView.size() });
+void TerminalTextBox::SetText(const Utf8String& text) {
+    this->text = text;
+}
+
+void TerminalTextBox::NormalizeView() {
+    if (cursorPosition < textView.Offset()) {
+        textView.SetOffset(cursorPosition);
+        return;
+    } else    if (cursorPosition == text.size()) {
+        textView.SetOffset(std::max(0, cursorPosition - (int)Width() + 1));
+        return;
+    } else  if (textView.Offset() + textView.size() <= cursorPosition) {
+        textView.SetOffset(cursorPosition - textView.size() + 1);
+    }
+
+    if (textView.size() < Width() - 1) {
+        int delta_offset = Width() - 1 - textView.size();
+        textView.SetOffset(std::max(0, (int)textView.Offset() - delta_offset));
+    }
+}
+
+void TerminalTextBox::UpdateCursorLabelPosition(bool isVisible) {
+    short col = Width() + 1;
+    if (isVisible) {
+        if (cursorPosition == text.size()) {
+            col = (short)textView.size();
+        }
+    }
+    cursorLabel->SetPosition(TerminalCoord{ .row = 0, .col = col });
+}
+
+void TerminalTextBox::AddSymbol(Rune r) {
+    text.insert(cursorPosition++, r);
+    NormalizeView();
+    UpdateCursorLabelPosition();
+}
+
+bool TerminalTextBox::RemovePrevSymbol() {
+    if (text.empty() || cursorPosition == 0) {
+        return false;
+    }
+    text.erase(--cursorPosition);
+    NormalizeView();
+    UpdateCursorLabelPosition();
+    return true;
+}
+
+bool TerminalTextBox::TryMoveCursor(int delta) {
+    cursorPosition += delta;
+    if (cursorPosition < 0) {
+        cursorPosition = 0;
+    }
+    if (cursorPosition > text.size()) {
+        cursorPosition = (int)text.size();
+    }
+    NormalizeView();
+    UpdateCursorLabelPosition();
+    return true; // TOOD: fix it
 }
 
 void TerminalTextBox::FlushSelf() {
 
-    size_t viewSize = renderTextView.size();
+    size_t viewSize = textView.size();
+    
+    static FormatSettings FS{
+        .backgroundColor = focusBackgroundColor,
+        .textStyle = TextStyle::Inverse
+    };
 
     short len = Width();
     for (int i = 0; i < len; ++i) {
         if (i < viewSize) {
-            data[0][i] = CreateCell(renderTextView[i]);
+            bool isUnderCursor = textView.Offset() + i == cursorPosition;
+            data[0][i] = CreateCell(textView[i]);
+            if (isUnderCursor) {
+                data[0][i].SetFormatSettings(&FS);
+            }
         } else {
             data[0][i] = CreateCell(" ");
         }

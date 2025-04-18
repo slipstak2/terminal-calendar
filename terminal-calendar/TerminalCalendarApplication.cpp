@@ -85,7 +85,9 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     {
         backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 7 }, TerminalSize{ .height = 1, .width = 16 }));
         backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 27 }, TerminalSize{ .height = 1, .width = 16 }));
-        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 45 }, TerminalSize{ .height = 1, .width = 5 }));
+        auto testTextBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 45 }, TerminalSize{ .height = 1, .width = 5 });
+        testTextBox->SetText("01234567");
+        backgroundWindow->AddControl(testTextBox);
     }
 
     auto fillMonthsData = [this, backgroundWindow](int year) {

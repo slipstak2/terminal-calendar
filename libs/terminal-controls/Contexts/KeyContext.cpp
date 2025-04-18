@@ -10,5 +10,8 @@ KeyContext::KeyContext(const KEY_EVENT_RECORD* key)
         } else {
             rune = Rune(key->uChar.UnicodeChar);
         }
+    } else {
+        isLeft = key->wVirtualKeyCode == VK_LEFT;
+        isRight = key->wVirtualKeyCode == VK_RIGHT;
     }
 }

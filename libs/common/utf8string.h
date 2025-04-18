@@ -17,7 +17,8 @@ public:
     bool empty() const;
     size_t size() const;
     void resize(int size, Rune defaultRune);
-    void resize_last(int size);
+    void insert(size_t pos, Rune rune);
+    void erase(size_t pos);
     void push_back(Rune rune);
     void pop_back();
 
