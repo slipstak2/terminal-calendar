@@ -121,6 +121,17 @@ void TerminalCalendarApplication::InitCalendarWindow() {
 
     fillMonthsData(2025);
 }
+
+
+void TerminalCalendarApplication::InitSearchWindow() {
+    searchWindow = TerminalWindow::Create("", TerminalCoord{ .row = 2, .col =  73  }, TerminalSize{ .height = 3, .width = 72 });
+    AddWindow(searchWindow);
+
+    auto searchTextBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 1, .width = 70 });
+    searchWindow->AddControl(searchTextBox);
+}
+
+
 TerminalCalendarApplication::TerminalCalendarApplication()
     : TerminalApplication() {
 
@@ -128,6 +139,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
     short rows = size.height, cols = size.width;
 
     InitCalendarWindow();
+    InitSearchWindow();
 
     SetTerminalConsoleSize(40, 100);
 }

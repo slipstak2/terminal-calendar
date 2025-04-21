@@ -42,8 +42,8 @@ TerminalSize TerminalApplication::GetTerminalConsoleSize() const {
 
 void TerminalApplication::SetTerminalConsoleSize(short rows, short cols) {
     // TODO: calculate window size with screen resolution
-    int width = 696; // 738;
-    int height = 787; // 763;
+    int width = 696 + 9 * 74; // 738;
+    int height = 787 + 19; // 763;
 
     SetWindowPos(windowHandle, NULL, 100, 100, width, height, SWP_SHOWWINDOW);
 
