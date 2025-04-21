@@ -1,31 +1,32 @@
 ﻿#include "TerminalGrid.h"
 #include "TerminalCheckBox.h"
 #include "TerminalGridCell.h"
+#include "data-view.h"
 
 using defer = std::shared_ptr<void>;
 
-TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
+TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataViewPtr view, TerminalCoord position)
     : TerminalCompositeControl(position)
     , header(header)
-    , storage(storage) {
+    , view(view) {
 
     columns.resize(header.size());
     colsCheckBoxes.resize(header.size());
-    cells.resize(storage->RowsCount(), std::vector<TerminalGridCellPtr>(storage->FieldsCount(), nullptr));
+    cells.resize(view->RowsCount(), std::vector<TerminalGridCellPtr>(view->FieldsCount(), nullptr));
 
     InitHeader();
     InitData();
 
     SetBorderVisible(false);
-    SetSize(TerminalSize{ .height = ONE + (short)storage->RowsCount(), .width = 2 * 7 + 8});
+    SetSize(TerminalSize{ .height = ONE + (short)view->RowsCount(), .width = 2 * 7 + 8});
 }
 
 void TerminalGrid::SetBorderVisible(bool isVisible) {
     borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Conceal;
 }
 
-const DataStoragePtr TerminalGrid::GetStorage() const {
-    return storage;
+const DataViewPtr TerminalGrid::GetView() const {
+    return view;
 }
 
 void TerminalGrid::SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes) { 
@@ -189,9 +190,9 @@ void TerminalGrid::InitHeader() {
 
 
 void TerminalGrid::InitData() {
-    for (size_t row_num = 0; row_num < storage->RowsCount(); ++row_num) {
+    for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
         short col = 1;
-        auto row = storage->GetRow(row_num);
+        auto row = view->GetRow(row_num);
 
         for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
             storage::date d = row->GetField<storage::date>(field_num);
@@ -240,7 +241,7 @@ void TerminalGrid::FlushRowBorder(short row) {
 
 void TerminalGrid::FlushSelf() {
     FlushRowBorder(0);
-    for (short row_num = 0; row_num < storage->RowsCount(); ++row_num) {
+    for (short row_num = 0; row_num < view->RowsCount(); ++row_num) {
         FlushRowBorder(ONE + row_num);
     }
 }

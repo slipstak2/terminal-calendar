@@ -15,6 +15,7 @@
 #include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
 #include "TerminalTextBox.h"
+#include "TerminalGrid.h"
 #include "TerminalControlsConfig.h"
 #include "Date/TerminalMonthBox.h"
 #include "DataProviders/ListDataSetNumSequence.h"
@@ -131,6 +132,21 @@ void TerminalCalendarApplication::InitSearchWindow() {
     searchWindow->AddControl(searchTextBox);
 }
 
+void TerminalCalendarApplication::InitDataWindow() {
+    dataWindow = TerminalWindow::Create("", TerminalCoord{ .row = 5, .col = 73 }, TerminalSize{ .height = 33, .width = 72 });
+    AddWindow(dataWindow);
+    std::vector<Utf8String> header = { "ФИО", "Дата рождения", "Возвраст" };
+
+    view = DataStorage::Create(
+        FieldDesc::Int("id"),
+        FieldDesc::String("name"),
+        FieldDesc::Date("birthday")
+    )->View();
+
+    auto dataGrid = TerminalGrid::Create(header, view, TerminalCoord{.row = 0, .col = 0});
+    dataWindow->AddControl(dataGrid);
+}
+
 
 TerminalCalendarApplication::TerminalCalendarApplication()
     : TerminalApplication() {
@@ -140,6 +156,7 @@ TerminalCalendarApplication::TerminalCalendarApplication()
 
     InitCalendarWindow();
     InitSearchWindow();
+    InitDataWindow();
 
     SetTerminalConsoleSize(40, 100);
 }

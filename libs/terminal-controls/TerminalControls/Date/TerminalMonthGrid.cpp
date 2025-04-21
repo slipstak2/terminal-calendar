@@ -1,8 +1,8 @@
 #include "TerminalMonthGrid.h"
 #include "TerminalGridCell.h"
 
-TerminalMonthGrid::TerminalMonthGrid(const std::vector<Utf8String>& header, DataStoragePtr storage, TerminalCoord position)
-    : TerminalGrid(header, storage, position)
+TerminalMonthGrid::TerminalMonthGrid(const std::vector<Utf8String>& header, DataViewPtr view, TerminalCoord position)
+    : TerminalGrid(header, view, position)
 {}
 
 void TerminalMonthGrid::SetSelectionLayer(SelectionLayer* selectionLayer) {

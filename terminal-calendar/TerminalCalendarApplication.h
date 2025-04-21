@@ -9,11 +9,17 @@ public:
 
     void InitCalendarWindow();
     void InitSearchWindow();
+    void InitDataWindow();
+   
 
     void UpdateSelectedDayCount();
 protected:
     TerminalWindowPtr calendarWindow;
     TerminalWindowPtr searchWindow;
+    TerminalWindowPtr dataWindow;
+
+    DataViewPtr view;
+
     DaysSelectionLayer daysSelectionLayer;
 
     size_t selectedDays = 0;
