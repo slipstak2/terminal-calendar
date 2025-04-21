@@ -52,48 +52,44 @@ void TerminalCalendarApplication::UpdateSelectedDayCount() {
     }
     selectedDaysCounterLabel->SetText(text);
 }
-TerminalCalendarApplication::TerminalCalendarApplication()
-    : TerminalApplication() {
 
-    TerminalSize size = canvas->Size();
-    short rows = size.height, cols = size.width;
-
-    auto backgroundWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 38, .width = 72 });
-    AddWindow(backgroundWindow);
+void TerminalCalendarApplication::InitCalendarWindow() {
+    calendarWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 38, .width = 72 });
+    AddWindow(calendarWindow);
 
     auto yearsDataProvider = ListDataProvider::Create(yearsDataSet, yearsDataSet->GetPos(2025));
-    short year_label_offset = (backgroundWindow->Width() - 8) / 2;
+    short year_label_offset = (calendarWindow->Width() - 8) / 2;
     auto yearsLabel = TerminalLabelSwitcher::Create(yearsDataProvider, TerminalCoord{ .row = 0, .col = year_label_offset });
     yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
 
-    backgroundWindow->AddControlOnBorder(yearsLabel);
+    calendarWindow->AddControlOnBorder(yearsLabel);
 
-    selectedDaysCounterLabel= TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
+    selectedDaysCounterLabel = TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
     selectedDaysCounterLabel->SetBackgroundColor(RGB::Brightcyan);
     selectedDaysCounterLabel->SetFontColor(FontColor::Black);
-    backgroundWindow->AddControlOnBorder(selectedDaysCounterLabel);
+    calendarWindow->AddControlOnBorder(selectedDaysCounterLabel);
 
     // Без закругление вверху
     {
-        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = 0 }));
-        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = 0 }));
+        calendarWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = 0 }));
+        calendarWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = 0 }));
 
-        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = backgroundWindow->Width() - 1 }));
-        backgroundWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = backgroundWindow->Width() - 1 }));
+        calendarWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 0, .col = calendarWindow->Width() - 1 }));
+        calendarWindow->AddControlOnBorder(TerminalLabel::Create(" ", TerminalCoord{ .row = 1, .col = calendarWindow->Width() - 1 }));
     }
 
     {
-        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 7 }, TerminalSize{ .height = 1, .width = 16 }));
-        backgroundWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 27 }, TerminalSize{ .height = 1, .width = 16 }));
+        calendarWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 7 }, TerminalSize{ .height = 1, .width = 16 }));
+        calendarWindow->AddControl(TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 27 }, TerminalSize{ .height = 1, .width = 16 }));
         auto testTextBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 45 }, TerminalSize{ .height = 1, .width = 5 });
         testTextBox->SetText("01234567");
-        backgroundWindow->AddControl(testTextBox);
+        calendarWindow->AddControl(testTextBox);
     }
 
-    auto fillMonthsData = [this, backgroundWindow](int year) {
-        size_t removeControls = backgroundWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
+    auto fillMonthsData = [this](int year) {
+        size_t removeControls = calendarWindow->RemoveControlsOnBorder([](TerminalControlPtr control) {
             return control->As<TerminalMonthBox>() != nullptr;
-        });
+            });
         daysSelectionLayer.Clear();
         selectedDays = 0;
         UpdateSelectedDayCount();
@@ -112,10 +108,10 @@ TerminalCalendarApplication::TerminalCalendarApplication()
                     selectedDays += (sender->IsSelected() ? 1 : -1);
                     UpdateSelectedDayCount();
                     });
-                backgroundWindow->AddControlOnBorder(monthBox);
+                calendarWindow->AddControlOnBorder(monthBox);
             }
         }
-     };
+        };
 
     yearsLabel->AddChangeCallback([fillMonthsData](const Utf8String& prev, const Utf8String& current) {
         int year = (current[0].get()[0] - '0') * 1000 + (current[1].get()[0] - '0') * 100 + (current[2].get()[0] - '0') * 10 + (current[3].get()[0] - '0') * 1;
@@ -124,6 +120,14 @@ TerminalCalendarApplication::TerminalCalendarApplication()
         });
 
     fillMonthsData(2025);
+}
+TerminalCalendarApplication::TerminalCalendarApplication()
+    : TerminalApplication() {
+
+    TerminalSize size = canvas->Size();
+    short rows = size.height, cols = size.width;
+
+    InitCalendarWindow();
 
     SetTerminalConsoleSize(40, 100);
 }

@@ -6,8 +6,10 @@
 class TerminalCalendarApplication : public TerminalApplication {
 public:
     TerminalCalendarApplication();
+    void InitCalendarWindow();
     void UpdateSelectedDayCount();
 protected:
+    TerminalWindowPtr calendarWindow;
     DaysSelectionLayer daysSelectionLayer;
 
     size_t selectedDays = 0;
