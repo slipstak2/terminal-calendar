@@ -18,7 +18,7 @@ protected:
     TerminalWindowPtr searchWindow;
     TerminalWindowPtr dataWindow;
 
-    DataViewPtr view;
+    DataContainerPtr container;
 
     DaysSelectionLayer daysSelectionLayer;
 

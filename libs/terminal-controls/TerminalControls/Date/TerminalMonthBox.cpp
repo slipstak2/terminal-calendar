@@ -60,7 +60,7 @@ TerminalMonthBox::TerminalMonthBox(int year, int month, TerminalCoord position)
     AddControl(grid);
 
     std::vector<TerminalCheckBoxPtr> rowsCheckBoxes;
-    for (int row_num = 0; row_num < grid->GetView()->RowsCount(); ++row_num) {
+    for (int row_num = 0; row_num < grid->GetContainer()->RowsCount(); ++row_num) {
         auto rowHeader = TerminalCheckBox::Create("", TerminalCoord{ .row = ONE + ONE + (short)row_num, .col = 0 });
         rowHeader->mouseOverColor = rowHeader->selectedColor;
         rowHeader->AddOnChangedCallback([row_num, this](const MouseContext& ctx, TerminalCheckBox* sender, bool isChecked) {

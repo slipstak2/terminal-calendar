@@ -13,7 +13,7 @@ public:
 
     DECLARE_CREATE(TerminalGridCell)
 
-    TerminalGridCell(Utf8String label, TerminalCoord position);
+    TerminalGridCell(Utf8String label, short width, TerminalCoord position);
 
 public:
     bool SetSelected(bool isSelect);
@@ -24,7 +24,7 @@ public:
     size_t GridRow() const;
     size_t GridCol() const;
     
-    void SetData(storage::date value);
+    void SetData(storage::date value); // TODO: data can be not only storage::date type
     const storage::date& GetData() const;
 
     void SetGridCellFormatter(GridCellFormatter* formatter);

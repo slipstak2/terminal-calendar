@@ -5,28 +5,33 @@
 
 using defer = std::shared_ptr<void>;
 
-TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataViewPtr view, TerminalCoord position)
+TerminalGrid::TerminalGrid(const std::vector<Utf8String>& header, DataContainerPtr container, TerminalCoord position)
     : TerminalCompositeControl(position)
     , header(header)
-    , view(view) {
+    , container(container) {
 
+    short totalWidth = 0;
     columns.resize(header.size());
+    for (size_t i = 0; i < header.size(); ++i) {
+        columns[i].width = header[i].size();
+        totalWidth += columns[i].width;
+    }
     colsCheckBoxes.resize(header.size());
-    cells.resize(view->RowsCount(), std::vector<TerminalGridCellPtr>(view->FieldsCount(), nullptr));
+    cells.resize(container->RowsCount(), std::vector<TerminalGridCellPtr>(container->FieldsCount(), nullptr));
 
     InitHeader();
-    InitData();
+    //InitData();
 
     SetBorderVisible(false);
-    SetSize(TerminalSize{ .height = ONE + (short)view->RowsCount(), .width = 2 * 7 + 8});
+    SetSize(TerminalSize{ .height = ONE + (short)container->RowsCount(), .width = totalWidth + ((short)columns.size() + 1)});
 }
 
 void TerminalGrid::SetBorderVisible(bool isVisible) {
     borderFormatSettings.textStyle = isVisible ? TextStyle::Default : TextStyle::Conceal;
 }
 
-const DataViewPtr TerminalGrid::GetView() const {
-    return view;
+const DataContainerPtr TerminalGrid::GetContainer() const {
+    return container;
 }
 
 void TerminalGrid::SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes) { 
@@ -190,43 +195,7 @@ void TerminalGrid::InitHeader() {
 
 
 void TerminalGrid::InitData() {
-    for (size_t row_num = 0; row_num < view->RowsCount(); ++row_num) {
-        short col = 1;
-        auto row = view->GetRow(row_num);
-
-        for (size_t field_num = 0; field_num < row->FieldsCount(); ++field_num) {
-            storage::date d = row->GetField<storage::date>(field_num);
-            if (d.ok()) {
-                auto dayValue = static_cast<unsigned>(d.day());
-                std::string day = std::to_string(dayValue);
-                if (day.size() < 2) {
-                    day = " " + day;
-                }
-                auto dayCell = TerminalGridCell::Create(day, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
-                dayCell->SetData(d);
-                dayCell->SetGridPosition(row_num, field_num);
-                dayCell->SetGridCellFormatter(&formatter);
-                dayCell->AddClickCallback([dayCell, this](const MouseContext& ctx) {
-                    FinilizeSelectedCell(dayCell->GridRow(), dayCell->GridCol());
-                    return true;
-                });
-                dayCell->AddOnSelectedCallback([this](TerminalGridCell* sender) {
-                    for (auto& cellSelectedCallback : cellSelectedCallbacks) {
-                        cellSelectedCallback(sender);
-                    }
-                });
-                AddControl(dayCell);
-                cells[row_num][field_num] = dayCell;
-            }
-            else {
-                std::string empty_cell(columns[field_num].width, ' ');
-                auto emptyLabel = TerminalLabel::Create(empty_cell, TerminalCoord{ .row = ONE + (short)row_num, .col = col });
-                AddControl(emptyLabel);
-            }
-            col += columns[field_num].width + 1;
-
-        }
-    }
+    short col = 0;
 }
 
 void TerminalGrid::FlushRowBorder(short row) {
@@ -241,7 +210,7 @@ void TerminalGrid::FlushRowBorder(short row) {
 
 void TerminalGrid::FlushSelf() {
     FlushRowBorder(0);
-    for (short row_num = 0; row_num < view->RowsCount(); ++row_num) {
+    for (short row_num = 0; row_num < container->RowsCount(); ++row_num) {
         FlushRowBorder(ONE + row_num);
     }
 }

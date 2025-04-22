@@ -7,8 +7,8 @@ TerminalLabelFixedWidth::TerminalLabelFixedWidth(TerminalCoord position, Termina
     InitRenderText();
 }
 
-TerminalLabelFixedWidth::TerminalLabelFixedWidth(Utf8String label, TerminalCoord position)
-    : TerminalLabelBase(position, TerminalSize{.height = 1, .width = (short)label.size()})
+TerminalLabelFixedWidth::TerminalLabelFixedWidth(Utf8String label, short width, TerminalCoord position)
+    : TerminalLabelBase(position, TerminalSize{.height = 1, .width = width })
     , text(label)
 {
     InitRenderText();

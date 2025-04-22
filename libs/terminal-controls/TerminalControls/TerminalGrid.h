@@ -17,10 +17,10 @@ public:
 
     DECLARE_CREATE(TerminalGrid)
 
-    TerminalGrid(const std::vector<Utf8String>& header, DataViewPtr view, TerminalCoord position);
+    TerminalGrid(const std::vector<Utf8String>& header, DataContainerPtr container, TerminalCoord position);
     void SetBorderVisible(bool isVisible);
 
-    const DataViewPtr GetView() const;
+    const DataContainerPtr GetContainer() const;
     
     void SetRowsCheckBoxes(std::vector<TerminalCheckBoxPtr>&& rowsCheckBoxes);
     void SetTitleCheckBox(TerminalCheckBoxPtr titleCheckBox);
@@ -63,14 +63,14 @@ protected:
 
 protected:
     void InitHeader();
-    void InitData();
+    virtual void InitData();
 
     void FlushRowBorder(short row);
     void FlushSelf() override;
 
 protected:
     std::vector<Utf8String> header;
-    DataViewPtr view;
+    DataContainerPtr container;
     std::vector<ColumnInfo> columns;
 
 protected:

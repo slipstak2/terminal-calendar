@@ -25,6 +25,7 @@ namespace storage {
         std::chrono::weekday weekday();
         bool is_today() const;
         static std::chrono::year_month_day now();
+        std::string to_string() const;
 
     private:
         std::chrono::year_month_day data;

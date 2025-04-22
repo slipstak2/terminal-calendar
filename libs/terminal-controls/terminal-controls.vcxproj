@@ -45,6 +45,7 @@
     <ClInclude Include="TerminalControls\TerminalControl.h" />
     <ClInclude Include="TerminalControls\TerminalGrid.h" />
     <ClInclude Include="TerminalControls\TerminalGridCell.h" />
+    <ClInclude Include="TerminalControls\TerminalGridEx.h" />
     <ClInclude Include="TerminalControls\TerminalGroupBox.h" />
     <ClInclude Include="TerminalControls\TerminalListView.h" />
     <ClInclude Include="TerminalControls\TerminalRadioButton.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="TerminalControls\TerminalControl.cpp" />
     <ClCompile Include="TerminalControls\TerminalGrid.cpp" />
     <ClCompile Include="TerminalControls\TerminalGridCell.cpp" />
+    <ClCompile Include="TerminalControls\TerminalGridEx.cpp" />
     <ClCompile Include="TerminalControls\TerminalGroupBox.cpp" />
     <ClCompile Include="TerminalControls\TerminalListView.cpp" />
     <ClCompile Include="TerminalControls\TerminalRadioButton.cpp" />

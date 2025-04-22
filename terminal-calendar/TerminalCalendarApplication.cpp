@@ -15,7 +15,9 @@
 #include "TerminalBorderListView.h"
 #include "TerminalCheckBox.h"
 #include "TerminalTextBox.h"
-#include "TerminalGrid.h"
+#include "TerminalGridEx.h"
+#include "data-view.h"
+#include "data-set.h"
 #include "TerminalControlsConfig.h"
 #include "Date/TerminalMonthBox.h"
 #include "DataProviders/ListDataSetNumSequence.h"
@@ -40,11 +42,11 @@ void UpdateData(TerminalCalendarApplication* self, int dh, int dw, TerminalLabel
 
     char buf[100];
     sprintf(buf, "%dx%d", H, W);
-    sizeLabel->SetText(buf);
+    sizeLabel->SetText(Utf8String(buf));
 
     TerminalSize tsize = self->GetTerminalConsoleSize();
     sprintf(buf, "%dx%d", tsize.height, tsize.width);
-    tSizeLabel->SetText(buf);
+    tSizeLabel->SetText(Utf8String(buf));
 }
 void TerminalCalendarApplication::UpdateSelectedDayCount() {
     std::string text = std::to_string(selectedDays);
@@ -65,7 +67,7 @@ void TerminalCalendarApplication::InitCalendarWindow() {
 
     calendarWindow->AddControlOnBorder(yearsLabel);
 
-    selectedDaysCounterLabel = TerminalLabelFixedWidth::Create("  0", TerminalCoord{ .row = 0, .col = 3 });
+    selectedDaysCounterLabel = TerminalLabelFixedWidth::Create("  0", 3, TerminalCoord{ .row = 0, .col = 3 });
     selectedDaysCounterLabel->SetBackgroundColor(RGB::Brightcyan);
     selectedDaysCounterLabel->SetFontColor(FontColor::Black);
     calendarWindow->AddControlOnBorder(selectedDaysCounterLabel);
@@ -135,15 +137,40 @@ void TerminalCalendarApplication::InitSearchWindow() {
 void TerminalCalendarApplication::InitDataWindow() {
     dataWindow = TerminalWindow::Create("", TerminalCoord{ .row = 5, .col = 73 }, TerminalSize{ .height = 33, .width = 72 });
     AddWindow(dataWindow);
-    std::vector<Utf8String> header = { "ФИО", "Дата рождения", "Возвраст" };
+    std::vector<Utf8String> header = { 
+        Utf8String("             ФИО             "),
+        Utf8String("Дата рождения"), 
+        Utf8String("Возвраст")
+    };
 
-    view = DataStorage::Create(
+    auto storage = DataStorage::Create(
         FieldDesc::Int("id"),
         FieldDesc::String("name"),
         FieldDesc::Date("birthday")
-    )->View();
+    );
 
-    auto dataGrid = TerminalGrid::Create(header, view, TerminalCoord{.row = 0, .col = 0});
+    storage->AddRow<int, std::string_view, storage::date>(1, "Пушкин Александр Сергеевич", storage::date(1799, 6, 6));
+    storage->AddRow<int, std::string_view, storage::date>(2, "Лермонтов Михаил Юрьевич", storage::date(1814, 3, 10));
+    storage->AddRow<int, std::string_view, storage::date>(3, "Толстой Лев Николаевич", storage::date(1828, 9, 9));
+    storage->AddRow<int, std::string_view, storage::date>(4, "Достоевский Фёдор Михайлович", storage::date(1821, 11, 11));
+    storage->AddRow<int, std::string_view, storage::date>(5, "Гоголь Николай Васильевич", storage::date(1809, 4, 1));
+    storage->AddRow<int, std::string_view, storage::date>(6, "Тургенев Иван Сергеевич", storage::date(1818, 11, 9));
+    storage->AddRow<int, std::string_view, storage::date>(7, "Чехов Антон Павлович", storage::date(1860, 1, 29));
+    storage->AddRow<int, std::string_view, storage::date>(8, "Куприн Алексадр Иванович ", storage::date(1870, 9, 7));
+    storage->AddRow<int, std::string_view, storage::date>(9, "Бунин Иван Алексеевич", storage::date(1870, 10, 22));
+    storage->AddRow<int, std::string_view, storage::date>(10, "Зощенко Михаил Михайлович", storage::date(1894, 8, 9));
+    storage->AddRow<int, std::string_view, storage::date>(11, "Горький Максим", storage::date(1868, 3, 28));
+    storage->AddRow<int, std::string_view, storage::date>(12, "Булгаков Михал Афанасьевич", storage::date(1891, 5, 15));
+
+    int cur_year = 2025;
+    container = storage->View("name", "birthday")->AddColumn(
+        FieldDesc::Int("age"), [&cur_year](const DataFieldAccessor& row) {
+            storage::date b = row.GetField<storage::date>("birthday");
+            return cur_year - b.year();
+
+        }
+    );
+    auto dataGrid = TerminalGridEx::Create(header, container, TerminalCoord{.row = 0, .col = 0});
     dataWindow->AddControl(dataGrid);
 }
 

@@ -6,7 +6,8 @@ public:
 
     DECLARE_CREATE(TerminalMonthGrid)
 
-    TerminalMonthGrid(const std::vector<Utf8String>& header, DataViewPtr view, TerminalCoord position);
+    TerminalMonthGrid(const std::vector<Utf8String>& header, DataContainerPtr container, TerminalCoord position);
 
+    void InitData() override;
     void SetSelectionLayer(SelectionLayer* selectionLayer) override;
 };

@@ -1,4 +1,4 @@
-#include "utf8string.h"
+﻿#include "utf8string.h"
 
 Utf8String Utf8String::Empty;
 
@@ -21,6 +21,16 @@ Utf8String::Utf8String(const Rune& rune) {
 
 Utf8String::Utf8String(const std::string& s) {
     Init(s.data());
+}
+
+std::string Utf8String::to_string() const {
+    std::string result;
+    for (const Rune& r : runes) {
+        for (uint8_t byte = 0; byte < r.bytes; ++byte) {
+            result.append(1, r.data[byte]);
+        }
+    }
+    return result;
 }
 
 bool Utf8String::empty() const {

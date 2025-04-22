@@ -2,8 +2,8 @@
 #include "GridCellFormatter.h"
 
 
-TerminalGridCell::TerminalGridCell(Utf8String label, TerminalCoord position)
-    : TerminalLabelFixedWidth(label, position)
+TerminalGridCell::TerminalGridCell(Utf8String label, short width, TerminalCoord position)
+    : TerminalLabelFixedWidth(label, width, position)
 {
     AddOnSelectedCallback([this](TerminalGridCell* sender) {
         if (formatter) {

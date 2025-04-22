@@ -13,6 +13,7 @@ public:
     Utf8String(const char* s, short len);
     Utf8String(const Rune& rune);
     Utf8String(const std::string& s);
+    std::string to_string() const;
 
     bool empty() const;
     size_t size() const;

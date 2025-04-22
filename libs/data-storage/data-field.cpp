@@ -1,6 +1,7 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 
 #include "data-field.h"
+#include "utf8string.h"
 
 namespace storage {
 
@@ -62,6 +63,27 @@ std::chrono::year_month_day date::now() {
         std::chrono::month(now->tm_mon + 1), 
         std::chrono::day(now->tm_mday)
     );
+}
+
+std::string date::to_string() const{
+    
+    static Utf8String mon[12] = {
+        "Янв",
+        "Фев",
+        "Мар",
+        "Апр",
+        "Май",
+        "Июн",
+        "Июл",
+        "Авг",
+        "Сен",
+        "Окт",
+        "Ноя",
+        "Дек",
+    };
+    char buf[256];
+    sprintf(buf, "%02d-%s-%d", day(), mon[month() - 1].to_string().c_str(), year());
+    return buf;
 }
 
 } // storage

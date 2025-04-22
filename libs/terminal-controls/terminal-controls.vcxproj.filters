@@ -207,6 +207,9 @@
     <ClInclude Include="TerminalControls\TerminalTextBox.h">
       <Filter>Header Files\TerminalControls</Filter>
     </ClInclude>
+    <ClInclude Include="TerminalControls\TerminalGridEx.h">
+      <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="TextFormat\FormatSettings.cpp">
@@ -330,6 +333,9 @@
       <Filter>Source Files\Contexts</Filter>
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalTextBox.cpp">
+      <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\TerminalGridEx.cpp">
       <Filter>Source Files\TerminalControls</Filter>
     </ClCompile>
   </ItemGroup>

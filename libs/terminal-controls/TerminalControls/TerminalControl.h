@@ -50,6 +50,7 @@ public:
         VERTICAL_SCROLL_BAR,
         MONTH_BOX,
         GRID,
+        GRID_EX,
         GRID_CELL,
         MONTH_GRID,
         TEXT_BOX,

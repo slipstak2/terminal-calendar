@@ -3,6 +3,7 @@
 #include <cstdint>
 
 class Rune {
+    friend class Utf8String;
 public:
     Rune();
     Rune(char c);
