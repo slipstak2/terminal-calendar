@@ -121,7 +121,7 @@ public:
         keyPressCallbacks.push_back(keyPressCallback);
     }
 
-    void AddKeyPressUpOrDownCallbacks(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {
+    void AddKeyPressUpOrDownCallback(KeyPressUpOrDownCallback keyPressUpOrDownCallback) {
         keyPressUpOrDownCallbacks.push_back(keyPressUpOrDownCallback);
     }
 

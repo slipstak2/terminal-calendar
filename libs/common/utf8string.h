@@ -13,6 +13,7 @@ public:
     Utf8String(const char* s, short len);
     Utf8String(const Rune& rune);
     Utf8String(const std::string& s);
+    Utf8String(std::string_view sv);
     std::string to_string() const;
 
     bool empty() const;
@@ -22,6 +23,8 @@ public:
     void erase(size_t pos);
     void push_back(Rune rune);
     void pop_back();
+
+    bool contains(const Utf8String& substr);
 
     const Rune& operator[] (size_t idx) const;
     Rune& operator[] (size_t idx);

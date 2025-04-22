@@ -86,6 +86,9 @@ using TerminalMonthGridPtr = std::shared_ptr<TerminalMonthGrid>;
 class TerminalGrid;
 using TerminalGridPtr = std::shared_ptr<TerminalGrid>;
 
+class TerminalGridEx;
+using TerminalGridExPtr = std::shared_ptr<TerminalGridEx>;
+
 class TerminalGridCell;
 using TerminalGridCellPtr = std::shared_ptr<TerminalGridCell>;
 

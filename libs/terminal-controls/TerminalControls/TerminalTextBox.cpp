@@ -11,15 +11,14 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
     AddControl(cursorLabel);
 
     AddKeyPressCallbacks([this](const KeyContext& kctx) {
+        bool isChanged = false;
         if (!kctx.rune.is_empty()) {
             AddSymbol(kctx.rune);
-            return true;
-        }
-        if (kctx.isBackSpace) {
-            return RemovePrevSymbol();
-        }
-        if (kctx.isDelete) {
-            return RemoveCurSymbol();
+            isChanged = true;
+        } else if (kctx.isBackSpace) {
+            isChanged = RemovePrevSymbol();
+        } else if (kctx.isDelete) {
+            isChanged = RemoveCurSymbol();
         }
         if (kctx.isLeft) {
             return TryMoveCursor(-1);
@@ -27,7 +26,10 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
         if (kctx.isRight) {
             return TryMoveCursor(1);
         }
-        return false;
+        if (isChanged) {
+            OnTextChanged();
+        }
+        return isChanged;
         });
     auto onChangeFocus = [this](TerminalControl* sender) {
         SetBackgroundColor(IsFocus() ? focusBackgroundColor : notFocusBackgroundColor);
@@ -46,7 +48,19 @@ TerminalTextBox::TerminalTextBox(TerminalCoord position, TerminalSize size)
 }
 
 void TerminalTextBox::SetText(const Utf8String& text) {
-    this->text = text;
+    bool isChanged = this->text != text;
+    if (isChanged) {
+        this->text = text;
+        OnTextChanged();
+    }
+}
+
+const Utf8String& TerminalTextBox::GetText() const {
+    return text;
+}
+
+void TerminalTextBox::AddTextChangeCallback(TextChangeCallback textChangeCallback) {
+    textChangeCallbacks.push_back(textChangeCallback);
 }
 
 void TerminalTextBox::NormalizeView() {
@@ -114,6 +128,11 @@ bool TerminalTextBox::TryMoveCursor(int delta) {
     return true; // TOOD: fix it
 }
 
+void TerminalTextBox::OnTextChanged() const {
+    for (const auto& textChangeCallback : textChangeCallbacks) {
+        textChangeCallback(this);
+    }
+}
 void TerminalTextBox::FlushSelf() {
 
     size_t viewSize = textView.size();

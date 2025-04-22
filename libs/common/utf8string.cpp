@@ -23,6 +23,11 @@ Utf8String::Utf8String(const std::string& s) {
     Init(s.data());
 }
 
+Utf8String::Utf8String(std::string_view sv) {
+    std::string s(sv); // TODO: without std::string
+    Init(s.data());
+}
+
 std::string Utf8String::to_string() const {
     std::string result;
     for (const Rune& r : runes) {
@@ -91,4 +96,20 @@ void Utf8String::push_back(Rune rune) {
 
 void Utf8String::pop_back() {
     runes.pop_back();
+}
+
+bool Utf8String::contains(const Utf8String& substr) {
+    for (size_t offset = 0; offset + substr.size() <= size(); ++offset) {
+        bool isOK = true;
+        for (size_t i = 0; i < substr.size(); ++i) {
+            if (runes[offset + i] != substr.runes[i]) {
+                isOK = false;
+                break;
+            }
+        }
+        if (isOK) {
+            return true;
+        }
+    }
+    return false;
 }

@@ -18,6 +18,8 @@
 #include "TerminalGridEx.h"
 #include "data-view.h"
 #include "data-set.h"
+#include "data-field-accessor.h"
+
 #include "TerminalControlsConfig.h"
 #include "Date/TerminalMonthBox.h"
 #include "DataProviders/ListDataSetNumSequence.h"
@@ -131,6 +133,16 @@ void TerminalCalendarApplication::InitSearchWindow() {
     AddWindow(searchWindow);
 
     auto searchTextBox = TerminalTextBox::Create(TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 1, .width = 70 });
+
+    searchTextBox->AddTextChangeCallback([this](const TerminalTextBox* sender) {
+        Utf8String searchText = sender->GetText();
+        auto filterContainer = base_container->Select([&searchText](const DataFieldAccessor& row) {
+            Utf8String value(row.GetField<std::string_view>("name"));
+            bool isContains = value.contains(searchText);
+            return isContains;
+        });
+        dataGrid->UpdateContainer(filterContainer);
+    });
     searchWindow->AddControl(searchTextBox);
 }
 
@@ -138,9 +150,9 @@ void TerminalCalendarApplication::InitDataWindow() {
     dataWindow = TerminalWindow::Create("", TerminalCoord{ .row = 5, .col = 73 }, TerminalSize{ .height = 33, .width = 72 });
     AddWindow(dataWindow);
     std::vector<Utf8String> header = { 
-        Utf8String("             ФИО             "),
-        Utf8String("Дата рождения"), 
-        Utf8String("Возвраст")
+        "             ФИО             ",
+        "Дата рождения", 
+        "Возвраст"
     };
 
     auto storage = DataStorage::Create(
@@ -156,21 +168,21 @@ void TerminalCalendarApplication::InitDataWindow() {
     storage->AddRow<int, std::string_view, storage::date>(5, "Гоголь Николай Васильевич", storage::date(1809, 4, 1));
     storage->AddRow<int, std::string_view, storage::date>(6, "Тургенев Иван Сергеевич", storage::date(1818, 11, 9));
     storage->AddRow<int, std::string_view, storage::date>(7, "Чехов Антон Павлович", storage::date(1860, 1, 29));
-    storage->AddRow<int, std::string_view, storage::date>(8, "Куприн Алексадр Иванович ", storage::date(1870, 9, 7));
+    storage->AddRow<int, std::string_view, storage::date>(8, "Куприн Александр Иванович ", storage::date(1870, 9, 7));
     storage->AddRow<int, std::string_view, storage::date>(9, "Бунин Иван Алексеевич", storage::date(1870, 10, 22));
     storage->AddRow<int, std::string_view, storage::date>(10, "Зощенко Михаил Михайлович", storage::date(1894, 8, 9));
     storage->AddRow<int, std::string_view, storage::date>(11, "Горький Максим", storage::date(1868, 3, 28));
     storage->AddRow<int, std::string_view, storage::date>(12, "Булгаков Михал Афанасьевич", storage::date(1891, 5, 15));
 
     int cur_year = 2025;
-    container = storage->View("name", "birthday")->AddColumn(
+    base_container = storage->View("name", "birthday")->AddColumn(
         FieldDesc::Int("age"), [&cur_year](const DataFieldAccessor& row) {
             storage::date b = row.GetField<storage::date>("birthday");
             return cur_year - b.year();
 
         }
     );
-    auto dataGrid = TerminalGridEx::Create(header, container, TerminalCoord{.row = 0, .col = 0});
+    dataGrid = TerminalGridEx::Create(header, base_container, TerminalCoord{.row = 0, .col = 0});
     dataWindow->AddControl(dataGrid);
 }
 

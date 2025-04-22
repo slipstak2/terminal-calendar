@@ -11,4 +11,5 @@ public:
     TerminalGridEx(const std::vector<Utf8String>& header, DataContainerPtr container, TerminalCoord position);
 
     void InitData() override;
+    void UpdateContainer(DataContainerPtr container);
 };

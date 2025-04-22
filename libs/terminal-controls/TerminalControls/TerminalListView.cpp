@@ -28,7 +28,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     AddMouseWheelCallback([this](short wheelValue) {
         return ChangeOffset(wheelValue > 0 ? -3 : 3);
     });
-    AddKeyPressUpOrDownCallbacks([this](bool isUp) {
+    AddKeyPressUpOrDownCallback([this](bool isUp) {
         return MoveSelectedItem(isUp);
         });
 }

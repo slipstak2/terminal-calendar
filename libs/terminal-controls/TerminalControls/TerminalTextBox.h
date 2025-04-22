@@ -1,7 +1,10 @@
 #pragma once
 
 #include "TerminalControl.h"
+#include <functional>
 
+class TerminalTextBox;
+using TextChangeCallback = std::function<void(const TerminalTextBox* sender)>;
 
 class TerminalTextBox : public TerminalControl { // TODO; TerminalControl + keyinput
 
@@ -47,8 +50,12 @@ public:
 public:
     TerminalTextBox(TerminalCoord position, TerminalSize size);
     void SetText(const Utf8String& text);
+    const Utf8String& GetText() const;
+
+    void AddTextChangeCallback(TextChangeCallback textChangeCallback);
 protected:
     void FlushSelf() override;
+    void OnTextChanged() const;
 
 protected:
     void AddSymbol(Rune r);
@@ -67,4 +74,6 @@ protected:
     BackgroundColor notFocusBackgroundColor = BackgroundColor::Brightblack;
 
     TerminalLabelPtr cursorLabel = nullptr;
+protected:
+    std::vector<TextChangeCallback> textChangeCallbacks;
 };
