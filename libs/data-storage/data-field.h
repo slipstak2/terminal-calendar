@@ -24,12 +24,13 @@ namespace storage {
         date operator + (const std::chrono::year y) const;
         std::chrono::weekday weekday();
         bool is_today() const;
-        static std::chrono::year_month_day now();
+        static date now();
         std::string to_string() const;
-
+        int distance_year(const date& prev) const;
     private:
         std::chrono::year_month_day data;
     };
+
 
 } // storage
 

@@ -62,7 +62,7 @@ void TerminalCalendarApplication::InitCalendarWindow() {
     calendarWindow = TerminalWindow::Create("", TerminalCoord{ .row = 0, .col = 0 }, TerminalSize{ .height = 38, .width = 72 });
     AddWindow(calendarWindow);
 
-    auto yearsDataProvider = ListDataProvider::Create(yearsDataSet, yearsDataSet->GetPos(2025));
+    auto yearsDataProvider = ListDataProvider::Create(yearsDataSet, yearsDataSet->GetPos(storage::date::now().year()));
     short year_label_offset = (calendarWindow->Width() - 8) / 2;
     auto yearsLabel = TerminalLabelSwitcher::Create(yearsDataProvider, TerminalCoord{ .row = 0, .col = year_label_offset });
     yearsLabel->SetLabelFormatSettings({ .fontColor = FontColor::Green });
@@ -124,7 +124,7 @@ void TerminalCalendarApplication::InitCalendarWindow() {
         return true;
         });
 
-    fillMonthsData(2025);
+    fillMonthsData(storage::date::now().year());
 }
 
 
@@ -173,13 +173,14 @@ void TerminalCalendarApplication::InitDataWindow() {
     storage->AddRow<int, std::string_view, storage::date>(10, "Зощенко Михаил Михайлович", storage::date(1894, 8, 9));
     storage->AddRow<int, std::string_view, storage::date>(11, "Горький Максим", storage::date(1868, 3, 28));
     storage->AddRow<int, std::string_view, storage::date>(12, "Булгаков Михал Афанасьевич", storage::date(1891, 5, 15));
+    storage->AddRow<int, std::string_view, storage::date>(13, "Ахматова Анна Андреевна", storage::date(1889, 6, 23));
+    storage->AddRow<int, std::string_view, storage::date>(14, "Цветаева Марина Ивановна", storage::date(1892, 10, 8));
 
-    int cur_year = 2025;
+
     base_container = storage->View("name", "birthday")->AddColumn(
-        FieldDesc::Int("age"), [&cur_year](const DataFieldAccessor& row) {
+        FieldDesc::Int("age"), [](const DataFieldAccessor& row) {
             storage::date b = row.GetField<storage::date>("birthday");
-            return cur_year - b.year();
-
+            return storage::date::now().distance_year(b);
         }
     );
     dataGrid = TerminalGridEx::Create(header, base_container, TerminalCoord{.row = 0, .col = 0});

@@ -51,7 +51,7 @@ std::chrono::weekday date::weekday() {
 bool date::is_today() const {
     return data == now();
 }
-std::chrono::year_month_day date::now() {
+date date::now() {
 
     using namespace std::chrono;
 
@@ -66,7 +66,6 @@ std::chrono::year_month_day date::now() {
 }
 
 std::string date::to_string() const{
-    
     static Utf8String mon[12] = {
         "Янв",
         "Фев",
@@ -84,6 +83,17 @@ std::string date::to_string() const{
     char buf[256];
     sprintf(buf, "%02d-%s-%d", day(), mon[month() - 1].to_string().c_str(), year());
     return buf;
+}
+
+int date::distance_year(const date& prev) const {
+    if (*this < prev) {
+        return -prev.distance_year(*this);
+    }
+    int years = year() - prev.year();
+    if (std::make_tuple(month(), day()) < std::make_tuple(prev.month(), prev.day())) {
+        years--;
+    }
+    return years;
 }
 
 } // storage
