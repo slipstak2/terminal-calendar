@@ -172,7 +172,7 @@ void TerminalCalendarApplication::InitDataWindow() {
     storage->AddRow<int, std::string_view, storage::date>(9, "Бунин Иван Алексеевич", storage::date(1870, 10, 22));
     storage->AddRow<int, std::string_view, storage::date>(10, "Зощенко Михаил Михайлович", storage::date(1894, 8, 9));
     storage->AddRow<int, std::string_view, storage::date>(11, "Горький Максим", storage::date(1868, 3, 28));
-    storage->AddRow<int, std::string_view, storage::date>(12, "Булгаков Михал Афанасьевич", storage::date(1891, 5, 15));
+    storage->AddRow<int, std::string_view, storage::date>(12, "Булгаков Михаил Афанасьевич", storage::date(1891, 5, 15));
     storage->AddRow<int, std::string_view, storage::date>(13, "Ахматова Анна Андреевна", storage::date(1889, 6, 23));
     storage->AddRow<int, std::string_view, storage::date>(14, "Цветаева Марина Ивановна", storage::date(1892, 10, 8));
 

@@ -2,9 +2,9 @@
 #include "data-row.h"
 #include "data-view.h"
 
-std::vector<size_t> GenRowsNum(size_t rows_count) {
+std::vector<size_t> GenRowsNum(size_t offset, size_t rows_count) {
     std::vector<size_t> rows_num(rows_count);
-    std::iota(rows_num.begin(), rows_num.end(), 0);
+    std::iota(rows_num.begin(), rows_num.end(), offset);
     return rows_num;
 }
 
@@ -23,10 +23,10 @@ std::string DataContainer::ToString() {
 }
 
 
-DataViewPtr DataContainer::Limit(const size_t limit) {
+DataViewPtr DataContainer::Limit(const size_t limit, const size_t offset) {
     return DataView::Create(
         SelfPtr(),
         GenFieldsNum(FieldsCount()),
-        GenRowsNum(std::min(RowsCount(), limit))
+        GenRowsNum(offset, std::min(RowsCount() - offset, limit))
     );
 }

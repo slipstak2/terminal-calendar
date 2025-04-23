@@ -103,3 +103,53 @@ TEST_F(TestLimit, DataSetLimitTwice) {
 
     CHECK_EQ(expected, dataset_first0);
 }
+
+TEST_F(TestLimit, ViewLimitWithOffset) {
+    auto view_with_offset = storage->View()->Limit(3, 1);
+
+    EXPECT_EQ(3, view_with_offset->RowsCount());
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(2, "Igor"),
+        DataRow::Create<int, std::string_view>(3, "Masha"),
+        DataRow::Create<int, std::string_view>(4, "Vera")
+    };
+
+    CHECK_EQ(expected, view_with_offset);
+}
+
+TEST_F(TestLimit, ViewLimitWithOffsetBorder) {
+    auto view_with_offset = storage->View()->Limit(2, 4);
+
+    EXPECT_EQ(2, view_with_offset->RowsCount());
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(5, "Yura"),
+        DataRow::Create<int, std::string_view>(6, "Mitrof")
+    };
+
+    CHECK_EQ(expected, view_with_offset);
+}
+
+TEST_F(TestLimit, ViewLimitWithOffsetHalfBorder) {
+    auto view_with_offset = storage->View()->Limit(2, 5);
+
+    EXPECT_EQ(1, view_with_offset->RowsCount());
+
+    std::vector<DataRow> expected{
+        DataRow::Create<int, std::string_view>(6, "Mitrof")
+    };
+
+    CHECK_EQ(expected, view_with_offset);
+}
+
+TEST_F(TestLimit, ViewLimitWithOffsetEmpty) {
+    auto view_with_offset = storage->View()->Limit(2, 6);
+
+    EXPECT_EQ(0, view_with_offset->RowsCount());
+
+    std::vector<DataRow> expected{
+    };
+
+    CHECK_EQ(expected, view_with_offset);
+}

@@ -11,7 +11,7 @@
 #include <unordered_set>
 
 
-std::vector<size_t> GenRowsNum(size_t rows_count);
+std::vector<size_t> GenRowsNum(size_t offset, size_t rows_count);
 std::vector<size_t> GenFieldsNum(size_t fields_count);
 
 class DataContainer {
@@ -51,7 +51,7 @@ public:
     template<typename T>
     DataViewPtr Unique(const std::string_view fn0);
 
-    DataViewPtr Limit(const size_t limit);
+    DataViewPtr Limit(const size_t limit, const size_t offset = 0);
 };
 
 

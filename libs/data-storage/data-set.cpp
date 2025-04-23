@@ -104,7 +104,7 @@ DataViewPtr DataSet::Select(const std::function<bool(const DataFieldAccessor& ro
 }
 
 DataViewPtr DataSet::Sort(const std::function<bool(const DataFieldAccessor& lsh, const DataFieldAccessor& rhs)>& cmp_cb) {
-    std::vector<size_t> rows_num_sorted = GenRowsNum(RowsCount());
+    std::vector<size_t> rows_num_sorted = GenRowsNum(0, RowsCount());
     std::stable_sort(rows_num_sorted.begin(), rows_num_sorted.end(), [&](const size_t lhs, const size_t rhs) {
         DataSetRow lhs_row(shared_from_this(), lhs);
         DataSetRow rhs_row(shared_from_this(), rhs);
