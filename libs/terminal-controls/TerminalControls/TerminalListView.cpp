@@ -84,6 +84,10 @@ void TerminalListView::OnChangeOffset(int curOffset, int prvOffset) {
     }
 }
 
+int TerminalListView::ViewItems() const {
+    return Height();
+}
+
 int TerminalListView::TotalItems() const{
     return dataSet->TotalItems();
 }

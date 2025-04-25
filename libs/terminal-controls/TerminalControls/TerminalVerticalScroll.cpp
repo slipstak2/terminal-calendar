@@ -60,7 +60,7 @@ void TerminalVerticalScroll::FlushSelf() {
 }
 
 int TerminalVerticalScroll::ScrollHeight() {
-    int viewItems = listView->Height();
+    int viewItems = listView->ViewItems();
     int totalItems = listView->TotalItems();
 
     int totalScroll = Height();
@@ -69,15 +69,16 @@ int TerminalVerticalScroll::ScrollHeight() {
 }
 
 int TerminalVerticalScroll::OffsetHeight() {
-    int viewItems = listView->Height();
+    int viewItems = listView->ViewItems();
     int totalItems = listView->TotalItems();
 
     int offsetHeight = (int)round((double)viewItems * listView->viewOffset / totalItems);
     offsetHeight = std::min(offsetHeight, Height() - ScrollHeight());
     return offsetHeight;
 }
+
 int TerminalVerticalScroll::ItemsPerCell() {
-    int viewItems = listView->Height();
+    int viewItems = listView->ViewItems();
     int totalItems = listView->TotalItems();
     return (int)round((double)totalItems / viewItems);
 }

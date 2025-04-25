@@ -22,7 +22,9 @@ public:
     bool HasUp();
     bool HasDown();
 
+    int ViewItems() const;
     int TotalItems() const;
+
     bool SetOffset(int newOffset);
     bool ChangeOffset(int delta);
     int GetOffset() const;

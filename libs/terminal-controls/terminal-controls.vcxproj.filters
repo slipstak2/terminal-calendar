@@ -67,6 +67,9 @@
     <Filter Include="Source Files\Layers">
       <UniqueIdentifier>{1c1f38a6-4db2-4ba9-b34e-05c67ffdb067}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\TerminalControls\Interfaces">
+      <UniqueIdentifier>{ed708af2-2234-46e7-8ed0-e06f2094b34b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="TerminalControls\TerminalGridEx.h">
       <Filter>Header Files\TerminalControls</Filter>
+    </ClInclude>
+    <ClInclude Include="TerminalControls\Interfaces\VerticalScrollableControl.h">
+      <Filter>Header Files\TerminalControls\Interfaces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

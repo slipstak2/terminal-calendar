@@ -31,6 +31,7 @@
     <ClInclude Include="Layers\SelectionLayer.h" />
     <ClInclude Include="TerminalControls\Date\TerminalMonthGrid.h" />
     <ClInclude Include="TerminalControls\Date\TerminalMonthBox.h" />
+    <ClInclude Include="TerminalControls\Interfaces\VerticalScrollableControl.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabel.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabelBase.h" />
     <ClInclude Include="TerminalControls\Labels\TerminalLabelDataProvider.h" />

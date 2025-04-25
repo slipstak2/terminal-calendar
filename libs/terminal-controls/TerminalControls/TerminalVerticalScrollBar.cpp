@@ -28,9 +28,9 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(TerminalListViewPtr listVie
     verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord relPosition, TerminalCoord absPosition) {
         assert(relPosition.col == 0);
         if(relPosition.row < verticalScroll->OffsetHeight()) {
-            this->listView->ChangeOffset(-(this->listView->Height() - 1));
+            this->listView->ChangeOffset(-(this->listView->ViewItems() - 1));
         } else if (relPosition.row >= verticalScroll->OffsetHeight() + verticalScroll->ScrollHeight()) {
-            this->listView->ChangeOffset(this->listView->Height() - 1);
+            this->listView->ChangeOffset(this->listView->ViewItems() - 1);
         }
         else {
             return false; // click on scroll
