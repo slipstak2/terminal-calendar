@@ -1,12 +1,12 @@
 #pragma once
 #include "TerminalCompositeControl.h"
+#include "Interfaces/VerticalScrollableControl.h"
 #include "DataProviders/ListViewDataProvider.h"
 
 class TerminalListView;
 using TerminalListViewChangedItemsCountCallback = std::function<void(const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount)>;
-using TerminalListViewChangedOffsetCallback = std::function<void(const TerminalListView* listView, int curOffset, int prvOffset)>;
 
-class TerminalListView : public TerminalCompositeControl {
+class TerminalListView : public TerminalCompositeControl, public VerticalScrollableControl {
     friend class TerminalVerticalScroll;
     friend class TerminalListViewTests;
 public:
@@ -18,16 +18,8 @@ public:
     void AddItem(const std::string& value);
     bool RemoveLastItem();
 
-    bool NeedScroll();
-    bool HasUp();
-    bool HasDown();
-
-    int ViewItems() const;
-    int TotalItems() const;
-
-    bool SetOffset(int newOffset);
-    bool ChangeOffset(int delta);
-    int GetOffset() const;
+    int ViewItems() const override;
+    int TotalItems() const override;
 
     void FlushSelf() override;
 
@@ -41,21 +33,14 @@ protected:
     void UpdateViewSelectedItem();
 
 protected:
-    int MaxViewOffset();
-    int NormalizeOffset(int offset);
-protected:
     ListDynamicDataSetPtr dataSet = ListDynamicDataSet::Create();
     ListViewDataProvider provider;
-    int viewOffset = 0;
     int selectedItem = -1;
 
 public:
     void AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback);
-    void AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback);
 protected:
     void OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount);
-    void OnChangeOffset(int curOffset, int prvOffset);
 
     std::vector<TerminalListViewChangedItemsCountCallback> changeItemsCountCallbacks;
-    std::vector<TerminalListViewChangedOffsetCallback> changeOffsetCallbacks;
 };

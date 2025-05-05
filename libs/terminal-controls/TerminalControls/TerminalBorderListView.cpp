@@ -6,37 +6,31 @@
 
 
 TerminalBorderListView::TerminalBorderListView(const Utf8String& title, TerminalCoord position, TerminalSize size)
-    : TerminalCompositeControl(position, size)
+    : TerminalBorderControl(title, position, size)
 {
-    groupBox = TerminalGroupBox::Create(
-        title,
-        TerminalCoord{ .row = 0, .col = 0 },
-        TerminalSize{ .height = Height(), .width = Width()});
-    AddControl(groupBox);
-
     listView = TerminalListView::Create(
         TerminalCoord{ .row = 0, .col = 0 },
-        TerminalSize{ .height = groupBox->Height() - 2, .width = groupBox->Width() - 2 });
+        TerminalSize{ .height = Height() - 2, .width = Width() - 2 });
 
     verticalScrollbar = TerminalVerticalScrollBar::Create(
         listView, 
-        TerminalCoord{.row = 1, .col = groupBox->Width() - 1},
-        TerminalSize{.height = groupBox->Height() - 2, .width = 1});
+        TerminalCoord{.row = 1, .col = Width() - 1},
+        TerminalSize{.height = Height() - 2, .width = 1});
     verticalScrollbar->CheckVisible();
 
-    groupBox->AddControl(listView);
-    groupBox->AddControlOnBorder(verticalScrollbar);
+    AddControl(listView);
+    AddControlOnBorder(verticalScrollbar);
 
     listView->AddChangeItemsCallback([this](const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount) {
         verticalScrollbar->CheckVisible();
         });
 
-    listView->AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
+    listView->AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int curOffset, int prvOffset) {
         verticalScrollbar->CheckState();
         });
 
-    groupBox->GetTitle()->SetFocusable(false);
-    groupBox->GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
+    GetTitle()->SetFocusable(false);
+    GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
         if (listView->GetSelectedItem() == -1) {
             return false;
         }
@@ -50,22 +44,10 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         });
 }
 
-void TerminalBorderListView::SetBorderColor(FontColor borderColor) {
-    groupBox->SetBorderColor(borderColor);
-}
-
-void TerminalBorderListView::SetTitleColor(FontColor titleColor) {
-    groupBox->SetTitleColor(titleColor);
-}
-
 void TerminalBorderListView::AddItem(const std::string& value) {
     listView->AddItem(value);
 }
 
 bool TerminalBorderListView::RemoveLastItem() {
     return listView->RemoveLastItem();
-}
-
-void TerminalBorderListView::SetBorderVisible(bool isVisible) {
-    groupBox->SetBorderVisible(isVisible);
 }

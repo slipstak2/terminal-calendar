@@ -22,7 +22,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 
         AddControl(label);
     }
-    AddChangeOffsetCallback([this](const TerminalListView* listView, int curOffset, int prvOffset) {
+    AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int curOffset, int prvOffset) {
         UpdateViewSelectedItem();
         });
     AddMouseWheelCallback([this](short wheelValue) {
@@ -52,35 +52,13 @@ bool TerminalListView::RemoveLastItem() {
     return isRemove;
 }
 
-bool TerminalListView::NeedScroll() {
-    return Height() < TotalItems();
-}
-
-bool TerminalListView::HasUp() {
-    return viewOffset > 0;
-}
-
-bool TerminalListView::HasDown() {
-    return viewOffset < MaxViewOffset();
-}
-
 void TerminalListView::AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback) {
     changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
-}
-
-void TerminalListView::AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback) {
-    changeOffsetCallbacks.push_back(std::move(changeOffsetCallback));
 }
 
 void TerminalListView::OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount) {
     for (auto& callback : changeItemsCountCallbacks) {
         callback(this, curItemsCount, prvItemsCount);
-    }
-}
-
-void TerminalListView::OnChangeOffset(int curOffset, int prvOffset) {
-    for (auto& callback : changeOffsetCallbacks) {
-        callback(this, curOffset, prvOffset);
     }
 }
 
@@ -90,37 +68,6 @@ int TerminalListView::ViewItems() const {
 
 int TerminalListView::TotalItems() const{
     return dataSet->TotalItems();
-}
-
-bool TerminalListView::ChangeOffset(int delta) {
-    return SetOffset(viewOffset + delta);
-}
-
-int TerminalListView::GetOffset() const {
-    return viewOffset;
-}
-
-bool TerminalListView::SetOffset(int newOffset) {
-    int initViewOffset = viewOffset;
-    viewOffset = NormalizeOffset(newOffset);
-    if (viewOffset != initViewOffset) {
-        OnChangeOffset(viewOffset, initViewOffset);
-        return true;
-    }
-    return false;
-}
-
-int TerminalListView::MaxViewOffset() {
-    if (TotalItems() >= Height()) {
-        return TotalItems() - Height();
-    }
-    return 0;
-}
-
-int TerminalListView::NormalizeOffset(int offset) {
-    offset = std::max(0, offset);
-    offset = std::min(offset, MaxViewOffset());
-    return offset;
 }
 
 void TerminalListView::FlushSelf() {
@@ -162,7 +109,7 @@ bool TerminalListView::NavigateOnSelectedItem() {
     if (selectedItem == -1) {
         return false;
     }
-    SetOffset(selectedItem - Height() / 2);
+    SetOffset(selectedItem - ViewItems() / 2);
     return false;
 }
 

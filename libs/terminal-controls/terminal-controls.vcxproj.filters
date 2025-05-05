@@ -70,6 +70,9 @@
     <Filter Include="Header Files\TerminalControls\Interfaces">
       <UniqueIdentifier>{ed708af2-2234-46e7-8ed0-e06f2094b34b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Interfaces">
+      <UniqueIdentifier>{10aa1c90-84b3-4a3a-860d-1b5d3bcd25e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TextFormat\BackgroundColor.h">
@@ -343,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="TerminalControls\TerminalGridEx.cpp">
       <Filter>Source Files\TerminalControls</Filter>
+    </ClCompile>
+    <ClCompile Include="TerminalControls\Interfaces\VerticalScrollableControl.cpp">
+      <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

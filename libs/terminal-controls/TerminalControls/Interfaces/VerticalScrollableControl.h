@@ -1,21 +1,33 @@
 #pragma once
 
+#include <functional>
+
+class VerticalScrollableControl;
+using TerminalListViewChangedOffsetCallback = std::function<void(const VerticalScrollableControl* vsControl, int curOffset, int prvOffset)>;
+
 class VerticalScrollableControl {
 public:
-    virtual bool NeedScroll() const = 0;
-    virtual bool HasUp() const = 0; // CanScrollUp ?
-    virtual bool HasDown() const = 0; // CanScrollDown?
-
-    virtual bool ChangeOffset(int delta) = 0;
-    virtual bool SetOffset(int newOffset) = 0;
-    virtual int GetOffset() const = 0;
-
     virtual int ViewItems() const = 0;
     virtual int TotalItems() const = 0;
 
+    bool NeedScroll() const;
+    bool HasUp() const; // CanScrollUp ?
+    bool HasDown() const; // CanScrollDown?
+
+    bool SetOffset(int newOffset);
+    bool ChangeOffset(int delta);
+    int GetOffset() const;
+
+    void AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback);
+
+protected:
+    int MaxViewOffset() const;
+    int NormalizeOffset(int offset) const;
+    void OnChangeOffset(int curOffset, int prvOffset);
 
 
 protected:
     int viewOffset = 0;
-    int selectedItem = -1;
+    std::vector<TerminalListViewChangedOffsetCallback> changeOffsetCallbacks;
+//    int selectedItem = -1;
 };

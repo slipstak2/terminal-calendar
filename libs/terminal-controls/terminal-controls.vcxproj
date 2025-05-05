@@ -80,6 +80,7 @@
     <ClCompile Include="Layers\SelectionLayer.cpp" />
     <ClCompile Include="TerminalControls\Date\TerminalMonthGrid.cpp" />
     <ClCompile Include="TerminalControls\Date\TerminalMonthBox.cpp" />
+    <ClCompile Include="TerminalControls\Interfaces\VerticalScrollableControl.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabel.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabelBase.cpp" />
     <ClCompile Include="TerminalControls\Labels\TerminalLabelDataProvider.cpp" />
