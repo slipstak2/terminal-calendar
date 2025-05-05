@@ -63,7 +63,7 @@ protected:
 
 protected:
     void InitHeader();
-    virtual void InitData();
+    virtual void InitData() = 0;
 
     void FlushRowBorder(short row);
     void FlushSelf() override;

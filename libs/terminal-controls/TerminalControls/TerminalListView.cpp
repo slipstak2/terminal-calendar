@@ -11,7 +11,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 
     auto clickCallback = [this](TerminalCoord absPosition) {
         TerminalCoord relPosition = GetRelativePosition(absPosition);
-        return SetSelectedItem(relPosition.row + viewOffset);
+        return SetSelectedRow(relPosition.row + viewOffset);
         };
 
     for (short row = 0; row < Height(); ++row) {
@@ -22,15 +22,19 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
 
         AddControl(label);
     }
-    AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int curOffset, int prvOffset) {
+    AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int prvOffset) {
         UpdateViewSelectedItem();
-        });
+    });
+    AddChangeSelectedRowCallback([this](const VerticalScrollableControl* listView, int prvSelectedRow) {
+        UpdateViewSelectedItem(); 
+    });
+
     AddMouseWheelCallback([this](short wheelValue) {
         return ChangeOffset(wheelValue > 0 ? -3 : 3);
     });
     AddKeyPressUpOrDownCallback([this](bool isUp) {
         return MoveSelectedItem(isUp);
-        });
+    });
 }
 
 void TerminalListView::AddItem(const std::string& value) {
@@ -81,40 +85,41 @@ void TerminalListView::FlushSelf() {
     }
 }
 
-bool TerminalListView::SetSelectedItem(int itemNum) {
-    if (itemNum != -1) {
-        if (itemNum < 0 || itemNum >= TotalItems()) {
+bool TerminalListView::SetSelectedRow(int rowNum) {
+    if (rowNum != -1) {
+        if (rowNum < 0 || rowNum >= TotalItems()) {
             return false;
         }
     }
-    if (selectedItem == itemNum) {
+    if (selectedRow == rowNum) {
         return false;
     }
-    selectedItem = itemNum;
-    UpdateViewSelectedItem();
+    int initSelectedRow = selectedRow;
+    selectedRow = rowNum;
+    OnChangeSelectedRow(initSelectedRow);
     return true;
 }
 
 int TerminalListView::GetSelectedItem() {
-    return selectedItem;
+    return selectedRow;
 }
 
 bool TerminalListView::IsSelectedItemInView() {
-    if (selectedItem == -1) {
+    if (selectedRow == -1) {
         return false;
     }
-    return viewOffset <= selectedItem && selectedItem < viewOffset + Height();
+    return viewOffset <= selectedRow && selectedRow < viewOffset + ViewItems();
 }
 bool TerminalListView::NavigateOnSelectedItem() {
-    if (selectedItem == -1) {
+    if (selectedRow == -1) {
         return false;
     }
-    SetOffset(selectedItem - ViewItems() / 2);
+    SetOffset(selectedRow - ViewItems() / 2);
     return false;
 }
 
 void TerminalListView::UpdateViewSelectedItem() {
-    int viewSelectedItem = selectedItem - viewOffset;
+    int viewSelectedItem = selectedRow - viewOffset;
     for (size_t row = 0; row < controls.size(); ++row) {
         controls[row]->SetFormatSettings(
             FormatSettings{ .textStyle = (row == viewSelectedItem ? TextStyle::Inverse : TextStyle::Default) });
@@ -127,15 +132,15 @@ bool TerminalListView::MoveSelectedItem(bool isUp) {
     }
     bool isChange = false;
     if (isUp) {
-        if (selectedItem != 0) {
-            isChange |= SetSelectedItem(selectedItem - 1);
+        if (selectedRow != 0) {
+            isChange |= SetSelectedRow(selectedRow - 1);
             if (!IsSelectedItemInView()) {
                 isChange |= ChangeOffset(-1);
             }
         }
     }
     else {
-        isChange |= SetSelectedItem(selectedItem + 1);
+        isChange |= SetSelectedRow(selectedRow + 1);
         if (!IsSelectedItemInView()) {
             isChange |= ChangeOffset(1);
         }

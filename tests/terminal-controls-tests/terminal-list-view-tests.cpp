@@ -25,7 +25,7 @@ TEST_F(TerminalListViewTests, TestKeyUpAndDown) {
         listView->AddItem(std::to_string(i));
     }
     EXPECT_TRUE(listView->NeedScroll());
-    listView->SetSelectedItem(listView->TotalItems() - 1);
+    listView->SetSelectedRow(listView->TotalItems() - 1);
     EXPECT_EQ(1, listView->GetOffset());
     EXPECT_TRUE(listView->HasUp());
     EXPECT_FALSE(listView->HasDown());

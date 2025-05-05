@@ -194,10 +194,6 @@ void TerminalGrid::InitHeader() {
 }
 
 
-void TerminalGrid::InitData() {
-    short col = 0;
-}
-
 void TerminalGrid::FlushRowBorder(short row) {
     short col = 0;
 

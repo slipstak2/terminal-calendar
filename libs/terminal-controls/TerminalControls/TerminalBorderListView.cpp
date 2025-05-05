@@ -25,9 +25,9 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         verticalScrollbar->CheckVisible();
         });
 
-    listView->AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int curOffset, int prvOffset) {
+    listView->AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int prvOffset) {
         verticalScrollbar->CheckState();
-        });
+    });
 
     GetTitle()->SetFocusable(false);
     GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
@@ -38,7 +38,7 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
             listView->NavigateOnSelectedItem();
         }
         else {
-            listView->SetSelectedItem(-1);
+            listView->SetSelectedRow(-1);
         }
         return true;
         });

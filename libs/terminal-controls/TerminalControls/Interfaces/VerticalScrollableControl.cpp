@@ -36,18 +36,28 @@ bool VerticalScrollableControl::SetOffset(int newOffset) {
     int initViewOffset = viewOffset;
     viewOffset = NormalizeOffset(newOffset);
     if (viewOffset != initViewOffset) {
-        OnChangeOffset(viewOffset, initViewOffset);
+        OnChangeOffset(initViewOffset);
         return true;
     }
     return false;
 }
 
-void VerticalScrollableControl::OnChangeOffset(int curOffset, int prvOffset) {
-    for (auto& callback : changeOffsetCallbacks) {
-        callback(this, curOffset, prvOffset);
+void VerticalScrollableControl::OnChangeOffset(int prvOffset) {
+    for (auto& changeOffsetCallback : changeOffsetCallbacks) {
+        changeOffsetCallback(this, prvOffset);
     }
 }
 
-void VerticalScrollableControl::AddChangeOffsetCallback(TerminalListViewChangedOffsetCallback changeOffsetCallback) {
+void VerticalScrollableControl::AddChangeOffsetCallback(ChangedOffsetCallback changeOffsetCallback) {
     changeOffsetCallbacks.push_back(std::move(changeOffsetCallback));
+}
+
+void VerticalScrollableControl::OnChangeSelectedRow(int prvSelectedRow) {
+    for (auto& changeSelectedRowCallback : changeSelectedRowCallbacks) {
+        changeSelectedRowCallback(this, prvSelectedRow);
+    }
+}
+
+void VerticalScrollableControl::AddChangeSelectedRowCallback(ChangeSelectedRowCallback changeSelectedRowCallback) {
+    changeSelectedRowCallbacks.push_back(std::move(changeSelectedRowCallback));
 }

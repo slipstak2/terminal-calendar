@@ -24,7 +24,7 @@ public:
     void FlushSelf() override;
 
 public:
-    bool SetSelectedItem(int itemNum);
+    bool SetSelectedRow(int rowNum);
     int GetSelectedItem();
     bool IsSelectedItemInView();
     bool NavigateOnSelectedItem();
@@ -35,7 +35,6 @@ protected:
 protected:
     ListDynamicDataSetPtr dataSet = ListDynamicDataSet::Create();
     ListViewDataProvider provider;
-    int selectedItem = -1;
 
 public:
     void AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback);
