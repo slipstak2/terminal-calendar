@@ -8,12 +8,12 @@ public:
     DECLARE_CREATE(TerminalVerticalScrollBar)
 
 public:
-    TerminalVerticalScrollBar(VerticalScrollableControlPtr listView, TerminalCoord position, TerminalSize size);
+    TerminalVerticalScrollBar(VerticalScrollableControlPtr control, TerminalCoord position, TerminalSize size);
     void CheckVisible();
     void CheckState();
 
 protected:
-    VerticalScrollableControlPtr listView;
+    VerticalScrollableControlPtr control;
 
     TerminalButtonPtr btnUp;
     TerminalVerticalScrollPtr verticalScroll;

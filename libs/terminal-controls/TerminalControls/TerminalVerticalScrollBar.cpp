@@ -9,18 +9,18 @@ const Utf8String TerminalVerticalScrollBar::UpInactive      = "△";
 const Utf8String TerminalVerticalScrollBar::DownActive      = "▼";
 const Utf8String TerminalVerticalScrollBar::DownInactive    = "▽";
 
-TerminalVerticalScrollBar::TerminalVerticalScrollBar(VerticalScrollableControlPtr listView, TerminalCoord position, TerminalSize size)
+TerminalVerticalScrollBar::TerminalVerticalScrollBar(VerticalScrollableControlPtr control, TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
-    , listView(listView)
+    , control(control)
 {
     btnUp = TerminalButton::Create(UpActive, TerminalCoord{.row = 0, .col = 0});
-    btnUp->AddClickCallback([listView](const MouseContext& ctx) {
-        return listView->ChangeViewOffset(-1);
+    btnUp->AddClickCallback([control](const MouseContext& ctx) {
+        return control->ChangeViewOffset(-1);
     });
     AddControl(btnUp);
 
     verticalScroll = TerminalVerticalScroll::Create(
-        listView,
+        control,
         TerminalCoord{ .row = 1, .col = 0 }, 
         TerminalSize{.height = size.height - 2, .width = size.width});
     verticalScroll->SetFocusable(false); // move focus on vertical scroolbar(may be)
@@ -28,9 +28,9 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(VerticalScrollableControlPt
     verticalScroll->AddClickCallbackWithPosition([this](TerminalCoord relPosition, TerminalCoord absPosition) {
         assert(relPosition.col == 0);
         if(relPosition.row < verticalScroll->OffsetHeight()) {
-            this->listView->ChangeViewOffset(-(this->listView->ViewItems() - 1));
+            this->control->ChangeViewOffset(-(this->control->ViewItems() - 1));
         } else if (relPosition.row >= verticalScroll->OffsetHeight() + verticalScroll->ScrollHeight()) {
-            this->listView->ChangeViewOffset(this->listView->ViewItems() - 1);
+            this->control->ChangeViewOffset(this->control->ViewItems() - 1);
         }
         else {
             return false; // click on scroll
@@ -40,18 +40,28 @@ TerminalVerticalScrollBar::TerminalVerticalScrollBar(VerticalScrollableControlPt
     AddControl(verticalScroll);
 
     btnDown = TerminalButton::Create(DownActive, TerminalCoord{ .row = Height() - 1, .col = 0});
-    btnDown->AddClickCallback([listView](const MouseContext& ctx) {
-        return listView->ChangeViewOffset(1);
+    btnDown->AddClickCallback([control](const MouseContext& ctx) {
+        return control->ChangeViewOffset(1);
     });
     AddControl(btnDown);
+
     CheckState();
+    CheckVisible();
+
+    control->AddChangeItemsCountCallback([this](const VerticalScrollableControl* _, size_t prvItemsCount) {
+        CheckVisible();
+    });
+
+    control->AddChangeOffsetCallback([this](const VerticalScrollableControl* _, int prvOffset) {
+        CheckState();
+    });
 }
 
 void TerminalVerticalScrollBar::CheckVisible() {
-    SetVisible(listView->NeedScroll());
+    SetVisible(control->NeedScroll());
 }
 
 void TerminalVerticalScrollBar::CheckState() {
-    btnUp->SetText(listView->CanScrollUp() ? UpActive : UpInactive);
-    btnDown->SetText(listView->CanScrollDown() ? DownActive : DownInactive);
+    btnUp->SetText(control->CanScrollUp() ? UpActive : UpInactive);
+    btnDown->SetText(control->CanScrollDown() ? DownActive : DownInactive);
 }

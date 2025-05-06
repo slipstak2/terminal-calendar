@@ -16,18 +16,9 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
         listView, 
         TerminalCoord{.row = 1, .col = Width() - 1},
         TerminalSize{.height = Height() - 2, .width = 1});
-    verticalScrollbar->CheckVisible();
 
     AddControl(listView);
     AddControlOnBorder(verticalScrollbar);
-
-    listView->AddChangeItemsCountCallback([this](const VerticalScrollableControl* listView, size_t prvItemsCount) {
-        verticalScrollbar->CheckVisible();
-    });
-
-    listView->AddChangeOffsetCallback([this](const VerticalScrollableControl* listView, int prvOffset) {
-        verticalScrollbar->CheckState();
-    });
 
     GetTitle()->SetFocusable(false);
     GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
