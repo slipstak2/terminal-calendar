@@ -15,12 +15,12 @@ public:
 
     // ---- viewOffset ----
     bool NeedScroll() const;
-    bool HasUp() const; // CanScrollUp ?
-    bool HasDown() const; // CanScrollDown?
+    bool CanScrollUp() const;
+    bool CanScrollDown() const;
 
-    bool SetOffset(int newOffset);
-    bool ChangeOffset(int delta);
-    int GetOffset() const;
+    bool SetViewOffset(int newViewOffset);
+    bool ChangeViewOffset(int delta);
+    int GetViewOffset() const;
 
     void AddChangeOffsetCallback(ChangedOffsetCallback changeOffsetCallback);
 

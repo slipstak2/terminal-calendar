@@ -10,11 +10,11 @@ int VerticalScrollableControl::MaxViewOffset() const {
     return std::max(TotalItems() - ViewItems(), 0);
 }
 
-bool VerticalScrollableControl::HasUp() const {
+bool VerticalScrollableControl::CanScrollUp() const {
     return viewOffset > 0;
 }
 
-bool VerticalScrollableControl::HasDown() const {
+bool VerticalScrollableControl::CanScrollDown() const {
     return viewOffset < MaxViewOffset();
 }
 
@@ -24,15 +24,15 @@ int VerticalScrollableControl::NormalizeOffset(int offset) const {
     return offset;
 }
 
-bool VerticalScrollableControl::ChangeOffset(int delta) {
-    return SetOffset(viewOffset + delta);
+bool VerticalScrollableControl::ChangeViewOffset(int delta) {
+    return SetViewOffset(viewOffset + delta);
 }
 
-int VerticalScrollableControl::GetOffset() const {
+int VerticalScrollableControl::GetViewOffset() const {
     return viewOffset;
 }
 
-bool VerticalScrollableControl::SetOffset(int newOffset) {
+bool VerticalScrollableControl::SetViewOffset(int newOffset) {
     int initViewOffset = viewOffset;
     viewOffset = NormalizeOffset(newOffset);
     if (viewOffset != initViewOffset) {
@@ -102,7 +102,7 @@ bool VerticalScrollableControl::NavigateOnSelectedRow() {
     if (selectedRow == -1) {
         return false;
     }
-    SetOffset(selectedRow - ViewItems() / 2);
+    SetViewOffset(selectedRow - ViewItems() / 2);
     return false;
 }
 
@@ -115,13 +115,13 @@ bool VerticalScrollableControl::MoveSelectedRow(bool isUp) {
         if (selectedRow != 0) {
             isChange |= SetSelectedRow(selectedRow - 1);
             if (!IsSelectedRowInView()) {
-                isChange |= ChangeOffset(-1);
+                isChange |= ChangeViewOffset(-1);
             }
         }
     } else {
         isChange |= SetSelectedRow(selectedRow + 1);
         if (!IsSelectedRowInView()) {
-            isChange |= ChangeOffset(1);
+            isChange |= ChangeViewOffset(1);
         }
     }
     return isChange;

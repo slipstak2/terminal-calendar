@@ -65,6 +65,9 @@ using TerminalCompositeControlPtr = std::shared_ptr<TerminalCompositeControl>;
 class TerminalListView;
 using TerminalListViewPtr = std::shared_ptr<TerminalListView>;
 
+class VerticalScrollableControl;
+using VerticalScrollableControlPtr = std::shared_ptr<VerticalScrollableControl>;
+
 class TerminalGroupBox;
 using TerminalGroupBoxPtr = std::shared_ptr<TerminalGroupBox>;
 

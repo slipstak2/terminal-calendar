@@ -8,7 +8,7 @@ public:
     DECLARE_KIND(TerminalControl, TerminalControl::Kind::VERTICAL_SCROLL)
     DECLARE_CREATE(TerminalVerticalScroll)
 
-    TerminalVerticalScroll(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size);
+    TerminalVerticalScroll(VerticalScrollableControlPtr listView, TerminalCoord position, TerminalSize size);
 
     template<class ...Args>
     TerminalCell CreateScrollCell(Args... args) {
@@ -32,6 +32,6 @@ public: // For tests. Should be protected
 public:
     void FlushSelf() override;
 protected:
-    TerminalListViewPtr listView;
+    VerticalScrollableControlPtr listView;
     FormatSettings scrollFormatSettings = FormatSettings::ScrollDefault;
 };

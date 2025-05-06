@@ -1,8 +1,8 @@
 ﻿#include "TerminalVerticalScroll.h"
-#include "TerminalListView.h"
+#include "Interfaces/VerticalScrollableControl.h"
 
 
-TerminalVerticalScroll::TerminalVerticalScroll(TerminalListViewPtr listView, TerminalCoord position, TerminalSize size)
+TerminalVerticalScroll::TerminalVerticalScroll(VerticalScrollableControlPtr listView, TerminalCoord position, TerminalSize size)
     : TerminalControl(position, size)
     , listView(listView)
 {
@@ -38,7 +38,7 @@ bool TerminalVerticalScroll::TryDraggingStop() {
 
 bool TerminalVerticalScroll::TryDragging(TerminalCoord delta) {
     if (delta.row != 0) {
-        return listView->ChangeOffset(delta.row * ItemsPerCell());
+        return listView->ChangeViewOffset(delta.row * ItemsPerCell());
     }
     return false;
 }
@@ -72,7 +72,7 @@ int TerminalVerticalScroll::OffsetHeight() {
     int viewItems = listView->ViewItems();
     int totalItems = listView->TotalItems();
 
-    int offsetHeight = (int)round((double)viewItems * listView->viewOffset / totalItems);
+    int offsetHeight = (int)round((double)viewItems * listView->GetViewOffset() / totalItems);
     offsetHeight = std::min(offsetHeight, Height() - ScrollHeight());
     return offsetHeight;
 }

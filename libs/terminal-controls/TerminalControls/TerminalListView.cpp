@@ -30,7 +30,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     });
 
     AddMouseWheelCallback([this](short wheelValue) {
-        return ChangeOffset(wheelValue > 0 ? -3 : 3);
+        return ChangeViewOffset(wheelValue > 0 ? -3 : 3);
     });
     AddKeyPressUpOrDownCallback([this](bool isUp) {
         return MoveSelectedRow(isUp);
@@ -46,13 +46,13 @@ void TerminalListView::AddItem(const std::string& value) {
     }
     dataSet->AddItem(value);
     if (incOffset) {
-        ChangeOffset(1);
+        ChangeViewOffset(1);
     }
 }
 
 bool TerminalListView::RemoveLastItem() {
     bool isRemove = dataSet->RemoveLastItem();
-    ChangeOffset(0);
+    ChangeViewOffset(0);
     return isRemove;
 }
 

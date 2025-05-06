@@ -26,15 +26,15 @@ TEST_F(TerminalListViewTests, TestKeyUpAndDown) {
     }
     EXPECT_TRUE(listView->NeedScroll());
     listView->SetSelectedRow(listView->TotalItems() - 1);
-    EXPECT_EQ(1, listView->GetOffset());
-    EXPECT_TRUE(listView->HasUp());
-    EXPECT_FALSE(listView->HasDown());
+    EXPECT_EQ(1, listView->GetViewOffset());
+    EXPECT_TRUE(listView->CanScrollUp());
+    EXPECT_FALSE(listView->CanScrollDown());
 
     for (int i = 0; i < HEIGHT - 1; ++i) {
         EXPECT_TRUE(listView->MoveSelectedRow(true));
-        EXPECT_EQ(1, listView->GetOffset());
+        EXPECT_EQ(1, listView->GetViewOffset());
     }
     EXPECT_TRUE(listView->MoveSelectedRow(true));
-    EXPECT_EQ(0, listView->GetOffset());
+    EXPECT_EQ(0, listView->GetViewOffset());
     EXPECT_FALSE(listView->MoveSelectedRow(true));
 }
