@@ -20,22 +20,10 @@ public:
 
     void FlushSelf() override;
 
-public:
-    bool SetSelectedRow(int rowNum);
-    int GetSelectedItem();
-    bool IsSelectedItemInView();
-    bool NavigateOnSelectedItem();
-    bool MoveSelectedItem(bool isUp);
 protected:
     void UpdateViewSelectedItem();
 
 protected:
     ListDynamicDataSetPtr dataSet = ListDynamicDataSet::Create();
     ListViewDataProvider provider;
-
-public:
-    
-protected:
-
-
 };

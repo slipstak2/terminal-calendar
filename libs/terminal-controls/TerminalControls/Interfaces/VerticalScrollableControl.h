@@ -25,6 +25,12 @@ public:
     void AddChangeOffsetCallback(ChangedOffsetCallback changeOffsetCallback);
 
     // ---- selectedRow ----
+    bool SetSelectedRow(int rowNum);
+    int GetSelectedRow();
+    bool IsSelectedRowInView();
+    bool NavigateOnSelectedRow();
+    bool MoveSelectedRow(bool isUp);
+
     void AddChangeSelectedRowCallback(ChangeSelectedRowCallback changeSelectedRowCallback);
 
     void AddChangeItemsCountCallback(ChangedItemsCountCallback changeItemsCountCallback);

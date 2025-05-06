@@ -71,3 +71,58 @@ void VerticalScrollableControl::OnChangeItemsCount(size_t prvItemsCount) {
         callback(this, prvItemsCount);
     }
 }
+
+
+bool VerticalScrollableControl::SetSelectedRow(int rowNum) {
+    if (rowNum != -1) {
+        if (rowNum < 0 || rowNum >= TotalItems()) {
+            return false;
+        }
+    }
+    if (selectedRow == rowNum) {
+        return false;
+    }
+    int initSelectedRow = selectedRow;
+    selectedRow = rowNum;
+    OnChangeSelectedRow(initSelectedRow);
+    return true;
+}
+
+int VerticalScrollableControl::GetSelectedRow() {
+    return selectedRow;
+}
+
+bool VerticalScrollableControl::IsSelectedRowInView() {
+    if (selectedRow == -1) {
+        return false;
+    }
+    return viewOffset <= selectedRow && selectedRow < viewOffset + ViewItems();
+}
+bool VerticalScrollableControl::NavigateOnSelectedRow() {
+    if (selectedRow == -1) {
+        return false;
+    }
+    SetOffset(selectedRow - ViewItems() / 2);
+    return false;
+}
+
+bool VerticalScrollableControl::MoveSelectedRow(bool isUp) {
+    if (!IsSelectedRowInView()) {
+        NavigateOnSelectedRow();
+    }
+    bool isChange = false;
+    if (isUp) {
+        if (selectedRow != 0) {
+            isChange |= SetSelectedRow(selectedRow - 1);
+            if (!IsSelectedRowInView()) {
+                isChange |= ChangeOffset(-1);
+            }
+        }
+    } else {
+        isChange |= SetSelectedRow(selectedRow + 1);
+        if (!IsSelectedRowInView()) {
+            isChange |= ChangeOffset(1);
+        }
+    }
+    return isChange;
+}

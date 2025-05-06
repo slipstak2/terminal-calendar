@@ -33,7 +33,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         return ChangeOffset(wheelValue > 0 ? -3 : 3);
     });
     AddKeyPressUpOrDownCallback([this](bool isUp) {
-        return MoveSelectedItem(isUp);
+        return MoveSelectedRow(isUp);
     });
 }
 
@@ -75,65 +75,10 @@ void TerminalListView::FlushSelf() {
     }
 }
 
-bool TerminalListView::SetSelectedRow(int rowNum) {
-    if (rowNum != -1) {
-        if (rowNum < 0 || rowNum >= TotalItems()) {
-            return false;
-        }
-    }
-    if (selectedRow == rowNum) {
-        return false;
-    }
-    int initSelectedRow = selectedRow;
-    selectedRow = rowNum;
-    OnChangeSelectedRow(initSelectedRow);
-    return true;
-}
-
-int TerminalListView::GetSelectedItem() {
-    return selectedRow;
-}
-
-bool TerminalListView::IsSelectedItemInView() {
-    if (selectedRow == -1) {
-        return false;
-    }
-    return viewOffset <= selectedRow && selectedRow < viewOffset + ViewItems();
-}
-bool TerminalListView::NavigateOnSelectedItem() {
-    if (selectedRow == -1) {
-        return false;
-    }
-    SetOffset(selectedRow - ViewItems() / 2);
-    return false;
-}
-
 void TerminalListView::UpdateViewSelectedItem() {
     int viewSelectedItem = selectedRow - viewOffset;
     for (size_t row = 0; row < controls.size(); ++row) {
         controls[row]->SetFormatSettings(
             FormatSettings{ .textStyle = (row == viewSelectedItem ? TextStyle::Inverse : TextStyle::Default) });
     }
-}
-
-bool TerminalListView::MoveSelectedItem(bool isUp) {
-    if (!IsSelectedItemInView()) {
-        NavigateOnSelectedItem();
-    }
-    bool isChange = false;
-    if (isUp) {
-        if (selectedRow != 0) {
-            isChange |= SetSelectedRow(selectedRow - 1);
-            if (!IsSelectedItemInView()) {
-                isChange |= ChangeOffset(-1);
-            }
-        }
-    }
-    else {
-        isChange |= SetSelectedRow(selectedRow + 1);
-        if (!IsSelectedItemInView()) {
-            isChange |= ChangeOffset(1);
-        }
-    }
-    return isChange;
 }

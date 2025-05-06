@@ -31,11 +31,11 @@ TerminalBorderListView::TerminalBorderListView(const Utf8String& title, Terminal
 
     GetTitle()->SetFocusable(false);
     GetTitle()->AddClickCallback([this](const MouseContext& ctx) {
-        if (listView->GetSelectedItem() == -1) {
+        if (listView->GetSelectedRow() == -1) {
             return false;
         }
-        if (!listView->IsSelectedItemInView()) {
-            listView->NavigateOnSelectedItem();
+        if (!listView->IsSelectedRowInView()) {
+            listView->NavigateOnSelectedRow();
         }
         else {
             listView->SetSelectedRow(-1);

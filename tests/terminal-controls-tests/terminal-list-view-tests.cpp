@@ -31,11 +31,10 @@ TEST_F(TerminalListViewTests, TestKeyUpAndDown) {
     EXPECT_FALSE(listView->HasDown());
 
     for (int i = 0; i < HEIGHT - 1; ++i) {
-        EXPECT_TRUE(listView->MoveSelectedItem(true));
+        EXPECT_TRUE(listView->MoveSelectedRow(true));
         EXPECT_EQ(1, listView->GetOffset());
     }
-    EXPECT_TRUE(listView->MoveSelectedItem(true));
+    EXPECT_TRUE(listView->MoveSelectedRow(true));
     EXPECT_EQ(0, listView->GetOffset());
-    EXPECT_FALSE(listView->MoveSelectedItem(true));
-
+    EXPECT_FALSE(listView->MoveSelectedRow(true));
 }
