@@ -3,9 +3,6 @@
 #include "Interfaces/VerticalScrollableControl.h"
 #include "DataProviders/ListViewDataProvider.h"
 
-class TerminalListView;
-using TerminalListViewChangedItemsCountCallback = std::function<void(const TerminalListView* listView, size_t curItemsCount, size_t prvItemsCount)>;
-
 class TerminalListView : public TerminalCompositeControl, public VerticalScrollableControl {
     friend class TerminalVerticalScroll;
     friend class TerminalListViewTests;
@@ -37,9 +34,8 @@ protected:
     ListViewDataProvider provider;
 
 public:
-    void AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback);
+    
 protected:
-    void OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount);
 
-    std::vector<TerminalListViewChangedItemsCountCallback> changeItemsCountCallbacks;
+
 };

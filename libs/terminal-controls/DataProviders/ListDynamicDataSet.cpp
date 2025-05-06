@@ -2,13 +2,13 @@
 
 void ListDynamicDataSet::AddItem(const Utf8String& item) {
     items.push_back(item);
-    OnChangeItemsCount(items.size(), items.size() - 1);
+    OnChangeItemsCount(items.size() - 1);
 }
 
 bool ListDynamicDataSet::RemoveLastItem() {
     if (!items.empty()) {
         items.pop_back();
-        OnChangeItemsCount(items.size(), items.size() + 1);
+        OnChangeItemsCount(items.size() + 1);
         return true;
     }
     return false;
@@ -24,10 +24,10 @@ slice<Utf8String> ListDynamicDataSet::GetView(int offset, int length) {
 }
 
 
-void ListDynamicDataSet::OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount)
+void ListDynamicDataSet::OnChangeItemsCount(size_t prvItemsCount)
 {
     for (auto& callback : changeItemsCountCallbacks) {
-        callback(this, curItemsCount, prvItemsCount);
+        callback(this, prvItemsCount);
     }
 }
 

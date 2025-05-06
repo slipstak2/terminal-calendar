@@ -5,14 +5,14 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
     , provider(dataSet)
 {
-    dataSet->AddChangeItemsCallback([this](const ListDynamicDataSet* ds, size_t curItemsCount, size_t prvItemsCount) {
-        OnChangeItemsCount(curItemsCount, prvItemsCount);
-        });
+    dataSet->AddChangeItemsCallback([this](const ListDynamicDataSet* ds, size_t prvItemsCount) {
+        OnChangeItemsCount(prvItemsCount);
+    });
 
     auto clickCallback = [this](TerminalCoord absPosition) {
         TerminalCoord relPosition = GetRelativePosition(absPosition);
         return SetSelectedRow(relPosition.row + viewOffset);
-        };
+    };
 
     for (short row = 0; row < Height(); ++row) {
         auto label = TerminalLabelFixedWidth::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
@@ -54,16 +54,6 @@ bool TerminalListView::RemoveLastItem() {
     bool isRemove = dataSet->RemoveLastItem();
     ChangeOffset(0);
     return isRemove;
-}
-
-void TerminalListView::AddChangeItemsCallback(TerminalListViewChangedItemsCountCallback changeItemsCountCallback) {
-    changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
-}
-
-void TerminalListView::OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount) {
-    for (auto& callback : changeItemsCountCallbacks) {
-        callback(this, curItemsCount, prvItemsCount);
-    }
 }
 
 int TerminalListView::ViewItems() const {

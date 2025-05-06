@@ -8,7 +8,7 @@
 #include <functional>
 
 class ListDynamicDataSet;
-using ListDynamicDataSetChangedItemsCountCallback = std::function<void(const ListDynamicDataSet* dataSet, size_t curItemsCount, size_t prvItemsCount)>;
+using ListDynamicDataSetChangedItemsCountCallback = std::function<void(const ListDynamicDataSet* dataSet, size_t prvItemsCount)>;
 
 class ListDynamicDataSet {
 public:
@@ -25,7 +25,7 @@ public:
         changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
     }
 protected:
-    void OnChangeItemsCount(size_t curItemsCount, size_t prvItemsCount);
+    void OnChangeItemsCount(size_t prvItemsCount);
 
 protected:
     std::deque<Utf8String> items; // deque for GetView

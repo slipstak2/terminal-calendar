@@ -61,3 +61,13 @@ void VerticalScrollableControl::OnChangeSelectedRow(int prvSelectedRow) {
 void VerticalScrollableControl::AddChangeSelectedRowCallback(ChangeSelectedRowCallback changeSelectedRowCallback) {
     changeSelectedRowCallbacks.push_back(std::move(changeSelectedRowCallback));
 }
+
+void VerticalScrollableControl::AddChangeItemsCountCallback(ChangedItemsCountCallback changeItemsCountCallback) {
+    changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
+}
+
+void VerticalScrollableControl::OnChangeItemsCount(size_t prvItemsCount) {
+    for (auto& callback : changeItemsCountCallbacks) {
+        callback(this, prvItemsCount);
+    }
+}

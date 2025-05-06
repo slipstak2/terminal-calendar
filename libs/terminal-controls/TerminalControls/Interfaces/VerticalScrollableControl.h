@@ -5,6 +5,7 @@
 class VerticalScrollableControl;
 using ChangedOffsetCallback = std::function<void(const VerticalScrollableControl* vsControl, int prvOffset)>;
 using ChangeSelectedRowCallback = std::function<void(const VerticalScrollableControl* vsControl, int prvSelectedRow)>;
+using ChangedItemsCountCallback = std::function<void(const VerticalScrollableControl* vsControl, size_t prvItemsCount)>;
 
 
 class VerticalScrollableControl {
@@ -26,11 +27,14 @@ public:
     // ---- selectedRow ----
     void AddChangeSelectedRowCallback(ChangeSelectedRowCallback changeSelectedRowCallback);
 
+    void AddChangeItemsCountCallback(ChangedItemsCountCallback changeItemsCountCallback);
+
 protected:
     int MaxViewOffset() const;
     int NormalizeOffset(int offset) const;
     void OnChangeOffset(int prvOffset);
     void OnChangeSelectedRow(int prvSelectedRow);
+    void OnChangeItemsCount(size_t prvItemsCount);
 
 
 protected:
@@ -39,4 +43,6 @@ protected:
 
     int selectedRow = -1;
     std::vector<ChangeSelectedRowCallback> changeSelectedRowCallbacks;
+
+    std::vector<ChangedItemsCountCallback> changeItemsCountCallbacks;
 };
