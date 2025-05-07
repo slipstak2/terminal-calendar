@@ -21,7 +21,7 @@ public:
     slice<Utf8String> GetView(int offset, int length);
 
 public:
-    void AddChangeItemsCallback(ListDynamicDataSetChangedItemsCountCallback changeItemsCountCallback) {
+    void AddChangeItemsCountCallback(ListDynamicDataSetChangedItemsCountCallback changeItemsCountCallback) {
         changeItemsCountCallbacks.push_back(std::move(changeItemsCountCallback));
     }
 protected:

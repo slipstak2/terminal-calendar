@@ -72,7 +72,6 @@ void VerticalScrollableControl::OnChangeItemsCount(size_t prvItemsCount) {
     }
 }
 
-
 bool VerticalScrollableControl::SetSelectedRow(int rowNum) {
     if (rowNum != -1) {
         if (rowNum < 0 || rowNum >= TotalItems()) {

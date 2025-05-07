@@ -13,6 +13,11 @@ public:
     void CheckState();
 
 protected:
+    void AddOwnControls();
+    void AddOwnControlsCallbacks();
+    void AddParentContolCallbacks();
+
+protected:
     VerticalScrollableControlPtr control;
 
     TerminalButtonPtr btnUp;

@@ -5,7 +5,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
     : TerminalCompositeControl(position, size)
     , provider(dataSet)
 {
-    dataSet->AddChangeItemsCallback([this](const ListDynamicDataSet* ds, size_t prvItemsCount) {
+    dataSet->AddChangeItemsCountCallback([this](const ListDynamicDataSet* ds, size_t prvItemsCount) {
         OnChangeItemsCount(prvItemsCount);
     });
 
@@ -18,7 +18,7 @@ TerminalListView::TerminalListView(TerminalCoord position, TerminalSize size)
         auto label = TerminalLabelFixedWidth::Create(TerminalCoord{ .row = row }, TerminalSize{.height = 1, .width = size.width});
         label->AddClickCallbackWithPosition([clickCallback](TerminalCoord relPosition, TerminalCoord absPosition) {
             return clickCallback(absPosition);
-            });
+        });
 
         AddControl(label);
     }

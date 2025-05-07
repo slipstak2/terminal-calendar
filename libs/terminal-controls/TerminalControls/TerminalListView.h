@@ -3,6 +3,7 @@
 #include "Interfaces/VerticalScrollableControl.h"
 #include "DataProviders/ListViewDataProvider.h"
 
+// TODO: base class TerminalCompositeVerticalScrollableControl or something like this !!!
 class TerminalListView : public TerminalCompositeControl, public VerticalScrollableControl {
     friend class TerminalVerticalScroll;
     friend class TerminalListViewTests;
